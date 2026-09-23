@@ -1,0 +1,1277 @@
+{
+  "complete": true,
+  "legacy_records_preserved": 980,
+  "new_records": 770,
+  "total_records": 1750,
+  "groups": [
+    {
+      "game_id": 11,
+      "difficulty": 0,
+      "new_records": 20,
+      "sha256": "2c46dfde860e0fbd842ee1902704dd993647653218afce127f0bd900ac79f24e",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "advanced_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_probes": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "search_nodes": {
+          "min": 1,
+          "median": 1.0,
+          "max": 1
+        },
+        "search_max_depth": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        }
+      }
+    },
+    {
+      "game_id": 11,
+      "difficulty": 1,
+      "new_records": 20,
+      "sha256": "0b09e4975c0ddbad72598121f794f5ea5c715501da8f86f15479dc16da881708",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 19
+        },
+        "advanced_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 19
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 0,
+          "median": 0.0,
+          "max": 1
+        },
+        "forcing_probes": {
+          "min": 0,
+          "median": 0.0,
+          "max": 1
+        },
+        "search_nodes": {
+          "min": 1,
+          "median": 1.0,
+          "max": 3
+        },
+        "search_max_depth": {
+          "min": 0,
+          "median": 0.0,
+          "max": 1
+        }
+      }
+    },
+    {
+      "game_id": 11,
+      "difficulty": 2,
+      "new_records": 20,
+      "sha256": "041623f0442819b26d406b60f2c96f8aa7700cb65d1153f8a70c0d6ef8c8f4ab",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 35
+        },
+        "advanced_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 29
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 0,
+          "median": 0.0,
+          "max": 1
+        },
+        "forcing_probes": {
+          "min": 0,
+          "median": 0.0,
+          "max": 2
+        },
+        "search_nodes": {
+          "min": 1,
+          "median": 1.0,
+          "max": 3
+        },
+        "search_max_depth": {
+          "min": 0,
+          "median": 0.0,
+          "max": 1
+        }
+      }
+    },
+    {
+      "game_id": 11,
+      "difficulty": 3,
+      "new_records": 30,
+      "sha256": "3e108302eb97f079d81ce7560a08af40ccb8bcff8f75a74995ddfa34bdc80414",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 25,
+          "median": 43.0,
+          "max": 52
+        },
+        "advanced_unfilled": {
+          "min": 25,
+          "median": 43.0,
+          "max": 51
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 1,
+          "median": 3.0,
+          "max": 6
+        },
+        "forcing_probes": {
+          "min": 4,
+          "median": 8.0,
+          "max": 31
+        },
+        "search_nodes": {
+          "min": 9,
+          "median": 10.0,
+          "max": 17
+        },
+        "search_max_depth": {
+          "min": 3,
+          "median": 4.0,
+          "max": 6
+        }
+      }
+    },
+    {
+      "game_id": 11,
+      "difficulty": 4,
+      "new_records": 30,
+      "sha256": "faa9e9d249c9ab8a44c1094de18b0aaa86498619579704bbce9a1d6048c1cbc9",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 44,
+          "median": 48.5,
+          "max": 56
+        },
+        "advanced_unfilled": {
+          "min": 43,
+          "median": 48.0,
+          "max": 56
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 5,
+          "median": 7.0,
+          "max": 11
+        },
+        "forcing_probes": {
+          "min": 13,
+          "median": 35.0,
+          "max": 185
+        },
+        "search_nodes": {
+          "min": 19,
+          "median": 23.0,
+          "max": 69
+        },
+        "search_max_depth": {
+          "min": 5,
+          "median": 6.0,
+          "max": 11
+        }
+      }
+    },
+    {
+      "game_id": 12,
+      "difficulty": 0,
+      "new_records": 20,
+      "sha256": "7e8d98c148ada51fddc4866e3bfa8195f0b217a45ebc1de3216ef8f09f23755a",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "advanced_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_probes": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "search_nodes": {
+          "min": 1,
+          "median": 1.0,
+          "max": 1
+        },
+        "search_max_depth": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        }
+      }
+    },
+    {
+      "game_id": 12,
+      "difficulty": 1,
+      "new_records": 20,
+      "sha256": "6bb4ea4205453a95c29949cb5995e996590c3beeca8fef40fa8a6913c51041b2",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 23
+        },
+        "advanced_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 23
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 0,
+          "median": 0.0,
+          "max": 1
+        },
+        "forcing_probes": {
+          "min": 0,
+          "median": 0.0,
+          "max": 2
+        },
+        "search_nodes": {
+          "min": 1,
+          "median": 1.0,
+          "max": 3
+        },
+        "search_max_depth": {
+          "min": 0,
+          "median": 0.0,
+          "max": 1
+        }
+      }
+    },
+    {
+      "game_id": 12,
+      "difficulty": 2,
+      "new_records": 20,
+      "sha256": "a3b59196c2635aa6b664e5ba6be43842b22299b52088364fdb1707e5df7e0ca8",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 33
+        },
+        "advanced_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_probes": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "search_nodes": {
+          "min": 1,
+          "median": 1.0,
+          "max": 1
+        },
+        "search_max_depth": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        }
+      }
+    },
+    {
+      "game_id": 12,
+      "difficulty": 3,
+      "new_records": 30,
+      "sha256": "c3a2294ba682f1aace6e7cf20e66a632cc8be12e0e208e6542c24c248657b3fd",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 32,
+          "median": 34.0,
+          "max": 36
+        },
+        "advanced_unfilled": {
+          "min": 31,
+          "median": 34.0,
+          "max": 36
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 1,
+          "median": 4.0,
+          "max": 12
+        },
+        "forcing_probes": {
+          "min": 3,
+          "median": 18.0,
+          "max": 243
+        },
+        "search_nodes": {
+          "min": 8,
+          "median": 13.5,
+          "max": 27
+        },
+        "search_max_depth": {
+          "min": 2,
+          "median": 4.0,
+          "max": 6
+        }
+      }
+    },
+    {
+      "game_id": 12,
+      "difficulty": 4,
+      "new_records": 30,
+      "sha256": "8cb28aae057e4b4203c1b04738d6c9e68418c6343e609022a52435bb3892107f",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 32,
+          "median": 35.0,
+          "max": 36
+        },
+        "advanced_unfilled": {
+          "min": 32,
+          "median": 35.0,
+          "max": 36
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 5,
+          "median": 9.0,
+          "max": 19
+        },
+        "forcing_probes": {
+          "min": 22,
+          "median": 95.0,
+          "max": 469
+        },
+        "search_nodes": {
+          "min": 34,
+          "median": 43.5,
+          "max": 200
+        },
+        "search_max_depth": {
+          "min": 4,
+          "median": 6.0,
+          "max": 8
+        }
+      }
+    },
+    {
+      "game_id": 13,
+      "difficulty": 0,
+      "new_records": 20,
+      "sha256": "75a5cc702c9237b05bf7dbe74f2c61faad21056bbf5a3d0162a2d3cc0e729616",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "advanced_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_probes": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "search_nodes": {
+          "min": 1,
+          "median": 1.0,
+          "max": 1
+        },
+        "search_max_depth": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        }
+      }
+    },
+    {
+      "game_id": 13,
+      "difficulty": 1,
+      "new_records": 20,
+      "sha256": "fce67508be2ccaa999809477dc55c04da8f445ffe65b2b1dafae911b89e3d8d5",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "advanced_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_probes": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "search_nodes": {
+          "min": 1,
+          "median": 1.0,
+          "max": 1
+        },
+        "search_max_depth": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        }
+      }
+    },
+    {
+      "game_id": 13,
+      "difficulty": 2,
+      "new_records": 20,
+      "sha256": "6b006ebd79ba8afe68bb6f2c99ebdec29ee2b0d4d3e54a02da9b0f81d3e1bb67",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 13
+        },
+        "advanced_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 13
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 0,
+          "median": 0.0,
+          "max": 1
+        },
+        "forcing_probes": {
+          "min": 0,
+          "median": 0.0,
+          "max": 1
+        },
+        "search_nodes": {
+          "min": 1,
+          "median": 1.0,
+          "max": 5
+        },
+        "search_max_depth": {
+          "min": 0,
+          "median": 0.0,
+          "max": 2
+        }
+      }
+    },
+    {
+      "game_id": 13,
+      "difficulty": 3,
+      "new_records": 50,
+      "sha256": "517f06dfd539eb921496a84ced9ec35f99abdeed300f9fce1c23664a738c28a1",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 14,
+          "median": 20.0,
+          "max": 25
+        },
+        "advanced_unfilled": {
+          "min": 14,
+          "median": 20.0,
+          "max": 25
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 1,
+          "median": 2.5,
+          "max": 7
+        },
+        "forcing_probes": {
+          "min": 1,
+          "median": 6.0,
+          "max": 46
+        },
+        "search_nodes": {
+          "min": 7,
+          "median": 7.0,
+          "max": 15
+        },
+        "search_max_depth": {
+          "min": 2,
+          "median": 3.0,
+          "max": 5
+        }
+      }
+    },
+    {
+      "game_id": 13,
+      "difficulty": 4,
+      "new_records": 30,
+      "sha256": "5e717369842f25f5b2552e7d017d5df7d87ac1aea0a4fad8b3a28ac27f2c01fd",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 16,
+          "median": 24.0,
+          "max": 31
+        },
+        "advanced_unfilled": {
+          "min": 16,
+          "median": 24.0,
+          "max": 31
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 4,
+          "median": 5.0,
+          "max": 10
+        },
+        "forcing_probes": {
+          "min": 5,
+          "median": 33.0,
+          "max": 200
+        },
+        "search_nodes": {
+          "min": 18,
+          "median": 19.0,
+          "max": 33
+        },
+        "search_max_depth": {
+          "min": 4,
+          "median": 5.0,
+          "max": 6
+        }
+      }
+    },
+    {
+      "game_id": 14,
+      "difficulty": 0,
+      "new_records": 20,
+      "sha256": "64a4bdd75ca13dae0341fdcc9bf399b609755072a1e0a011b8a4ddc442af15a2",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "advanced_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_probes": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "search_nodes": {
+          "min": 1,
+          "median": 1.0,
+          "max": 1
+        },
+        "search_max_depth": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        }
+      }
+    },
+    {
+      "game_id": 14,
+      "difficulty": 1,
+      "new_records": 20,
+      "sha256": "4a439e99baabfbb4520cda7a44489feadb7e7db0b09b68f6b829358d2aae9836",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "advanced_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_probes": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "search_nodes": {
+          "min": 1,
+          "median": 1.0,
+          "max": 1
+        },
+        "search_max_depth": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        }
+      }
+    },
+    {
+      "game_id": 14,
+      "difficulty": 2,
+      "new_records": 20,
+      "sha256": "59cb53f443555988cc021c56647a2648b1bda84872fc14024225cfcd3bf7218b",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 21
+        },
+        "advanced_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 21
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 0,
+          "median": 0.0,
+          "max": 3
+        },
+        "forcing_probes": {
+          "min": 0,
+          "median": 0.0,
+          "max": 4
+        },
+        "search_nodes": {
+          "min": 1,
+          "median": 1.0,
+          "max": 7
+        },
+        "search_max_depth": {
+          "min": 0,
+          "median": 0.0,
+          "max": 3
+        }
+      }
+    },
+    {
+      "game_id": 14,
+      "difficulty": 3,
+      "new_records": 30,
+      "sha256": "f121a54a47913e2576b5e11b8b0baedd438a12d272119a2d37e4a10b2526cc8b",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 21,
+          "median": 28.5,
+          "max": 33
+        },
+        "advanced_unfilled": {
+          "min": 21,
+          "median": 28.0,
+          "max": 33
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 1,
+          "median": 4.0,
+          "max": 10
+        },
+        "forcing_probes": {
+          "min": 4,
+          "median": 12.5,
+          "max": 80
+        },
+        "search_nodes": {
+          "min": 9,
+          "median": 12.0,
+          "max": 33
+        },
+        "search_max_depth": {
+          "min": 3,
+          "median": 4.0,
+          "max": 8
+        }
+      }
+    },
+    {
+      "game_id": 14,
+      "difficulty": 4,
+      "new_records": 30,
+      "sha256": "27fad2de45d44ae0f34eb7623f761a0970371dcd589fb3bb11ca8f573565e28a",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 27,
+          "median": 31.0,
+          "max": 34
+        },
+        "advanced_unfilled": {
+          "min": 27,
+          "median": 31.0,
+          "max": 34
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 5,
+          "median": 8.0,
+          "max": 18
+        },
+        "forcing_probes": {
+          "min": 11,
+          "median": 57.0,
+          "max": 223
+        },
+        "search_nodes": {
+          "min": 36,
+          "median": 41.0,
+          "max": 109
+        },
+        "search_max_depth": {
+          "min": 6,
+          "median": 8.0,
+          "max": 9
+        }
+      }
+    },
+    {
+      "game_id": 15,
+      "difficulty": 0,
+      "new_records": 20,
+      "sha256": "ac30c615d056562055069b0ec193f75e1c35cfe4741d5ddaaf723a7bc563d816",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "advanced_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_probes": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "search_nodes": {
+          "min": 1,
+          "median": 1.0,
+          "max": 1
+        },
+        "search_max_depth": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        }
+      }
+    },
+    {
+      "game_id": 15,
+      "difficulty": 1,
+      "new_records": 20,
+      "sha256": "638d3087510fbc49aa91df7f485d2ecf3e983358c67c437e1498d1feee3a6511",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "advanced_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_probes": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "search_nodes": {
+          "min": 1,
+          "median": 1.0,
+          "max": 1
+        },
+        "search_max_depth": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        }
+      }
+    },
+    {
+      "game_id": 15,
+      "difficulty": 2,
+      "new_records": 20,
+      "sha256": "9f0c287e3ce8ce06d820c6cc80197f2c4a303efa2cd91e687f56416e760974cc",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 0,
+          "median": 5.5,
+          "max": 28
+        },
+        "advanced_unfilled": {
+          "min": 0,
+          "median": 5.5,
+          "max": 28
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 0,
+          "median": 0.5,
+          "max": 5
+        },
+        "forcing_probes": {
+          "min": 0,
+          "median": 0.5,
+          "max": 15
+        },
+        "search_nodes": {
+          "min": 1,
+          "median": 2.0,
+          "max": 14
+        },
+        "search_max_depth": {
+          "min": 0,
+          "median": 0.5,
+          "max": 4
+        }
+      }
+    },
+    {
+      "game_id": 15,
+      "difficulty": 3,
+      "new_records": 30,
+      "sha256": "3499696032fb35a7244ab05a60936b5812955a9d403c74ae3263ae06fd27b642",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 19,
+          "median": 32.0,
+          "max": 35
+        },
+        "advanced_unfilled": {
+          "min": 19,
+          "median": 32.0,
+          "max": 35
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 1,
+          "median": 5.0,
+          "max": 13
+        },
+        "forcing_probes": {
+          "min": 4,
+          "median": 15.5,
+          "max": 89
+        },
+        "search_nodes": {
+          "min": 17,
+          "median": 23.0,
+          "max": 39
+        },
+        "search_max_depth": {
+          "min": 4,
+          "median": 6.0,
+          "max": 10
+        }
+      }
+    },
+    {
+      "game_id": 15,
+      "difficulty": 4,
+      "new_records": 30,
+      "sha256": "a58dffb35ef66ee38f84816fc72bd42537105f476d4817c3a71dc60056e5e96c",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 33,
+          "median": 42.0,
+          "max": 45
+        },
+        "advanced_unfilled": {
+          "min": 33,
+          "median": 42.0,
+          "max": 45
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 8,
+          "median": 12.5,
+          "max": 22
+        },
+        "forcing_probes": {
+          "min": 25,
+          "median": 127.5,
+          "max": 383
+        },
+        "search_nodes": {
+          "min": 41,
+          "median": 57.0,
+          "max": 228
+        },
+        "search_max_depth": {
+          "min": 6,
+          "median": 9.0,
+          "max": 11
+        }
+      }
+    },
+    {
+      "game_id": 16,
+      "difficulty": 3,
+      "new_records": 30,
+      "sha256": "776c5cd00e19a0ab979cc0b0aae9979f0e60641e848a2fac53af693971e53a77",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 36,
+          "median": 36.0,
+          "max": 36
+        },
+        "advanced_unfilled": {
+          "min": 36,
+          "median": 36.0,
+          "max": 36
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 4,
+          "median": 6.0,
+          "max": 12
+        },
+        "forcing_probes": {
+          "min": 11,
+          "median": 15.5,
+          "max": 43
+        },
+        "search_nodes": {
+          "min": 15,
+          "median": 17.0,
+          "max": 37
+        },
+        "search_max_depth": {
+          "min": 5,
+          "median": 7.0,
+          "max": 12
+        }
+      }
+    },
+    {
+      "game_id": 17,
+      "difficulty": 3,
+      "new_records": 30,
+      "sha256": "5cc4eff2b8792bc0ab414c24c4ebcceeaeb72059e7dbd139551c2d169538392a",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 25,
+          "median": 33.0,
+          "max": 46
+        },
+        "advanced_unfilled": {
+          "min": 22,
+          "median": 33.0,
+          "max": 46
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 3,
+          "median": 5.0,
+          "max": 12
+        },
+        "forcing_probes": {
+          "min": 6,
+          "median": 22.0,
+          "max": 148
+        },
+        "search_nodes": {
+          "min": 11,
+          "median": 15.0,
+          "max": 39
+        },
+        "search_max_depth": {
+          "min": 3,
+          "median": 5.0,
+          "max": 8
+        }
+      }
+    },
+    {
+      "game_id": 18,
+      "difficulty": 3,
+      "new_records": 30,
+      "sha256": "23780268ba23cf3edfdbbf83f86c6a467665331db3bf6152dbccb518cbe6d155",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 12,
+          "median": 26.5,
+          "max": 29
+        },
+        "advanced_unfilled": {
+          "min": 12,
+          "median": 25.5,
+          "max": 29
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 6,
+          "median": 10.0,
+          "max": 20
+        },
+        "forcing_probes": {
+          "min": 11,
+          "median": 44.0,
+          "max": 244
+        },
+        "search_nodes": {
+          "min": 21,
+          "median": 31.0,
+          "max": 119
+        },
+        "search_max_depth": {
+          "min": 5,
+          "median": 8.0,
+          "max": 12
+        }
+      }
+    },
+    {
+      "game_id": 19,
+      "difficulty": 3,
+      "new_records": 30,
+      "sha256": "b43bb113cd4a55789b94e9ee49341cd7a4597e57bc579db95fa8bab562b783f0",
+      "metrics": {}
+    },
+    {
+      "game_id": 20,
+      "difficulty": 3,
+      "new_records": 30,
+      "sha256": "a165e6c39203d2a586e7fe4a1ee147fb27fc03c132cc3adfdd3a589b844b7bdc",
+      "metrics": {
+        "basic_unfilled": {
+          "min": 20,
+          "median": 34.5,
+          "max": 45
+        },
+        "advanced_unfilled": {
+          "min": 20,
+          "median": 34.5,
+          "max": 45
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 1,
+          "median": 2.0,
+          "max": 8
+        },
+        "forcing_probes": {
+          "min": 1,
+          "median": 3.5,
+          "max": 53
+        },
+        "search_nodes": {
+          "min": 3,
+          "median": 5.0,
+          "max": 19
+        },
+        "search_max_depth": {
+          "min": 1,
+          "median": 2.0,
+          "max": 8
+        }
+      }
+    }
+  ],
+  "original_files_unchanged": true,
+  "external_puzzle_files": 0,
+  "external_puzzle_records": 0,
+  "human_rating": "provisional instrument bands",
+  "magic_master_d4_witness_classes": 30,
+  "magic_master_d4_complement_classes": 22,
+  "magic_master_torus_complement_classes": 3,
+  "seconds": 145.154,
+  "unique_records": 1630,
+  "magic_layouts": 120,
+  "compact": {
+    "records": 1750,
+    "encoded_bytes": 79658,
+    "index_bytes": 10704
+  }
+}

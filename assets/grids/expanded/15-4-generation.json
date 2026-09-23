@@ -1,0 +1,10 @@
+{
+  "game_id": 15,
+  "difficulty": 4,
+  "candidates": 2213,
+  "accepted": 30,
+  "rejections": {
+    "rating_rejected": 2183
+  },
+  "seconds": 2926.309
+}

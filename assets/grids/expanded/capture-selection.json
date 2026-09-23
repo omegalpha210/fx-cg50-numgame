@@ -1,0 +1,15 @@
+{
+  "records": [
+    1079,
+    1190,
+    1353,
+    1467,
+    1578,
+    1626,
+    1648,
+    1666,
+    1690,
+    1748
+  ],
+  "selection": "maximum board size, then maximum audit search nodes; Magic also FREE"
+}

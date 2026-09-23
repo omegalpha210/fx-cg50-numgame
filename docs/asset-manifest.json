@@ -1,0 +1,86 @@
+{
+  "assets/font/font5x7.png": {
+    "bytes": 24858,
+    "sha256": "7a93b767e63619daeeba665050f3a16a4ddb1e03880a8b82320728184f4e4d80"
+  },
+  "assets/font/font8x9.png": {
+    "bytes": 17324,
+    "sha256": "0e7f56f30e021e16053360b972adc0b020c7d8a2d545fbd883bc8e7d870413c8"
+  },
+  "assets/grids/11.json": {
+    "bytes": 41868,
+    "sha256": "ca5625b17db21178b22052ddf33a85c03c36edffa2e647f442972c6801862b60"
+  },
+  "assets/grids/12.json": {
+    "bytes": 32592,
+    "sha256": "aaaa4a97cc6cd4ea72ffe4491b66200bddf50bcd747226cd994f75aa2618a432"
+  },
+  "assets/grids/13.json": {
+    "bytes": 42778,
+    "sha256": "ad27d1bea3303733027e7b336acc23e97d2bfb705c73a66502b8ca7e9b2d136a"
+  },
+  "assets/grids/14.json": {
+    "bytes": 33243,
+    "sha256": "d60254b78321afc3530b47f85060f1337b1161e7a80e267aa9239a6fb0d7cfbd"
+  },
+  "assets/grids/15.json": {
+    "bytes": 26277,
+    "sha256": "15ccf56228f030d4bb4f5f7498eb98d48961d5301524e1b3c9b552fb78d986f1"
+  },
+  "assets/grids/16.json": {
+    "bytes": 21978,
+    "sha256": "bf8e1a74a2e7d8663ddcb57589f313593eace491834292b5ddf90f4c228accb7"
+  },
+  "assets/grids/17.json": {
+    "bytes": 34424,
+    "sha256": "90830a303814204579df30afc41201ff97cdee78edfb54b230ee29a68b814693"
+  },
+  "assets/grids/18.json": {
+    "bytes": 24149,
+    "sha256": "84515f3d10b393aa85400c115a96f18fc6309c60af943ddd17b25068997958dd"
+  },
+  "assets/grids/19.json": {
+    "bytes": 17333,
+    "sha256": "bea92f22e837a26a3b6c401ebef60fc91266aa071325a2f6647062dfa331aac9"
+  },
+  "assets/grids/20.json": {
+    "bytes": 26418,
+    "sha256": "71b5f2a3beb784006d9f5c35614b07fc5aebff0c633253db88e96376630e6917"
+  },
+  "assets/guesscalc_packs.h": {
+    "bytes": 48839,
+    "sha256": "430df5b94b2ffa37871443d84319aaa449576a55ad8944875317322d6521259a"
+  },
+  "assets/guesscalc_packs.json": {
+    "bytes": 364708,
+    "sha256": "e11fa9f8720b813570f686558837e24acab1afe73d4f700610c4651423bd7ef2"
+  },
+  "assets/icon-sel.png": {
+    "bytes": 475,
+    "sha256": "12ba71fcd195c301698c103ac95943aab6b45a788b093bb9bbeaf090b10c7cc2"
+  },
+  "assets/icon-uns.png": {
+    "bytes": 478,
+    "sha256": "ddffeacf4d7c4ac94f39a142432d48eb025c9a013c5bccf39f0d2c5e95319a4a"
+  },
+  "assets/strategyquick/tables.h": {
+    "bytes": 22700,
+    "sha256": "21520069458881ee29026926ca68e3e561f4fcd19af3229c40ead788d75b747c"
+  },
+  "src/games/grids_pack.c": {
+    "bytes": 187121,
+    "sha256": "1db550687bbcda360f61bc3dadf3557cb7405d8df748af2ed209029ad998a630"
+  },
+  "src/ui/font_data.h": {
+    "bytes": 5658,
+    "sha256": "f021ed2bc7a29aa2320890acb5a04e9031d975012bcc3bcc2c77723a93f4f41e"
+  },
+  "src/ui/icons.c": {
+    "bytes": 7999,
+    "sha256": "d0d82326592023959fd265757248ffcc835d39176cd876779483092246c504df"
+  },
+  "src/ui/tiles.c": {
+    "bytes": 688,
+    "sha256": "5ceb44cde74cadd55800e7e3dca46e70c5cc4788e0b768c19456239aa427c9ca"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "fxsdk": {
+    "commit": "09e2cf5fdab8d529217203a9a97a93facaa57311"
+  },
+  "gint": {
+    "commit": "badbd0fd2bd8ac796fd55d49b93691741bd8a139"
+  },
+  "sh-elf-binutils": {
+    "commit": "a963554d12c0236ee10c7545daa4c422bf107de6"
+  },
+  "sh-elf-gcc": {
+    "commit": "fdbc1be7a84e88f45f9b768b7428ff33b77eb9bb"
+  },
+  "OpenLibm": {
+    "commit": "9828d2e3f265a882af6a5bba8ffe6a00c3eeb8d7"
+  },
+  "fxlibc": {
+    "commit": "e2f458fa3d88d11b0685ae66d267730980eb65ca"
+  },
+  "compiler": "sh-elf-gcc (GCC) 14.1.0",
+  "gint_version": "2.11.0"
+}

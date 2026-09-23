@@ -1,0 +1,915 @@
+{
+  "game_size_host": 1848,
+  "session_size_host": 12936,
+  "games": [
+    {
+      "id": 1,
+      "name": "NUMBER BASEBALL",
+      "category": 0,
+      "slot": 0,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 0,
+      "flags": 0,
+      "aux": "",
+      "primary": "SUBMIT",
+      "rules": "Find the hidden digit sequence. Leading zero\nis allowed. Modes: 3/4/5 digits, UNIQUE or\nREPEAT. S = exact digit and position.\nB = right digit, wrong position. Exact\nmatches are consumed before counting B.\nEasy/Normal/Hard: 16/12/10 attempts.\nMASTER: 6/5/7 digits, 16 attempts.\nMID/SHORT/LONG select those lengths.\nDigits: enter. DEL: erase. EXE: submit.\nUP/DOWN: scroll attempts. No guess undo.",
+      "modes": [
+        "MID UNIQUE",
+        "SHORT UNIQUE",
+        "LONG UNIQUE",
+        "MID REPEAT",
+        "SHORT REPEAT",
+        "LONG REPEAT"
+      ],
+      "bank_counts_by_mode": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": 2,
+      "name": "EQUATION GUESS",
+      "category": 0,
+      "slot": 1,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 1,
+      "flags": 0,
+      "aux": "",
+      "primary": "SUBMIT",
+      "rules": "Find the hidden equation TEXT exactly.\nMatching its numeric value alone cannot win.\nUse digits + - * / and one =. RHS integer.\nNo parentheses or leading zeros. Unary minus\non the RHS only.\nStandard precedence. Green: exact. Yellow:\nexists elsewhere. Grey: absent. Duplicates\nconsume exact matches first. 7/6/8-char modes.\nEasy +-, Normal +-* , Hard +-*/ corpus.\nHard 7/8-char modes use two operators.\nMASTER STANDARD/SHORT/LONG: 9/8/10 chars,\nmixed precedence, 12 attempts.\nSHIFT+DOT enters =.\nEXE submits true equations. UP/DOWN history.",
+      "modes": [
+        "STANDARD",
+        "SHORT",
+        "LONG"
+      ],
+      "bank_counts_by_mode": [
+        [
+          30,
+          30,
+          30,
+          30
+        ],
+        [
+          30,
+          30,
+          30,
+          30
+        ],
+        [
+          30,
+          30,
+          30,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 3,
+      "name": "NUMBER MIND",
+      "category": 0,
+      "slot": 2,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 1,
+      "flags": 2,
+      "aux": "",
+      "primary": "CHECK",
+      "rules": "Each clue gives exact-position matches only.\nDigits in wrong positions give no information.\nEasy: 4 digits 0..5. Normal: 4 digits 0..7.\nHard: 5 digits 0..7. MASTER: 6 digits 0..7.\nRepeats and initial 0 OK.\nAll published clues have one solution in that\nfinite domain. Digits: input. EXE: CHECK.\nUP/DOWN: clues. HINT lists values not excluded\nby visible zero-match clues, one spot at a time.",
+      "modes": [
+        "STANDARD"
+      ],
+      "bank_counts_by_mode": [
+        [
+          30,
+          30,
+          30,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 4,
+      "name": "CLUE LOCK",
+      "category": 0,
+      "slot": 3,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 1,
+      "flags": 2,
+      "aux": "",
+      "primary": "CHECK",
+      "rules": "Find an integer satisfying EVERY shown clue.\nMOD is the remainder after division. Decimal\ndigit sum and contains ignore leading zeros.\nEasy domain 0..99, Normal 0..499, Hard 0..999.\nHard uses two modular / CRT conditions.\nMASTER: 0..9999, three MOD clues and digit\nsum. All four clues contribute to uniqueness.\nAll clues shown initially; one domain solution.\nHINT explains the first modular progression.\nDigits: enter. EXE: CHECK. DEL: erase.",
+      "modes": [
+        "STANDARD"
+      ],
+      "bank_counts_by_mode": [
+        [
+          30,
+          30,
+          30,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 5,
+      "name": "SEQUENCE DETECTIVE",
+      "category": 0,
+      "slot": 4,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 1,
+      "flags": 2,
+      "aux": "",
+      "primary": "CHECK",
+      "rules": "Find the next term in a FINITE rule grammar.\nA finite prefix is not universally unique!\nAllowed rules (n starts at 0):\na+bn: a=-9..9, b=-5..5, b nonzero.\na*b^n: a=1..5, b=-3,-2,2,3.\na+bn+cn*n: a=-5..5,b=-4..4,c=1..3.\nFibonacci sum: first two each 1..9.\nAlternating lanes: starts -6..9, step 1..5.\nx'=b*x+c: start -3..6,b=-2,-1,2,3,\nc=-3..3 nonzero. Both lanes share a step.\nMASTER adds x_next=a*x_last+b*x_before+c,\nfirst two -3..6; a,b,c each -2,-1,1,2;\nand alternating lanes with DIFFERENT steps,\nstarts -6..9; each step -5..5 nonzero.\nMASTER checks old and new rules together.\nOther levels use the six old rules only.\nPacks reject competing next answers across\ntheir level grammar. HINT reveals RULE FAMILY.\nEnter signed integer, EXE checks.",
+      "modes": [
+        "STANDARD"
+      ],
+      "bank_counts_by_mode": [
+        [
+          30,
+          30,
+          30,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 6,
+      "name": "MAKE TARGET",
+      "category": 1,
+      "slot": 0,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 1,
+      "flags": 2,
+      "aux": "ANSWER",
+      "primary": "CHECK",
+      "rules": "Make target 24 or 10 using ALL four cards,\neach exactly once. + - * / and parentheses.\nExact rational intermediate values allowed.\nNo concatenation, powers or extra constants.\nEqual card values are separate usable cards.\nType expression; DEL erases; EXE checks.\nUsed cards are shaded. HINT: one first step.\nANSWER copies a full example; both assisted.\n96 characters, depth 12, 16 literals, 31 ops.\nReduced numerator/denominator <= 1000000000.\nMASTER cards 1..24 require fractions and\na nested expression; integers alone cannot win.",
+      "modes": [
+        "TARGET 24",
+        "TARGET 10"
+      ],
+      "bank_counts_by_mode": [
+        [
+          30,
+          30,
+          30,
+          30
+        ],
+        [
+          30,
+          30,
+          30,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 7,
+      "name": "COUNTDOWN",
+      "category": 1,
+      "slot": 1,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 1,
+      "flags": 2,
+      "aux": "FINISH",
+      "primary": "CHECK",
+      "rules": "Reach target 100..999 with up to six cards.\nEach card at most once; unused cards allowed.\nEvery intermediate result MUST be a positive\ninteger; division must be exact. + - * / ( ).\nSmall deck: two copies each of 1..10.\nLarge: 25,50,75,100, without repeats.\nEasy/Normal/Hard: 1/2/3 large cards.\nMASTER: 3 large cards; exact target requires\nall six cards and at least one division.\nUntimed practice. EXE checks each expression.\nExact=10 points, distance 1..5=7,6..10=5,\nelse 0. Best submitted distance is retained.\nFINISH keeps best result. No optimality claim.\nHINT gives first step of one exact solution.",
+      "modes": [
+        "STANDARD"
+      ],
+      "bank_counts_by_mode": [
+        [
+          30,
+          30,
+          30,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 8,
+      "name": "MISSING OPERATORS",
+      "category": 1,
+      "slot": 2,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 3,
+      "flags": 1,
+      "aux": "REVEAL",
+      "primary": "CHECK",
+      "rules": "Fill the missing + - * / operators.\nNumber order is fixed; no parentheses.\nStandard precedence: * / before + -.\nEqual precedence is evaluated left to right.\nAll valid operator combinations are accepted.\nEasy/Normal/Hard use 3/4/5 numbers.\nMASTER: 6 numbers; 1..3 solutions, each with\nat least three different operator kinds.\nArrows select slot; operation key sets it.\nDEL clears. EXE checks. REVEAL fills selected\nslot from one solution and marks assisted.",
+      "modes": [
+        "STANDARD"
+      ],
+      "bank_counts_by_mode": [
+        [
+          0,
+          0,
+          0,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 9,
+      "name": "CROSS MATH",
+      "category": 1,
+      "slot": 3,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 1,
+      "flags": 1,
+      "aux": "REVEAL",
+      "primary": "CHECK",
+      "rules": "Place 1..9 exactly once over the WHOLE board.\nSatisfy three horizontal and three vertical\nexpressions, reading left/right or top/down.\n* before + or -. No Latin-square rules.\nGrey fixed clues cannot be edited.\nEasy/Normal/Hard have 4/2/0 fixed numbers.\nMASTER has no fixed values and needs tighter\nrow/column coupling: more candidate boards.\nEach generated pack puzzle has one solution.\nArrows select; 1..9 enter; DEL/0 clear.\nEXE checks all rules. REVEAL selected number\nmarks the game assisted.",
+      "modes": [
+        "STANDARD"
+      ],
+      "bank_counts_by_mode": [
+        [
+          30,
+          30,
+          30,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 10,
+      "name": "PRIME FACTOR",
+      "category": 1,
+      "slot": 4,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 0,
+      "flags": 2,
+      "aux": "ANSWER",
+      "primary": "CHECK",
+      "rules": "Factor the composite target (4..1000000).\nUse prime bases with optional positive powers.\nExample 360: 2^3*3^2*5, or repeat factors.\nAny factor order is accepted. 1 is not prime\nor composite; composite bases are rejected.\nExponents 1..20; at most 16 written factors.\nMASTER: four distinct primes through 13;\ntwo of those primes appear squared.\nType digits, * and ^. DEL erases, EXE checks.\nHINT proves one prime divisor. ANSWER reveals\na factorization. Both mark assisted.",
+      "modes": [
+        "STANDARD"
+      ],
+      "bank_counts_by_mode": [
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": 11,
+      "name": "SUDOKU",
+      "category": 2,
+      "slot": 0,
+      "difficulties": 5,
+      "regular_difficulties": 4,
+      "has_hell": true,
+      "generation_policy": 1,
+      "flags": 3,
+      "aux": "NOTES",
+      "primary": "CHECK",
+      "rules": "Fill 1-9 once in every row, column, 3x3 box.\nGiven clues cannot change. Digits enter values.\nF4 NOTES toggles pencil marks; DEL clears.\nEXE CHECK validates visible rules only.\nF3 REVEAL shows one cell and marks ASSISTED.\nArrows select. UNDO restores edits.",
+      "modes": [
+        "CLASSIC"
+      ],
+      "bank_counts_by_mode": [
+        [
+          50,
+          50,
+          50,
+          50,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 12,
+      "name": "CALCUDOKU",
+      "category": 2,
+      "slot": 1,
+      "difficulties": 5,
+      "regular_difficulties": 4,
+      "has_hell": true,
+      "generation_policy": 1,
+      "flags": 3,
+      "aux": "",
+      "primary": "CHECK",
+      "rules": "Use 1-N once in each row and column.\nCages satisfy their target and operator.\n+ and * combine all cells. - is difference.\n/ is larger divided by smaller, exactly.\n- and / cages have two cells. = is fixed.\nA cage may repeat values in different lines.\nF3 REVEAL is assisted. EXE checks all rules.",
+      "modes": [
+        "CLASSIC"
+      ],
+      "bank_counts_by_mode": [
+        [
+          50,
+          50,
+          50,
+          50,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 13,
+      "name": "KAKURO",
+      "category": 2,
+      "slot": 2,
+      "difficulties": 5,
+      "regular_difficulties": 4,
+      "has_hell": true,
+      "generation_policy": 1,
+      "flags": 3,
+      "aux": "",
+      "primary": "CHECK",
+      "rules": "Enter 1-9 in every white cell; zero is illegal.\nEvery run sums to its clue without repeats.\nUpper-right clue: across. Lower-left: down.\nArrows select cells. DEL clears. EXE checks.\nF3 REVEAL shows one cell, marking ASSISTED.",
+      "modes": [
+        "CLASSIC"
+      ],
+      "bank_counts_by_mode": [
+        [
+          50,
+          50,
+          50,
+          50,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 14,
+      "name": "FUTOSHIKI",
+      "category": 2,
+      "slot": 3,
+      "difficulties": 5,
+      "regular_difficulties": 4,
+      "has_hell": true,
+      "generation_policy": 1,
+      "flags": 3,
+      "aux": "",
+      "primary": "CHECK",
+      "rules": "Use 1-N once in each row and column.\nAll printed inequalities must hold.\nThe pointed tip faces the smaller value.\nGiven clues stay fixed. DEL clears.\nF3 REVEAL is assisted. EXE checks all rules.",
+      "modes": [
+        "CLASSIC"
+      ],
+      "bank_counts_by_mode": [
+        [
+          50,
+          50,
+          50,
+          50,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 15,
+      "name": "SKYSCRAPERS",
+      "category": 2,
+      "slot": 4,
+      "difficulties": 5,
+      "regular_difficulties": 4,
+      "has_hell": true,
+      "generation_policy": 1,
+      "flags": 3,
+      "aux": "",
+      "primary": "CHECK",
+      "rules": "Use heights 1-N once in each row and column.\nOuter clues count buildings seen from there.\nA taller building hides lower ones behind it.\nMissing outer clues impose no condition.\nDEL clears. EXE checks. F3 REVEAL is assisted.",
+      "modes": [
+        "CLASSIC"
+      ],
+      "bank_counts_by_mode": [
+        [
+          50,
+          50,
+          50,
+          50,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 16,
+      "name": "HITORI",
+      "category": 3,
+      "slot": 0,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 1,
+      "flags": 3,
+      "aux": "CHECK",
+      "primary": "SHADE",
+      "rules": "EXE shades or unshades the selected cell.\nUnshaded values cannot repeat in a row/column.\nShaded cells cannot share an edge.\nAll unshaded cells must connect by edges.\nDiagonal shaded contacts are allowed.\nF4 CHECK validates all three rules.\nDEL unshades. F3 REVEAL is assisted.",
+      "modes": [
+        "CLASSIC"
+      ],
+      "bank_counts_by_mode": [
+        [
+          30,
+          30,
+          30,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 17,
+      "name": "BINARY PUZZLE",
+      "category": 3,
+      "slot": 1,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 1,
+      "flags": 3,
+      "aux": "",
+      "primary": "CHECK",
+      "rules": "Enter 0 or 1. A blank differs from zero.\nEach row/column contains half zeros/half ones.\nNever three identical neighbors in a line.\nNo two completed rows or columns may match.\nGiven clues stay fixed. DEL returns to blank.\nEXE checks. F3 REVEAL is assisted.",
+      "modes": [
+        "CLASSIC"
+      ],
+      "bank_counts_by_mode": [
+        [
+          30,
+          30,
+          30,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 18,
+      "name": "NUMBRIX",
+      "category": 3,
+      "slot": 2,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 1,
+      "flags": 3,
+      "aux": "CHECK",
+      "primary": "ENTER",
+      "rules": "Place every integer from 1 to N*N once.\nConsecutive numbers must share an edge.\nDiagonal steps are forbidden. Clues are fixed.\nType one or two digits, then EXE to enter.\nMoving the cursor cancels a draft. DEL erases.\nF4 CHECK validates the path.\nF3 REVEAL shows one cell and marks ASSISTED.",
+      "modes": [
+        "CLASSIC"
+      ],
+      "bank_counts_by_mode": [
+        [
+          30,
+          30,
+          30,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 19,
+      "name": "MAGIC SQUARE",
+      "category": 3,
+      "slot": 3,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 2,
+      "flags": 1,
+      "aux": "CHECK",
+      "primary": "ENTER",
+      "rules": "Use every integer 1 to N*N exactly once.\nRows, columns and both main diagonals must\nhave the displayed common sum.\nMASTER PAN: all wrapped diagonals also sum 34.\nPARTIAL has fixed clues. FREE has none.\nAny rule-valid solution is accepted.\nType 1-2 digits, EXE enters; F4 checks.\nDEL edits draft or clears. Arrows select.",
+      "modes": [
+        "PARTIAL",
+        "FREE"
+      ],
+      "bank_counts_by_mode": [
+        [
+          30,
+          30,
+          30,
+          30
+        ],
+        [
+          30,
+          30,
+          30,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 20,
+      "name": "SUM GRID",
+      "category": 3,
+      "slot": 4,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 1,
+      "flags": 3,
+      "aux": "CHECK",
+      "primary": "TOGGLE",
+      "rules": "EXE toggles KEEP or REMOVE for a number.\nKept numbers must sum to each row/column target.\nRemoved numbers remain visible with a line.\nA zero target means remove the whole line.\nF4 CHECK validates every sum. DEL keeps.\nF3 REVEAL shows one choice, marking ASSISTED.",
+      "modes": [
+        "CLASSIC"
+      ],
+      "bank_counts_by_mode": [
+        [
+          30,
+          30,
+          30,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 21,
+      "name": "NIM",
+      "category": 4,
+      "slot": 0,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 3,
+      "flags": 5,
+      "aux": "",
+      "primary": "TAKE",
+      "rules": "Take stones from exactly one pile.\nThe last stone wins (normal play).\nArrows select pile; type amount, EXE.\nEasy: 3 piles up to 7; Normal: up to 15.\nHard: 4 piles up to 31.\nCPU Easy random, Normal 75% exact,\nHard uses the exact nim-sum policy.\nMASTER: verified four-pile tactical starts.\nCPU first / you first / local two players.\nMASTER keeps the same exact Hard CPU.\nIts starts allow YOU/P1 a forced win.\nUNDO restores your complete CPU round.\nUNDO marks assisted practice.",
+      "modes": [
+        "CPU / YOU FIRST",
+        "CPU / CPU FIRST",
+        "LOCAL 2P"
+      ],
+      "bank_counts_by_mode": [
+        [
+          0,
+          0,
+          0,
+          30
+        ],
+        [
+          0,
+          0,
+          0,
+          30
+        ],
+        [
+          0,
+          0,
+          0,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 22,
+      "name": "WYTHOFF",
+      "category": 4,
+      "slot": 1,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 3,
+      "flags": 5,
+      "aux": "",
+      "primary": "TAKE",
+      "rules": "Take from one pile, or take the same\npositive amount from both piles.\nEmpty both piles to win.\nArrows select A / B / BOTH.\nType amount and press EXE.\nPile ranges: Easy 1..10, Normal 1..24,\nHard 1..40. Exact bounded DP on Hard.\nMASTER: verified long tactical starts.\nEasy random; Normal 75% exact moves.\nCPU first / you first / local two players.\nMASTER keeps the same exact Hard CPU.\nIts starts allow YOU/P1 a forced win.\nUNDO restores the complete CPU round.",
+      "modes": [
+        "CPU / YOU FIRST",
+        "CPU / CPU FIRST",
+        "LOCAL 2P"
+      ],
+      "bank_counts_by_mode": [
+        [
+          0,
+          0,
+          0,
+          30
+        ],
+        [
+          0,
+          0,
+          0,
+          12
+        ],
+        [
+          0,
+          0,
+          0,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 23,
+      "name": "EUCLID",
+      "category": 4,
+      "slot": 2,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 3,
+      "flags": 5,
+      "aux": "",
+      "primary": "PLAY",
+      "rules": "Subtract k times SMALL from LARGE.\nk is a positive integer; no negatives.\nMaking zero wins. Values are re-sorted.\nType k in the shown range; EXE to play.\nEasy values 1..12; Normal 1..40;\nHard 1..99. All rules stay the same.\nHard uses exact memoized state analysis.\nMASTER: coprime multi-step tactical starts.\nEasy random; Normal 75% exact moves.\nCPU first / you first / local two players.\nMASTER keeps the same exact Hard CPU.\nIts starts allow YOU/P1 a forced win.\nUNDO restores the complete CPU round.",
+      "modes": [
+        "CPU / YOU FIRST",
+        "CPU / CPU FIRST",
+        "LOCAL 2P"
+      ],
+      "bank_counts_by_mode": [
+        [
+          0,
+          0,
+          0,
+          30
+        ],
+        [
+          0,
+          0,
+          0,
+          30
+        ],
+        [
+          0,
+          0,
+          0,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 24,
+      "name": "MAKE FIFTEEN",
+      "category": 4,
+      "slot": 3,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 3,
+      "flags": 5,
+      "aux": "",
+      "primary": "TAKE",
+      "rules": "Take unused cards from 1 to 9.\nAny three of YOUR cards summing to 15\nwin, even when you hold more than three.\nAll cards used without a winner: draw.\nArrows + EXE, or a digit to take a card.\nBlue marks P1/YOU; red marks P2/CPU.\nEasy random; Normal 75% exact moves.\nHard uses the full exact minimax table.\nMASTER: verified midgame tactical starts.\nCPU first / you first / local two players.\nMASTER keeps the same exact Hard CPU.\nIts starts allow YOU/P1 a forced win.\nUNDO restores the complete CPU round.",
+      "modes": [
+        "CPU / YOU FIRST",
+        "CPU / CPU FIRST",
+        "LOCAL 2P"
+      ],
+      "bank_counts_by_mode": [
+        [
+          0,
+          0,
+          0,
+          30
+        ],
+        [
+          0,
+          0,
+          0,
+          5
+        ],
+        [
+          0,
+          0,
+          0,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 25,
+      "name": "RACE TO TARGET",
+      "category": 4,
+      "slot": 4,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 3,
+      "flags": 5,
+      "aux": "",
+      "primary": "ADD",
+      "rules": "Take turns adding to the running total.\nReach the target EXACTLY to win.\nAn addition beyond the target is illegal.\nType the addition, then EXE.\nEasy: target 21; add 1, 2, or 3.\nNormal: target 31; add 1, 2, or 3.\nHard: target 23; add 1, 2, 3, or 4.\nHard uses exact addition-game analysis.\nMASTER: varied tactical target/add limits.\nEasy random; Normal 75% exact moves.\nCPU first / you first / local two players.\nMASTER keeps the same exact Hard CPU.\nIts starts allow YOU/P1 a forced win.",
+      "modes": [
+        "CPU / YOU FIRST",
+        "CPU / CPU FIRST",
+        "LOCAL 2P"
+      ],
+      "bank_counts_by_mode": [
+        [
+          0,
+          0,
+          0,
+          30
+        ],
+        [
+          0,
+          0,
+          0,
+          30
+        ],
+        [
+          0,
+          0,
+          0,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 26,
+      "name": "2048",
+      "category": 5,
+      "slot": 0,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 4,
+      "flags": 1,
+      "aux": "",
+      "primary": "",
+      "rules": "Arrows slide all tiles. Equal tiles merge\nonce each move; merged value adds score.\nA changed move spawns 2 (90%) or 4 (10%).\nBlocked moves consume no random numbers.\nCLASSIC: reach 2048 and continue playing.\nTARGET goals E/N/H/M:512/1024/2048/8192.\nTARGET ends when its goal tile is reached.\nCLASSIC/TARGET have separate records.\nNo legal moves means game over.\nUNDO restores tiles, score, and RNG;\nit marks the run as assisted practice.\nTiles cap at 2^30 and cannot merge beyond.\nScore saturates at 4294967295 safely.\nLarge tiles use exact 2^n notation.",
+      "modes": [
+        "CLASSIC",
+        "TARGET"
+      ],
+      "bank_counts_by_mode": [
+        [
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
+      "id": 27,
+      "name": "SLIDING PUZZLE",
+      "category": 5,
+      "slot": 1,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 3,
+      "flags": 1,
+      "aux": "",
+      "primary": "",
+      "rules": "Put 1..8 or 1..15 in reading order,\nwith the blank in the bottom-right.\nArrows move the BLANK in that direction.\nChoose a 3x3 or 4x4 board in MODE.\nThe board is shuffled by legal moves,\nso every generated board is solvable.\nEasy/Normal/Hard use 80/160/240 moves\nand increasing Manhattan-distance checks.\nShuffle count is NOT shortest distance.\nMASTER 3x3: exact distance 31 (2 starts).\nMASTER 4x4: at least 48 moves (30 starts).\nUNDO reverses moves; size stays in MODE.",
+      "modes": [
+        "3 x 3",
+        "4 x 4"
+      ],
+      "bank_counts_by_mode": [
+        [
+          0,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 28,
+      "name": "LIGHTS OUT",
+      "category": 5,
+      "slot": 2,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 3,
+      "flags": 3,
+      "aux": "",
+      "primary": "PRESS",
+      "rules": "Turn every light off. Arrows select.\nEXE or 5 toggles the selected light and\nits orthogonal neighbours (no wrapping).\nModes: 4x4 or 5x5. Both start solvable.\nE/N/H change the generating moves.\nMASTER: certified minimum-press starts.\n4x4 needs 6; 5x5 needs 12..14 presses.\nEvery valid solution is accepted.\nHINT uses Gaussian elimination over GF(2).\nPress the highlighted cell next.\nThe hint does not promise fewest moves.\nHINT/UNDO mark assisted practice.",
+      "modes": [
+        "4 x 4",
+        "5 x 5"
+      ],
+      "bank_counts_by_mode": [
+        [
+          0,
+          0,
+          0,
+          30
+        ],
+        [
+          0,
+          0,
+          0,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 31,
+      "name": "SHIKAKU",
+      "category": 5,
+      "slot": 3,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 1,
+      "flags": 1,
+      "aux": "",
+      "primary": "SELECT",
+      "rules": "Divide all cells into rectangles.\nEach rectangle contains exactly one clue.\nIts area must equal that clue number.\nRectangles cannot overlap or leave gaps.\nArrows move the selected cell.\nEXE: first corner, then opposite corner.\nEXE again places the rectangle.\nEXIT cancels an unfinished selection.\nDEL removes the selected rectangle.\nUNDO restores a created/deleted rectangle.\nEASY 5x5, NORMAL 6x6, HARD 8x8.\nMASTER 8x8: interacting choices.\n30 original unique puzzles per level.",
+      "modes": [
+        "STANDARD"
+      ],
+      "bank_counts_by_mode": [
+        [
+          30,
+          30,
+          30,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 32,
+      "name": "SLITHERLINK",
+      "category": 5,
+      "slot": 4,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 1,
+      "flags": 1,
+      "aux": "H / V",
+      "primary": "LINE",
+      "rules": "Connect neighbouring dots in ONE loop.\nA clue counts the lines around its cell.\nBlank cells have no number constraint.\n0 and blank are different.\nEvery used dot must have two lines.\nNo branches, crossings, or separate loops.\nArrows move the selected edge.\nF4 switches horizontal/vertical edges.\nEXE toggles a line; DEL toggles an X.\nX means excluded and is never a line.\nUNDO restores the last edge edit.\nEASY 5x5, NORMAL 6x6, HARD 8x8.\nMASTER 8x8: interacting choices.\n30 original unique puzzles per level.",
+      "modes": [
+        "STANDARD"
+      ],
+      "bank_counts_by_mode": [
+        [
+          30,
+          30,
+          30,
+          30
+        ]
+      ]
+    }
+  ]
+}

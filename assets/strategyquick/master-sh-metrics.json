@@ -1,0 +1,234 @@
+{
+  "compiler": "SH GCC14.1.0",
+  "flags": "-m4-nofpu -mb -std=c11 -Wall -Wextra -Werror -Wframe-larger-than=2048 -Os -fstack-usage -DFXCG50",
+  "individual_frames": {
+    "strategyquick_strategy": {
+      "triple": {
+        "bytes": 24,
+        "type": "static"
+      },
+      "cards": {
+        "bytes": 0,
+        "type": "static"
+      },
+      "fifteen_masks": {
+        "bytes": 4,
+        "type": "static"
+      },
+      "terminal_kind": {
+        "bytes": 8,
+        "type": "static"
+      },
+      "strategy_panel": {
+        "bytes": 44,
+        "type": "static"
+      },
+      "sq_strategy_value": {
+        "bytes": 20,
+        "type": "static"
+      },
+      "sq_strategy_legal": {
+        "bytes": 4,
+        "type": "static"
+      },
+      "sq_strategy_apply": {
+        "bytes": 24,
+        "type": "static"
+      },
+      "sq_strategy_pick": {
+        "bytes": 56,
+        "type": "static"
+      },
+      "sq_strategy_mode": {
+        "bytes": 0,
+        "type": "static"
+      },
+      "sq_bank_count": {
+        "bytes": 0,
+        "type": "static"
+      },
+      "sq_strategy_init": {
+        "bytes": 28,
+        "type": "static"
+      },
+      "sq_strategy_action": {
+        "bytes": 16,
+        "type": "static"
+      },
+      "sq_strategy_valid": {
+        "bytes": 56,
+        "type": "static"
+      },
+      "sq_strategy_render": {
+        "bytes": 132,
+        "type": "static"
+      }
+    },
+    "strategyquick_quick": {
+      "sliding_goal": {
+        "bytes": 12,
+        "type": "static"
+      },
+      "slide": {
+        "bytes": 4,
+        "type": "static"
+      },
+      "manhattan": {
+        "bytes": 24,
+        "type": "static"
+      },
+      "toggle": {
+        "bytes": 4,
+        "type": "static"
+      },
+      "lights_off": {
+        "bytes": 0,
+        "type": "static"
+      },
+      "spawn": {
+        "bytes": 80,
+        "type": "static"
+      },
+      "rush_problem": {
+        "bytes": 32,
+        "type": "static"
+      },
+      "memory_round": {
+        "bytes": 28,
+        "type": "static"
+      },
+      "tile_index": {
+        "bytes": 0,
+        "type": "static"
+      },
+      "sq_2048_line": {
+        "bytes": 48,
+        "type": "static"
+      },
+      "sq_2048_can_move": {
+        "bytes": 0,
+        "type": "static"
+      },
+      "sq_sliding_solvable": {
+        "bytes": 32,
+        "type": "static"
+      },
+      "sq_lights_solution": {
+        "bytes": 236,
+        "type": "static"
+      },
+      "sq_sliding_mode": {
+        "bytes": 0,
+        "type": "static"
+      },
+      "sq_2048_mode": {
+        "bytes": 0,
+        "type": "static"
+      },
+      "sq_lights_mode": {
+        "bytes": 0,
+        "type": "static"
+      },
+      "sq_rush_mode": {
+        "bytes": 0,
+        "type": "static"
+      },
+      "sq_quick_init": {
+        "bytes": 148,
+        "type": "static"
+      },
+      "sq_quick_action": {
+        "bytes": 48,
+        "type": "static"
+      },
+      "sq_quick_tick": {
+        "bytes": 4,
+        "type": "static"
+      },
+      "sq_quick_valid": {
+        "bytes": 36,
+        "type": "static"
+      },
+      "sq_quick_render": {
+        "bytes": 184,
+        "type": "static"
+      }
+    },
+    "strategyquick_registry": {},
+    "boards": {
+      "shikaku_render": {
+        "bytes": 148,
+        "type": "static"
+      },
+      "boards_init": {
+        "bytes": 12,
+        "type": "static"
+      },
+      "nb_shikaku_partial": {
+        "bytes": 64,
+        "type": "static"
+      },
+      "nb_shikaku_complete": {
+        "bytes": 8,
+        "type": "static"
+      },
+      "shikaku_action": {
+        "bytes": 64,
+        "type": "static"
+      },
+      "nb_edge_count": {
+        "bytes": 0,
+        "type": "static"
+      },
+      "nb_edge_get": {
+        "bytes": 0,
+        "type": "static"
+      },
+      "nb_edge_set": {
+        "bytes": 16,
+        "type": "static"
+      },
+      "nb_edge_vertices": {
+        "bytes": 8,
+        "type": "static"
+      },
+      "slither_render": {
+        "bytes": 136,
+        "type": "static"
+      },
+      "nb_slither_complete": {
+        "bytes": 316,
+        "type": "static"
+      },
+      "slither_action": {
+        "bytes": 32,
+        "type": "static"
+      },
+      "boards_valid": {
+        "bytes": 44,
+        "type": "static"
+      },
+      "nb_bank_count": {
+        "bytes": 0,
+        "type": "static"
+      }
+    },
+    "boards_pack": {}
+  },
+  "readonly_payload_bytes": {
+    "policy": 6382,
+    "master_strategy": 3610,
+    "master_quick": 798,
+    "boards": 15600
+  },
+  "device_stack_peak": "NOT MEASURED",
+  "call_chain_peak": "NOT MEASURED",
+  "sha256": {
+    "assets/boards/puzzles.json": "94a69d5b8c144781509a35837a955b42aed1b478f673d497aa67011ee9ad486a",
+    "src/games/boards_pack.c": "386d052fd0bab5ac68f40c25748159ac1f02405af62c214d203e349f5a041a72",
+    "tests/test_boards_fixtures.h": "7f4c14bcac529b732bd3b4e7d43417566afb995f9c06545ff7589633de007eef",
+    "assets/strategyquick/master.json": "5b60b585d2d168c7041e971a096f1ccefc890cf51fa2cb1246305aef8cd6bdae",
+    "assets/strategyquick/master_strategy.h": "cdfccf30e23634a1d10e24d44919fcfb0f69063971290cc3dd08d148497946a5",
+    "assets/strategyquick/master_quick.h": "c0127b9ff1c1b00315f6f7befb9d3e8e3785ee36b0b55b2d6c8d26b6ccc88e4e"
+  }
+}

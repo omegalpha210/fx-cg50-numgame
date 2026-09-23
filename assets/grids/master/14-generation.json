@@ -1,0 +1,9 @@
+{
+  "game_id": 14,
+  "candidates": 174,
+  "accepted": 20,
+  "rejections": {
+    "below_rating_threshold": 154
+  },
+  "seconds": 21.74
+}

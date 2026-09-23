@@ -1,0 +1,10 @@
+{
+  "game_id": 15,
+  "difficulty": 0,
+  "candidates": 40,
+  "accepted": 20,
+  "rejections": {
+    "canonical_duplicate": 20
+  },
+  "seconds": 0.07
+}

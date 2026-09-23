@@ -1,0 +1,21 @@
+{
+  "rules_version": 1,
+  "generated_by": "strategyquick_tables.py",
+  "provenance": "original exact state analysis",
+  "domains": {
+    "wythoff": [
+      0,
+      40
+    ],
+    "euclid": [
+      0,
+      99
+    ],
+    "make_fifteen_states": 19683
+  },
+  "table_bytes": {
+    "sq_wythoff_bits": 211,
+    "sq_euclid_bits": 1250,
+    "sq_fifteen_values": 4921
+  }
+}

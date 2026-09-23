@@ -1,0 +1,250 @@
+{
+  "rules_version": 1,
+  "records": 900,
+  "unique_records": 810,
+  "magic_partial_instances": 90,
+  "hitori_exhaustive_masks": 1966080,
+  "seconds": 58.195,
+  "groups": [
+    {
+      "game_id": 11,
+      "difficulty": 0,
+      "count": 30,
+      "size": 9,
+      "max_counter_nodes": 39,
+      "unique": true
+    },
+    {
+      "game_id": 11,
+      "difficulty": 1,
+      "count": 30,
+      "size": 9,
+      "max_counter_nodes": 76,
+      "unique": true
+    },
+    {
+      "game_id": 11,
+      "difficulty": 2,
+      "count": 30,
+      "size": 9,
+      "max_counter_nodes": 1503,
+      "unique": true
+    },
+    {
+      "game_id": 12,
+      "difficulty": 0,
+      "count": 30,
+      "size": 4,
+      "max_counter_nodes": 36,
+      "unique": true
+    },
+    {
+      "game_id": 12,
+      "difficulty": 1,
+      "count": 30,
+      "size": 5,
+      "max_counter_nodes": 86,
+      "unique": true
+    },
+    {
+      "game_id": 12,
+      "difficulty": 2,
+      "count": 30,
+      "size": 6,
+      "max_counter_nodes": 862,
+      "unique": true
+    },
+    {
+      "game_id": 13,
+      "difficulty": 0,
+      "count": 30,
+      "size": 5,
+      "max_counter_nodes": 31,
+      "unique": true
+    },
+    {
+      "game_id": 13,
+      "difficulty": 1,
+      "count": 30,
+      "size": 6,
+      "max_counter_nodes": 114,
+      "unique": true
+    },
+    {
+      "game_id": 13,
+      "difficulty": 2,
+      "count": 30,
+      "size": 7,
+      "max_counter_nodes": 139,
+      "unique": true
+    },
+    {
+      "game_id": 14,
+      "difficulty": 0,
+      "count": 30,
+      "size": 4,
+      "max_counter_nodes": 38,
+      "unique": true
+    },
+    {
+      "game_id": 14,
+      "difficulty": 1,
+      "count": 30,
+      "size": 5,
+      "max_counter_nodes": 368,
+      "unique": true
+    },
+    {
+      "game_id": 14,
+      "difficulty": 2,
+      "count": 30,
+      "size": 6,
+      "max_counter_nodes": 36740,
+      "unique": true
+    },
+    {
+      "game_id": 15,
+      "difficulty": 0,
+      "count": 30,
+      "size": 4,
+      "max_counter_nodes": 42,
+      "unique": true
+    },
+    {
+      "game_id": 15,
+      "difficulty": 1,
+      "count": 30,
+      "size": 5,
+      "max_counter_nodes": 4761,
+      "unique": true
+    },
+    {
+      "game_id": 15,
+      "difficulty": 2,
+      "count": 30,
+      "size": 6,
+      "max_counter_nodes": 97224,
+      "unique": true
+    },
+    {
+      "game_id": 16,
+      "difficulty": 0,
+      "count": 30,
+      "size": 4,
+      "max_counter_nodes": 13,
+      "unique": true
+    },
+    {
+      "game_id": 16,
+      "difficulty": 1,
+      "count": 30,
+      "size": 5,
+      "max_counter_nodes": 27,
+      "unique": true
+    },
+    {
+      "game_id": 16,
+      "difficulty": 2,
+      "count": 30,
+      "size": 6,
+      "max_counter_nodes": 25,
+      "unique": true
+    },
+    {
+      "game_id": 17,
+      "difficulty": 0,
+      "count": 30,
+      "size": 6,
+      "max_counter_nodes": 100,
+      "unique": true
+    },
+    {
+      "game_id": 17,
+      "difficulty": 1,
+      "count": 30,
+      "size": 6,
+      "max_counter_nodes": 389,
+      "unique": true
+    },
+    {
+      "game_id": 17,
+      "difficulty": 2,
+      "count": 30,
+      "size": 8,
+      "max_counter_nodes": 3175,
+      "unique": true
+    },
+    {
+      "game_id": 18,
+      "difficulty": 0,
+      "count": 30,
+      "size": 4,
+      "max_counter_nodes": 121,
+      "unique": true
+    },
+    {
+      "game_id": 18,
+      "difficulty": 1,
+      "count": 30,
+      "size": 5,
+      "max_counter_nodes": 436,
+      "unique": true
+    },
+    {
+      "game_id": 18,
+      "difficulty": 2,
+      "count": 30,
+      "size": 6,
+      "max_counter_nodes": 3681,
+      "unique": true
+    },
+    {
+      "game_id": 19,
+      "difficulty": 0,
+      "count": 30,
+      "size": 3,
+      "max_counter_nodes": 0,
+      "unique": false
+    },
+    {
+      "game_id": 19,
+      "difficulty": 1,
+      "count": 30,
+      "size": 3,
+      "max_counter_nodes": 0,
+      "unique": false
+    },
+    {
+      "game_id": 19,
+      "difficulty": 2,
+      "count": 30,
+      "size": 4,
+      "max_counter_nodes": 0,
+      "unique": false
+    },
+    {
+      "game_id": 20,
+      "difficulty": 0,
+      "count": 30,
+      "size": 5,
+      "max_counter_nodes": 104,
+      "unique": true
+    },
+    {
+      "game_id": 20,
+      "difficulty": 1,
+      "count": 30,
+      "size": 5,
+      "max_counter_nodes": 68,
+      "unique": true
+    },
+    {
+      "game_id": 20,
+      "difficulty": 2,
+      "count": 30,
+      "size": 6,
+      "max_counter_nodes": 109,
+      "unique": true
+    }
+  ]
+}

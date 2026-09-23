@@ -1,0 +1,540 @@
+{
+  "rating_version": 1,
+  "provisional": true,
+  "supported_game_ids": [
+    11,
+    12,
+    14,
+    15
+  ],
+  "legacy_records": 900,
+  "legacy_unique": 810,
+  "master_records": 80,
+  "total_records": 980,
+  "total_unique": 890,
+  "magic_layouts": 90,
+  "legacy_bytes_unchanged": true,
+  "seconds": 41.232,
+  "groups": [
+    {
+      "game_id": 11,
+      "master_count": 20,
+      "legacy_hard_count": 30,
+      "hard": {
+        "basic_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 47
+        },
+        "advanced_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 47
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 0,
+          "median": 0.0,
+          "max": 3
+        },
+        "forcing_probes": {
+          "min": 0,
+          "median": 0.0,
+          "max": 5
+        },
+        "search_nodes": {
+          "min": 1,
+          "median": 1.0,
+          "max": 7
+        },
+        "search_branches": {
+          "min": 0,
+          "median": 0.0,
+          "max": 3
+        },
+        "search_max_depth": {
+          "min": 0,
+          "median": 0.0,
+          "max": 3
+        },
+        "basic": {
+          "hidden_single_eliminations": 1553,
+          "hidden_single_steps": 826,
+          "peer_single_eliminations": 10568,
+          "peer_single_steps": 10568,
+          "propagation_passes": 180
+        },
+        "advanced": {
+          "hall_subset_eliminations": 101,
+          "hall_subset_steps": 71,
+          "hidden_single_eliminations": 243,
+          "hidden_single_steps": 183,
+          "locked_candidate_eliminations": 51,
+          "locked_candidate_steps": 51,
+          "peer_single_eliminations": 435,
+          "peer_single_steps": 435,
+          "propagation_passes": 89
+        },
+        "basic_stalled": 12
+      },
+      "master": {
+        "basic_unfilled": {
+          "min": 31,
+          "median": 44.5,
+          "max": 54
+        },
+        "advanced_unfilled": {
+          "min": 28,
+          "median": 43.0,
+          "max": 51
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 1,
+          "median": 4.0,
+          "max": 10
+        },
+        "forcing_probes": {
+          "min": 3,
+          "median": 8.0,
+          "max": 33
+        },
+        "search_nodes": {
+          "min": 9,
+          "median": 11.0,
+          "max": 17
+        },
+        "search_branches": {
+          "min": 4,
+          "median": 5.0,
+          "max": 8
+        },
+        "search_max_depth": {
+          "min": 3,
+          "median": 4.0,
+          "max": 7
+        },
+        "basic": {
+          "hidden_single_eliminations": 560,
+          "hidden_single_steps": 210,
+          "peer_single_eliminations": 6427,
+          "peer_single_steps": 6427,
+          "propagation_passes": 96
+        },
+        "advanced": {
+          "hall_subset_eliminations": 199,
+          "hall_subset_steps": 136,
+          "hidden_single_eliminations": 563,
+          "hidden_single_steps": 403,
+          "locked_candidate_eliminations": 134,
+          "locked_candidate_steps": 134,
+          "peer_single_eliminations": 1057,
+          "peer_single_steps": 1057,
+          "propagation_passes": 290
+        },
+        "basic_stalled": 20
+      },
+      "reference_nodes_max": 4160
+    },
+    {
+      "game_id": 12,
+      "master_count": 20,
+      "legacy_hard_count": 30,
+      "hard": {
+        "basic_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 36
+        },
+        "advanced_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 36
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 0,
+          "median": 0.0,
+          "max": 3
+        },
+        "forcing_probes": {
+          "min": 0,
+          "median": 0.0,
+          "max": 4
+        },
+        "search_nodes": {
+          "min": 1,
+          "median": 1.0,
+          "max": 7
+        },
+        "search_branches": {
+          "min": 0,
+          "median": 0.0,
+          "max": 3
+        },
+        "search_max_depth": {
+          "min": 0,
+          "median": 0.0,
+          "max": 3
+        },
+        "basic": {
+          "cage_support_eliminations": 1965,
+          "cage_support_steps": 1040,
+          "hidden_single_eliminations": 484,
+          "hidden_single_steps": 312,
+          "peer_single_eliminations": 1926,
+          "peer_single_steps": 1926,
+          "propagation_passes": 151
+        },
+        "advanced": {
+          "cage_support_eliminations": 114,
+          "cage_support_steps": 89,
+          "hall_subset_eliminations": 54,
+          "hall_subset_steps": 34,
+          "hidden_single_eliminations": 73,
+          "hidden_single_steps": 53,
+          "peer_single_eliminations": 135,
+          "peer_single_steps": 135,
+          "propagation_passes": 77
+        },
+        "basic_stalled": 4
+      },
+      "master": {
+        "basic_unfilled": {
+          "min": 27,
+          "median": 34.5,
+          "max": 36
+        },
+        "advanced_unfilled": {
+          "min": 27,
+          "median": 34.5,
+          "max": 36
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 1,
+          "median": 4.0,
+          "max": 7
+        },
+        "forcing_probes": {
+          "min": 4,
+          "median": 12.5,
+          "max": 58
+        },
+        "search_nodes": {
+          "min": 9,
+          "median": 11.5,
+          "max": 33
+        },
+        "search_branches": {
+          "min": 4,
+          "median": 5.0,
+          "max": 16
+        },
+        "search_max_depth": {
+          "min": 3,
+          "median": 4.0,
+          "max": 6
+        },
+        "basic": {
+          "cage_support_eliminations": 751,
+          "cage_support_steps": 399,
+          "hidden_single_eliminations": 31,
+          "hidden_single_steps": 10,
+          "peer_single_eliminations": 298,
+          "peer_single_steps": 298,
+          "propagation_passes": 53
+        },
+        "advanced": {
+          "cage_support_eliminations": 713,
+          "cage_support_steps": 527,
+          "hall_subset_eliminations": 245,
+          "hall_subset_steps": 143,
+          "hidden_single_eliminations": 320,
+          "hidden_single_steps": 220,
+          "peer_single_eliminations": 1042,
+          "peer_single_steps": 1042,
+          "propagation_passes": 345
+        },
+        "basic_stalled": 20
+      },
+      "reference_nodes_max": 12323
+    },
+    {
+      "game_id": 14,
+      "master_count": 20,
+      "legacy_hard_count": 30,
+      "hard": {
+        "basic_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 22
+        },
+        "advanced_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 22
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 0,
+          "median": 0.0,
+          "max": 3
+        },
+        "forcing_probes": {
+          "min": 0,
+          "median": 0.0,
+          "max": 6
+        },
+        "search_nodes": {
+          "min": 1,
+          "median": 1.0,
+          "max": 7
+        },
+        "search_branches": {
+          "min": 0,
+          "median": 0.0,
+          "max": 3
+        },
+        "search_max_depth": {
+          "min": 0,
+          "median": 0.0,
+          "max": 2
+        },
+        "basic": {
+          "hidden_single_eliminations": 600,
+          "hidden_single_steps": 385,
+          "inequality_arc_eliminations": 1078,
+          "inequality_arc_steps": 843,
+          "peer_single_eliminations": 2597,
+          "peer_single_steps": 2597,
+          "propagation_passes": 174
+        },
+        "advanced": {
+          "hall_subset_eliminations": 2,
+          "hall_subset_steps": 1,
+          "hidden_single_eliminations": 26,
+          "hidden_single_steps": 18,
+          "inequality_arc_eliminations": 4,
+          "inequality_arc_steps": 2,
+          "peer_single_eliminations": 39,
+          "peer_single_steps": 39,
+          "propagation_passes": 43
+        },
+        "basic_stalled": 2
+      },
+      "master": {
+        "basic_unfilled": {
+          "min": 20,
+          "median": 28.5,
+          "max": 33
+        },
+        "advanced_unfilled": {
+          "min": 20,
+          "median": 28.5,
+          "max": 33
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 1,
+          "median": 4.0,
+          "max": 6
+        },
+        "forcing_probes": {
+          "min": 3,
+          "median": 8.0,
+          "max": 57
+        },
+        "search_nodes": {
+          "min": 9,
+          "median": 11.0,
+          "max": 35
+        },
+        "search_branches": {
+          "min": 4,
+          "median": 5.0,
+          "max": 17
+        },
+        "search_max_depth": {
+          "min": 3,
+          "median": 4.0,
+          "max": 7
+        },
+        "basic": {
+          "hidden_single_eliminations": 64,
+          "hidden_single_steps": 30,
+          "inequality_arc_eliminations": 588,
+          "inequality_arc_steps": 471,
+          "peer_single_eliminations": 1050,
+          "peer_single_steps": 1050,
+          "propagation_passes": 84
+        },
+        "advanced": {
+          "hall_subset_eliminations": 69,
+          "hall_subset_steps": 46,
+          "hidden_single_eliminations": 303,
+          "hidden_single_steps": 210,
+          "inequality_arc_eliminations": 118,
+          "inequality_arc_steps": 95,
+          "peer_single_eliminations": 814,
+          "peer_single_steps": 814,
+          "propagation_passes": 269
+        },
+        "basic_stalled": 20
+      },
+      "reference_nodes_max": 229502
+    },
+    {
+      "game_id": 15,
+      "master_count": 20,
+      "legacy_hard_count": 30,
+      "hard": {
+        "basic_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 30
+        },
+        "advanced_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 30
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 0,
+          "median": 0.0,
+          "max": 6
+        },
+        "forcing_probes": {
+          "min": 0,
+          "median": 0.0,
+          "max": 34
+        },
+        "search_nodes": {
+          "min": 1,
+          "median": 1.0,
+          "max": 15
+        },
+        "search_branches": {
+          "min": 0,
+          "median": 0.0,
+          "max": 7
+        },
+        "search_max_depth": {
+          "min": 0,
+          "median": 0.0,
+          "max": 5
+        },
+        "basic": {
+          "hidden_single_eliminations": 467,
+          "hidden_single_steps": 203,
+          "peer_single_eliminations": 1000,
+          "peer_single_steps": 1000,
+          "propagation_passes": 137,
+          "visibility_line_support_eliminations": 3083,
+          "visibility_line_support_steps": 1871
+        },
+        "advanced": {
+          "hidden_single_eliminations": 129,
+          "hidden_single_steps": 88,
+          "peer_single_eliminations": 183,
+          "peer_single_steps": 183,
+          "propagation_passes": 100,
+          "visibility_line_support_eliminations": 229,
+          "visibility_line_support_steps": 188
+        },
+        "basic_stalled": 11
+      },
+      "master": {
+        "basic_unfilled": {
+          "min": 28,
+          "median": 31.5,
+          "max": 35
+        },
+        "advanced_unfilled": {
+          "min": 28,
+          "median": 31.5,
+          "max": 35
+        },
+        "after_chains_unfilled": {
+          "min": 0,
+          "median": 0.0,
+          "max": 0
+        },
+        "forcing_eliminations": {
+          "min": 2,
+          "median": 5.5,
+          "max": 13
+        },
+        "forcing_probes": {
+          "min": 7,
+          "median": 31.5,
+          "max": 175
+        },
+        "search_nodes": {
+          "min": 17,
+          "median": 23.0,
+          "max": 39
+        },
+        "search_branches": {
+          "min": 8,
+          "median": 11.0,
+          "max": 19
+        },
+        "search_max_depth": {
+          "min": 4,
+          "median": 5.0,
+          "max": 8
+        },
+        "basic": {
+          "hidden_single_eliminations": 84,
+          "hidden_single_steps": 23,
+          "peer_single_eliminations": 351,
+          "peer_single_steps": 351,
+          "propagation_passes": 68,
+          "visibility_line_support_eliminations": 1112,
+          "visibility_line_support_steps": 662
+        },
+        "advanced": {
+          "hidden_single_eliminations": 298,
+          "hidden_single_steps": 170,
+          "peer_single_eliminations": 612,
+          "peer_single_steps": 612,
+          "propagation_passes": 316,
+          "visibility_line_support_eliminations": 859,
+          "visibility_line_support_steps": 656
+        },
+        "basic_stalled": 20
+      },
+      "reference_nodes_max": 45098
+    }
+  ]
+}

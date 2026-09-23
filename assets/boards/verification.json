@@ -1,0 +1,123 @@
+{
+  "rules_version": 1,
+  "records": 240,
+  "unique": 240,
+  "small_exhaustive": {
+    "edge_assignments": 4096,
+    "valid_loops": 13,
+    "clue_patterns": 625
+  },
+  "embedded": {
+    "records": 240,
+    "bytes": 15600,
+    "sha256": "386d052fd0bab5ac68f40c25748159ac1f02405af62c214d203e349f5a041a72"
+  },
+  "groups": [
+    {
+      "game_id": 31,
+      "difficulty": 0,
+      "size": 5,
+      "count": 30,
+      "unique": 30,
+      "canonical_clues": 30,
+      "canonical_structures": 30,
+      "reference_nodes_min": 8,
+      "reference_nodes_max": 17,
+      "clues_min": 6,
+      "clues_max": 9
+    },
+    {
+      "game_id": 31,
+      "difficulty": 1,
+      "size": 6,
+      "count": 30,
+      "unique": 30,
+      "canonical_clues": 30,
+      "canonical_structures": 30,
+      "reference_nodes_min": 9,
+      "reference_nodes_max": 54,
+      "clues_min": 8,
+      "clues_max": 13
+    },
+    {
+      "game_id": 31,
+      "difficulty": 2,
+      "size": 8,
+      "count": 30,
+      "unique": 30,
+      "canonical_clues": 30,
+      "canonical_structures": 30,
+      "reference_nodes_min": 15,
+      "reference_nodes_max": 76,
+      "clues_min": 12,
+      "clues_max": 19
+    },
+    {
+      "game_id": 31,
+      "difficulty": 3,
+      "size": 8,
+      "count": 30,
+      "unique": 30,
+      "canonical_clues": 30,
+      "canonical_structures": 30,
+      "reference_nodes_min": 21,
+      "reference_nodes_max": 125,
+      "clues_min": 10,
+      "clues_max": 15
+    },
+    {
+      "game_id": 32,
+      "difficulty": 0,
+      "size": 5,
+      "count": 30,
+      "unique": 30,
+      "canonical_clues": 30,
+      "canonical_structures": 30,
+      "reference_nodes_min": 1,
+      "reference_nodes_max": 5,
+      "clues_min": 18,
+      "clues_max": 18
+    },
+    {
+      "game_id": 32,
+      "difficulty": 1,
+      "size": 6,
+      "count": 30,
+      "unique": 30,
+      "canonical_clues": 30,
+      "canonical_structures": 30,
+      "reference_nodes_min": 1,
+      "reference_nodes_max": 7,
+      "clues_min": 23,
+      "clues_max": 23
+    },
+    {
+      "game_id": 32,
+      "difficulty": 2,
+      "size": 8,
+      "count": 30,
+      "unique": 30,
+      "canonical_clues": 30,
+      "canonical_structures": 30,
+      "reference_nodes_min": 1,
+      "reference_nodes_max": 199,
+      "clues_min": 34,
+      "clues_max": 34
+    },
+    {
+      "game_id": 32,
+      "difficulty": 3,
+      "size": 8,
+      "count": 30,
+      "unique": 30,
+      "canonical_clues": 30,
+      "canonical_structures": 30,
+      "reference_nodes_min": 5,
+      "reference_nodes_max": 1317,
+      "clues_min": 25,
+      "clues_max": 26
+    }
+  ],
+  "seconds": 3.896,
+  "generator_independence": "cell exact cover / face-colour constraint propagation; no generator imports"
+}

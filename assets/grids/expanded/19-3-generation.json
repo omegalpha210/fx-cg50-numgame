@@ -1,0 +1,10 @@
+{
+  "game_id": 19,
+  "difficulty": 3,
+  "candidates": 54,
+  "accepted": 30,
+  "rejections": {
+    "canonical_square_duplicate": 24
+  },
+  "seconds": 0.036
+}

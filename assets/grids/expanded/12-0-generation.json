@@ -1,0 +1,10 @@
+{
+  "game_id": 12,
+  "difficulty": 0,
+  "candidates": 37,
+  "accepted": 20,
+  "rejections": {
+    "fixed_cage_limit": 17
+  },
+  "seconds": 0.065
+}

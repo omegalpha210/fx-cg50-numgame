@@ -1,0 +1,41 @@
+{
+  "strategy": {
+    "21/cpu_first=0": 30,
+    "21/cpu_first=1": 30,
+    "22/cpu_first=0": 30,
+    "22/cpu_first=1": 12,
+    "23/cpu_first=0": 30,
+    "23/cpu_first=1": 30,
+    "24/cpu_first=0": 30,
+    "24/cpu_first=1": 5,
+    "25/cpu_first=0": 30,
+    "25/cpu_first=1": 30
+  },
+  "sliding": {
+    "solvable_3x3_states": 181440,
+    "maximum_distance": 31,
+    "distance31_starts": 2,
+    "four_by_four": 30,
+    "lower_min": 48,
+    "lower_max": 52
+  },
+  "lights": {
+    "0": {
+      "count": 30,
+      "minimum": 6,
+      "maximum": 6
+    },
+    "1": {
+      "count": 30,
+      "minimum": 12,
+      "maximum": 14
+    }
+  },
+  "embedded": {
+    "strategy_records": 257,
+    "sha_strategy": "cdfccf30e23634a1d10e24d44919fcfb0f69063971290cc3dd08d148497946a5",
+    "sha_quick": "c0127b9ff1c1b00315f6f7befb9d3e8e3785ee36b0b55b2d6c8d26b6ccc88e4e"
+  },
+  "seconds": 0.122,
+  "hardware_difficulty": "UNTESTED; solver metrics are not human ratings"
+}

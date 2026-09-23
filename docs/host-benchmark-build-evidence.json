@@ -1,0 +1,22 @@
+{
+  "diagnostic": {
+    "CMAKE_BUILD_TYPE": "(empty/default)",
+    "NG_ASAN": "OFF",
+    "NG_DIAGNOSTIC": "ON",
+    "NG_SANITIZE": "ON",
+    "adjacent_binary_sha256": "5f5c91e990fff362c35fc0a2f0aa2115e2e1c664ad4b4ed8ecddc680fac6c0f2",
+    "association": "Adjacent build files observed at report generation; timing JSON does not embed build identity.",
+    "benchmark_flags": "C_DEFINES = -DNG_DIAGNOSTIC; C_FLAGS = -std=gnu11 -arch arm64 -Wall -Wextra -Werror -g -UNDEBUG -fsanitize=undefined -fno-sanitize-recover=all -fno-omit-frame-pointer -finstrument-functions",
+    "core_flags": "C_DEFINES = -DNG_DIAGNOSTIC; C_FLAGS = -std=gnu11 -arch arm64 -Wall -Wextra -Werror -g -UNDEBUG -fsanitize=undefined -fno-sanitize-recover=all -fno-omit-frame-pointer -finstrument-functions"
+  },
+  "normal": {
+    "CMAKE_BUILD_TYPE": "(empty/default)",
+    "NG_ASAN": "OFF",
+    "NG_DIAGNOSTIC": "OFF",
+    "NG_SANITIZE": "ON",
+    "adjacent_binary_sha256": "963c53cf5942ecf8eef623ece5d82d266f4b5380b804099684e20bfcba86b062",
+    "association": "Adjacent build files observed at report generation; timing JSON does not embed build identity.",
+    "benchmark_flags": "C_DEFINES = ; C_FLAGS = -std=gnu11 -arch arm64 -Wall -Wextra -Werror -g -UNDEBUG -fsanitize=undefined -fno-sanitize-recover=all -fno-omit-frame-pointer",
+    "core_flags": "C_DEFINES = ; C_FLAGS = -std=gnu11 -arch arm64 -Wall -Wextra -Werror -g -UNDEBUG -fsanitize=undefined -fno-sanitize-recover=all -fno-omit-frame-pointer"
+  }
+}

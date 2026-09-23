@@ -1,0 +1,96 @@
+{
+  "compiler": "SH GCC -std=c11 -Wall -Wextra -Werror -Os -ffunction-sections -fdata-sections -fstack-usage",
+  "pack_payload_bytes": 79658,
+  "shared_index_bytes": 10704,
+  "pack_rodata_bytes": 90362,
+  "decoder_text_rodata_bytes": 1108,
+  "decoder_static_cache_bss_bytes": 490,
+  "decoder_cache_id_data_bytes": 4,
+  "grid_engine_text_rodata_bytes": 14086,
+  "grid_engine_data_bss_bytes": 0,
+  "engine_heap_allocations": 0,
+  "frames_bytes": {
+    "init": 48,
+    "grids_decode": 76,
+    "grids_record": 12,
+    "grids_rules_complete": 508,
+    "render": 224,
+    "valid": 60,
+    "action": 28
+  },
+  "frame_note": "Individual compiler-estimated frames, not whole-call-chain or measured peak; decoder cache is counted once for all games.",
+  "hardware_stack_peak": "NOT MEASURED",
+  "hardware_latency": "NOT MEASURED",
+  "groups": [
+    {
+      "game_id": 11,
+      "records": 230,
+      "encoded_payload_bytes": 19320,
+      "record_bytes_min": 84,
+      "record_bytes_max": 84
+    },
+    {
+      "game_id": 12,
+      "records": 230,
+      "encoded_payload_bytes": 15704,
+      "record_bytes_min": 36,
+      "record_bytes_max": 101
+    },
+    {
+      "game_id": 13,
+      "records": 230,
+      "encoded_payload_bytes": 11452,
+      "record_bytes_min": 30,
+      "record_bytes_max": 75
+    },
+    {
+      "game_id": 14,
+      "records": 230,
+      "encoded_payload_bytes": 9140,
+      "record_bytes_min": 23,
+      "record_bytes_max": 48
+    },
+    {
+      "game_id": 15,
+      "records": 230,
+      "encoded_payload_bytes": 7932,
+      "record_bytes_min": 21,
+      "record_bytes_max": 51
+    },
+    {
+      "game_id": 16,
+      "records": 120,
+      "encoded_payload_bytes": 2070,
+      "record_bytes_min": 11,
+      "record_bytes_max": 21
+    },
+    {
+      "game_id": 17,
+      "records": 120,
+      "encoded_payload_bytes": 2640,
+      "record_bytes_min": 17,
+      "record_bytes_max": 27
+    },
+    {
+      "game_id": 18,
+      "records": 120,
+      "encoded_payload_bytes": 5160,
+      "record_bytes_min": 23,
+      "record_bytes_max": 57
+    },
+    {
+      "game_id": 19,
+      "records": 120,
+      "encoded_payload_bytes": 2100,
+      "record_bytes_min": 12,
+      "record_bytes_max": 23
+    },
+    {
+      "game_id": 20,
+      "records": 120,
+      "encoded_payload_bytes": 4140,
+      "record_bytes_min": 28,
+      "record_bytes_max": 46
+    }
+  ]
+}
