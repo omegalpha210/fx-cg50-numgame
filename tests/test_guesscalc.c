@@ -4,6 +4,7 @@
 #include "ng.h"
 #include "ui.h"
 #include "../src/games/guesscalc_math.h"
+#include "../src/games/guesscalc.h"
 #include "test_guesscalc_workflow.h"
 #include "test_guesscalc_legacy.h"
 #include <assert.h>
@@ -15,6 +16,7 @@
 static unsigned checks,rects;
 #define CHECK(x) do{++checks;assert(x);}while(0)
 static const NgModule *module(const NgGame *g){return &ng_guesscalc[g->id-1];}
+static unsigned old_modes(unsigned id){return id==1?6:id==6?2:ng_guesscalc[id-1].modes;}
 static void start(NgGame *g,unsigned id,unsigned d,unsigned mode,uint32_t seed){memset(g,0,sizeof(*g));g->id=(uint8_t)id;g->difficulty=(uint8_t)d;g->mode=(uint8_t)mode;g->seed=g->rng=seed?seed:1;g->run_id=1;g->pack_revision=2;module(g)->init(g);CHECK(module(g)->valid(g));}
 static void press(void *ctx,int key){NgGame *g=ctx;(void)module(g)->action(g,key);if(!module(g)->valid(g))fprintf(stderr,"invalid after id=%u key=%d status=%u moves=%u input=%s history=%s\n",g->id,key,g->status,(unsigned)g->moves,g->input,g->history[0]);CHECK(module(g)->valid(g));}
 static void rect(void *ctx,int x,int y,int w,int h,uint16_t color){(void)ctx;(void)color;CHECK(x>=0&&y>=27&&w>0&&h>0&&x+w<=396&&y+h<=185);rects++;}
@@ -46,7 +48,7 @@ static void lifecycle_tests(void){
   const char *r=ng_guesscalc[id].rules;unsigned width=0;
   for(unsigned i=0;;i++){if(r[i]=='\n'||!r[i]){CHECK(width<=48);width=0;if(!r[i])break;}else width++;}
  }
- for(unsigned id=1;id<=10;id++)for(unsigned mode=0;mode<ng_guesscalc[id-1].modes;mode++)for(unsigned d=0;d<4;d++)for(unsigned seed=1;seed<=20;seed++){
+ for(unsigned id=1;id<=10;id++)for(unsigned mode=0;mode<old_modes(id);mode++)for(unsigned d=0;d<4;d++)for(unsigned seed=1;seed<=20;seed++){
   NgGame g,initial;start(&g,id,d,mode,seed);initial=g;module(&g)->render(&g,&canvas);press(&g,NGK_EXE);CHECK(g.status==NG_PLAYING);press(&g,'X');CHECK(g.status==NG_PLAYING);
   if(module(&g)->flags&NGF_HINT){press(&g,NGK_HINT);CHECK(g.assisted==1);}
   start(&g,id,d,mode,seed);CHECK(memcmp(&g,&initial,sizeof(g))==0);gc_test_solve(&g,&g,press);CHECK(g.status==NG_WON);module(&g)->render(&g,&canvas);NgGame copy=g;CHECK(module(&copy)->valid(&copy));CHECK(!module(&copy)->action(&copy,'1'));
@@ -82,9 +84,10 @@ static void master_start(NgGame *g,unsigned id,unsigned mode,unsigned ordinal){
 }
 static void master_bank_tests(void){
  NgCanvas canvas={NULL,rect};unsigned visited=0,operator_alternatives=0;
- for(unsigned id=1;id<=10;id++)for(unsigned mode=0;mode<ng_guesscalc[id-1].modes;mode++){
+ for(unsigned id=1;id<=10;id++)for(unsigned mode=0;mode<old_modes(id);mode++){
   CHECK(gc_bank_count(id,NG_HELL,mode)==0);CHECK(gc_bank_count(id,NG_MASTER,255)==0);
   unsigned count=gc_bank_count(id,NG_MASTER,mode);
+  if(id==6){CHECK(count==0);count=30;}
   CHECK(count==(id==1||id==10?0u:30u));
   for(unsigned i=0;i<count;i++){
    NgGame g;master_start(&g,id,mode,i);NgGame initial=g,copy=g;
@@ -147,7 +150,7 @@ static void master_runtime_tests(void){
 }
 static void legacy_state_tests(void){
  const unsigned seeds[]={1,17,UINT32_MAX};unsigned fixture=0;
- for(unsigned id=1;id<=10;id++)for(unsigned mode=0;mode<ng_guesscalc[id-1].modes;mode++)for(unsigned d=0;d<3;d++)for(unsigned s=0;s<3;s++){
+ for(unsigned id=1;id<=10;id++)for(unsigned mode=0;mode<old_modes(id);mode++)for(unsigned d=0;d<3;d++)for(unsigned s=0;s<3;s++){
   NgGame g;start(&g,id,d,mode,seeds[s]);CHECK(gc_legacy_fingerprint(&g)==gc_legacy_states[fixture++]);
   g.pack_revision=1;CHECK(module(&g)->valid(&g));gc_test_solve(&g,&g,press);CHECK(g.status==NG_WON&&module(&g)->valid(&g));
  }
@@ -410,4 +413,29 @@ static void expression_prose_tests(void){
  }
 }
 
-int main(void){expression_prose_tests();expression_render_tests();countdown_score_tests();bounded_text_tests();additional_metamorphic_tests();parser_tests();feedback_tests();lifecycle_tests();game_rules_tests();all_pack_engine_tests();master_bank_tests();master_runtime_tests();legacy_state_tests();alternative_and_mutation_tests();printf("guesscalc: %u assertions, %u rendered rectangles; PASS\n",checks,rects);return 0;}
+
+static void revised_baseball_target_tests(void){
+ CHECK(ng_guesscalc[0].modes==1&&ng_guesscalc[5].modes==1);NgCanvas canvas={NULL,rect};
+ for(unsigned d=0;d<4;d++)for(unsigned seed=1;seed<=128;seed++){
+  NgGame g={0};g.id=1;g.difficulty=(uint8_t)d;g.seed=g.rng=seed;g.run_id=1;g.pack_revision=3;module(&g)->init(&g);
+  CHECK(module(&g)->valid(&g)&&g.data[0]==(int)(4+d));module(&g)->render(&g,&canvas);
+  for(unsigned i=0;i<4+d;i++)g.board[i]='0';
+  for(unsigned i=0;i<4+d;i++)press(&g,'0');press(&g,NGK_EXE);CHECK(g.status==NG_WON&&g.moves==1);
+  NgGame corrupt=g;corrupt.mode=1;CHECK(!module(&corrupt)->valid(&corrupt));
+ }
+ for(unsigned d=0;d<4;d++)for(unsigned target=1;target<=1000;target++){
+  NgGame g={0};g.id=6;g.difficulty=(uint8_t)d;g.seed=g.rng=target*7001+d+1;g.run_id=1;g.pack_revision=3;module(&g)->init(&g);
+  CHECK(gc_target_init(&g,target));CHECK(module(&g)->valid(&g));CHECK(g.data[0]==(int)target&&g.data[1]==(int)(d<2?4:d+3));
+  NgGame original=g,copy=g;CHECK(gc_target_init(&copy,target)&&!memcmp(&copy,&g,sizeof(g)));
+  CHECK(!gc_target_init(&copy,0)&&!memcmp(&copy,&g,sizeof(g)));CHECK(!gc_target_init(&copy,1001)&&!memcmp(&copy,&g,sizeof(g)));
+  press(&g,NGK_ANSWER);GcExpression e;CHECK(gc_expression(g.input,false,&e)&&gc_cards(&e,g.board,(unsigned)g.data[1],true));CHECK(e.value.num==(int64_t)target*e.value.den);
+  char equivalent[97];snprintf(equivalent,sizeof(equivalent),"--(%.80s)",g.input);strcpy(g.input,equivalent);press(&g,NGK_EXE);CHECK(g.status==NG_WON);
+  if(target%100==0)module(&g)->render(&g,&canvas);
+  copy=original;copy.board[0]++;CHECK(!module(&copy)->valid(&copy));copy=original;copy.data[0]=1001;CHECK(!module(&copy)->valid(&copy));
+  copy=original;copy.data[1]++;CHECK(!module(&copy)->valid(&copy));copy=original;copy.status=NG_WON;CHECK(!module(&copy)->valid(&copy));
+  copy=original;copy.mode=1;CHECK(!module(&copy)->valid(&copy));copy=original;copy.data[8]=1;CHECK(!module(&copy)->valid(&copy));
+  copy=original;snprintf(copy.input,sizeof(copy.input),"%d",copy.board[0]);press(&copy,NGK_EXE);CHECK(copy.status==NG_PLAYING&&!copy.moves);
+ }
+}
+
+int main(void){revised_baseball_target_tests();expression_prose_tests();expression_render_tests();countdown_score_tests();bounded_text_tests();additional_metamorphic_tests();parser_tests();feedback_tests();lifecycle_tests();game_rules_tests();all_pack_engine_tests();master_bank_tests();master_runtime_tests();legacy_state_tests();alternative_and_mutation_tests();printf("guesscalc: %u assertions, %u rendered rectangles; PASS\n",checks,rects);return 0;}

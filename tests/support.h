@@ -34,14 +34,15 @@ static ptrdiff_t test_write(void *ctx,int fd,const void *in,size_t n)
  if(d->write_budget>0)d->write_budget-=(int)n;return (ptrdiff_t)n;
 }
 static int test_close(void *ctx,int fd){TestDisk *d=ctx;assert(fd==1);return d->fail_close?-1:0;}
-static NgIO test_io(TestDisk *d){return (NgIO){d,test_open,test_read,test_write,test_close};}
+static NgIO test_io(TestDisk *d){return (NgIO){d,test_open,test_read,test_write,test_close,NULL};}
 static int test_load_hook(void *ctx,NgSession *s,unsigned id){NgIO io=test_io(ctx);return ng_load_io(s,id,&io);}
 static bool test_save_hook(void *ctx,NgSession *s){NgIO io=test_io(ctx);return ng_save_io(s,&io);}
 static int test_settings_load_hook(void *ctx,NgSettings *s){NgIO io=test_io(ctx);return ng_settings_load_io(s,&io);}
 static bool test_settings_save_hook(void *ctx,NgSettings *s){NgIO io=test_io(ctx);return ng_settings_save_io(s,&io);}
+static bool test_remove_hook(void *ctx,unsigned id){TestDisk *d=ctx;d->lengths[id][0]=d->lengths[id][1]=0;return true;}
 static void test_menu(void *ctx){((TestDisk *)ctx)->menu++;}
 static void test_off(void *ctx){((TestDisk *)ctx)->off++;}
-static NgHooks test_hooks(TestDisk *d){return (NgHooks){d,test_load_hook,test_save_hook,test_settings_load_hook,test_settings_save_hook,test_menu,test_off};}
+static NgHooks test_hooks(TestDisk *d){return (NgHooks){d,test_load_hook,test_save_hook,test_settings_load_hook,test_settings_save_hook,test_menu,test_off,test_remove_hook};}
 static void test_pixel(void *ctx,int x,int y,int w,int h,uint16_t color)
 {unsigned *draws=ctx;assert(x>=0 && y>=0 && x+w<=396 && y+h<=224 && w>0 && h>0);(void)color;(*draws)++;}
 static void test_render(const NgApp *a){unsigned draws=0;NgCanvas c={&draws,test_pixel};ng_render(a,&c);assert(draws>0);}
@@ -50,8 +51,9 @@ static void open_game(NgApp *a,unsigned id)
 {
  while(a->modal)tap(a,NGK_EXIT);
  while(a->screen!=NG_MAIN){tap(a,NGK_EXIT);assert(!a->modal);}
- tap(a,'1'+(int)(ng_catalog_index(id)/5));tap(a,'1'+(int)(ng_catalog_index(id)%5));assert(a->screen==NG_ENTRY);
- tap(a,'1'+(int)ng_entry_row(a,NG_ENTRY_NEW));tap(a,NGK_F6);if(a->modal==NG_MODAL_NEW)tap(a,NGK_EXE);
+ tap(a,'1'+(int)(ng_catalog_index(id)/6));tap(a,'1'+(int)(ng_catalog_index(id)%6));assert(a->screen==NG_ENTRY);
+ tap(a,'1'+(int)ng_entry_row(a,NG_ENTRY_NEW));tap(a,NGK_F6);
+ for(unsigned retry=0;retry<2 && (a->modal==NG_MODAL_NEW || a->modal==NG_MODAL_EVICT);retry++)tap(a,NGK_EXE);
  assert(a->screen==NG_PLAY && a->session.game.id==id);assert(ng_valid(&a->session.game));
 }
 #endif

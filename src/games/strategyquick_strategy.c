@@ -25,7 +25,7 @@ int sq_strategy_value(unsigned id,const NgGame *g){
  return 0;
 }
 bool sq_strategy_legal(const NgGame *g,SqMove m){
- if(g->status!=NG_PLAYING || m.amount<1)return false;
+ if(g->status!=NG_PLAYING || g->mode>1 || m.amount<1)return false;
  switch(g->id){
  case 21:return m.choice>=0 && m.choice<g->cols && m.amount<=g->board[m.choice];
  case 22:return m.choice>=0 && m.choice<=2 && m.amount<=(m.choice==0?g->board[0]:m.choice==1?g->board[1]:(g->board[0]<g->board[1]?g->board[0]:g->board[1]));
@@ -87,7 +87,7 @@ SqMove sq_strategy_pick(NgGame *g,bool exact){
  }
  return chosen;
 }
-const char *sq_strategy_mode(unsigned mode){static const char *names[]={"CPU / YOU FIRST","CPU / CPU FIRST","LOCAL 2P"};return names[mode<3?mode:0];}
+const char *sq_strategy_mode(unsigned mode){static const char *names[]={"YOU FIRST","CPU FIRST","LEGACY 2P"};return names[mode<3?mode:0];}
 unsigned sq_bank_count(unsigned id,unsigned difficulty,unsigned mode){
  if(difficulty!=3)return 0;
  if(id>=21&&id<=25&&mode<3)return sq_master_start_count[id-21][mode==1];
@@ -109,12 +109,12 @@ void sq_strategy_init(NgGame *g){
   g->puzzle_id=ng_bank_pick(g,sq_bank_count(g->id,3,g->mode));const SqStart *p=&sq_master_starts[g->id-21][g->mode==1][g->puzzle_id];
   for(unsigned i=0;i<9;i++)g->board[i]=(int16_t)(g->id==24&&g->mode==1&&p->board[i]?3-p->board[i]:p->board[i]);
   g->data[1]=p->target;g->data[2]=p->max_add;g->data[4]=p->initial_plies;
-  ng_message(g,g->mode==2?"MASTER: tactical start, P1 can force a win":"MASTER: a forced win is available to you");
+  ng_message(g,"MASTER: a forced win is available to you");
  }
 }
 static int input_number(const char *s){int n=0;if(!*s)return 0;for(unsigned i=0;s[i];i++){if(s[i]<'0'||s[i]>'9')return 0;n=n*10+s[i]-'0';if(n>99)return 0;}return n;}
 bool sq_strategy_action(NgGame *g,int key){
- if(g->status!=NG_PLAYING)return false;
+ if(g->status!=NG_PLAYING || g->mode>1)return false;
  if(g->cpu_pending){
   if(key!=NGK_CPU)return false;
   bool exact=g->difficulty>=2 || (g->difficulty==1 && ng_rand(g,4)!=0);
@@ -132,7 +132,7 @@ bool sq_strategy_action(NgGame *g,int key){
  return ng_edit(g,key,"0123456789",2);
 }
 bool sq_strategy_valid(const NgGame *g){
- if(g->id<21||g->id>25||g->difficulty>3||g->mode>2||g->turn>1||g->phase||g->data[0]<0||g->data[0]>2||g->data[3]<0||g->data[3]>1)return false;
+ if(g->id<21||g->id>25||g->difficulty>3||g->mode>2||(g->mode==2&&g->pack_revision>2)||g->turn>1||g->phase||g->data[0]<0||g->data[0]>2||g->data[3]<0||g->data[3]>1)return false;
  if(g->difficulty==3){if(g->puzzle_id>=sq_bank_count(g->id,3,g->mode))return false;const SqStart *p=&sq_master_starts[g->id-21][g->mode==1][g->puzzle_id];if(g->data[1]!=p->target||g->data[2]!=p->max_add||g->data[4]!=p->initial_plies)return false;}
  else if(g->data[4])return false;
  if(g->mode!=1 && g->data[3]!=0)return false;
@@ -165,7 +165,7 @@ static void strategy_panel(NgCanvas *c,int x,int y,int w,int h,const char *label
 }
 void sq_strategy_render(const NgGame *g,NgCanvas *c){
  char s[64];const char *who=g->mode==2?(g->turn?"PLAYER 2":"PLAYER 1"):(g->turn?"CPU":"YOUR TURN");
- ng_text(c,12,31,g->cpu_pending?"CPU THINKING...":who,NG_BLUE,1);
+ ng_text(c,12,31,g->mode==2?"LEGACY 2P - READ ONLY":g->cpu_pending?"CPU THINKING...":who,NG_BLUE,1);
  if(g->id==21){
   int w=g->cols==4?82:108;
   for(unsigned i=0;i<g->cols;i++){

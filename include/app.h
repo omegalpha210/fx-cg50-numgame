@@ -4,7 +4,7 @@
 #include "ui.h"
 enum { NG_MAIN,NG_CATEGORY,NG_ENTRY,NG_PLAY,NG_STATS,NG_SETTINGS };
 enum { NG_MODAL_NONE,NG_MODAL_INIT,NG_MODAL_NEW,NG_MODAL_RULES,
- NG_MODAL_RESULT,NG_MODAL_PAUSE,NG_MODAL_SAVE_ERROR,NG_MODAL_RECORDS,NG_MODAL_DIAGNOSTICS,NG_MODAL_MODE };
+ NG_MODAL_RESULT,NG_MODAL_PAUSE,NG_MODAL_SAVE_ERROR,NG_MODAL_RECORDS,NG_MODAL_DIAGNOSTICS,NG_MODAL_MODE,NG_MODAL_EVICT };
 enum { NG_DOWN,NG_UP,NG_HOLD };
 typedef struct {
  void *context;
@@ -14,6 +14,7 @@ typedef struct {
  bool (*save_settings)(void *,NgSettings *);
  void (*os_menu)(void *);
  void (*power_off)(void *);
+ bool (*remove_game)(void *,unsigned);
 } NgHooks;
 typedef struct {
  NgSession session;
@@ -28,6 +29,8 @@ typedef struct {
  uint8_t record_mode,record_difficulty,record_assisted;
  uint8_t previous_level[NG_ID_MAX],mode_choice,diag_page;
  bool shift_pending,alpha_pending,dirty,settings_dirty,active,save_failed;
+ bool evict_confirmed;
+ char target_draft[5];
  uint32_t backlight_ms,apo_ms;
  bool power_os_settings,power_available;
  char notice[96];
@@ -43,7 +46,7 @@ void ng_render(const NgApp *a,NgCanvas *c);
 void ng_render_hud(const NgApp *a,NgCanvas *c);
 void ng_app_poweroff(NgApp *a);
 /* Visible entry rows; shared by presentation and its navigation only. */
-enum {NG_ENTRY_RESUME,NG_ENTRY_NEW,NG_ENTRY_LEVEL,NG_ENTRY_MODE};
+enum {NG_ENTRY_RESUME,NG_ENTRY_NEW,NG_ENTRY_LEVEL,NG_ENTRY_MODE,NG_ENTRY_TARGET};
 bool ng_entry_level(const NgApp *a);
 unsigned ng_entry_count(const NgApp *a);
 int ng_entry_action(const NgApp *a,unsigned row);

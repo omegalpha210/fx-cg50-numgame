@@ -6,9 +6,9 @@ separate fixed boundary bug (timed transition discarded MENU/OFF), not proof of
 the persistent device failure. OFF/ON resumes the supported gint process/world;
 it is not equivalent to rear RESET or cold reinitialization.
 
-Use the exact hashes in dist/SHA256SUMS.txt. Back up user archives and retained
+Use the exact hashes in dist/SHA256SUMS.txt. Back up user saves and retained
 legacy files before testing. NUMGAME.g3a is the normal app. NUMGDIAG.g3a appears
-as NUM DIAG, internal @NGDIAG, and uses NDARCA/B.dat + NDDIAG.txt. It does not
+as NUM DIAG, internal @NGDIAG, and uses ND2xxA/B.dat + optional NDDIAG.txt. It does not
 migrate or overwrite NG saves. Use disposable diagnostic progress for failure
 injection; never use another app's files. No SDK/reference changes are needed.
 
@@ -16,7 +16,7 @@ injection; never use another app's files. No SDK/reference changes are needed.
    resumed launch. Open Settings→F3 DIAG; inspect counters, then F2 EXPORT only
    when useful. The log is a bounded RAM ring, not a complete session history.
 2. Reproduce the user's route: enter two or more games, make moves, EXIT, open
-   RULES/STATS, explicitly RESUME, then MENU. Repeat across all30 visible games
+   RULES, explicitly RESUME, then MENU. Repeat across all36 visible games
    and all screen classes. Log exact order and whether CASIO MAIN MENU appears.
    If flashing occurs, record request/enter/return counts and export immediately
    from Settings if reachable. Record whether OFF/ON preserves it. Do not label
@@ -33,14 +33,14 @@ injection; never use another app's files. No SDK/reference changes are needed.
    brightness, not paint black; restore exact prior brightness on one key and
    before MENU/OFF. A wake key must produce no duplicate move/submission.
 5. Test APO immediately before/after a real input; save failure must not trap
-   OFF. Resume pending CPU exactly once and terminal statistics exactly once.
+   OFF. Resume pending CPU exactly once and terminal results exactly once.
    RULES/entry/modals and OS/OFF time must not inflate the game clock. Test RTC
    midnight wrap and long gaps; timestamps spanning a full unobserved day need
    separate evaluation because the clock source is time-of-day modulo24h.
 6. Check latched and held SHIFT+DOT, plain DOT, alpha conflict and subsequent
    digits. F↔D must not insert '='. Ordinary AC/ON must not turn off. Hold EXE
    across entry/confirmation, and arrows in menus vs turn games.
-7. Inspect normal font, all difficulty choices including full MASTER and separate red HELL, context F3 HELL/MODE, independent row
+7. Inspect normal font, all difficulty choices including full MASTER and separate red HELL, context F3 HELL, inline FIRST and other settings, independent row
    focus and value selection, long modes/titles, colored operators and Equation
    feedback. Inspect9×9 notes,6×6 cage clues,8×8 Shikaku/Slitherlink, two-digit
    clues and maximum2048 tiles. Host screenshots are not LCD photographs.
@@ -50,12 +50,13 @@ injection; never use another app's files. No SDK/reference changes are needed.
    Slitherlink reaches every edge and saves cursor143 on HARD.
 9. On disposable ND data, test full storage, missing partner, individual-record
    corruption, interrupted writes and close failures. One damaged record must
-   not erase unrelated games. Normal count is2 archives, each462,032bytes; one
-   explicit export adds a fixed text file. Measure migration/startup latency.
+   not erase unrelated games. Fresh normal setup creates two small settings files; up to five games each
+   add two exact-length files. Explicit export adds a bounded text file. Measure
+   migration, first-save and startup latency.
 10. For release legacy migration, first keep an external backup. Test valid old
-    NG00–30 A/B progress, incomplete archive initialization and conflicting old/
-    new records. Two archive copies must validate before owned old files are
-    removed. Unknown/torn global ownership headers and conflicts are preserved;
+    NG00–30 A/B and NGARCA/B archive progress, interrupted compact writes and
+    migration. Two compact copies must validate before owned old files are
+    removed. Unknown or foreign legacy files are preserved;
     a torn ownership publication may require manual recovery. Never infer that
     every NG-looking filename is owned or disposable.
 

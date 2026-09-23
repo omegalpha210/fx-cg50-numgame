@@ -49,10 +49,12 @@ int main(void)
  size_t n=ng_encode(&original,encoded,sizeof(encoded));assert(n);
  encoded[0]=5;assert(!ng_decode(&loaded,encoded,n,26));encoded[0]=0;
  assert(!ng_decode(&loaded,encoded,n-1,26));assert(!ng_decode(&loaded,encoded,n,25));
- original.stats.best[0][1][0].best_aux=31;n=ng_encode(&original,encoded,sizeof(encoded));assert(n);assert(!ng_decode(&loaded,encoded,n,26));original.stats.best[0][1][0].best_aux=0;
- original.stats.best[0][1][0].completed=1;n=ng_encode(&original,encoded,sizeof(encoded));assert(n);assert(!ng_decode(&loaded,encoded,n,26));original.stats.best[0][1][0].completed=0;
+ n=ng_encode(&original,encoded,sizeof(encoded));assert(n==1005u+1842u*(1u+original.undo_count));
+ original.stats.best[0][1][0].best_aux=31;
+ size_t compact_n=ng_encode(&original,again,sizeof(again));assert(compact_n==n && !memcmp(encoded,again,n));
+ original.stats.best[0][1][0].best_aux=0;
  memset(&disk,0,sizeof(disk));disk.write_budget=-1;
- NgSettings settings={.last_game=26,.show_time=1};assert(ng_settings_save_io(&settings,&io));NgSettings cold={0};assert(ng_settings_load_io(&cold,&io)==NG_LOAD_OK);assert(cold.last_game==26);
+ NgSettings settings={.last_game=26,.show_time=1,.migration_complete=1,.target=1000};assert(ng_settings_save_io(&settings,&io));NgSettings cold={0};assert(ng_settings_load_io(&cold,&io)==NG_LOAD_OK);assert(cold.last_game==26 && cold.target==1000);
  settings.mode[0]=255;assert(!ng_settings_save_io(&settings,&io));
  printf("Storage: %u game/mode/difficulty round trips, CRC, truncation, IO, version isolation, generation wrap, settings PASS\n",cases);
  return 0;

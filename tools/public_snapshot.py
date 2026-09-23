@@ -20,8 +20,9 @@ PUBLIC_DOCS={
     'GENERATION_AUDIT.md','GRID_AUDIT.md','GRID_MASTER_AUDIT.md',
     'GRID_LOGIC_REVIEW.md',
     'GUESS_CALC_AUDIT.md','HARDWARE_RETEST.md','MEMORY_AUDIT.md',
-    'MEMORY_METHOD.md','PERFORMANCE_AUDIT.md','PERFORMANCE.md',
+    'MEMORY_METHOD.md','PERFORMANCE_AUDIT.md','PERFORMANCE_36.md','PERFORMANCE.md',
     'host-benchmark-normal.json','host-benchmark-diagnostic.json',
+    'host-benchmark-36-normal.json','host-benchmark-36-diagnostic.json',
     'host-benchmark-build-evidence.json',
     'POWER_TIMER_AUDIT.md','PUBLIC_SOURCE_AUDIT.md','RULES.md',
     'RUNTIME_AUDIT.md','STORAGE_ARCHIVE_AUDIT.md','STORAGE_FORMAT.md',
@@ -35,11 +36,11 @@ LICENSE_FILES={
     'OpenLibm-LICENSE.md','SOKOBAN-LICENSE.txt','fxSDK-LICENSE.txt',
     'fxlibc-Grisu2b-LICENSE.txt','fxlibc-LICENSE.txt','gint-README.md',
 }
-ASSET_JSON_ROOT={'guesscalc_packs.json','guesscalc_master.json'}
-ASSET_HEADER_ROOT={'guesscalc_packs.h','guesscalc_master.h'}
+ASSET_JSON_ROOT={'guesscalc_packs.json','guesscalc_master.json','guesscalc_cryptarithm.json'}
+ASSET_HEADER_ROOT={'guesscalc_packs.h','guesscalc_master.h','guesscalc_cryptarithm.h'}
 ASSET_JSON_SUB={
     'boards':{'puzzles.json','verification.json'},
-    'strategyquick':{'metadata.json','master.json','master_verification.json','master-sh-metrics.json'},
+    'strategyquick':{'metadata.json','master.json','master_verification.json','master-sh-metrics.json','extra-native-frames.json','extra-asan-attempt.json'},
 }
 DIST_FILES={'NUMGAME.g3a','NUMGDIAG.g3a','SHA256SUMS.txt'}
 TEXT_SUFFIXES={'.c','.h','.S','.py','.sh','.md','.txt','.json','.csv','.cmake'}
@@ -62,6 +63,8 @@ def public_png(name):
     if re.fullmatch(r'assets/grids/(?:(?:1[1-9]|20)|contact(?:-2x)?)\.png',name):return True
     if re.fullmatch(r'assets/grids/master/(?:capture-\d+|contact)\.png',name):return True
     if re.fullmatch(r'assets/grids/expanded/(?:capture-\d+-mode\d+|contact)\.png',name):return True
+    if re.fullmatch(r'assets/grids/extra/(?:capture-\d+-\d+|contact)\.png',name):return True
+    if re.fullmatch(r'assets/strategyquick/extra-\d+-master\.png',name):return True
     if re.fullmatch(r'assets/boards/captures/(?:(?:31|32)-[0-3]-(?:complete|corner|start|edge)|(?:completed-)?contact)\.png',name):return True
     if re.fullmatch(r'docs/captures/(?:\d{2}-[a-z0-9-]+|category-[1-6]-2x|[a-z-]+-native|menus-2x)\.png',name):return True
     return False
@@ -77,7 +80,7 @@ def allowed(name,include_dist=False):
     if parts[0]=='assets':
         if p.suffix=='.png':return public_png(name)
         if len(parts)==2:return p.name in ASSET_JSON_ROOT|ASSET_HEADER_ROOT
-        if parts[1]=='grids':return bool(re.fullmatch(r'assets/grids/(?:(?:1[1-9]|20)|audit)\.json',name) or re.fullmatch(r'assets/grids/master/(?:(?:1[1-9]|20)(?:-generation)?|audit|legacy-sha256)\.json',name) or re.fullmatch(r'assets/grids/expanded/(?:(?:1[1-5]-[0-4]|1[6-9]-3|20-3)(?:-generation)?|audit|capture-selection|memory|seed-replay)\.json',name))
+        if parts[1]=='grids':return bool(re.fullmatch(r'assets/grids/(?:(?:1[1-9]|20)|audit)\.json',name) or re.fullmatch(r'assets/grids/master/(?:(?:1[1-9]|20)(?:-generation)?|audit|legacy-sha256)\.json',name) or re.fullmatch(r'assets/grids/expanded/(?:(?:1[1-5]-[0-4]|1[6-9]-3|20-3)(?:-generation)?|audit|capture-selection|memory|seed-replay)\.json',name) or re.fullmatch(r'assets/grids/extra/(?:(?:35-[0-4]|36-[0-3])(?:-generation)?|audit|capture-selection|memory)\.json',name) or name=='assets/grids/extra/generate.py')
         if parts[1] in ASSET_JSON_SUB:
             return len(parts)==3 and (p.name in ASSET_JSON_SUB[parts[1]] or (parts[1]=='strategyquick' and p.name in {'tables.h','master_quick.h','master_strategy.h'}))
         return False
@@ -181,11 +184,13 @@ def required_findings(selected):
         'assets/boards/puzzles.json','assets/guesscalc_packs.json','assets/guesscalc_master.json',
         'assets/strategyquick/master.json','assets/strategyquick/tables.h',
         'assets/guesscalc_packs.h','assets/guesscalc_master.h','src/ui/font_data.h',
+        'assets/guesscalc_cryptarithm.h','assets/guesscalc_cryptarithm.json',
         'assets/icon-uns.png','assets/icon-sel.png','assets/font/font5x7.png','assets/font/font8x9.png',
         'src/games/boards_pack.c','src/games/grids_pack.c','src/games/grids_pack_data.h',
         'assets/strategyquick/master_quick.h','assets/strategyquick/master_strategy.h',
         'tools/generate/grids_compact.py','tools/generate/grids_expand.py',
         'tools/generate/grids_expanded_verify.py',
+        'assets/grids/extra/generate.py','assets/grids/extra/audit.json',
     }|{'docs/third_party/'+n for n in LICENSE_FILES}|{f'assets/grids/{n}.json' for n in range(11,21)}|{f'assets/grids/expanded/{n}-{d}.json' for n in range(11,21) for d in (range(5) if n<=15 else (3,))}
     return [dict(file=n,type='required_public_file_missing',severity='error') for n in sorted(required-set(selected))]
 

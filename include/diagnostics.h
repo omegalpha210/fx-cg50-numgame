@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdint.h>
 #include <stddef.h>
+#include "ng.h"
 #define NG_DIAG_EVENTS 96
 #define NG_DIAG_EXPORT_MAX 24576u
 #if defined(__GNUC__)
@@ -39,7 +40,7 @@ typedef struct {
  uint8_t operation,peak_operation,peak_game;
  bool stress_running,stack_range_verified;
  NgDiagArena arena[2];
- NgDiagTiming load[33],ready[33];
+ NgDiagTiming load[NG_ID_MAX+1],ready[NG_ID_MAX+1];
 #endif
 } NgDiagnostics;
 extern NgDiagnostics ng_diagnostics;

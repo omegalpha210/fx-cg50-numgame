@@ -17,6 +17,12 @@ static void soft(NgCanvas *c,const char *const labels[6],bool play)
 {
  ng_rect(c,0,204,396,20,NG_WHITE);
  for(unsigned i=0;i<6;i++)if(labels[i] && labels[i][0]) {
+  if(!strcmp(labels[i],"ENHM")){
+   int x=(int)i*66+1;static const int level_colors[4]={NG_BLUE,NG_RGB(25,12,0),NG_RED,NG_MAGENTA};
+   ng_rect(c,x,205,64,18,NG_WHITE);ng_border(c,x,205,64,18,NG_LINE,1);
+   for(unsigned j=0;j<4;j++){char letter[2]={labels[i][j],0};ng_text(c,x+5+(int)j*14,209,letter,level_colors[j],1);}
+   continue;
+  }
   int bg=!strcmp(labels[i],"HELL")?NG_RED:play && i==0?NG_YELLOW:play && i==1?NG_MAGENTA:NG_INK;
   ng_rect(c,(int)i*66+1,205,64,18,bg);
   ng_center(c,(int)i*66+1,209,64,labels[i],play && i<2?NG_BLACK:NG_WHITE,1);
@@ -29,20 +35,20 @@ static void menu(NgCanvas *c,const NgApp *a)
 #else
  const char *app_name="NUM GAME";
 #endif
- bool main=a->screen==NG_MAIN;header(c,main?app_name:categories[a->category],main?"30 GAMES":"5 GAMES");
+ bool main=a->screen==NG_MAIN;header(c,main?app_name:categories[a->category],main?"36 GAMES":"6 GAMES");
  for(unsigned i=0;i<6;i++) {
   int x=7+(int)(i%2)*195,y=30+(int)(i/2)*56,w=187,h=50;
   unsigned color=main?i:a->category;
   ng_rect(c,x,y,w,h,pale[color]);ng_border(c,x,y,w,h,i==a->selection?NG_INK:NG_LINE,i==a->selection?3:1);
   ng_number(c,x+w-15,y+5,(int)i+1,colors[color],1);
-  const char *s=main?categories[i]:i==5?"CATEGORY STATS":ng_module(ng_visible_id(a->category*5+i))->short_name;
+  const char *s=main?categories[i]:ng_module(ng_visible_id(a->category*6+i))->short_name;
   static const unsigned category_icons[6]={1,6,11,18,21,31};
-  unsigned icon=main?category_icons[i]:i==5?33:ng_visible_id(a->category*5+i);
+  unsigned icon=main?category_icons[i]:ng_visible_id(a->category*6+i);
   ng_game_icon(c,x+10,y+9,icon,colors[color]);
   ng_center(c,x+52,y+20,w-59,s,NG_INK,1);
-  if(!main && i<5 && a->summary[ng_visible_id(a->category*5+i)-1].exists)ng_small(c,x+57,y+37,"RESUME",colors[color]);
+  if(!main && a->summary[ng_visible_id(a->category*6+i)-1].exists)ng_small(c,x+57,y+37,"RESUME",colors[color]);
  }
- const char *labels[6]={"STATS",main?"SET":"",main && ng_catalog_index(a->settings.last_game)>=0 && a->summary[a->settings.last_game-1].exists?"RESUME":"","","","OPEN"};
+ const char *labels[6]={"",main?"SET":"",main && ng_catalog_index(a->settings.last_game)>=0 && a->summary[a->settings.last_game-1].exists?"RESUME":"","","","OPEN"};
  soft(c,labels,false);
 }
 static void difficulty_options(NgCanvas *c,const NgApp *a,int y)
@@ -62,13 +68,15 @@ static void difficulty_options(NgCanvas *c,const NgApp *a,int y)
 static void mode_options(NgCanvas *c,const NgApp *a,int y)
 {
  const NgModule *m=ng_module(a->selected_id);unsigned selected=a->settings.mode[a->selected_id-1];
- if(ng_mode_chooser(a->selected_id)){ng_text_fit(c,146,y+9,228,m->mode_name(selected),NG_BLUE,1);return;}
- int total=0;for(unsigned i=0;i<m->modes;i++)total+=ng_text_width(m->mode_name(i),1)+10;
+ bool first=(a->selected_id>=21 && a->selected_id<=25) || a->selected_id==37;
+ int total=0;for(unsigned i=0;i<m->modes;i++)total+=ng_text_width(first?(i?"CPU":"YOU"):m->mode_name(i),1)+10;
+ if(total+(int)(m->modes-1)*6>228){ng_text_fit(c,146,y+9,228,m->mode_name(selected),NG_BLUE,1);return;}
  int gap=m->modes>1?(228-total)/(m->modes-1):0,x=146;
  for(unsigned i=0;i<m->modes;i++){
-  int w=ng_text_width(m->mode_name(i),1)+10;
+  const char *label=first?(i?"CPU":"YOU"):m->mode_name(i);
+  int w=ng_text_width(label,1)+10;
   if(i==selected){ng_rect(c,x,y+4,w,21,NG_WHITE);ng_border(c,x,y+4,w,21,NG_BLUE,1);ng_rect(c,x+3,y+23,w-6,2,NG_BLUE);}
-  ng_text(c,x+5,y+9,m->mode_name(i),NG_BLUE,1);x+=w+gap;
+  ng_text(c,x+5,y+9,label,NG_BLUE,1);x+=w+gap;
  }
 }
 static void entry(NgCanvas *c,const NgApp *a)
@@ -77,24 +85,25 @@ static void entry(NgCanvas *c,const NgApp *a)
  unsigned count=ng_entry_count(a);
  for(unsigned i=0;i<count;i++){
   int action=ng_entry_action(a,i);char number[4];snprintf(number,sizeof number,"%u",i+1);
-  const char *name=action==NG_ENTRY_RESUME?"RESUME":action==NG_ENTRY_NEW?"NEW GAME":action==NG_ENTRY_LEVEL?(a->selected_id==27?"SCRAMBLE":"DIFFICULTY"):"MODE";
-  int y=34+(int)i*34;ng_rect(c,10,y,376,29,i==a->entry_selection?pale[ng_catalog_index(a->selected_id)/5]:NG_WHITE);
+  const char *name=action==NG_ENTRY_RESUME?"RESUME":action==NG_ENTRY_NEW?"NEW GAME":action==NG_ENTRY_LEVEL?(a->selected_id==27?"SCRAMBLE":"DIFFICULTY"):action==NG_ENTRY_TARGET?"TARGET":((a->selected_id>=21 && a->selected_id<=25) || a->selected_id==37)?"FIRST":"MODE";
+  int y=34+(int)i*34;ng_rect(c,10,y,376,29,i==a->entry_selection?pale[ng_catalog_index(a->selected_id)/6]:NG_WHITE);
   ng_border(c,10,y,376,29,i==a->entry_selection?NG_BLUE:NG_LINE,i==a->entry_selection?2:1);
   ng_text(c,20,y+9,number,NG_MUTED,1);ng_text_fit(c,43,y+9,98,name,NG_INK,1);
-  if(action==NG_ENTRY_LEVEL)difficulty_options(c,a,y);else if(action==NG_ENTRY_MODE)mode_options(c,a,y);
+  if(action==NG_ENTRY_LEVEL)difficulty_options(c,a,y);
+  else if(action==NG_ENTRY_MODE)mode_options(c,a,y);
+  else if(action==NG_ENTRY_TARGET){char value[16];snprintf(value,sizeof value,"%s%s",a->target_draft[0]?a->target_draft:"",a->target_draft[0]?"_":"");if(!a->target_draft[0])snprintf(value,sizeof value,"%u",a->settings.target);ng_text(c,151,y+9,value,NG_BLUE,1);}
  }
  int selected=ng_entry_action(a,a->entry_selection);
- const char *hint=selected==NG_ENTRY_RESUME?"Continue the saved game with its original settings.":selected==NG_ENTRY_NEW?"Start a new game using the selected settings.":selected==NG_ENTRY_LEVEL?"LEFT/RIGHT: difficulty for the next NEW GAME.":"LEFT/RIGHT: mode for the next NEW GAME.";
+  const char *hint=selected==NG_ENTRY_RESUME?"Continue the saved game with its original settings.":selected==NG_ENTRY_NEW?"Start a new game using the selected settings.":selected==NG_ENTRY_LEVEL?"LEFT/RIGHT: difficulty for the next NEW GAME.":selected==NG_ENTRY_TARGET?"Type 1..1000, EXE: apply, F6: open.":"LEFT/RIGHT: mode for the next NEW GAME.";
  if(selected==NG_ENTRY_LEVEL && a->selected_id==27)hint="LEFT/RIGHT: choose how much to shuffle a new board.";
  if(selected==NG_ENTRY_MODE && (a->selected_id==27 || a->selected_id==28))hint="LEFT/RIGHT: board size for the next NEW GAME.";
- if(selected==NG_ENTRY_MODE && a->selected_id>=21 && a->selected_id<=25)hint="LEFT/RIGHT: who starts, or local two-player mode.";
- if(selected==NG_ENTRY_MODE && ng_mode_chooser(a->selected_id))hint="F3: choose a mode. OPEN starts with this setting.";
- if(selected==NG_ENTRY_LEVEL && ng_has_hell(a->selected_id))hint=a->settings.difficulty[a->selected_id-1]==NG_HELL?"HELL selected. F3: previous level. LEFT: MASTER.":"LEFT/RIGHT: level. F3: separate HELL challenge.";
+ if(selected==NG_ENTRY_MODE && ((a->selected_id>=21 && a->selected_id<=25) || a->selected_id==37))hint="LEFT/RIGHT: YOU or CPU starts.";
+ if(selected==NG_ENTRY_LEVEL && ng_has_hell(a->selected_id))hint=a->settings.difficulty[a->selected_id-1]==NG_HELL?"HELL selected. F3: return to E/N/H/M.":"LEFT/RIGHT: level. F3: separate HELL challenge.";
  if(a->notice[0])ng_small_fit(c,12,174,372,a->notice,NG_RED);
  else if(a->active){char b[96];bool classic=a->selected_id==26 && !a->session.game.mode;snprintf(b,sizeof(b),"Saved: %s%s%s%s",classic?"CLASSIC":levels[a->session.game.difficulty],m->modes>1 && !classic?" / ":"",m->modes>1 && !classic?m->mode_name(a->session.game.mode):"",a->session.game.assisted?" / ASSISTED":"");ng_small_fit(c,12,174,372,b,NG_MUTED);}
  ng_wrap(c,12,187,372,9,2,hint,NG_MUTED,true);
- const char *context=selected==NG_ENTRY_LEVEL && ng_has_hell(a->selected_id)?"HELL":selected==NG_ENTRY_MODE && ng_mode_chooser(a->selected_id)?"MODE":"";
- const char *keys[6]={"","",context,"STATS","RULES","OPEN"};soft(c,keys,false);
+ const char *context=selected==NG_ENTRY_LEVEL && ng_has_hell(a->selected_id)?a->settings.difficulty[a->selected_id-1]==NG_HELL?"ENHM":"HELL":"";
+ const char *keys[6]={"","",context,"","RULES","OPEN"};soft(c,keys,false);
 }
 static bool arithmetic_message(unsigned id){return id==2 || (id>=5 && id<=10);}
 static void message(NgCanvas *c,const char *s,int color,bool arithmetic)
@@ -118,7 +127,7 @@ static void play(NgCanvas *c,const NgApp *a)
  const char *primary=m->primary_label;
  if(g->cpu_pending || (g->id==30 && g->phase<2))primary="";
  else if((g->id==29 && g->phase==1) || (g->id==30 && g->phase==3))primary="NEXT";
- const char *keys[6]={"INIT",(m->flags&NGF_UNDO) && a->session.undo_count?"UNDO":"",(m->flags&NGF_HINT)?(g->id>=11 && g->id<=20?"REVEAL":"HINT"):"",m->aux_label,"RULES",primary};
+ const char *keys[6]={"INIT",(m->flags&NGF_UNDO) && a->session.undo_count?"UNDO":"",(m->flags&NGF_HINT)?((g->id>=11 && g->id<=20) || g->id==38?"REVEAL":"HINT"):"",m->aux_label,"RULES",primary};
  soft(c,keys,true);
 }
 static void stats(NgCanvas *c,const NgApp *a)
@@ -239,6 +248,12 @@ static void dialog(NgCanvas *c,const NgApp *a)
  ng_rect(c,x+2,y+2,w-4,4,NG_BLUE);
  const char *title="",*line="",*sub="";
  switch(a->modal){
+ case NG_MODAL_EVICT:{
+  const char *keys[6]={"","","","","","YES"};soft(c,keys,false);
+  unsigned old=a->settings.recent[NG_RECENT_LIMIT-1];
+  title="REMOVE OLDEST SAVE?";line=ng_module(old)?ng_module(old)->short_name:"OLD GAME";
+  sub="EXE: REPLACE   EXIT: CANCEL";break;
+ }
  case NG_MODAL_INIT:case NG_MODAL_NEW:{
   const char *keys[6]={"","","","","","YES"};soft(c,keys,false);
   title=a->modal==NG_MODAL_INIT?"Restart this game?":"Start a new game?";line="EXE: YES";sub="EXIT: NO";break;
@@ -271,9 +286,8 @@ static void dialog(NgCanvas *c,const NgApp *a)
    snprintf(first,sizeof(first),"ACTUAL: %s",actual);snprintf(second,sizeof(second),"YOURS: %.40s",g->input);
   }
   if(g->id==26) {
-   const NgBest *best=&a->session.stats.best[g->mode][g->difficulty][g->assisted];
    snprintf(first,sizeof(first),"MAX TILE %lu",tile_value((uint32_t)g->data[0]));
-   snprintf(second,sizeof(second),"BEST SCORE %lu / TILE %lu",(unsigned long)best->best_score,tile_value(best->best_aux));
+   snprintf(second,sizeof(second),"SCORE %lu",(unsigned long)g->score);
   }
   if(g->id==26 || g->id==30){ng_center(c,x+12,y+72,w-24,first,NG_INK,1);ng_center(c,x+12,y+87,w-24,second,NG_INK,1);}
   else if(arithmetic_message(g->id))ng_wrap_expression(c,x+12,y+70,w-24,12,3,g->message,NG_INK,false);

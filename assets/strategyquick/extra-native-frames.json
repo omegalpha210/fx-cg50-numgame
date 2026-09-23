@@ -1,0 +1,321 @@
+{
+  "toolchain": "sh-elf-gcc (GCC) 14.1.0",
+  "flags": [
+    "-m4-nofpu",
+    "-mb",
+    "-std=c11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wframe-larger-than=2048",
+    "-Os",
+    "-fstack-usage",
+    "-fcallgraph-info=su",
+    "-DFXCG50"
+  ],
+  "scope": "Owned strategyquick sources only; individual compiler frames, not call-chain peak or device measurement",
+  "largest_frame_bytes": 280,
+  "reversi_search_conservative_active_frames": 11,
+  "frames": [
+    {
+      "function": "sq_reversi_pick",
+      "bytes": 280,
+      "kind": "static"
+    },
+    {
+      "function": "rv_search",
+      "bytes": 244,
+      "kind": "static"
+    },
+    {
+      "function": "sq_lights_solution",
+      "bytes": 236,
+      "kind": "static"
+    },
+    {
+      "function": "net_render",
+      "bytes": 216,
+      "kind": "static"
+    },
+    {
+      "function": "sq_quick_render",
+      "bytes": 184,
+      "kind": "static"
+    },
+    {
+      "function": "rv_valid",
+      "bytes": 180,
+      "kind": "static"
+    },
+    {
+      "function": "sq_quick_init",
+      "bytes": 148,
+      "kind": "static"
+    },
+    {
+      "function": "rv_render",
+      "bytes": 136,
+      "kind": "static"
+    },
+    {
+      "function": "sq_strategy_render",
+      "bytes": 132,
+      "kind": "static"
+    },
+    {
+      "function": "net_reached",
+      "bytes": 124,
+      "kind": "static"
+    },
+    {
+      "function": "net_valid",
+      "bytes": 112,
+      "kind": "static"
+    },
+    {
+      "function": "net_init",
+      "bytes": 88,
+      "kind": "static"
+    },
+    {
+      "function": "net_make",
+      "bytes": 84,
+      "kind": "static"
+    },
+    {
+      "function": "spawn",
+      "bytes": 80,
+      "kind": "static"
+    },
+    {
+      "function": "sq_reversi_place",
+      "bytes": 80,
+      "kind": "static"
+    },
+    {
+      "function": "rv_init",
+      "bytes": 76,
+      "kind": "static"
+    },
+    {
+      "function": "sq_strategy_pick",
+      "bytes": 56,
+      "kind": "static"
+    },
+    {
+      "function": "sq_strategy_valid",
+      "bytes": 56,
+      "kind": "static"
+    },
+    {
+      "function": "rv_flips",
+      "bytes": 52,
+      "kind": "static"
+    },
+    {
+      "function": "net_network",
+      "bytes": 48,
+      "kind": "static"
+    },
+    {
+      "function": "sq_2048_line",
+      "bytes": 48,
+      "kind": "static"
+    },
+    {
+      "function": "sq_quick_action",
+      "bytes": 48,
+      "kind": "static"
+    },
+    {
+      "function": "sq_net_complete",
+      "bytes": 44,
+      "kind": "static"
+    },
+    {
+      "function": "sq_net_connected",
+      "bytes": 44,
+      "kind": "static"
+    },
+    {
+      "function": "strategy_panel",
+      "bytes": 44,
+      "kind": "static"
+    },
+    {
+      "function": "rv_apply",
+      "bytes": 40,
+      "kind": "static"
+    },
+    {
+      "function": "sq_quick_valid",
+      "bytes": 36,
+      "kind": "static"
+    },
+    {
+      "function": "rush_problem",
+      "bytes": 32,
+      "kind": "static"
+    },
+    {
+      "function": "sq_sliding_solvable",
+      "bytes": 32,
+      "kind": "static"
+    },
+    {
+      "function": "memory_round",
+      "bytes": 28,
+      "kind": "static"
+    },
+    {
+      "function": "sq_reversi_moves",
+      "bytes": 28,
+      "kind": "static"
+    },
+    {
+      "function": "manhattan",
+      "bytes": 24,
+      "kind": "static"
+    },
+    {
+      "function": "sq_strategy_apply",
+      "bytes": 24,
+      "kind": "static"
+    },
+    {
+      "function": "sq_strategy_init",
+      "bytes": 24,
+      "kind": "static"
+    },
+    {
+      "function": "triple",
+      "bytes": 24,
+      "kind": "static"
+    },
+    {
+      "function": "sq_strategy_value",
+      "bytes": 20,
+      "kind": "static"
+    },
+    {
+      "function": "sq_strategy_action",
+      "bytes": 16,
+      "kind": "static"
+    },
+    {
+      "function": "net_action",
+      "bytes": 12,
+      "kind": "static"
+    },
+    {
+      "function": "rv_action",
+      "bytes": 12,
+      "kind": "static"
+    },
+    {
+      "function": "sliding_goal",
+      "bytes": 12,
+      "kind": "static"
+    },
+    {
+      "function": "net_update",
+      "bytes": 8,
+      "kind": "static"
+    },
+    {
+      "function": "terminal_kind",
+      "bytes": 8,
+      "kind": "static"
+    },
+    {
+      "function": "fifteen_masks",
+      "bytes": 4,
+      "kind": "static"
+    },
+    {
+      "function": "net_neighbour",
+      "bytes": 4,
+      "kind": "static"
+    },
+    {
+      "function": "slide",
+      "bytes": 4,
+      "kind": "static"
+    },
+    {
+      "function": "sq_quick_tick",
+      "bytes": 4,
+      "kind": "static"
+    },
+    {
+      "function": "sq_strategy_legal",
+      "bytes": 4,
+      "kind": "static"
+    },
+    {
+      "function": "toggle",
+      "bytes": 4,
+      "kind": "static"
+    },
+    {
+      "function": "cards",
+      "bytes": 0,
+      "kind": "static"
+    },
+    {
+      "function": "lights_off",
+      "bytes": 0,
+      "kind": "static"
+    },
+    {
+      "function": "net_copy",
+      "bytes": 0,
+      "kind": "static"
+    },
+    {
+      "function": "rv_count",
+      "bytes": 0,
+      "kind": "static"
+    },
+    {
+      "function": "sq_2048_can_move",
+      "bytes": 0,
+      "kind": "static"
+    },
+    {
+      "function": "sq_2048_mode",
+      "bytes": 0,
+      "kind": "static"
+    },
+    {
+      "function": "sq_bank_count",
+      "bytes": 0,
+      "kind": "static"
+    },
+    {
+      "function": "sq_lights_mode",
+      "bytes": 0,
+      "kind": "static"
+    },
+    {
+      "function": "sq_rush_mode",
+      "bytes": 0,
+      "kind": "static"
+    },
+    {
+      "function": "sq_sliding_mode",
+      "bytes": 0,
+      "kind": "static"
+    },
+    {
+      "function": "sq_strategy_mode",
+      "bytes": 0,
+      "kind": "static"
+    },
+    {
+      "function": "tile_index",
+      "bytes": 0,
+      "kind": "static"
+    }
+  ]
+}

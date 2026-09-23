@@ -6,13 +6,14 @@ frames do not establish device peak RAM or latency. The reported persistent MENU
 flashing remains unreproduced and its cause is unknown.
 
 NUM GAME is the normal application. NUM DIAG uses the same game engines and
-content, a separate menu identity, and `NDARCA.dat` / `NDARCB.dat` instead of
-`NGARCA.dat` / `NGARCB.dat`. It never migrates or writes normal NG progress.
-Both namespaces have two 462,032-byte archives. Diagnostic function-entry hooks
+content, a separate menu identity, and compact `ND2xxA/B.dat` saves instead of
+normal `NG2xxA/B.dat` saves. It never migrates or writes normal NG progress.
+Each namespace retains at most five game saves plus settings, with two exact-length copies each. Diagnostic function-entry hooks
 add code, static counters, stack work and time overhead; its observations describe
 the instrumented build. Compare the [normal build report](build-metrics.json),
 [diagnostic build report](diagnostic-build-metrics.json) and
-[host timing audit](PERFORMANCE_AUDIT.md) for the measured differences.
+[current host sample](PERFORMANCE_36.md) for the measured differences. The older
+build-metrics files are historical 30-game baseline reports.
 
 ## Controls and bounded stress
 
@@ -38,7 +39,7 @@ there is no automatic per-key disk log.
 
 ## Reproducible device procedure
 
-1. Back up archives. Record model, OS, installed G3A SHA256, free storage, and
+1. Back up all existing progress files. Record model, OS, installed G3A SHA256, free storage, and
    whether launch was cold or resumed. Use disposable ND progress for these tests.
 2. Open diagnostics, RESET, run STRESS to `1000/1000`, and EXPORT. Expected fixture
    failures are zero. After export, open handles return to zero; the active common
@@ -46,7 +47,7 @@ there is no automatic per-key disk log.
    compare arena live usage, blocks and resource counts for continued growth.
 3. RESET again. For each visible game, start EASY/NORMAL/HARD/MASTER in each mode
    where offered. 2048 CLASSIC has only its fixed NORMAL bucket; TARGET offers all
-   four levels. For the five LOGIC games also select HELL with F3 on the difficulty row. Repeat
+   four levels. For the six LOGIC games also select HELL with F3 on the difficulty row. Repeat
    NEW at least 20 times per setting if measuring a latency distribution. Open
    diagnostics and EXPORT after each group to retain its latest 16 timing samples.
 4. Exercise Countdown and Number Mind HINT; LOGIC HELL REVEAL/validation; Numbrix
@@ -54,7 +55,7 @@ there is no automatic per-key disk log.
    and four undos; and NEW/EXIT/MENU/OFF checkpoints. Repeat expensive actions
    separately from the 1,000 RAM fixture scenario. Test a cold load and legacy
    migration using backed-up disposable data. Record observed pauses and key
-   response. Do not alter a live user's archive to inject failures.
+   response. Do not alter a live user's save files to inject failures.
 5. Compare reset/export observations, including arena usage and handles, before
    and after repeated MENU/OFF returns. Follow [the hardware retest](HARDWARE_RETEST.md)
    for the original MENU symptom, dim/APO, input barriers and physical flash tests.

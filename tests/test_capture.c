@@ -45,9 +45,9 @@ int main(void)
   if(id==29)tap(&app,'2');
   char name[40];snprintf(name,sizeof(name),"%02u-play",id);capture(name);
  }
- open_game(&app,1);gc_test_solve(&app.session.game,&app,press_capture);capture("31-result-win");tap(&app,NGK_EXIT);capture("32-resume-entry");tap(&app,NGK_F4);capture("41-records");tap(&app,NGK_EXIT);tap(&app,'1');tap(&app,NGK_F6);tap(&app,NGK_EXIT);tap(&app,'2');tap(&app,NGK_EXE);
+ open_game(&app,1);gc_test_solve(&app.session.game,&app,press_capture);capture("31-result-win");tap(&app,NGK_EXIT);capture("32-resume-entry");tap(&app,NGK_F4);capture("41-entry-no-stats");tap(&app,'1');tap(&app,NGK_F6);tap(&app,NGK_EXIT);tap(&app,'2');tap(&app,NGK_EXE);
  tap(&app,'0');tap(&app,NGK_F6);capture("33-input-error");tap(&app,NGK_F1);capture("34-init-confirm");tap(&app,NGK_EXIT);
- tap(&app,NGK_F5);capture("35-rules");tap(&app,NGK_EXIT);main_screen();tap(&app,NGK_F1);capture("36-stats");tap(&app,NGK_EXIT);
+ tap(&app,NGK_F5);capture("35-rules");tap(&app,NGK_EXIT);main_screen();tap(&app,NGK_F1);capture("36-main-no-stats");
  open_game(&app,31);tap(&app,NGK_EXE);tap(&app,NGK_RIGHT);tap(&app,NGK_DOWN);capture("37-shikaku-corner");tap(&app,NGK_EXIT);
  app.settings.difficulty[31]=2;open_game(&app,32);app.session.game.cursor=143;tap(&app,NGK_DEL);capture("38-slitherlink-edge");
  open_game(&app,26);fixture=app;for(unsigned i=0;i<16;i++)app.session.game.board[i]=(int16_t)(i<12?i+1:0);app.session.game.data[0]=12;app.session.game.data[1]=1;capture("39-2048-large");app=fixture;
@@ -59,12 +59,10 @@ int main(void)
  tap(&app,NGK_F6);tap(&app,NGK_EXIT);capture("47-entry-2048-resume");
  main_screen();tap(&app,'3');tap(&app,'1');capture("43-entry-single-mode");
  main_screen();app.settings.difficulty[10]=3;tap(&app,'3');tap(&app,'1');app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_LEVEL);capture("44-entry-master");
- main_screen();app.settings.mode[23]=2;tap(&app,'5');tap(&app,'4');tap(&app,NGK_DOWN);capture("45-entry-local-2p");
+ main_screen();app.settings.mode[23]=1;tap(&app,'5');tap(&app,'4');tap(&app,NGK_DOWN);capture("45-entry-cpu-first");
  main_screen();tap(&app,'1');tap(&app,'1');tap(&app,NGK_DOWN);capture("46-entry-difficulty");
- for(unsigned i=0;i<NG_ID_MAX;i++){app.summary[i].played=app.summary[i].active_ms=UINT32_MAX;app.summary[i].completed=app.summary[i].assisted=UINT32_MAX/2;}
- main_screen();tap(&app,NGK_F1);capture("48-max-statistics");
- open_game(&app,26);fixture=app;app.session.stats.best[0][1][0]=(NgBest){.completed=UINT32_MAX,.wins=UINT32_MAX/3,.losses=UINT32_MAX/3,.draws=UINT32_MAX/3,.best_score=UINT32_MAX,.best_moves=UINT32_MAX,.best_ms=UINT32_MAX,.best_aux=30};
- tap(&app,NGK_EXIT);tap(&app,NGK_F4);capture("49-max-records");tap(&app,NGK_EXIT);app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_RESUME);tap(&app,NGK_F6);
+ main_screen();tap(&app,NGK_F1);capture("48-main-six-categories");
+ open_game(&app,26);fixture=app;tap(&app,NGK_EXIT);tap(&app,NGK_F4);capture("49-entry-resume-no-records");app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_RESUME);tap(&app,NGK_F6);
  for(unsigned i=0;i<16;i++)app.session.game.board[i]=(int16_t)(i+15);app.session.game.data[0]=30;app.session.game.score=UINT32_MAX;capture("50-max-2048");app=fixture;
  open_game(&app,10);fixture=app;app.modal=NG_MODAL_RESULT;app.session.game.status=NG_WON;app.session.game.moves=UINT32_MAX;app.session.game.score=UINT32_MAX;
  strcpy(app.session.game.message,"A long result sentence with every important detail kept inside the result panel, including the final answer: 1234567890.");capture("51-long-result");app=fixture;
@@ -94,11 +92,9 @@ int main(void)
  memset(&disk,0,sizeof disk);disk.write_budget=-1;ng_app_init(&app,test_hooks(&disk),9654);open_game(&app,31);ng_app_tick(&app,1);assert(ng_checkpoint(&app));ng_app_tick(&app,1);
  disk.write_budget=0;tap(&app,NGK_EXIT);assert(app.modal==NG_MODAL_SAVE_ERROR);capture("61-save-error");disk.write_budget=-1;tap(&app,NGK_EXE);assert(!app.modal);capture("62-save-retry");
  assert(disk.lengths[31][0]&&disk.lengths[31][1]);disk.bytes[31][1][40]^=1;ng_app_init(&app,test_hooks(&disk),123);capture("63-backup-recovered");
- for(unsigned i=0;i<NG_GAME_COUNT;i++){
-  unsigned id=ng_visible_id(i);if(!ng_mode_chooser(id))continue;open_game(&app,id);tap(&app,NGK_EXIT);
-  app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_MODE);tap(&app,NGK_F3);assert(app.modal==NG_MODAL_MODE);
-  char name[40];snprintf(name,sizeof name,"%02u-mode-chooser",id);capture(name);tap(&app,NGK_EXIT);
- }
+ main_screen();tap(&app,'2');tap(&app,'1');app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_TARGET);
+ app.notice[0]=0;
+ capture("63-target-inline-entry");
  assert(!fclose(manifest));
- puts("Renderer capture: main +6 categories +30 games +hard grids +edge states PASS");return 0;
+ puts("Renderer capture: main +6 categories +36 games +inline options +edge states PASS");return 0;
 }

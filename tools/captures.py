@@ -22,7 +22,11 @@ for name in diagnostic_names:
         diagnostic_image=Image.open(diagnostic_file)
         assert diagnostic_image.size==(396,224)
         diagnostic_image.save(OUT/(name+'.png'))
-visible=list(range(1,29))+[31,32]
+visible=[]
+for category in range(6):
+    original=[*range(category*5+1,min(category*5+6,29))]
+    if category==5: original=[26,27,28,31,32]
+    visible.extend(original+[33+category])
 games=[capture_root/f'{id:02d}-play.ppm' for id in visible]
 assert all(p in paths for p in games)
 def sheet(items,name,scale,columns):
@@ -42,7 +46,7 @@ sheet(menus,'menus-native.png',1,2)
 sheet(menus,'menus-2x.png',2,2)
 for group in range(6):
     category=ROOT/'build-host/captures'/f'00-category-{group+1}.ppm'
-    items=[category]+games[group*5:group*5+5]
+    items=[category]+games[group*6:group*6+6]
     sheet(items,f'category-{group+1}-2x.png',2,2)
 sheet([p for p in paths if p.stem.endswith('-hard')],'hard-grids-native.png',1,2)
 sheet([p for p in paths if p not in games and p.stem[:2].isdigit() and int(p.stem[:2])>=31],'states-native.png',1,2)
@@ -57,6 +61,9 @@ if board_complete:sheet(board_complete,'boards-complete-native.png',1,2)
 if entry_frames:sheet(entry_frames,'entry-layout-native.png',1,2)
 if overflow_frames:sheet(overflow_frames,'overflow-native.png',1,2)
 (OUT/'README.md').write_text('# Actual renderer captures\n\n396×224 pixels from `src/ui/render.c` and the same game render adapters as the SH build.\nHost RGB565 backend, not a desktop mockup or a hardware LCD photograph.\n\n[All menus / game icons, native](menus-native.png) · [Integer 2×](menus-2x.png).\n[Entry settings](entry-layout-native.png) · [Overflow/large values](overflow-native.png).\nThe normal font matches DIFF EQ/gint 8×9; compact clues retain 5×7.\n\n'+''.join(f'- [{p.stem}]({p.stem}.png)\n' for p in paths)+''.join(f'- [NUM DIAG {name}]({name}.png)\n' for name in diagnostic_names if (OUT/(name+'.png')).exists())+'\n`contact-native.png`: 1×. `category-*-2x.png`: nearest-neighbor integer 2×.\n39-2048-large, 48–53 and 57–58 are explicit renderer stress fixtures (52 selects an actual verified pack entry); maximum scores are not played results.\n')
-for obsolete in ('29-play','30-play','37-memory-pause','38-memory-loss','44-entry-long-mode'):
+for obsolete in ('29-play','30-play','37-memory-pause','38-memory-loss','44-entry-long-mode',
+                 '41-records','36-stats','45-entry-local-2p','48-max-statistics','49-max-records',
+                 '01-mode-chooser','21-mode-chooser','22-mode-chooser','23-mode-chooser',
+                 '24-mode-chooser','25-mode-chooser'):
     (OUT/(obsolete+'.png')).unlink(missing_ok=True)
 print(f'{len(paths)} native captures; 1x and 2x sheets in {OUT}')

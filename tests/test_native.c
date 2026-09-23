@@ -17,6 +17,8 @@
 #endif
 #define MOCK_DAY 11059200u
 #define MOCK_FDS 8
+#define MOCK_COMPACT_BASE 65u
+#define MOCK_FILE_COUNT (MOCK_COMPACT_BASE+2u*(NG_ID_MAX+1u))
 static uint16_t mock_vram_pixel;
 uint16_t *gint_vram=&mock_vram_pixel;
 static unsigned world_depth,world_calls,write_calls,close_calls,open_calls,read_calls;
@@ -33,7 +35,7 @@ static gint_call_t timer_callback;
 static keydev_transform_t transform;
 typedef struct {bool exists;size_t size;uint8_t bytes[NG_ARCHIVE_BYTES];} MockFile;
 typedef struct {bool open,writing;unsigned index;size_t position;} MockFD;
-static MockFile files[65];
+static MockFile files[MOCK_FILE_COUNT];
 static MockFD descriptors[MOCK_FDS];
 typedef struct {unsigned key,type;uint32_t advance;void (*check)(void);} Step;
 static Step script[65536];
@@ -45,17 +47,24 @@ static unsigned path_index(const uint16_t *path){
  if(!strcmp(name,"\\\\fls0\\" MOCK_PREFIX "ARCA.dat"))return 62;
  if(!strcmp(name,"\\\\fls0\\" MOCK_PREFIX "ARCB.dat"))return 63;
  if(!strcmp(name,"\\\\fls0\\" MOCK_PREFIX "DIAG.txt"))return 64;
+ if(strlen(name)==17 && name[9]=='2'){
+  assert(!memcmp(name,"\\\\fls0\\" MOCK_PREFIX,9));
+  assert(name[10]>='0'&&name[10]<='3'&&name[11]>='0'&&name[11]<='9');
+  assert(name[12]=='A'||name[12]=='B');assert(!strcmp(name+13,".dat"));
+  unsigned id=(unsigned)(name[10]-'0')*10u+(unsigned)(name[11]-'0');assert(id<=NG_ID_MAX);
+  return MOCK_COMPACT_BASE+id*2u+(name[12]=='B');
+ }
  assert(strlen(name)==16);assert(!memcmp(name,"\\\\fls0\\" MOCK_PREFIX,9));assert(name[9]>='0'&&name[9]<='3');assert(name[10]>='0'&&name[10]<='9');assert(name[11]=='A'||name[11]=='B');assert(!strcmp(name+12,".dat"));
  unsigned id=(unsigned)(name[9]-'0')*10u+(unsigned)(name[10]-'0');assert(id<=30);return id*2u+(name[11]=='B');
 }
 static MockFD *fd(int handle){assert(world_depth==1);assert(handle>=1&&handle<=MOCK_FDS);MockFD *d=&descriptors[handle-1];assert(d->open);return d;}
 int BFile_Remove(const uint16_t *path){assert(world_depth==1);MockFile *f=&files[path_index(path)];if(!f->exists)return BFile_EntryNotFound;f->exists=false;f->size=0;return 0;}
-int BFile_Create(const uint16_t *path,int type,int *size){assert(world_depth==1);assert(type==BFile_File&&size&&(*size==0||*size==(int)NG_ARCHIVE_BYTES));MockFile *f=&files[path_index(path)];assert(!f->exists);f->exists=true;f->size=(size_t)*size;memset(f->bytes,0xa5,f->size);created_open_failure=fail_after_create;return 0;}
+int BFile_Create(const uint16_t *path,int type,int *size){assert(world_depth==1);assert(type==BFile_File&&size&&(*size==0||*size==(int)NG_ARCHIVE_BYTES||(*size>=32&&*size<=NG_RECORD_MAX)));MockFile *f=&files[path_index(path)];assert(!f->exists);f->exists=true;f->size=(size_t)*size;memset(f->bytes,0xa5,f->size);created_open_failure=fail_after_create;return 0;}
 int BFile_Open(const uint16_t *path,int mode){assert(world_depth==1);open_calls++;unsigned index=path_index(path);if(!files[index].exists)return BFile_EntryNotFound;if(created_open_failure){created_open_failure=0;return -5;}for(unsigned i=0;i<MOCK_FDS;i++)if(!descriptors[i].open){descriptors[i]=(MockFD){true,mode!=BFile_ReadOnly,index,0};return (int)i+1;}return -5;}
 int BFile_Close(int handle){MockFD *d=fd(handle);close_calls++;if(close_failures){if(close_failures>0)close_failures--;return -5;}if(d->writing&&corrupt_on_close&&files[d->index].size){files[d->index].bytes[d->position-1]^=1;corrupt_on_close=0;}d->open=false;return 0;}
 int BFile_Seek(int handle,int offset){MockFD *d=fd(handle);assert(offset>=0);d->position=(size_t)offset;return offset;}
 int BFile_Size(int handle){MockFD *d=fd(handle);return (int)files[d->index].size;}
-int BFile_Write(int handle,const void *data,int size){MockFD *d=fd(handle);assert(d->writing);write_calls++;if(zero_write)return 0;if(write_budget==0)return -5;if(write_budget>0&&size>write_budget)size=write_budget;assert(size>=0&&d->position+(size_t)size<=NG_ARCHIVE_BYTES);memcpy(files[d->index].bytes+d->position,data,(size_t)size);d->position+=(size_t)size;if(d->position>files[d->index].size)files[d->index].size=d->position;if(write_budget>0)write_budget-=size;return size;}
+int BFile_Write(int handle,const void *data,int size){MockFD *d=fd(handle);assert(d->writing);write_calls++;if(zero_write)return 0;if(write_budget==0)return -5;if(write_budget>0&&size>write_budget)size=write_budget;assert(size>=0&&d->position+(size_t)size<=NG_ARCHIVE_BYTES);if(d->index>=MOCK_COMPACT_BASE)assert(d->position+(size_t)size<=files[d->index].size);memcpy(files[d->index].bytes+d->position,data,(size_t)size);d->position+=(size_t)size;if(d->position>files[d->index].size)files[d->index].size=d->position;if(write_budget>0)write_budget-=size;return size;}
 int BFile_Read(int handle,void *data,int size,int offset){MockFD *d=fd(handle);read_calls++;if(read_failure)return -5;assert(offset>=0&&size>=0);/* Fugue would return requested length even past EOF. Adapter MUST clamp. */assert((size_t)offset+(size_t)size<=files[d->index].size);memcpy(data,files[d->index].bytes+offset,(size_t)size);return size;}
 int gint_world_switch(gint_call_t call){assert(!world_depth);assert(call.argfn);world_calls++;world_depth++;int result=call.argfn(call.arg);world_depth--;return result;}
 void gint_osmenu(void){assert(!world_depth && !timer_active && !rtc_active && !brightness_saved);if(expect_save_failure){assert(app.dirty);os_calls++;return;}assert(!app.dirty&&!app.settings_dirty);checkpoint_write_marker=write_calls;NgSession loaded;int rc=ng_storage_load(&loaded,app.session.game.id);assert(rc==NG_LOAD_OK||rc==NG_LOAD_RECOVERED);assert(!memcmp(&loaded.game,&app.session.game,sizeof(NgGame)));os_calls++;mock_ticks=(mock_ticks+128u*36000u)%MOCK_DAY;}
@@ -166,34 +175,36 @@ static void test_common_idle(void){
 static void test_switch_stress(void){
  reset();
  for(unsigned i=0;i<1000;i++){
-  unsigned index=i%NG_GAME_COUNT;begin(native_keys[index/5+1],native_keys[index%5+1]);
-  if(i>=NG_GAME_COUNT)tap(KEY_EXE);
+  unsigned index=i%NG_GAME_COUNT;begin(native_keys[index/6+1],native_keys[index%6+1]);
+  if(i>=NG_RECENT_LIMIT)tap(KEY_EXE);
   add(0,KEYEV_NONE,32,NULL);tap(KEY_F5);tap(KEY_EXIT);tap(KEY_EXIT);
   tap(KEY_F4);tap(KEY_EXIT);tap(KEY_EXIT);tap(KEY_EXIT);tap(KEY_MENU);
  }
  run_script();assert(os_calls==1000 && ng_diagnostics.menu_requests==1000 && ng_diagnostics.menu_entries==1000 && ng_diagnostics.menu_returns==1000);
  assert(ng_diagnostics.peak_timers==1 && ng_diagnostics.timers==1 && !ng_diagnostics.handles && ng_diagnostics.peak_handles==1);
- unsigned count=0;for(unsigned i=0;i<65;i++)if(files[i].exists)count++;assert(count<=2);
+ unsigned count=0;for(unsigned i=0;i<MOCK_FILE_COUNT;i++)if(files[i].exists)count++;assert(count<=2+2*NG_RECENT_LIMIT);
  for(unsigned i=0;i<MOCK_FDS;i++)assert(!descriptors[i].open);
  unsigned sequence=ng_diagnostics.sequence;assert(ng_diag_export()&&files[64].exists&&files[64].size<NG_RECORD_MAX);assert(ng_diagnostics.sequence==sequence&&!ng_diagnostics.handles);size_t exported=files[64].size;assert(ng_diag_export()&&files[64].size==exported);
- printf("Native stress:1000 switches/menus, zero residual handles, one timer, %u fixed files; RAM ring bounded PASS\n",count);
+ printf("Native stress:1000 switches/menus, zero residual handles, one timer, %u bounded exact-size files PASS\n",count);
 }
 
 static NgSession session_new(unsigned id){NgSession s;memset(&s,0,sizeof s);ng_new(&s.game,id,1,0,123,1);s.stats.started=1;return s;}
 static void test_native_storage(void){
- reset();NgSession s=session_new(26),loaded;assert(ng_storage_save(&s)&&s.generation==1);assert(files[62].exists&&!files[63].exists);s.game.elapsed_ms=17;assert(ng_storage_save(&s)&&s.generation==2);assert(files[63].exists);assert(ng_storage_load(&loaded,26)==NG_LOAD_OK);assert(loaded.game.elapsed_ms==17);
- files[63].bytes[NG_ARCHIVE_HEADER+26*NG_RECORD_MAX+40]^=1;assert(ng_storage_load(&loaded,26)==NG_LOAD_RECOVERED);assert(!loaded.game.elapsed_ms);
+ const unsigned a=MOCK_COMPACT_BASE+52,b=a+1;
+ reset();NgSession s=session_new(26),loaded;assert(ng_storage_save(&s)&&s.generation==1);assert(files[a].exists&&!files[b].exists && files[a].size<NG_RECORD_MAX && !files[62].exists);s.game.elapsed_ms=17;assert(ng_storage_save(&s)&&s.generation==2);assert(files[b].exists && files[b].size==files[a].size);assert(ng_storage_load(&loaded,26)==NG_LOAD_OK);assert(loaded.game.elapsed_ms==17);
+ files[b].bytes[40]^=1;assert(ng_storage_load(&loaded,26)==NG_LOAD_RECOVERED);assert(!loaded.game.elapsed_ms);
  /* Partial replacement never destroys the other valid slot. */
- write_budget=100;s.game.elapsed_ms=29;assert(!ng_storage_save(&s));write_budget=-1;assert(ng_storage_load(&loaded,26)==NG_LOAD_RECOVERED);assert(!loaded.game.elapsed_ms);assert(ng_storage_save(&s));
+ write_budget=100;s.game.elapsed_ms=29;assert(!ng_storage_save(&s));write_budget=-1;assert(ng_storage_load(&loaded,26)==NG_LOAD_OK);assert(!loaded.game.elapsed_ms);assert(ng_storage_save(&s));
  /* Readback must check the bytes actually accepted by Fugue. */
  unsigned generation=s.generation;corrupt_on_close=1;s.game.elapsed_ms=31;assert(!ng_storage_save(&s));assert(s.generation==generation);assert(ng_storage_load(&loaded,26)==NG_LOAD_RECOVERED);assert(loaded.game.elapsed_ms==29);
  zero_write=1;unsigned writes=write_calls;assert(!ng_storage_save(&s));assert(write_calls-writes<=1);zero_write=0;
  read_failure=1;assert(ng_storage_load(&loaded,26)==NG_LOAD_IO_ERROR);read_failure=0;
  /* Failed close is bounded, descriptor retained, and retried later. */
  close_failures=-1;unsigned closes=close_calls;assert(!ng_storage_save(&s));assert(close_calls-closes<=4);close_failures=0;int rc=ng_storage_load(&loaded,26);assert(rc==NG_LOAD_OK||rc==NG_LOAD_RECOVERED);for(unsigned i=0;i<MOCK_FDS;i++)assert(!descriptors[i].open);
- assert(ng_storage_save(&s));NgSettings settings={.last_game=26,.show_time=1};assert(ng_settings_save(&settings));NgSettings recovered={0};assert(ng_settings_load(&recovered)==NG_LOAD_OK);assert(recovered.last_game==26&&recovered.show_time);
- assert(ng_storage_load(&loaded,0)==NG_LOAD_INVALID);assert(ng_storage_load(&loaded,33)==NG_LOAD_INVALID);
- printf("Native Fugue adapter: namespace, two slots, exact EOF clamp, partial/zero writes, readback corruption, failed-close recovery PASS (%u world switches)\n",world_calls);
+ assert(ng_storage_save(&s));NgSettings settings={.last_game=26,.show_time=1,.target=24,.migration_complete=1};assert(ng_settings_save(&settings));NgSettings recovered={0};assert(ng_settings_load(&recovered)==NG_LOAD_OK);assert(recovered.last_game==26&&recovered.show_time);
+ assert(files[MOCK_COMPACT_BASE].size==32+ng_settings_encode(&settings,(uint8_t[128]){0},128));
+ assert(ng_storage_load(&loaded,0)==NG_LOAD_INVALID);assert(ng_storage_load(&loaded,39)==NG_LOAD_INVALID);
+ printf("Native Fugue adapter: exact-size private namespace, two slots, EOF clamp, partial/zero writes, corruption and failed-close recovery PASS (%u world switches)\n",world_calls);
 }
 
 
@@ -212,41 +223,54 @@ static void test_archive_migration(void)
 {
  NgSession source=session_new(26),workspace,loaded;
  reset();source.game.elapsed_ms=17;legacy_fixture(&source,0);source.game.elapsed_ms=99;legacy_fixture(&source,1);
- assert(ng_storage_migrate(&workspace));assert(!files[52].exists&&!files[53].exists&&files[62].exists&&files[63].exists);
+ unsigned a=MOCK_COMPACT_BASE+52,b=a+1;
+ assert(ng_storage_migrate(&workspace));assert(!files[52].exists&&!files[53].exists&&files[a].exists&&files[b].exists);
+ assert(files[a].size<NG_RECORD_MAX && files[b].size==files[a].size && !files[62].exists && !files[63].exists);
  assert(ng_storage_load(&loaded,26)==NG_LOAD_OK&&loaded.game.elapsed_ms==99);
  assert(loaded.stats.started==1&&!loaded.stats.best[0][3][0].completed);
- /* Restart/migration is idempotent, and disagreeing old/new progress is retained. */
- assert(ng_storage_migrate(&workspace));source.game.elapsed_ms=111;legacy_fixture(&source,1);
- assert(!ng_storage_migrate(&workspace)&&files[53].exists);assert(ng_storage_load(&loaded,26)==NG_LOAD_OK&&loaded.game.elapsed_ms==99);
- /* Retired IDs remain decodable and are never reinterpreted as new boards. */
- reset();for(unsigned id=29;id<=30;id++){NgSession retired=session_new(id);legacy_fixture(&retired,0);}
- MockFile *preferences=&files[0];preferences->exists=true;preferences->size=95;uint8_t *p=preferences->bytes;
- memcpy(p,"NGSAVE01",8);mock_put32(p+8,0);mock_put32(p+12,1);mock_put32(p+16,1);mock_put32(p+20,63);p[32]=30;memset(p+33,1,30);p[32+31+28]=1;p[94]=1;mock_put32(p+24,ng_crc32(p+32,63));mock_put32(p+28,ng_crc32(p,28));
- assert(ng_storage_migrate(&workspace));NgSettings options;assert(ng_settings_load(&options)==NG_LOAD_OK&&options.last_game==30&&options.mode[28]==1&&options.difficulty[31]==1);
- for(unsigned id=29;id<=30;id++){assert(ng_storage_load(&loaded,id)==NG_LOAD_OK&&loaded.game.id==id);assert(!files[id*2].exists);}
- assert(ng_storage_load(&loaded,31)==NG_LOAD_ABSENT&&ng_storage_load(&loaded,32)==NG_LOAD_ABSENT);
- /* A corrupt/foreign filename is never ownership permission to delete it. */
- reset();legacy_fixture(&source,0);files[52].bytes[0]='X';assert(ng_storage_migrate(&workspace)&&files[52].exists&&!files[62].exists);
- reset();legacy_fixture(&source,0);files[62].exists=true;files[62].size=NG_ARCHIVE_BYTES;memset(files[62].bytes,0x53,NG_ARCHIVE_BYTES);
- assert(!ng_storage_migrate(&workspace)&&files[52].exists&&files[62].bytes[0]==0x53);
- assert(ng_storage_load(&loaded,26)==NG_LOAD_OK&&loaded.game.elapsed_ms==111);
- const int cuts[]={0,1,15,31,32,64,100,1087,1088,1100,1119,1120,1250,5000,6000,9000};
+ NgSettings options;assert(ng_settings_load(&options)==NG_LOAD_OK && options.migration_complete && options.recent_count==1 && options.recent[0]==26);
+ unsigned opens=open_calls;assert(ng_storage_migrate(&workspace));assert(open_calls-opens<12);
+ /* A stale old record cannot replace verified compact progress on restart. */
+ source.game.elapsed_ms=111;legacy_fixture(&source,1);
+ assert(ng_storage_migrate(&workspace));assert(files[53].exists);
+ assert(ng_storage_load(&loaded,26)==NG_LOAD_OK&&loaded.game.elapsed_ms==99);
+ /* A corrupt legacy filename is preserved; it cannot authorize deletion. */
+ reset();legacy_fixture(&source,0);files[52].bytes[0]='X';assert(ng_storage_migrate(&workspace)&&files[52].exists);
+ /* Retry at every short write, preserving the old source until verification. */
+ const int cuts[]={0,1,15,31,32,64,100,1087,1500,3000,6000};
  for(unsigned i=0;i<sizeof cuts/sizeof cuts[0];i++){
   reset();legacy_fixture(&source,0);write_budget=cuts[i];bool ok=ng_storage_migrate(&workspace);write_budget=-1;
-  if(!ok)assert(files[52].exists);
-  assert(ng_storage_load(&loaded,26)<=NG_LOAD_RECOVERED&&loaded.game.elapsed_ms==111);
+  if(!ok && !files[52].exists)assert(files[a].exists && files[b].exists && (files[MOCK_COMPACT_BASE].exists || files[MOCK_COMPACT_BASE+1].exists));
   assert(ng_storage_migrate(&workspace));assert(!files[52].exists);
   assert(ng_storage_load(&loaded,26)==NG_LOAD_OK&&loaded.game.elapsed_ms==111);
  }
- reset();legacy_fixture(&source,0);fail_after_create=1;assert(!ng_storage_migrate(&workspace)&&files[52].exists&&!files[62].exists);fail_after_create=0;assert(ng_storage_migrate(&workspace));
- /* Complete initialization ownership marker survives a process interruption. */
- reset();files[62].exists=true;files[62].size=NG_ARCHIVE_BYTES;uint8_t *h=files[62].bytes;
- memcpy(h,"NGINIT02",8);mock_put32(h+8,2);mock_put32(h+12,33);mock_put32(h+16,NG_RECORD_MAX);mock_put32(h+20,NG_ARCHIVE_BYTES);mock_put32(h+28,ng_crc32(h,28));
- assert(ng_storage_save(&source));assert(!memcmp(h,"NGARCH02",8));assert(ng_storage_load(&loaded,26)==NG_LOAD_OK);
- /* Corrupting one record leaves unrelated games readable. */
- NgSession other=session_new(21);assert(ng_storage_save(&other));h[NG_ARCHIVE_HEADER+26*NG_RECORD_MAX+40]^=1;
- assert(ng_storage_load(&loaded,26)==NG_LOAD_INVALID);assert(ng_storage_load(&loaded,21)==NG_LOAD_OK);
- puts("Archive: v1 latest-slot migration, independent workspace, two-copy verification, conflict/foreign preservation, 16 interrupted-write retries, init recovery, per-record isolation PASS");
+ reset();legacy_fixture(&source,0);fail_after_create=1;assert(!ng_storage_migrate(&workspace)&&files[52].exists);fail_after_create=0;assert(ng_storage_migrate(&workspace));
+ puts("Migration: v1 latest-slot import, two compact copies, exact size, foreign preservation and interrupted-write retries PASS");
+}
+static void test_migration_five_choice(void)
+{
+ reset();NgSession workspace,loaded;
+ for(unsigned id=11;id<=16;id++){
+  NgSession s=session_new(id);legacy_fixture(&s,0);
+  uint8_t *record=files[id*2].bytes;
+  mock_put32(record+16,id-10);mock_put32(record+28,ng_crc32(record,28));
+ }
+ MockFile *settings=&files[0];settings->exists=true;settings->size=95;
+ uint8_t *p=settings->bytes;memset(p,0,95);memcpy(p,"NGSAVE01",8);
+ mock_put32(p+8,0);mock_put32(p+12,1);mock_put32(p+16,1);mock_put32(p+20,63);
+ p[32]=16;memset(p+33,1,30);p[94]=1;
+ mock_put32(p+24,ng_crc32(p+32,63));mock_put32(p+28,ng_crc32(p,28));
+ assert(ng_storage_migrate(&workspace));
+ NgSettings options;assert(ng_settings_load(&options)==NG_LOAD_OK);
+ assert(options.recent_count==5 && options.last_game==16 && options.migration_complete);
+ const unsigned chosen[5]={16,15,14,13,12};
+ for(unsigned i=0;i<5;i++){
+  unsigned id=chosen[i];assert(options.recent[i]==id);
+  assert(ng_storage_load(&loaded,id)==NG_LOAD_OK && loaded.game.id==id);
+  assert(files[MOCK_COMPACT_BASE+id*2].exists && files[MOCK_COMPACT_BASE+id*2+1].exists);
+ }
+ assert(!files[22].exists && !files[MOCK_COMPACT_BASE+22].exists);
+ puts("Migration: last played first, then highest save generation; only five old games retained PASS");
 }
 static void block_shift(void){app.blocked|=UINT64_C(1)<<ng_key_index(NGK_SHIFT);app.shift_pending=false;}
 static void test_global_phase_boundary(void)
@@ -265,9 +289,9 @@ static void check_no_equal(void){assert(!strchr(app.session.game.input,'=')&&!ap
 static unsigned global_stage;
 static void check_global_stage(void)
 {
- static const unsigned screens[]={NG_PLAY,NG_PLAY,NG_PLAY,NG_ENTRY,NG_ENTRY,NG_ENTRY,NG_STATS,NG_SETTINGS,NG_SETTINGS,NG_MAIN};
- static const unsigned modals[]={0,NG_MODAL_RULES,NG_MODAL_INIT,0,NG_MODAL_RECORDS,NG_MODAL_NEW,0,0,NG_MODAL_DIAGNOSTICS,0};
- assert(global_stage<10);assert(app.screen==screens[global_stage]&&app.modal==modals[global_stage]);global_stage++;
+ static const unsigned screens[]={NG_PLAY,NG_PLAY,NG_PLAY,NG_ENTRY,NG_ENTRY,NG_CATEGORY,NG_SETTINGS,NG_SETTINGS,NG_MAIN};
+ static const unsigned modals[]={0,NG_MODAL_RULES,NG_MODAL_INIT,0,NG_MODAL_NEW,0,0,NG_MODAL_DIAGNOSTICS,0};
+ assert(global_stage<9);assert(app.screen==screens[global_stage]&&app.modal==modals[global_stage]);global_stage++;
 }
 static void checked_menu(void){add(KEY_MENU,KEYEV_DOWN,0,check_global_stage);add(KEY_MENU,KEYEV_UP,0,NULL);}
 static void test_global_screens(void)
@@ -276,13 +300,12 @@ static void test_global_screens(void)
  tap(KEY_F5);checked_menu();tap(KEY_EXIT); /* rules */
  add(0,KEYEV_NONE,32,NULL);tap(KEY_F1);checked_menu();tap(KEY_EXIT); /* init confirmation */
  tap(KEY_EXIT);checked_menu(); /* entry */
- tap(KEY_F4);checked_menu();tap(KEY_EXIT); /* records */
  tap(KEY_F6);checked_menu();tap(KEY_EXIT); /* new confirmation */
- tap(KEY_EXIT);add(0,KEYEV_NONE,32,NULL);tap(KEY_F1);checked_menu();tap(KEY_EXIT); /* category stats */
+ tap(KEY_EXIT);checked_menu(); /* category */
  tap(KEY_EXIT);tap(KEY_F2);checked_menu();tap(KEY_F3);checked_menu(); /* settings + diagnostics */
  tap(KEY_SHIFT);tap(KEY_ACON);tap(KEY_EXIT);tap(KEY_EXIT);checked_menu(); /* main */
- run_script();assert(os_calls==10&&off_calls==1&&!ng_diagnostics.handles&&ng_diagnostics.peak_timers==1);
- puts("Native global dispatch: PLAY/RULES/INIT/ENTRY/RECORDS/NEW/STATS/SETTINGS/DIAGNOSTICS/MAIN MENU and modal OFF PASS");
+ run_script();assert(os_calls==9&&off_calls==1&&!ng_diagnostics.handles&&ng_diagnostics.peak_timers==1);
+ puts("Native global dispatch: PLAY/RULES/INIT/ENTRY/NEW/CATEGORY/SETTINGS/DIAGNOSTICS/MAIN MENU and modal OFF PASS");
 }
 static void test_physical_equals(void)
 {
@@ -306,32 +329,20 @@ static void test_review_transitions(void){
 }
 
 
-static void assert_bad_stats(NgSession *source){uint8_t payload[NG_RECORD_MAX];NgSession decoded;size_t length=ng_encode(source,payload,sizeof payload);assert(length);assert(!ng_decode(&decoded,payload,length,source->game.id));}
 static void mock_put32(uint8_t *p,uint32_t value){for(unsigned i=0;i<4;i++)p[i]=(uint8_t)(value>>(8*i));}
-static void test_malformed_statistics(void){
- NgSession source=session_new(26);NgBest *b=&source.stats.best[0][1][0];b->completed=1;b->losses=1;
- const uint32_t invalid[]={31,255,UINT32_MAX};for(unsigned i=0;i<3;i++){b->best_aux=invalid[i];assert_bad_stats(&source);}b->best_aux=15;
- b->wins=1;assert_bad_stats(&source);b->wins=0;
- source.stats.best[0][0][0].completed=1;source.stats.best[0][0][0].losses=1;assert_bad_stats(&source);
- source=session_new(26);source.stats.best[0][1][0].best_score=1;assert_bad_stats(&source);
- source=session_new(25);source.stats.best[0][1][0].completed=source.stats.best[0][1][0].losses=1;source.stats.best[0][1][0].best_aux=1;assert_bad_stats(&source);
- /* Same invalid field through the real native slot parser, with valid CRCs. */
- reset();source=session_new(26);assert(ng_storage_save(&source));uint8_t *record=files[62].bytes+NG_ARCHIVE_HEADER+26*NG_RECORD_MAX;
- unsigned best_offset=32+1+8+2*32; /* header, undo-count, stats header, mode0/level1/normal */
- mock_put32(record+best_offset,1);mock_put32(record+best_offset+8,1);mock_put32(record+best_offset+28,255);
- mock_put32(record+24,ng_crc32(record+32,(size_t)record[20]|((size_t)record[21]<<8)));mock_put32(record+28,ng_crc32(record,28));NgSession loaded;assert(ng_storage_load(&loaded,26)==NG_LOAD_INVALID);
- source=session_new(25);source.undo_count=1;source.undo[0]=source.game;source.undo[0].board[0]=30;const NgModule *module=ng_module(25);strcpy(source.undo[0].input,"1");assert(module->action(&source.undo[0],NGK_EXE));assert(source.undo[0].status==NG_WON);assert_bad_stats(&source);
- source=session_new(21);source.undo_count=1;source.undo[0]=source.game;source.undo[0].board[0]--;source.undo[0].moves=1;source.undo[0].turn=1;source.undo[0].cpu_pending=1;assert(ng_valid(&source.undo[0]));assert_bad_stats(&source);
- puts("Review regressions: malformed stats/tile exponent, valid-CRC malicious slot, terminal/CPU undo rejected PASS");
+static void test_malformed_compact(void){
+ NgSession source=session_new(26),loaded;uint8_t first[NG_RECORD_MAX],second[NG_RECORD_MAX];
+ size_t n=ng_encode(&source,first,sizeof first);assert(n);
+ source.stats.best[0][1][0]=(NgBest){.completed=1,.losses=1,.best_aux=255};
+ assert(ng_encode(&source,second,sizeof second)==n && !memcmp(first,second,n));
+ reset();assert(ng_storage_save(&source));
+ uint8_t *record=files[MOCK_COMPACT_BASE+52].bytes;
+ record[32+1005]=27; /* Header still claims game 26; payload game ID lies. */
+ mock_put32(record+24,ng_crc32(record+32,n));mock_put32(record+28,ng_crc32(record,28));
+ assert(ng_storage_load(&loaded,26)==NG_LOAD_INVALID);
+ source=session_new(21);source.undo_count=1;source.undo[0]=source.game;source.undo[0].id=25;
+ n=ng_encode(&source,first,sizeof first);assert(n && !ng_decode(&loaded,first,n,21));
+ puts("Compact saves: old cumulative statistics omitted; valid-CRC wrong-game and mismatched undo rejected PASS");
 }
 
-static void reproduce_malformed_stats(void){
- reset();NgSession source=session_new(26),decoded;source.stats.best[0][1][0].completed=1;source.stats.best[0][1][0].losses=1;source.stats.best[0][1][0].best_aux=255;
- uint8_t payload[NG_RECORD_MAX];size_t length=ng_encode(&source,payload,sizeof payload);assert(length);
- if(!ng_decode(&decoded,payload,length,26)){puts("Malformed 2048 best_aux=255 rejected by decoder PASS");return;}
- puts("BUG REPRODUCED: decoder accepted best_aux=255; invoking actual record renderer under UBSan");
- memset(&app,0,sizeof app);app.session=decoded;app.selected_id=26;app.screen=NG_ENTRY;app.modal=NG_MODAL_RECORDS;app.record_difficulty=1;
- draw();
-}
-
-int main(void){if(getenv("NG_NATIVE_REPRO_STATS")){setvbuf(stdout,NULL,_IONBF,0);reproduce_malformed_stats();return 0;}setvbuf(stdout,NULL,_IONBF,0);test_native_storage();test_global_screens();test_physical_equals();test_archive_migration();test_global_phase_boundary();test_native_keys();test_failed_power_checkpoint();test_native_memory();test_native_hold();test_native_clock();test_timer_fallback();test_common_idle();test_switch_stress();test_review_transitions();test_malformed_statistics();return 0;}
+int main(void){setvbuf(stdout,NULL,_IONBF,0);test_native_storage();test_global_screens();test_physical_equals();test_archive_migration();test_migration_five_choice();test_global_phase_boundary();test_native_keys();test_failed_power_checkpoint();test_native_memory();test_native_hold();test_native_clock();test_timer_fallback();test_common_idle();test_switch_stress();test_review_transitions();test_malformed_compact();return 0;}

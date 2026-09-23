@@ -4,7 +4,10 @@
 #define NG_MODES 8
 #define NG_RECORD_MAX 14000
 #define NG_ARCHIVE_HEADER 32u
-#define NG_ARCHIVE_BYTES (NG_ARCHIVE_HEADER+(NG_ID_MAX+1u)*NG_RECORD_MAX)
+/* The former archive layout is frozen for read-only import of existing saves. */
+#define NG_ARCHIVE_LEGACY_IDS 32u
+#define NG_ARCHIVE_BYTES (NG_ARCHIVE_HEADER+(NG_ARCHIVE_LEGACY_IDS+1u)*NG_RECORD_MAX)
+#define NG_RECENT_LIMIT 5u
 typedef struct {uint32_t completed,wins,losses,draws,best_score,best_moves,best_ms,best_aux;} NgBest;
 typedef struct {
  uint32_t started,active_ms;
@@ -35,12 +38,17 @@ typedef struct {
  ptrdiff_t (*read)(void *,int,void *,size_t);
  ptrdiff_t (*write)(void *,int,const void *,size_t);
  int (*close)(void *,int);
+ bool (*prepare)(void *,unsigned,unsigned,size_t); /* exact bytes for a new file */
 } NgIO;
 enum { NG_LOAD_ABSENT,NG_LOAD_OK,NG_LOAD_RECOVERED,NG_LOAD_INVALID,NG_LOAD_IO_ERROR };
 typedef struct {
  uint32_t generation;
  uint8_t last_game,difficulty[NG_ID_MAX],mode[NG_ID_MAX];
  uint8_t first_help,show_time;
+ uint8_t recent_count,recent[NG_RECENT_LIMIT];
+ uint8_t pending_delete;
+ uint8_t migration_complete;
+ uint16_t target;
 } NgSettings;
 uint32_t ng_crc32(const void *data,size_t size);
 size_t ng_encode(const NgSession *s,uint8_t *out,size_t capacity);
@@ -61,6 +69,7 @@ bool ng_storage_save(NgSession *s);
 int ng_settings_load(NgSettings *s);
 bool ng_settings_save(NgSettings *s);
 bool ng_storage_cleanup(void);
+bool ng_storage_delete(unsigned id);
 /* Startup only: workspace must not contain a live game. Retryable; false preserves sources. */
 bool ng_storage_migrate(NgSession *workspace);
 /* RAM fixture only, uses the existing transaction workspace; never writes files. */

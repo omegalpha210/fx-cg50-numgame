@@ -12,14 +12,14 @@ static void master_lifecycles(void)
   NgSupply supply=app.session.supply[mode][NG_MASTER];
   tap(&app,id==8?'+':id==9?'5':'1');ng_app_tick(&app,3210);NgGame expected=app.session.game;
   assert(ng_checkpoint(&app));ng_app_init(&cold,test_hooks(&disk),1500+id*10+mode);
-  tap(&cold,'1'+(int)((id-1)/5));tap(&cold,'1'+(int)((id-1)%5));assert(cold.screen==NG_ENTRY);
+  tap(&cold,'1'+(int)(ng_catalog_index(id)/6));tap(&cold,'1'+(int)(ng_catalog_index(id)%6));assert(cold.screen==NG_ENTRY);
   assert(ng_entry_action(&cold,cold.entry_selection)==NG_ENTRY_NEW);
   tap(&cold,'1'+(int)ng_entry_row(&cold,NG_ENTRY_RESUME));tap(&cold,NGK_F6);
   assert(cold.screen==NG_PLAY&&!memcmp(&cold.session.game,&expected,sizeof(expected)));
   assert(!memcmp(&cold.session.supply[mode][NG_MASTER],&supply,sizeof(supply)));
   tap(&cold,NGK_F1);assert(cold.modal==NG_MODAL_INIT);tap(&cold,NGK_EXE);
   assert(cold.session.game.puzzle_id==initial.puzzle_id&&cold.session.game.seed==initial.seed);
-  assert(cold.session.game.run_id==initial.run_id&&cold.session.game.pack_revision==2&&cold.session.game.assisted);
+  assert(cold.session.game.run_id==initial.run_id&&cold.session.game.pack_revision==initial.pack_revision&&cold.session.game.assisted);
   assert(!memcmp(cold.session.game.board,initial.board,sizeof(initial.board)));
   assert(!memcmp(cold.session.game.data,initial.data,sizeof(initial.data)));
   gc_test_solve(&cold.session.game,&cold,app_key);
@@ -29,13 +29,17 @@ static void master_lifecycles(void)
   NgIO io=test_io(&disk);static NgSession recovered;assert(ng_load_io(&recovered,id,&io)==NG_LOAD_OK);
   assert(recovered.game.difficulty==NG_MASTER&&recovered.game.mode==mode&&recovered.game.status==NG_WON);
   assert(!memcmp(&recovered.game,&cold.session.game,sizeof(recovered.game)));
+  assert(recovered.stats.started==cold.session.stats.started&&recovered.stats.active_ms==0);
+  const NgBest empty={0};
+  for(unsigned m=0;m<NG_MODES;m++)for(unsigned d=0;d<NG_LEVEL_COUNT;d++)for(unsigned a=0;a<2;a++)
+   assert(!memcmp(&recovered.stats.best[m][d][a],&empty,sizeof(empty)));
   app=cold;
  }
 }
 
 static void master_bank_cycles(void)
 {
- const unsigned ids[]={2,3,4,5,6,7,8,9};
+ const unsigned ids[]={2,3,4,5,7,8,9};
  for(unsigned family=0;family<sizeof(ids)/sizeof(*ids);family++){
   unsigned id=ids[family];app.settings.difficulty[id-1]=NG_MASTER;app.settings.mode[id-1]=0;app.settings_dirty=true;
   open_game(&app,id);NgSupply *bag=&app.session.supply[0][NG_MASTER];
@@ -69,13 +73,13 @@ static void lifecycle_drafts(void)
   tap(&app,NGK_F5);assert(app.modal==NG_MODAL_RULES);
   ng_app_tick(&app,10000);assert(app.session.game.elapsed_ms==expected.elapsed_ms);
   tap(&app,NGK_EXIT);tap(&app,NGK_EXIT);assert(app.screen==NG_ENTRY);
-  unsigned writes=disk.saves;tap(&app,NGK_F4);assert(app.modal==NG_MODAL_RECORDS);
-  tap(&app,NGK_EXIT);assert(disk.saves==writes);
+  unsigned writes=disk.saves;tap(&app,NGK_F4);assert(app.modal==NG_MODAL_NONE);
+  assert(disk.saves==writes); /* Records UI was removed; F4 is inert here. */
   open_game(&app,id==10?1:id+1);
   unsigned menus=disk.menu,offs=disk.off;tap(&app,NGK_MENU);assert(disk.menu==menus+1);
   tap(&app,NGK_SHIFT);tap(&app,NGK_ACON);assert(disk.off==offs+1);
   ng_app_init(&cold,test_hooks(&disk),900+id);
-  tap(&cold,'1'+(int)((id-1)/5));tap(&cold,'1'+(int)((id-1)%5));assert(cold.screen==NG_ENTRY);
+  tap(&cold,'1'+(int)(ng_catalog_index(id)/6));tap(&cold,'1'+(int)(ng_catalog_index(id)%6));assert(cold.screen==NG_ENTRY);
   assert(ng_entry_action(&cold,cold.entry_selection)==NG_ENTRY_NEW);
   NgSettings preferences=cold.settings;uint32_t seed=cold.seed;
   /* Digits select a row. Settings-row OPEN requests NEW, never RESUME. */
@@ -98,6 +102,37 @@ static void lifecycle_drafts(void)
   tap(&cold,id%2?NGK_EXE:NGK_F6);assert(cold.screen==NG_PLAY&&cold.session.game.id==id);
   assert(!memcmp(&cold.session.game,&expected,sizeof(expected)));assert(ng_valid(&cold.session.game));
  }
+}
+
+static void revised_app_flows(void)
+{
+ open_game(&app,33);assert(app.session.game.id==33);
+ tap(&app,'1');assert(app.session.game.board[0]==1);tap(&app,NGK_F2);assert(app.session.game.board[0]==0&&app.session.game.assisted);
+ tap(&app,NGK_F4);assert(app.session.game.phase==1);tap(&app,NGK_EXE);assert(app.session.game.data[8]);
+ NgGame expected=app.session.game;assert(ng_checkpoint(&app));NgIO io=test_io(&disk);static NgSession recovered;
+ assert(ng_load_io(&recovered,33,&io)==NG_LOAD_OK&&!memcmp(&recovered.game,&expected,sizeof(expected)));
+ tap(&app,NGK_F4);assert(app.session.game.phase==0);
+ for(unsigned i=0;i<(unsigned)app.session.game.rows*app.session.game.cols;i++){
+  app.session.game.cursor=(uint8_t)i;tap(&app,app.session.game.fixed[i]?'1':'0');
+ }
+ tap(&app,NGK_F6);assert(app.modal==NG_MODAL_RESULT&&app.session.game.status==NG_WON);
+ open_game(&app,34);tap(&app,'2');tap(&app,NGK_DEL);assert(app.session.game.board[0]==-1);
+ tap(&app,NGK_F2);assert(app.session.game.board[0]==2&&app.session.game.assisted);
+ tap(&app,NGK_F4);assert(app.session.game.cursor==1);expected=app.session.game;assert(ng_checkpoint(&app));
+ assert(ng_load_io(&recovered,34,&io)==NG_LOAD_OK&&!memcmp(&recovered.game,&expected,sizeof(expected)));
+ app.settings.difficulty[5]=NG_MASTER;app.settings_dirty=true;open_game(&app,6);
+ tap(&app,NGK_EXIT);tap(&app,'1'+(int)ng_entry_row(&app,NG_ENTRY_TARGET));
+ assert(ng_entry_action(&app,app.entry_selection)==NG_ENTRY_TARGET&&!app.target_draft[0]);
+ tap(&app,'1');tap(&app,'0');tap(&app,'0');tap(&app,'0');assert(!strcmp(app.target_draft,"1000"));
+ tap(&app,NGK_EXE);assert(app.screen==NG_ENTRY&&app.settings.target==1000&&!app.target_draft[0]);
+ tap(&app,NGK_F6);assert(app.modal==NG_MODAL_NEW);tap(&app,NGK_EXE);
+ assert(app.screen==NG_PLAY&&app.session.game.data[0]==1000&&app.session.game.data[1]==6&&app.session.game.pack_revision==3);
+ expected=app.session.game;tap(&app,'1');tap(&app,NGK_F1);assert(app.modal==NG_MODAL_INIT);tap(&app,NGK_EXE);
+ assert(app.session.game.data[0]==1000&&!memcmp(app.session.game.board,expected.board,sizeof(expected.board)));
+ tap(&app,NGK_EXIT);while(ng_entry_action(&app,app.entry_selection)!=NG_ENTRY_TARGET)tap(&app,NGK_DOWN);
+ tap(&app,'0');tap(&app,NGK_EXE);assert(app.screen==NG_ENTRY&&app.settings.target==1000&&!strcmp(app.target_draft,"0"));
+ tap(&app,NGK_F6);assert(!app.modal&&app.screen==NG_ENTRY);tap(&app,NGK_DEL);tap(&app,'1');tap(&app,NGK_EXE);assert(app.settings.target==1);
+ tap(&app,NGK_F6);assert(app.modal==NG_MODAL_NEW);tap(&app,NGK_EXE);assert(app.session.game.data[0]==1&&ng_valid(&app.session.game));
 }
 
 int main(void)
@@ -127,6 +162,6 @@ int main(void)
  tap(&app,'5');moves=app.session.game.moves;tap(&app,'5');assert(app.session.game.moves==moves);
  tap(&app,NGK_DEL);assert(!app.session.game.board[cursor]);tap(&app,NGK_F2);assert(app.session.game.board[cursor]==5);
  lifecycle_drafts();
- master_lifecycles();master_bank_cycles();
- puts("GUESS/CALC app: old10 workflows, all18 MASTER mode save/RESUME/INIT/result/stats, eight35-run bank cycles PASS");return 0;
+ master_lifecycles();master_bank_cycles();revised_app_flows();
+ puts("GUESS/CALC app: old10 workflows, current MASTER modes save/RESUME/INIT/result/compact progress, seven35-run bank cycles, BLACK BOX/Cryptarithm undo/save, custom-target entry/INIT PASS");return 0;
 }

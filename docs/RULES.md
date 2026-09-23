@@ -8,19 +8,19 @@ SHIFT+AC/ON checkpoint. NEW is separate from INIT.
 ## 01 — NUMBER BASEBALL
 
 ```text
-Find the hidden digit sequence. Leading zero
-is allowed. Modes: 3/4/5 digits, UNIQUE or
-REPEAT. S = exact digit and position.
-B = right digit, wrong position. Exact
-matches are consumed before counting B.
-Easy/Normal/Hard: 16/12/10 attempts.
-MASTER: 6/5/7 digits, 16 attempts.
-MID/SHORT/LONG select those lengths.
-Digits: enter. DEL: erase. EXE: submit.
-UP/DOWN: scroll attempts. No guess undo.
+Find the hidden digit sequence.
+EASY/NORMAL/HARD/MASTER: 4/5/6/7 digits.
+Repeated digits and leading zero are allowed.
+S = exact digit and position.
+B = right digit, wrong position.
+Exact matches are consumed before counting B.
+Attempts by level: 16/12/10/16.
+Digits enter; DEL erases; EXE submits.
+UP/DOWN scroll attempts. No guess undo.
+Older saved games retain their original rules.
 ```
 
-Modes: MID UNIQUE / SHORT UNIQUE / LONG UNIQUE / MID REPEAT / SHORT REPEAT / LONG REPEAT.
+Modes: STANDARD.
 
 ## 02 — EQUATION GUESS
 
@@ -102,24 +102,50 @@ Enter signed integer, EXE checks.
 
 Modes: STANDARD.
 
+## 33 — BLACK BOX
+
+```text
+Find hidden atoms by firing beams from edges.
+E/N/H/MASTER: 5/6/7/8 square; 3/4/5/6 atoms.
+A beam hitting an atom is absorbed (H).
+An atom diagonally ahead bends it away.
+Two diagonally ahead reverse the beam.
+A side atom at entry reflects immediately (R).
+Direct hits take precedence over diagonals.
+Exit numbers pair the entry and exit ports.
+Any layout with the correct atom count and
+ALL the same ray outcomes wins; equivalent
+layouts are accepted, not just the hidden one.
+CELLS: arrows move; EXE cycles blank/atom/X.
+1 atom, 2 excluded, 0/DEL clear. F4: RAYS.
+RAYS: arrows select port; EXE fires. F4: CELLS.
+F6 CHECK costs 5 penalty points if wrong.
+Score = new probes + penalties; lower is best.
+HINT reveals one atom and marks assisted.
+```
+
+Modes: STANDARD.
+
 ## 06 — MAKE TARGET
 
 ```text
-Make target 24 or 10 using ALL four cards,
-each exactly once. + - * / and parentheses.
+Choose a target 1..1000 on the entry screen.
+Use EVERY card exactly once to reach it.
+EASY/NORMAL/HARD/MASTER: 4/4/5/6 cards.
+Use + - * / and parentheses.
 Exact rational intermediate values allowed.
 No concatenation, powers or extra constants.
-Equal card values are separate usable cards.
+Equal values are separate usable cards.
+Every generated deck has a verified solution.
 Type expression; DEL erases; EXE checks.
-Used cards are shaded. HINT: one first step.
-ANSWER copies a full example; both assisted.
-96 characters, depth 12, 16 literals, 31 ops.
-Reduced numerator/denominator <= 1000000000.
-MASTER cards 1..24 require fractions and
-a nested expression; integers alone cannot win.
+HINT gives one first step; ANSWER copies one
+example. Both mark assisted. All legal answers
+are accepted, not just that example.
+96 chars, nesting12, reduced values <= 1e9.
+Older saved target10/24 decks remain playable.
 ```
 
-Modes: TARGET 24 / TARGET 10.
+Modes: STANDARD.
 
 ## 07 — COUNTDOWN
 
@@ -197,6 +223,27 @@ a factorization. Both mark assisted.
 
 Modes: STANDARD.
 
+## 34 — CRYPTARITHM
+
+```text
+Replace letters with decimal digits so the
+vertical addition is true. Each letter keeps
+one digit; different letters use different
+digits. Leading letters cannot be zero.
+E/N/H/MASTER: two 2/3/4/5-digit addends.
+Longer carries and more letters are involved;
+this is a structural level, not a human rating.
+30 original, unique-solution puzzles per level.
+Arrows select a letter. Digits set it.
+DEL clears it. NEXT selects the next blank.
+EXE or F6 checks all public arithmetic rules.
+Any valid assignment is accepted. UNDO works
+on digit edits and checks. No stored answer
+is consulted by the native checker.
+```
+
+Modes: STANDARD.
+
 ## 11 — SUDOKU
 
 ```text
@@ -256,6 +303,23 @@ Outer clues count buildings seen from there.
 A taller building hides lower ones behind it.
 Missing outer clues impose no condition.
 DEL clears. EXE checks. F3 REVEAL is assisted.
+```
+
+Modes: CLASSIC.
+
+## 35 — HASHI
+
+```text
+Join visible islands with straight bridges.
+Only horizontal/vertical bridges are allowed.
+Each pair has zero, one or two bridges.
+Island numbers give their total bridge count.
+Bridges cannot cross or pass through islands.
+All islands must form one connected network.
+Arrows select a visible neighboring island.
+2/4/6/8 cycle down/left/right/up bridges.
+EXE cycles last direction; DEL clears it.
+F4 checks. F3 REVEAL marks ASSISTED.
 ```
 
 Modes: CLASSIC.
@@ -329,6 +393,21 @@ F3 REVEAL shows one choice, marking ASSISTED.
 
 Modes: CLASSIC.
 
+## 36 — NONOGRAM
+
+```text
+Fill cells to match all row/column run clues.
+Runs appear in order, with an empty gap.
+A zero clue means the whole line is empty.
+Mark every cell filled or empty to finish.
+Arrows move. 1 fills; 0 marks an empty cross.
+EXE cycles unknown, filled, empty. DEL clears.
+F4 checks every visible run clue.
+F3 REVEAL shows one cell, marking ASSISTED.
+```
+
+Modes: CLASSIC.
+
 ## 21 — NIM
 
 ```text
@@ -340,14 +419,14 @@ Hard: 4 piles up to 31.
 CPU Easy random, Normal 75% exact,
 Hard uses the exact nim-sum policy.
 MASTER: verified four-pile tactical starts.
-CPU first / you first / local two players.
+Play against CPU: YOU FIRST or CPU FIRST.
 MASTER keeps the same exact Hard CPU.
-Its starts allow YOU/P1 a forced win.
+Its starts allow YOU a forced win.
 UNDO restores your complete CPU round.
 UNDO marks assisted practice.
 ```
 
-Modes: CPU / YOU FIRST / CPU / CPU FIRST / LOCAL 2P.
+Modes: YOU FIRST / CPU FIRST.
 
 ## 22 — WYTHOFF
 
@@ -361,13 +440,13 @@ Pile ranges: Easy 1..10, Normal 1..24,
 Hard 1..40. Exact bounded DP on Hard.
 MASTER: verified long tactical starts.
 Easy random; Normal 75% exact moves.
-CPU first / you first / local two players.
+Play against CPU: YOU FIRST or CPU FIRST.
 MASTER keeps the same exact Hard CPU.
-Its starts allow YOU/P1 a forced win.
+Its starts allow YOU a forced win.
 UNDO restores the complete CPU round.
 ```
 
-Modes: CPU / YOU FIRST / CPU / CPU FIRST / LOCAL 2P.
+Modes: YOU FIRST / CPU FIRST.
 
 ## 23 — EUCLID
 
@@ -381,13 +460,13 @@ Hard 1..99. All rules stay the same.
 Hard uses exact memoized state analysis.
 MASTER: coprime multi-step tactical starts.
 Easy random; Normal 75% exact moves.
-CPU first / you first / local two players.
+Play against CPU: YOU FIRST or CPU FIRST.
 MASTER keeps the same exact Hard CPU.
-Its starts allow YOU/P1 a forced win.
+Its starts allow YOU a forced win.
 UNDO restores the complete CPU round.
 ```
 
-Modes: CPU / YOU FIRST / CPU / CPU FIRST / LOCAL 2P.
+Modes: YOU FIRST / CPU FIRST.
 
 ## 24 — MAKE FIFTEEN
 
@@ -397,17 +476,17 @@ Any three of YOUR cards summing to 15
 win, even when you hold more than three.
 All cards used without a winner: draw.
 Arrows + EXE, or a digit to take a card.
-Blue marks P1/YOU; red marks P2/CPU.
+Blue marks YOU; red marks CPU.
 Easy random; Normal 75% exact moves.
 Hard uses the full exact minimax table.
 MASTER: verified midgame tactical starts.
-CPU first / you first / local two players.
+Play against CPU: YOU FIRST or CPU FIRST.
 MASTER keeps the same exact Hard CPU.
-Its starts allow YOU/P1 a forced win.
+Its starts allow YOU a forced win.
 UNDO restores the complete CPU round.
 ```
 
-Modes: CPU / YOU FIRST / CPU / CPU FIRST / LOCAL 2P.
+Modes: YOU FIRST / CPU FIRST.
 
 ## 25 — RACE TO TARGET
 
@@ -422,12 +501,33 @@ Hard: target 23; add 1, 2, 3, or 4.
 Hard uses exact addition-game analysis.
 MASTER: varied tactical target/add limits.
 Easy random; Normal 75% exact moves.
-CPU first / you first / local two players.
+Play against CPU: YOU FIRST or CPU FIRST.
 MASTER keeps the same exact Hard CPU.
-Its starts allow YOU/P1 a forced win.
+Its starts allow YOU a forced win.
 ```
 
-Modes: CPU / YOU FIRST / CPU / CPU FIRST / LOCAL 2P.
+Modes: YOU FIRST / CPU FIRST.
+
+## 37 — REVERSI
+
+```text
+Place a disc to bracket an enemy line.
+Flip every bracketed line in 8 directions.
+Black moves first; choose YOU or CPU first.
+Arrows select; EXE or 5 places a disc.
+If you cannot move, you pass automatically.
+Neither player can move: most discs wins.
+Equal counts draw; empty cells stay empty.
+F4 toggles dots marking legal placements.
+Easy CPU chooses a random legal move.
+Normal searches 1 ply, Hard up to 3,
+MASTER up to 5, with fixed node budgets.
+The bounded CPU is not perfect play.
+HINT suggests a move and marks assisted.
+UNDO restores your complete CPU round.
+```
+
+Modes: YOU FIRST / CPU FIRST.
 
 ## 26 — 2048
 
@@ -525,6 +625,28 @@ UNDO restores the last edge edit.
 EASY 5x5, NORMAL 6x6, HARD 8x8.
 MASTER 8x8: interacting choices.
 30 original unique puzzles per level.
+```
+
+Modes: STANDARD.
+
+## 38 — NET
+
+```text
+Rotate tiles to connect every square.
+Every wire must meet its neighbour's wire.
+No wires may leave the board; no wrapping.
+The whole network must form one tree:
+all tiles connected, with no closed loops.
+Arrows select. EXE/5 turns clockwise;
+DEL turns anticlockwise. F4 locks a tile.
+Locked tiles cannot be rotated until freed.
+F3 REVEAL sets one original orientation
+and locks it, marking assisted practice.
+Every valid network wins, not just ours.
+E/N/H/M use 3/4/5/6 by 3/4/5/6 grids.
+Seeds construct a tree then rotate tiles.
+Solutions need not be unique; no rating claim.
+Moves count rotations, locks and reveals.
 ```
 
 Modes: STANDARD.

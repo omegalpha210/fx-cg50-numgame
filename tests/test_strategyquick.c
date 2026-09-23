@@ -12,7 +12,7 @@ static NgGame fresh(unsigned id,unsigned difficulty,unsigned mode,uint32_t seed)
 static int after_value(NgGame g,SqMove m){assert(sq_strategy_legal(&g,m));sq_strategy_apply(&g,m);if(g.status==NG_DRAW)return 0;if(g.status!=NG_PLAYING)return 1;return -sq_strategy_value(g.id,&g);}
 static void audit_nim(void){
  /* Independent complete normal-play DAG, indexed by base-32 pile counts. */
- unsigned states=1u<<20;uint8_t *win=calloc(states,1);assert(win);NgGame g=fresh(21,2,2,19);
+ unsigned states=1u<<20;uint8_t *win=calloc(states,1);assert(win);NgGame g=fresh(21,2,0,19);
  for(unsigned code=1;code<states;code++){
   for(unsigned p=0;p<4;p++){unsigned n=(code>>(p*5))&31u;g.board[p]=(int16_t)n;for(unsigned k=1;k<=n;k++)if(!win[code-(k<<(p*5))])win[code]=1;}
   assert(sq_strategy_value(21,&g)==(win[code]?1:-1));SqMove m=sq_strategy_pick(&g,true);assert(sq_strategy_legal(&g,m));unsigned child=code-((unsigned)m.amount<<((unsigned)m.choice*5));if(win[code])assert(!win[child]);
@@ -20,7 +20,7 @@ static void audit_nim(void){
  free(win);puts("Nim: 1,048,575 nonterminal four-pile states, 0..31 exhaustive PASS");
 }
 static void audit_wythoff(void){
- uint8_t ref[41][41]={{0}};NgGame g=fresh(22,2,2,9);
+ uint8_t ref[41][41]={{0}};NgGame g=fresh(22,2,0,9);
  for(unsigned a=0;a<=40;a++)for(unsigned b=0;b<=40;b++){
   if(!a&&!b)continue;
   for(unsigned x=0;x<a;x++)if(!ref[x][b])ref[a][b]=1;
@@ -31,7 +31,7 @@ static void audit_wythoff(void){
  puts("Wythoff: 1,680 nonterminal pairs, 0..40 exhaustive PASS");
 }
 static void audit_euclid(void){
- uint8_t ref[100][100]={{0}};NgGame g=fresh(23,2,2,12);unsigned count=0;
+ uint8_t ref[100][100]={{0}};NgGame g=fresh(23,2,0,12);unsigned count=0;
  /* Increasing sum order is independent of the generator's memo recursion. */
  for(unsigned total=2;total<=198;total++)for(unsigned a=1;a<=99;a++){
   if(total<=a)continue;unsigned b=total-a;if(b<a||b>99)continue;
@@ -53,7 +53,7 @@ static int ref_fifteen(unsigned own,unsigned other){
  int best=-1;for(unsigned i=0;i<9;i++)if(!((own|other)&(1u<<i))){int v=-ref_fifteen(other,own|(1u<<i));if(v>best)best=v;}*cache=(int8_t)best;return best;
 }
 static void audit_fifteen(void){
- memset(fifteen_ref,2,sizeof fifteen_ref);NgGame g=fresh(24,2,2,11);unsigned count=0;
+ memset(fifteen_ref,2,sizeof fifteen_ref);NgGame g=fresh(24,2,0,11);unsigned count=0;
  for(unsigned code=0;code<19683;code++){
   unsigned n=code,own=0,other=0;g.moves=0;
   for(unsigned i=0;i<9;i++){unsigned p=n%3;n/=3;g.board[i]=(int16_t)p;if(p==1)own|=1u<<i;if(p==2)other|=1u<<i;g.moves+=p!=0;}
@@ -64,12 +64,12 @@ static void audit_fifteen(void){
 }
 static void audit_race(void){
  unsigned count=0;for(unsigned d=0;d<3;d++){
-  NgGame g=fresh(25,d,2,7);int target=g.data[1],max=g.data[2];bool ref[32]={0};
+  NgGame g=fresh(25,d,0,7);int target=g.data[1],max=g.data[2];bool ref[32]={0};
   for(int r=1;r<=target;r++)for(int k=1;k<=max&&k<=r;k++)if(!ref[r-k])ref[r]=true;
   for(int total=0;total<target;total++){g.board[0]=(int16_t)total;int expect=ref[target-total]?1:-1;assert(sq_strategy_value(25,&g)==expect);assert(after_value(g,sq_strategy_pick(&g,true))==expect);count++;}
  }
  printf("Race: %u nonterminal totals across all three presets PASS\n",count);
- unsigned extended=0;NgGame g=fresh(25,2,2,7);
+ unsigned extended=0;NgGame g=fresh(25,2,0,7);
  for(unsigned maximum=2;maximum<=8;maximum++){
   bool ref[64]={0};for(unsigned r=1;r<64;r++)for(unsigned k=1;k<=maximum&&k<=r;k++)if(!ref[r-k])ref[r]=true;
   for(unsigned remain=1;remain<64;remain++){g.data[1]=(int32_t)remain;g.data[2]=(int32_t)maximum;g.board[0]=0;int expected=ref[remain]?1:-1;assert(sq_strategy_value(25,&g)==expected);assert(after_value(g,sq_strategy_pick(&g,true))==expected);extended++;}
@@ -77,7 +77,7 @@ static void audit_race(void){
  printf("Race MASTER domain: %u remaining-distance/add-limit states match independent DP PASS\n",extended);
 }
 static void strategy_lifecycle(void){
- for(unsigned id=21;id<=25;id++)for(unsigned d=0;d<3;d++)for(unsigned mode=0;mode<3;mode++)for(unsigned seed=1;seed<=20;seed++){
+ for(unsigned id=21;id<=25;id++)for(unsigned d=0;d<3;d++)for(unsigned mode=0;mode<2;mode++)for(unsigned seed=1;seed<=20;seed++){
   NgGame g=fresh(id,d,mode,seed);const NgModule *m=&ng_strategyquick[id-21];
   assert(!sq_strategy_legal(&g,(SqMove){-1,1}));assert(!sq_strategy_legal(&g,(SqMove){0,0}));
   for(unsigned step=0;g.status==NG_PLAYING&&step<180;step++){
@@ -87,12 +87,12 @@ static void strategy_lifecycle(void){
   }
   assert(g.status!=NG_PLAYING);NgGame ended=g;assert(!m->action(&g,NGK_CPU));assert(!memcmp(&ended,&g,sizeof g));
  }
- NgGame g=fresh(24,2,2,1);int sequence[]={8,1,3,2,4};for(unsigned i=0;i<5;i++)assert(sq_strategy_apply(&g,(SqMove){sequence[i]-1,1}));assert(g.status==NG_WON);assert(g.data[0]==1);
- g=fresh(24,2,2,1);int fourth[]={2,1,4,3,8,6,5};for(unsigned i=0;i<7;i++)assert(sq_strategy_apply(&g,(SqMove){fourth[i]-1,1}));assert(g.status==NG_WON&&g.moves==7);
- g=fresh(24,2,2,1);int draw[]={8,1,6,5,3,7,9,4,2};for(unsigned i=0;i<9;i++)assert(sq_strategy_apply(&g,(SqMove){draw[i]-1,1}));assert(g.status==NG_DRAW);
- g=fresh(23,2,2,1);g.board[0]=7;g.board[1]=7;assert(sq_strategy_apply(&g,(SqMove){0,1}));assert(g.status==NG_WON);
- g=fresh(23,2,2,1);g.board[0]=3;g.board[1]=12;assert(!sq_strategy_legal(&g,(SqMove){0,5}));assert(sq_strategy_apply(&g,(SqMove){0,4}));assert(g.status==NG_WON);
- puts("Strategy: 900 seed/difficulty/mode complete legal playthroughs PASS");
+ NgGame g=fresh(24,2,0,1);int sequence[]={8,1,3,2,4};for(unsigned i=0;i<5;i++)assert(sq_strategy_apply(&g,(SqMove){sequence[i]-1,1}));assert(g.status==NG_WON);assert(g.data[0]==1);
+ g=fresh(24,2,0,1);int fourth[]={2,1,4,3,8,6,5};for(unsigned i=0;i<7;i++)assert(sq_strategy_apply(&g,(SqMove){fourth[i]-1,1}));assert(g.status==NG_WON&&g.moves==7);
+ g=fresh(24,2,0,1);int draw[]={8,1,6,5,3,7,9,4,2};for(unsigned i=0;i<9;i++)assert(sq_strategy_apply(&g,(SqMove){draw[i]-1,1}));assert(g.status==NG_DRAW);
+ g=fresh(23,2,0,1);g.board[0]=7;g.board[1]=7;assert(sq_strategy_apply(&g,(SqMove){0,1}));assert(g.status==NG_WON);
+ g=fresh(23,2,0,1);g.board[0]=3;g.board[1]=12;assert(!sq_strategy_legal(&g,(SqMove){0,5}));assert(sq_strategy_apply(&g,(SqMove){0,4}));assert(g.status==NG_WON);
+ puts("Strategy: 600 seed/difficulty/mode complete legal playthroughs PASS");
 }
 static void quick_2048(void){
  int16_t line[4]={1,1,1,1};uint32_t score=0;assert(sq_2048_line(line,&score));assert(line[0]==2&&line[1]==2&&!line[2]&&!line[3]&&score==8);
@@ -163,7 +163,7 @@ static void integrated_matrix(void){
  unsigned count=0;
  for(unsigned id=21;id<=28;id++)for(unsigned d=0;d<4;d++)for(unsigned mode=0;mode<ng_module(id)->modes;mode++){
   NgApp app;ng_app_init(&app,(NgHooks){0},123);app.settings.difficulty[id-1]=(uint8_t)d;app.settings.mode[id-1]=(uint8_t)mode;
-  press(&app,id<26?'5':'6');press(&app,'1'+(int)((id-1)%5));assert(app.screen==NG_ENTRY);press(&app,NGK_F6);assert(app.screen==NG_PLAY&&app.session.game.id==id);assert(app.session.game.difficulty==(id==26&&mode==0?1:d));assert(app.settings.difficulty[id-1]==d);assert(ng_valid(&app.session.game));codec_roundtrip(&app.session);
+  press(&app,'1'+ng_catalog_index(id)/6);press(&app,'1'+ng_catalog_index(id)%6);assert(app.screen==NG_ENTRY);press(&app,NGK_F6);assert(app.screen==NG_PLAY&&app.session.game.id==id);assert(app.session.game.difficulty==(id==26&&mode==0?1:d));assert(app.settings.difficulty[id-1]==d);assert(ng_valid(&app.session.game));codec_roundtrip(&app.session);
   NgGame initial=app.session.game;
   /* INIT must regenerate exactly the same board and gameplay RNG. */
   press(&app,NGK_F1);if(app.modal==NG_MODAL_INIT)press(&app,NGK_EXE);assert(app.session.game.seed==initial.seed);assert(app.session.game.rng==initial.rng);assert(!memcmp(app.session.game.board,initial.board,sizeof initial.board));assert(app.session.game.assisted);
@@ -211,6 +211,32 @@ static void imported_state_rejections(void){
  puts("Imported states: phase/mode/CPU/time/answer/length/terminal inconsistencies rejected PASS");
 }
 
+static void removed_local_mode(void){
+ unsigned cases=0,states=0,p2wins=0;
+ for(unsigned id=21;id<=25;id++)for(unsigned d=0;d<4;d++){
+  const NgModule *m=ng_module(id);assert(m->modes==2);
+  assert(!strcmp(m->mode_name(0),"YOU FIRST")&&!strcmp(m->mode_name(1),"CPU FIRST"));
+  NgGame new_run=fresh(id,d,2,772);assert(new_run.mode==0);
+  NgSession legacy={0};legacy.stats.started=1;legacy.game=fresh(id,d,0,772);legacy.game.mode=2;
+  /* Old local states remain decodable for archive inspection, never silently
+   * treated as a CPU game. New selection and migration exclude this mode. */
+  assert(ng_valid(&legacy.game));codec_roundtrip(&legacy);
+  NgGame before=legacy.game;
+  const int keys[]={NGK_CPU,NGK_EXE,NGK_HINT,NGK_AUX,NGK_DEL,NGK_RIGHT,'1','5'};
+  for(unsigned i=0;i<sizeof keys/sizeof keys[0];i++){assert(!m->action(&legacy.game,keys[i]));assert(!memcmp(&before,&legacy.game,sizeof before));}
+  legacy.game.pack_revision=3;assert(!ng_valid(&legacy.game));
+  NgGame live=fresh(id,d,0,772);
+  for(unsigned step=0;live.status==NG_PLAYING&&step<180;step++){
+   assert(sq_strategy_apply(&live,sq_strategy_pick(&live,live.turn==1)));assert(ng_valid(&live));
+   legacy.game=live;legacy.game.mode=2;legacy.game.cpu_pending=0;
+   if(legacy.game.status==NG_LOST){legacy.game.status=NG_WON;p2wins++;}
+   assert(ng_valid(&legacy.game));codec_roundtrip(&legacy);states++;
+  }
+  assert(live.status!=NG_PLAYING);cases++;
+ }
+ assert(p2wins);printf("Strategy removed LOCAL: %u legacy read-only codec cases + %u played states (%u P2 wins); modes2/new-run normalization PASS\n",cases,states,p2wins);
+}
+
 static void master_banks(void){
  unsigned starts=0,rounds=0;
  for(unsigned id=21;id<=28;id++)for(unsigned mode=0;mode<ng_module(id)->modes;mode++){
@@ -236,7 +262,7 @@ static void master_banks(void){
    *g=initial;g->puzzle_id=count;assert(!ng_valid(g));*g=initial;g->difficulty=4;assert(!ng_valid(g));
   }
  }
- printf("MASTER banks: %u no-repeat starts, %u exact-vs-exact forced HUMAN/P1 wins, INIT/codec/invalid IDs PASS\n",starts,rounds);
+ printf("MASTER banks: %u no-repeat starts, %u exact-vs-exact forced HUMAN wins, INIT/codec/invalid IDs PASS\n",starts,rounds);
 }
 
 static void target_2048(void){
@@ -257,7 +283,7 @@ static void target_2048(void){
 
 int test_strategyquick(void){
  setvbuf(stdout,NULL,_IONBF,0);
- audit_nim();audit_wythoff();audit_euclid();audit_fifteen();audit_race();strategy_lifecycle();quick_2048();quick_sliding();quick_lights();quick_time_memory();reject_corrupt();integrated_matrix();legacy_codec_matrix();imported_state_rejections();master_banks();target_2048();return 0;
+ audit_nim();audit_wythoff();audit_euclid();audit_fifteen();audit_race();strategy_lifecycle();quick_2048();quick_sliding();quick_lights();quick_time_memory();reject_corrupt();integrated_matrix();legacy_codec_matrix();imported_state_rejections();removed_local_mode();master_banks();target_2048();return 0;
 }
 #ifdef STRATEGYQUICK_TEST_MAIN
 int main(void){return test_strategyquick();}

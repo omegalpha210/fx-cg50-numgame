@@ -1,6 +1,6 @@
-# LOGIC and PUZZLE audit — game IDs 11–20
+# LOGIC and PUZZLE audit — game IDs 11–20, 35–36
 
-The current compact bank contains **1,750 records: 1,630 uniquely solved puzzles
+The IDs 11–20 compact bank contains **1,750 records: 1,630 uniquely solved puzzles
 and 120 Magic PARTIAL layouts**. All original 900 records and the first 80 MASTER
 records retain their exact public clues, witnesses and stable IDs. The historical
 80-record extension is documented separately in [GRID_MASTER_AUDIT.md](GRID_MASTER_AUDIT.md).
@@ -244,3 +244,118 @@ references are Nikoli Sudoku/Kakuro/Hitori, Simon Tatham Towers/Unruly and James
 Harvey Unequal; no corpus, implementation or visual asset was copied from them.
 All app-specific rules, including Magic PAN, are stated in the in-app RULES and
 this audit. Human difficulty remains provisional until calibrated with players.
+
+## Additional games: HASHI 35 and NONOGRAM 36
+
+`ng_grids_extra[2]` adds two complete engines with separate original banks:
+**HASHI 150 unique puzzles (30 in each of EASY/NORMAL/HARD/MASTER/HELL)** and
+**NONOGRAM 120 unique puzzles (30 in each of EASY/NORMAL/HARD/MASTER)**.
+Together with IDs 11–20 this is 2,020 grid-family records: 1,900 uniquely solved
+puzzles and the 120 separately described Magic PARTIAL layouts. There are no
+downloaded puzzle records or copied third-party implementations in these banks.
+
+The runtime path is `init → ng_bank_pick → grids_extra_bank_id → const record`.
+Both games have one CLASSIC mode. Stable `puzzle_id` is `difficulty*30+ordinal`
+within each game; IDs are not shared across the two games. Existing IDs 11–20
+and their bank files are untouched. These new games reject revision-1 states.
+No runtime generation, solver, heap allocation, cache or whole-bank RAM copy is
+introduced. The 270 records occupy **23,070 read-only bytes**: 150×77-byte sparse
+HASHI records and 120×96-byte NONOGRAM records including alignment.
+
+HASHI stores at most 25 islands on a 9×9 board. Each island's `board` entry
+encodes right/down multiplicities as `right + 3*down`; non-island entries are
+zero. The immutable numbers remain in the pack. Completion derives the nearest
+visible neighbor in each direction, counts every incident bridge, rejects
+crossings, and runs a bounded graph traversal requiring all islands to connect.
+It cannot represent a diagonal bridge or a bridge passing through an island.
+Incorrect totals/crossings may remain in an unfinished player board; CHECK
+rejects them. A won persisted state must satisfy the full rules again.
+
+NONOGRAM stores ordered row/column runs as nibble sequences. Its board values
+are −1 unknown, 0 marked empty, and 1 filled. Completion requires every cell to
+be marked and independently extracts all runs from the player's rows/columns.
+It checks run order and gaps against the public clues, including zero clues.
+Neither game's completion routine reads the stored witness. C tests poison
+every witness in a copied record and still accept its rule-valid player board.
+
+| Game | Arrows | Digits / EXE | DEL | F4 / F3 |
+|---|---|---|---|---|
+| HASHI | Select a visible neighboring island | 2/4/6/8 cycle down/left/right/up bridges through 0,1,2; EXE cycles the last direction | Clear that bridge | CHECK / assisted one-bridge REVEAL |
+| NONOGRAM | Wrap among cells | 1 fills, 0 marks empty; EXE cycles unknown→filled→empty | Return to unknown | CHECK / assisted one-cell REVEAL |
+
+Unsupported digits/operators do not alter the board. Every bridge/cell edit
+increments `moves` for common undo. All unused board, fixed, notes, data, input
+and history state is validated. Both engines reject impossible terminal states,
+invalid dimensions, bad bank IDs and cursor positions. HASHI requires its cursor
+to select a real island. Common menu layout and app routing are integration
+responsibilities; these module tests make no category-slot assumptions.
+
+### New-game difficulty and independent checks
+
+The new ratings are provisional structural/inference bands. HASHI generation
+constructs a fresh connected noncrossing bridge graph and derives island clues.
+Public-clue propagation handles degree bounds, crossing exclusions and
+connectivity-required edges; bounded branching counts up to two solutions.
+The separate reference enumerates whole incident-edge tuples, checks remaining
+degree capacity and scans occupied segment interiors and graph connectivity.
+It imports none of the generator's propagation logic.
+
+| HASHI level | Size / islands | Required inference evidence | Observed rating search nodes |
+|---|---|---|---|
+| EASY | 5×5 / 6 | Basic propagation completes | 1 |
+| NORMAL | 7×7 / 9 | Larger connected network, independently unique | 1–3 |
+| HARD | 7×7 / 12 | Basic propagation leaves at least 2 edges unresolved | 3–12 |
+| MASTER | 9×9 / 16 | At least 4 unresolved edges and connectivity deductions in the replay | 3–23 |
+| HELL | 9×9 / 21 | Advanced propagation leaves at least 4 edges unresolved; search ≥7 nodes | 7–31 |
+
+These bands are not a claim that every HELL puzzle exceeds every MASTER puzzle
+on one metric. Connectivity-deduction counts include deductions made during
+search branches; the app does not claim to present a human tutorial for them.
+
+NONOGRAM uses fresh seeded binary patterns, keeps only unique public-run boards,
+and rates alternating row/column pattern support. Sizes are 5×5, 6×6, 7×7 and
+9×9. HARD requires at least four basic propagation rounds; MASTER requires at
+least four cells still unresolved by basic propagation and at least three search
+nodes. Observed search ranges are 1 / 1 / 1–3 / 3–25. Its independent reference
+enumerates whole rows against independently built column-prefix sets, rather
+than reusing the generation propagator. Uniqueness and technique evidence,
+not only clue count or board size, gate the advanced records.
+
+All 270 accepted seeds reproduce their exact instances, and all ratings replay.
+Canonical checks reject D4-equivalent HASHI island-clue grids, and D4/complement
+equivalents for NONOGRAM. This is the documented equivalence scope, not an
+exhaustive classification of every abstract graph isomorphism. The independent
+counters operate on records with witnesses removed. Small-space tests also
+enumerate all 3⁴ four-island bridge assignments and all 2⁹ binary 3×3 boards,
+comparing solution counts and checking that the inference searches return only
+actual solutions. Native C pack source reproduces byte-for-byte in a temporary
+directory; routine validation leaves source/assets unchanged.
+
+```sh
+python3 -B tests/test_grids_extra.py
+cc -std=c11 -Wall -Wextra -Werror -fsanitize=undefined \
+ -fno-sanitize-recover=all -DNG_GRIDS_EXTRA_TEST_MAIN -Iinclude -Isrc/games \
+ tests/test_grids_extra.c src/games/grids_extra.c src/games/grids_extra_pack.c \
+ src/core/common.c src/ui/draw.c -o build-grid-extra-test
+./build-grid-extra-test
+```
+
+The four Python tests pass for every bank, including independent uniqueness,
+canonical checks, seed/rating replay, exhaustive small spaces and native pack
+reproduction. The strict C11/UBSan suite completes all 270 puzzles using real
+key actions and checks malformed states, disconnected/crossing HASHI boards,
+NONOGRAM run order/unknown cells, and pixel bounds for every initial/won board.
+The engine and pack pass strict SH compilation. Engine text/read-only size is
+6,958 bytes, with zero data/BSS; largest individual frame is render 196 bytes,
+HASHI rules 112 bytes, valid 48 bytes and init 16 bytes. These are compiler
+estimates, not a measured hardware call-chain peak.
+
+Nine initial-board captures select the largest bridge-degree totals and longest
+NONOGRAM clue lists at each level. The 9×9 NONOGRAM uses 13-pixel cells with
+5×7 clue digits; even five-number clues fit within y=27..184. All initial and
+completed renders satisfy the content bounds. The contact sheet was visually
+inspected, and renderers never read a witness. `assets/grids/extra/audit.json`,
+`memory.json`, `capture-selection.json` and concise validation logs record the
+results. The extra-game ASan binary built but timed out without test output
+after 15 seconds: **ASan NOT VERIFIED**. Hardware readability, controls, stack
+peak and latency remain **HARDWARE TEST REQUIRED**.

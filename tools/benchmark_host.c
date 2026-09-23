@@ -90,7 +90,7 @@ int main(void)
   samples[k]=now()-t;assert(!ng_diagnostics.handles && ng_diagnostics.timers==1);
  }
  summary(1000);printf(",\"failures\":%u,\"rss_highwater_before_bytes\":%ld,\"rss_highwater_after_bytes\":%ld,\"app_malloc_calls\":0,\"app_heap_bytes\":0,\"handles\":%u,\"timers\":%u,\"fixture_io\":false},",failures,before,rss(),ng_diagnostics.handles,ng_diagnostics.timers);assert(!failures);
- /* Real host archive adapter: maximal undo/notes plus CRC, two-copy recovery
+ /* Real host compact adapter: maximal undo/notes plus CRC, two-copy recovery
     reads and write verification. This temporary namespace never sees saves. */
  char folder[]="benchmark-fixture-XXXXXX";assert(mkdtemp(folder));ng_storage_directory(folder);
  memset(&saved,0,sizeof saved);ng_new(&saved.game,11,NG_HELL,0,123,1);saved.stats.started=1;
@@ -103,14 +103,14 @@ int main(void)
   assert(ng_storage_load(&cold,11)==NG_LOAD_OK);assert(!memcmp(&cold,&saved,sizeof saved));
   assert(!ng_diagnostics.handles && ng_diagnostics.timers==1);
  }
- printf("\"checkpoint\":{\"scope\":\"POSIX archive save including existing copies+CRC+readback, excludes explicit cold-load assertion\",\"first_create_ms\":%.6f,",first*1000);summary(128);
- printf(",\"payload_bytes\":%zu,\"record_with_header_bytes\":%zu,\"archive_files\":%u,\"total_archive_bytes\":%u,\"handles\":%u},",payload,payload+32,files(folder),2*NG_ARCHIVE_BYTES,ng_diagnostics.handles);assert(files(folder)==2);
+ printf("\"checkpoint\":{\"scope\":\"POSIX exact-length compact save including existing copies+CRC+readback, excludes explicit cold-load assertion\",\"first_create_ms\":%.6f,",first*1000);summary(128);
+ printf(",\"payload_bytes\":%zu,\"record_with_header_bytes\":%zu,\"archive_files\":%u,\"total_archive_bytes\":%zu,\"handles\":%u},",payload,payload+32,files(folder),2*(payload+32),ng_diagnostics.handles);assert(files(folder)==2);
 #ifdef NG_DIAGNOSTIC
  printf("\"diagnostics\":{\"sampled_stack_bytes\":%lu,\"samples\":%u,\"deepest_game\":%u,\"deepest_operation\":\"%s\",\"codec_peak\":%u,\"read_calls\":%u,\"write_calls\":%u,\"read_bytes\":%u,\"write_bytes\":%u},",(unsigned long)(ng_diagnostics.stack_base-ng_diagnostics.stack_low),ng_diagnostics.stack_samples,ng_diagnostics.peak_game,ng_diag_operation_name(ng_diagnostics.peak_operation),ng_diagnostics.codec_peak,ng_diagnostics.read_calls,ng_diagnostics.write_calls,ng_diagnostics.read_bytes,ng_diagnostics.write_bytes);
  const char *prefix="ND";
 #else
  const char *prefix="NG";
 #endif
- for(unsigned slot=0;slot<2;slot++){char path[128];snprintf(path,sizeof path,"%s/%sARC%c.dat",folder,prefix,'A'+slot);assert(!unlink(path));}assert(!rmdir(folder));ng_storage_directory(".");
+ for(unsigned slot=0;slot<2;slot++){char path[128];snprintf(path,sizeof path,"%s/%s211%c.dat",folder,prefix,'A'+slot);assert(!unlink(path));}assert(!rmdir(folder));ng_storage_directory(".");
  printf("\"rectangles\":%u,\"limits\":\"No host->SH timing/ABI conversion; RSS highwater includes runtime/pages and is not live heap. App allocation zero is source ownership, not OS allocation coverage. No wall-clock timeout implemented in engines; bounded construction/host banks avoid device search. Hardware latency/fallback budgets unverified.\"}\n",rectangles);return 0;
 }

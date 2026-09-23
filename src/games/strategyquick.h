@@ -28,4 +28,10 @@ bool sq_2048_line(int16_t line[4],uint32_t *score);
 bool sq_2048_can_move(const NgGame *g);
 bool sq_sliding_solvable(const NgGame *g);
 bool sq_lights_solution(const NgGame *g,uint32_t *solution);
+/* Compact, pure rule helpers for independent Reversi/Net audits. */
+unsigned sq_reversi_moves(const int16_t board[64],unsigned player,uint8_t moves[64]);
+bool sq_reversi_place(int16_t board[64],unsigned player,unsigned position);
+int sq_reversi_pick(NgGame *g,unsigned level);
+bool sq_net_complete(const NgGame *g);
+unsigned sq_net_connected(const NgGame *g);
 #endif

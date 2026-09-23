@@ -93,6 +93,7 @@ static void lifecycle_all(void)
 {
  for(unsigned index=0;index<NG_GAME_COUNT;index++) {
   unsigned id=ng_visible_id(index);
+  if(id>=33)continue; /* Six new engines have independent lifecycle suites. */
   open_game(&app,id);const NgModule *m=ng_module(id);
   tap(&app,NGK_F5);assert(app.modal==NG_MODAL_RULES);tap(&app,NGK_EXIT);
   NgGame initial=app.session.game;
@@ -109,9 +110,9 @@ static void lifecycle_all(void)
   uint32_t count=app.summary[id-1].assisted+app.summary[id-1].completed;
   assert(count==1);assert(ng_checkpoint(&app));assert(ng_checkpoint(&app));assert(app.summary[id-1].assisted+app.summary[id-1].completed==count);
   ng_app_init(&cold,test_hooks(&disk),900+id);assert(cold.summary[id-1].exists);
-  tap(&cold,'1'+(int)(ng_catalog_index(id)/5));tap(&cold,'1'+(int)(ng_catalog_index(id)%5));
+  tap(&cold,'1'+(int)(ng_catalog_index(id)/6));tap(&cold,'1'+(int)(ng_catalog_index(id)%6));
   unsigned writes=disk.saves;NgGame saved=cold.session.game;NgSettings settings=cold.settings;
-  tap(&cold,NGK_F4);assert(cold.modal==NG_MODAL_RECORDS);tap(&cold,NGK_F2);tap(&cold,NGK_F3);tap(&cold,NGK_F4);tap(&cold,NGK_EXIT);
+  tap(&cold,NGK_F4);assert(!cold.modal);tap(&cold,NGK_F2);tap(&cold,NGK_F3);tap(&cold,NGK_F4);
   assert(disk.saves==writes && !memcmp(&saved,&cold.session.game,sizeof(saved)) && !memcmp(&settings,&cold.settings,sizeof(settings)));
   tap(&cold,'1');tap(&cold,NGK_F6);
   assert(cold.modal==NG_MODAL_RESULT && cold.session.game.rng==app.session.game.rng);
@@ -145,7 +146,7 @@ static void cross_game(void)
  unsigned ids[]={11,26,21};NgGame *expected[]={&sudoku,&tiles,&nim};
  for(unsigned i=0;i<3;i++){
   while(cold.screen!=NG_MAIN)tap(&cold,NGK_EXIT);
-  tap(&cold,'1'+(int)(ng_catalog_index(ids[i])/5));tap(&cold,'1'+(int)(ng_catalog_index(ids[i])%5));tap(&cold,'1');tap(&cold,NGK_F6);
+  tap(&cold,'1'+(int)(ng_catalog_index(ids[i])/6));tap(&cold,'1'+(int)(ng_catalog_index(ids[i])%6));tap(&cold,'1');tap(&cold,NGK_F6);
   assert(!memcmp(&cold.session.game,expected[i],sizeof(NgGame)));
   if(ids[i]==21){assert(ng_app_cpu(&cold));uint32_t moves=cold.session.game.moves;assert(!ng_app_cpu(&cold));assert(cold.session.game.moves==moves);tap(&cold,NGK_F2);assert(cold.session.game.turn==0 && !cold.session.game.cpu_pending);}
  }

@@ -1,0 +1,8 @@
+{
+  "status": "NOT_VERIFIED_RUNTIME_TIMEOUT",
+  "timeout_seconds": 15,
+  "stdout_bytes": 0,
+  "stderr_bytes": 0,
+  "scope": "Host ASan attempt, not hardware test",
+  "build_and_attempt_seconds": 17.01
+}

@@ -34,6 +34,7 @@ static int load(void *ctx,NgSession *s,unsigned id){(void)ctx;return ng_storage_
 static bool save(void *ctx,NgSession *s){(void)ctx;return ng_storage_save(s);}
 static int load_settings(void *ctx,NgSettings *s){(void)ctx;if(!ng_storage_migrate(&app.session))snprintf(app.notice,sizeof app.notice,"Legacy saves retained; migration incomplete.");return ng_settings_load(s);}
 static bool save_settings(void *ctx,NgSettings *s){(void)ctx;return ng_settings_save(s);}
+static bool remove_game(void *ctx,unsigned id){(void)ctx;return ng_storage_delete(id);}
 static int pulse(void) __attribute__((no_instrument_function));
 static int pulse(void){wakeup=1;return TIMER_CONTINUE;}
 static void restore_light(void)
@@ -103,7 +104,7 @@ int main(void)
  ng_diag_stack_range((uintptr_t)gint_stack_top,(uintptr_t)mmu_uram()+mmu_uram_size());
 #endif
  dsetvram(gint_vram,NULL);
- NgHooks hooks={NULL,load,save,load_settings,save_settings,osmenu,off};
+ NgHooks hooks={NULL,load,save,load_settings,save_settings,osmenu,off,remove_game};
  rtc_time_t time;rtc_get_time(&time);
  uint32_t seed=rtc_ticks()^((uint32_t)time.year<<16)^((uint32_t)time.month_day<<8)^time.month;
  ng_app_init(&app,hooks,seed);keydev_set_transform(keydev_std(),(keydev_transform_t){KEYDEV_TR_REPEATS,repeat});

@@ -127,10 +127,40 @@ void ng_game_icon(NgCanvas *c,int x,int y,unsigned id,int accent)
  case 32: /* Dotted lattice and one loop around clues. */
   for(int row=0;row<4;row++)for(int col=0;col<5;col++)ng_rect(c,x+col*9,y+row*10,2,2,NG_INK);
   ng_border(c,x,y,38,22,accent,2);ng_small(c,x+11,y+7,"2 3",NG_INK);break;
- case 33: /* Statistics, never counted as a game. */
-  ng_line(c,x+2,y+30,x+38,y+30,accent);
-  for(int i=0;i<3;i++)ng_rect(c,x+6+i*11,y+24-i*9,7,6+i*9,accent);
-  break;
+ case 33: /* BLACK BOX: a ray enters, bends around hidden atoms and exits. */
+  box(c,x+6,y+3,28,27,accent);ng_line(c,x,y+9,x+12,y+9,accent);
+  ng_line(c,x+12,y+9,x+18,y+15,accent);ng_line(c,x+18,y+15,x+28,y+15,accent);
+  ng_rect(c,x+19,y+22,5,5,NG_INK);ng_rect(c,x+27,y+6,4,4,NG_INK);
+  ng_line(c,x+28,y+15,x+39,y+15,accent);break;
+ case 34: /* CRYPTARITHM: letters resolve to a digit sum. */
+  ng_small(c,x+5,y+1,"AB",NG_INK);ng_small(c,x+1,y+11,"+BA",accent);
+  ng_line(c,x+1,y+21,x+36,y+21,accent);ng_small(c,x+10,y+23,"??",NG_INK);break;
+ case 35: /* HASHI: numbered islands with two parallel bridges. */
+  ring(c,x+6,y+8,5,accent);ring(c,x+33,y+8,5,accent);
+  digit(c,x+4,y+5,'2',NG_INK);digit(c,x+31,y+5,'3',NG_INK);
+  ng_line(c,x+11,y+6,x+28,y+6,accent);ng_line(c,x+11,y+10,x+28,y+10,accent);
+  ring(c,x+20,y+26,5,accent);digit(c,x+18,y+23,'1',NG_INK);
+  ng_line(c,x+33,y+13,x+23,y+23,accent);break;
+ case 36: /* NONOGRAM: row/column clues and revealed squares. */
+  ng_small(c,x+13,y+1,"1 2",accent);ng_small(c,x,y+10,"2",accent);
+  ng_small(c,x,y+21,"1",accent);
+  for(int row=0;row<2;row++)for(int col=0;col<3;col++){
+   int xx=x+13+col*8,yy=y+10+row*10;
+   ng_rect(c,xx,yy,8,10,(row==0 && col<2)||(row==1 && col==2)?accent:NG_WHITE);
+   ng_border(c,xx,yy,8,10,accent,1);
+  }break;
+ case 37: /* REVERSI: black and white discs around a legal flip. */
+  box(c,x+4,y+2,32,29,accent);
+  for(int row=0;row<2;row++)for(int col=0;col<2;col++){
+   int xx=x+10+col*14,yy=y+6+row*13;
+   ring(c,xx+4,yy+4,4,accent);
+   if(row==col)ng_rect(c,xx+2,yy+2,5,5,NG_INK);
+  }break;
+ case 38: /* NET: rotated pipe tiles joining a central hub. */
+  for(int row=0;row<3;row++)for(int col=0;col<3;col++)box(c,x+5+col*10,y+1+row*10,10,10,accent);
+  ng_rect(c,x+18,y+14,4,4,NG_INK);
+  ng_line(c,x+20,y+5,x+20,y+25,accent);ng_line(c,x+10,y+16,x+30,y+16,accent);
+  ng_line(c,x+30,y+16,x+30,y+26,accent);break;
  default:break;
  }
 }

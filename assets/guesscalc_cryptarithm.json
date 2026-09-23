@@ -1,0 +1,2518 @@
+{
+  "seed": 202609233334,
+  "rules_version": 1,
+  "external_files": 0,
+  "external_records": 0,
+  "records": [
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 0,
+      "words": [
+        "AA",
+        "BC",
+        "BDB"
+      ],
+      "letters": 4,
+      "solution": [
+        8,
+        1,
+        3,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 119
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 1,
+      "words": [
+        "AA",
+        "BA",
+        "BBC"
+      ],
+      "letters": 3,
+      "solution": [
+        9,
+        1,
+        8
+      ],
+      "solution_count": 1,
+      "column_nodes": 18
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 2,
+      "words": [
+        "AB",
+        "AC",
+        "BCA"
+      ],
+      "letters": 3,
+      "solution": [
+        9,
+        1,
+        8
+      ],
+      "solution_count": 1,
+      "column_nodes": 74
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 3,
+      "words": [
+        "AA",
+        "BC",
+        "BDD"
+      ],
+      "letters": 4,
+      "solution": [
+        8,
+        1,
+        2,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 102
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 4,
+      "words": [
+        "AA",
+        "BC",
+        "BBB"
+      ],
+      "letters": 3,
+      "solution": [
+        9,
+        1,
+        2
+      ],
+      "solution_count": 1,
+      "column_nodes": 73
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 5,
+      "words": [
+        "AB",
+        "BA",
+        "CAC"
+      ],
+      "letters": 3,
+      "solution": [
+        2,
+        9,
+        1
+      ],
+      "solution_count": 1,
+      "column_nodes": 73
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 6,
+      "words": [
+        "AB",
+        "BC",
+        "ACB"
+      ],
+      "letters": 3,
+      "solution": [
+        1,
+        9,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 19
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 7,
+      "words": [
+        "AB",
+        "BC",
+        "CCA"
+      ],
+      "letters": 3,
+      "solution": [
+        6,
+        5,
+        1
+      ],
+      "solution_count": 1,
+      "column_nodes": 70
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 8,
+      "words": [
+        "AB",
+        "CB",
+        "ABB"
+      ],
+      "letters": 3,
+      "solution": [
+        1,
+        0,
+        9
+      ],
+      "solution_count": 1,
+      "column_nodes": 11
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 9,
+      "words": [
+        "AB",
+        "CB",
+        "BDA"
+      ],
+      "letters": 4,
+      "solution": [
+        2,
+        1,
+        8,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 56
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 10,
+      "words": [
+        "AB",
+        "AB",
+        "BCC"
+      ],
+      "letters": 3,
+      "solution": [
+        6,
+        1,
+        2
+      ],
+      "solution_count": 1,
+      "column_nodes": 15
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 11,
+      "words": [
+        "AA",
+        "BC",
+        "ADB"
+      ],
+      "letters": 4,
+      "solution": [
+        1,
+        9,
+        8,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 119
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 12,
+      "words": [
+        "AA",
+        "AB",
+        "CBA"
+      ],
+      "letters": 3,
+      "solution": [
+        5,
+        0,
+        1
+      ],
+      "solution_count": 1,
+      "column_nodes": 12
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 13,
+      "words": [
+        "AA",
+        "AB",
+        "CCC"
+      ],
+      "letters": 3,
+      "solution": [
+        5,
+        6,
+        1
+      ],
+      "solution_count": 1,
+      "column_nodes": 70
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 14,
+      "words": [
+        "AA",
+        "BC",
+        "ADD"
+      ],
+      "letters": 4,
+      "solution": [
+        1,
+        8,
+        9,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 102
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 15,
+      "words": [
+        "AB",
+        "BC",
+        "BDA"
+      ],
+      "letters": 4,
+      "solution": [
+        9,
+        1,
+        8,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 119
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 16,
+      "words": [
+        "AA",
+        "BA",
+        "ACD"
+      ],
+      "letters": 4,
+      "solution": [
+        1,
+        9,
+        0,
+        2
+      ],
+      "solution_count": 1,
+      "column_nodes": 60
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 17,
+      "words": [
+        "AA",
+        "AB",
+        "BAC"
+      ],
+      "letters": 3,
+      "solution": [
+        9,
+        1,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 82
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 18,
+      "words": [
+        "AB",
+        "BC",
+        "BDD"
+      ],
+      "letters": 4,
+      "solution": [
+        8,
+        1,
+        9,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 102
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 19,
+      "words": [
+        "AB",
+        "BC",
+        "BCB"
+      ],
+      "letters": 3,
+      "solution": [
+        9,
+        1,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 19
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 20,
+      "words": [
+        "AB",
+        "BA",
+        "AAC"
+      ],
+      "letters": 3,
+      "solution": [
+        1,
+        9,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 82
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 21,
+      "words": [
+        "AB",
+        "CB",
+        "ADD"
+      ],
+      "letters": 4,
+      "solution": [
+        1,
+        5,
+        8,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 59
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 22,
+      "words": [
+        "AB",
+        "AB",
+        "CBB"
+      ],
+      "letters": 3,
+      "solution": [
+        5,
+        0,
+        1
+      ],
+      "solution_count": 1,
+      "column_nodes": 4
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 23,
+      "words": [
+        "AB",
+        "CB",
+        "BBA"
+      ],
+      "letters": 3,
+      "solution": [
+        2,
+        1,
+        9
+      ],
+      "solution_count": 1,
+      "column_nodes": 17
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 24,
+      "words": [
+        "AA",
+        "BB",
+        "AAC"
+      ],
+      "letters": 3,
+      "solution": [
+        1,
+        9,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 82
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 25,
+      "words": [
+        "AA",
+        "BA",
+        "BCD"
+      ],
+      "letters": 4,
+      "solution": [
+        8,
+        1,
+        0,
+        6
+      ],
+      "solution_count": 1,
+      "column_nodes": 60
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 26,
+      "words": [
+        "AB",
+        "BC",
+        "AAA"
+      ],
+      "letters": 3,
+      "solution": [
+        1,
+        9,
+        2
+      ],
+      "solution_count": 1,
+      "column_nodes": 73
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 27,
+      "words": [
+        "AA",
+        "BB",
+        "CAC"
+      ],
+      "letters": 3,
+      "solution": [
+        2,
+        9,
+        1
+      ],
+      "solution_count": 1,
+      "column_nodes": 73
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 28,
+      "words": [
+        "AB",
+        "BC",
+        "ADA"
+      ],
+      "letters": 4,
+      "solution": [
+        1,
+        8,
+        3,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 119
+    },
+    {
+      "game_id": 34,
+      "difficulty": 0,
+      "puzzle_id": 29,
+      "words": [
+        "AB",
+        "CB",
+        "ADC"
+      ],
+      "letters": 4,
+      "solution": [
+        1,
+        9,
+        8,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 56
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 30,
+      "words": [
+        "ABC",
+        "DBC",
+        "AEFF"
+      ],
+      "letters": 6,
+      "solution": [
+        1,
+        7,
+        2,
+        8,
+        0,
+        4
+      ],
+      "solution_count": 1,
+      "column_nodes": 69
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 31,
+      "words": [
+        "ABC",
+        "CDB",
+        "AEEA"
+      ],
+      "letters": 5,
+      "solution": [
+        1,
+        3,
+        8,
+        6,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 385
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 32,
+      "words": [
+        "AAA",
+        "BCC",
+        "BDEB"
+      ],
+      "letters": 5,
+      "solution": [
+        8,
+        1,
+        3,
+        0,
+        2
+      ],
+      "solution_count": 1,
+      "column_nodes": 102
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 33,
+      "words": [
+        "ABC",
+        "BDC",
+        "BDEE"
+      ],
+      "letters": 5,
+      "solution": [
+        9,
+        1,
+        6,
+        0,
+        2
+      ],
+      "solution_count": 1,
+      "column_nodes": 96
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 34,
+      "words": [
+        "AAA",
+        "BCC",
+        "BDAE"
+      ],
+      "letters": 5,
+      "solution": [
+        8,
+        1,
+        9,
+        0,
+        7
+      ],
+      "solution_count": 1,
+      "column_nodes": 118
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 35,
+      "words": [
+        "AAB",
+        "BCC",
+        "DAED"
+      ],
+      "letters": 5,
+      "solution": [
+        7,
+        9,
+        2,
+        1,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 348
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 36,
+      "words": [
+        "ABC",
+        "DBC",
+        "AEAD"
+      ],
+      "letters": 5,
+      "solution": [
+        1,
+        5,
+        9,
+        8,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 85
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 37,
+      "words": [
+        "ABA",
+        "BCD",
+        "BBEB"
+      ],
+      "letters": 5,
+      "solution": [
+        9,
+        1,
+        8,
+        2,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 381
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 38,
+      "words": [
+        "ABB",
+        "CAD",
+        "DEDE"
+      ],
+      "letters": 5,
+      "solution": [
+        8,
+        3,
+        5,
+        1,
+        4
+      ],
+      "solution_count": 1,
+      "column_nodes": 158
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 39,
+      "words": [
+        "ABC",
+        "DCE",
+        "ABBA"
+      ],
+      "letters": 5,
+      "solution": [
+        1,
+        0,
+        9,
+        8,
+        2
+      ],
+      "solution_count": 1,
+      "column_nodes": 151
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 40,
+      "words": [
+        "ABC",
+        "CDB",
+        "CECD"
+      ],
+      "letters": 5,
+      "solution": [
+        8,
+        5,
+        1,
+        6,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 94
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 41,
+      "words": [
+        "AAB",
+        "BCD",
+        "AEAA"
+      ],
+      "letters": 5,
+      "solution": [
+        1,
+        8,
+        9,
+        3,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 156
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 42,
+      "words": [
+        "ABA",
+        "CDD",
+        "EEAE"
+      ],
+      "letters": 5,
+      "solution": [
+        3,
+        4,
+        7,
+        8,
+        1
+      ],
+      "solution_count": 1,
+      "column_nodes": 122
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 43,
+      "words": [
+        "AAB",
+        "CAA",
+        "ADEC"
+      ],
+      "letters": 5,
+      "solution": [
+        1,
+        8,
+        9,
+        0,
+        2
+      ],
+      "solution_count": 1,
+      "column_nodes": 154
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 44,
+      "words": [
+        "ABA",
+        "CBD",
+        "CEAC"
+      ],
+      "letters": 5,
+      "solution": [
+        9,
+        4,
+        1,
+        2,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 137
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 45,
+      "words": [
+        "ABA",
+        "CAA",
+        "BDED"
+      ],
+      "letters": 5,
+      "solution": [
+        8,
+        1,
+        7,
+        6,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 78
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 46,
+      "words": [
+        "ABB",
+        "ACD",
+        "DBDE"
+      ],
+      "letters": 5,
+      "solution": [
+        6,
+        3,
+        8,
+        1,
+        4
+      ],
+      "solution_count": 1,
+      "column_nodes": 153
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 47,
+      "words": [
+        "AAB",
+        "BAC",
+        "DCCE"
+      ],
+      "letters": 5,
+      "solution": [
+        6,
+        5,
+        2,
+        1,
+        7
+      ],
+      "solution_count": 1,
+      "column_nodes": 123
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 48,
+      "words": [
+        "ABA",
+        "BAA",
+        "CDEB"
+      ],
+      "letters": 5,
+      "solution": [
+        4,
+        8,
+        1,
+        3,
+        2
+      ],
+      "solution_count": 1,
+      "column_nodes": 19
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 49,
+      "words": [
+        "AAB",
+        "CAD",
+        "CEBE"
+      ],
+      "letters": 5,
+      "solution": [
+        8,
+        7,
+        1,
+        3,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 156
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 50,
+      "words": [
+        "ABB",
+        "CDB",
+        "AEAC"
+      ],
+      "letters": 5,
+      "solution": [
+        1,
+        4,
+        8,
+        7,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 78
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 51,
+      "words": [
+        "AAB",
+        "CDB",
+        "AECD"
+      ],
+      "letters": 5,
+      "solution": [
+        1,
+        4,
+        9,
+        8,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 87
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 52,
+      "words": [
+        "ABB",
+        "CDA",
+        "CEEE"
+      ],
+      "letters": 5,
+      "solution": [
+        8,
+        2,
+        1,
+        7,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 120
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 53,
+      "words": [
+        "AAB",
+        "ABC",
+        "DBCE"
+      ],
+      "letters": 5,
+      "solution": [
+        8,
+        7,
+        6,
+        1,
+        3
+      ],
+      "solution_count": 1,
+      "column_nodes": 126
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 54,
+      "words": [
+        "AAB",
+        "BCD",
+        "BEBC"
+      ],
+      "letters": 5,
+      "solution": [
+        8,
+        1,
+        3,
+        2,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 166
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 55,
+      "words": [
+        "ABA",
+        "BCA",
+        "DCDE"
+      ],
+      "letters": 5,
+      "solution": [
+        5,
+        7,
+        3,
+        1,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 280
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 56,
+      "words": [
+        "AAB",
+        "ABC",
+        "DBEA"
+      ],
+      "letters": 5,
+      "solution": [
+        6,
+        2,
+        4,
+        1,
+        8
+      ],
+      "solution_count": 1,
+      "column_nodes": 124
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 57,
+      "words": [
+        "ABC",
+        "CBD",
+        "EDDA"
+      ],
+      "letters": 5,
+      "solution": [
+        9,
+        2,
+        5,
+        4,
+        1
+      ],
+      "solution_count": 1,
+      "column_nodes": 111
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 58,
+      "words": [
+        "ABA",
+        "BCC",
+        "BDAE"
+      ],
+      "letters": 5,
+      "solution": [
+        9,
+        1,
+        7,
+        0,
+        6
+      ],
+      "solution_count": 1,
+      "column_nodes": 161
+    },
+    {
+      "game_id": 34,
+      "difficulty": 1,
+      "puzzle_id": 59,
+      "words": [
+        "AAB",
+        "CDD",
+        "AECE"
+      ],
+      "letters": 5,
+      "solution": [
+        1,
+        3,
+        9,
+        7,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 353
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 60,
+      "words": [
+        "AABC",
+        "DEFC",
+        "EGFEB"
+      ],
+      "letters": 7,
+      "solution": [
+        5,
+        4,
+        2,
+        8,
+        1,
+        7,
+        3
+      ],
+      "solution_count": 1,
+      "column_nodes": 128
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 61,
+      "words": [
+        "ABCD",
+        "ECDF",
+        "DFFAG"
+      ],
+      "letters": 7,
+      "solution": [
+        5,
+        8,
+        4,
+        1,
+        6,
+        2,
+        3
+      ],
+      "solution_count": 1,
+      "column_nodes": 545
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 62,
+      "words": [
+        "ABAC",
+        "BDED",
+        "EDFFG"
+      ],
+      "letters": 7,
+      "solution": [
+        8,
+        5,
+        9,
+        4,
+        1,
+        0,
+        3
+      ],
+      "solution_count": 1,
+      "column_nodes": 1875
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 63,
+      "words": [
+        "ABCA",
+        "DEFE",
+        "GFDGB"
+      ],
+      "letters": 7,
+      "solution": [
+        4,
+        6,
+        8,
+        9,
+        2,
+        3,
+        1
+      ],
+      "solution_count": 1,
+      "column_nodes": 1793
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 64,
+      "words": [
+        "ABCD",
+        "AEDF",
+        "GBGGC"
+      ],
+      "letters": 7,
+      "solution": [
+        6,
+        3,
+        2,
+        8,
+        7,
+        4,
+        1
+      ],
+      "solution_count": 1,
+      "column_nodes": 342
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 65,
+      "words": [
+        "ABCD",
+        "BEAF",
+        "EDCAG"
+      ],
+      "letters": 7,
+      "solution": [
+        5,
+        7,
+        9,
+        2,
+        1,
+        8,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 1051
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 66,
+      "words": [
+        "ABAB",
+        "CDCB",
+        "AEEFG"
+      ],
+      "letters": 7,
+      "solution": [
+        1,
+        3,
+        8,
+        7,
+        0,
+        9,
+        6
+      ],
+      "solution_count": 1,
+      "column_nodes": 809
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 67,
+      "words": [
+        "ABCD",
+        "ECDF",
+        "AGFFG"
+      ],
+      "letters": 7,
+      "solution": [
+        1,
+        3,
+        5,
+        2,
+        9,
+        8,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 180
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 68,
+      "words": [
+        "ABCC",
+        "DEFB",
+        "GFDDE"
+      ],
+      "letters": 7,
+      "solution": [
+        4,
+        7,
+        5,
+        9,
+        2,
+        3,
+        1
+      ],
+      "solution_count": 1,
+      "column_nodes": 396
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 69,
+      "words": [
+        "AABC",
+        "DAEB",
+        "BEFCG"
+      ],
+      "letters": 7,
+      "solution": [
+        5,
+        1,
+        3,
+        6,
+        2,
+        0,
+        4
+      ],
+      "solution_count": 1,
+      "column_nodes": 294
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 70,
+      "words": [
+        "ABBC",
+        "DCEB",
+        "AFGCE"
+      ],
+      "letters": 7,
+      "solution": [
+        1,
+        5,
+        2,
+        9,
+        7,
+        0,
+        8
+      ],
+      "solution_count": 1,
+      "column_nodes": 120
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 71,
+      "words": [
+        "AABC",
+        "DBEB",
+        "AFEAG"
+      ],
+      "letters": 7,
+      "solution": [
+        1,
+        4,
+        8,
+        9,
+        6,
+        0,
+        2
+      ],
+      "solution_count": 1,
+      "column_nodes": 383
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 72,
+      "words": [
+        "ABCA",
+        "DAEE",
+        "FGEAD"
+      ],
+      "letters": 7,
+      "solution": [
+        8,
+        9,
+        0,
+        5,
+        7,
+        1,
+        4
+      ],
+      "solution_count": 1,
+      "column_nodes": 165
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 73,
+      "words": [
+        "AAAB",
+        "CDEF",
+        "EEBCG"
+      ],
+      "letters": 7,
+      "solution": [
+        4,
+        3,
+        6,
+        9,
+        1,
+        7,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 1500
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 74,
+      "words": [
+        "AABC",
+        "ABDE",
+        "CDEFG"
+      ],
+      "letters": 7,
+      "solution": [
+        6,
+        7,
+        1,
+        3,
+        4,
+        0,
+        5
+      ],
+      "solution_count": 1,
+      "column_nodes": 2055
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 75,
+      "words": [
+        "ABCB",
+        "DBEC",
+        "DFADG"
+      ],
+      "letters": 7,
+      "solution": [
+        9,
+        4,
+        3,
+        1,
+        8,
+        0,
+        7
+      ],
+      "solution_count": 1,
+      "column_nodes": 530
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 76,
+      "words": [
+        "ABAC",
+        "BADD",
+        "EFGBF"
+      ],
+      "letters": 7,
+      "solution": [
+        6,
+        8,
+        3,
+        2,
+        1,
+        5,
+        4
+      ],
+      "solution_count": 1,
+      "column_nodes": 470
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 77,
+      "words": [
+        "ABCA",
+        "DAEF",
+        "ECFGC"
+      ],
+      "letters": 7,
+      "solution": [
+        6,
+        8,
+        0,
+        3,
+        1,
+        4,
+        2
+      ],
+      "solution_count": 1,
+      "column_nodes": 586
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 78,
+      "words": [
+        "ABCD",
+        "CEBA",
+        "FDAGC"
+      ],
+      "letters": 7,
+      "solution": [
+        5,
+        4,
+        8,
+        3,
+        0,
+        1,
+        2
+      ],
+      "solution_count": 1,
+      "column_nodes": 511
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 79,
+      "words": [
+        "AABC",
+        "BDCE",
+        "FEGEF"
+      ],
+      "letters": 7,
+      "solution": [
+        8,
+        6,
+        7,
+        0,
+        4,
+        1,
+        9
+      ],
+      "solution_count": 1,
+      "column_nodes": 541
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 80,
+      "words": [
+        "ABCD",
+        "BECD",
+        "FGFEA"
+      ],
+      "letters": 7,
+      "solution": [
+        4,
+        5,
+        3,
+        2,
+        6,
+        1,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 213
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 81,
+      "words": [
+        "AABC",
+        "ADDD",
+        "EFCAG"
+      ],
+      "letters": 7,
+      "solution": [
+        5,
+        3,
+        7,
+        2,
+        1,
+        0,
+        9
+      ],
+      "solution_count": 1,
+      "column_nodes": 396
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 82,
+      "words": [
+        "ABAC",
+        "BDCE",
+        "FCFGD"
+      ],
+      "letters": 7,
+      "solution": [
+        8,
+        3,
+        2,
+        7,
+        5,
+        1,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 747
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 83,
+      "words": [
+        "AABC",
+        "BDEF",
+        "DGFDA"
+      ],
+      "letters": 7,
+      "solution": [
+        7,
+        6,
+        8,
+        1,
+        4,
+        9,
+        3
+      ],
+      "solution_count": 1,
+      "column_nodes": 1184
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 84,
+      "words": [
+        "ABCB",
+        "CBDE",
+        "AFCAG"
+      ],
+      "letters": 7,
+      "solution": [
+        1,
+        4,
+        9,
+        2,
+        3,
+        0,
+        7
+      ],
+      "solution_count": 1,
+      "column_nodes": 1368
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 85,
+      "words": [
+        "AABC",
+        "BCDE",
+        "FGFCB"
+      ],
+      "letters": 7,
+      "solution": [
+        8,
+        5,
+        2,
+        7,
+        3,
+        1,
+        4
+      ],
+      "solution_count": 1,
+      "column_nodes": 333
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 86,
+      "words": [
+        "ABAC",
+        "CDAD",
+        "EFGEF"
+      ],
+      "letters": 7,
+      "solution": [
+        5,
+        3,
+        8,
+        6,
+        1,
+        4,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 883
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 87,
+      "words": [
+        "AAAB",
+        "BCDA",
+        "EDDFG"
+      ],
+      "letters": 7,
+      "solution": [
+        5,
+        7,
+        8,
+        3,
+        1,
+        9,
+        2
+      ],
+      "solution_count": 1,
+      "column_nodes": 585
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 88,
+      "words": [
+        "ABBC",
+        "ACDE",
+        "BBFGG"
+      ],
+      "letters": 7,
+      "solution": [
+        5,
+        1,
+        9,
+        4,
+        7,
+        0,
+        6
+      ],
+      "solution_count": 1,
+      "column_nodes": 645
+    },
+    {
+      "game_id": 34,
+      "difficulty": 2,
+      "puzzle_id": 89,
+      "words": [
+        "ABBC",
+        "DEAF",
+        "DGFEB"
+      ],
+      "letters": 7,
+      "solution": [
+        8,
+        7,
+        4,
+        1,
+        5,
+        3,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 474
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 90,
+      "words": [
+        "AABCD",
+        "ECFGC",
+        "HBFFEA"
+      ],
+      "letters": 8,
+      "solution": [
+        2,
+        0,
+        3,
+        9,
+        8,
+        5,
+        4,
+        1
+      ],
+      "solution_count": 1,
+      "column_nodes": 1096
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 91,
+      "words": [
+        "ABACB",
+        "DEFCA",
+        "GHCCAF"
+      ],
+      "letters": 8,
+      "solution": [
+        7,
+        3,
+        8,
+        9,
+        5,
+        0,
+        1,
+        6
+      ],
+      "solution_count": 1,
+      "column_nodes": 142
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 92,
+      "words": [
+        "ABBCD",
+        "EFDAE",
+        "DGAEHA"
+      ],
+      "letters": 8,
+      "solution": [
+        9,
+        6,
+        5,
+        1,
+        8,
+        3,
+        7,
+        4
+      ],
+      "solution_count": 1,
+      "column_nodes": 624
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 93,
+      "words": [
+        "ABCAD",
+        "EFGHG",
+        "CBEBCE"
+      ],
+      "letters": 8,
+      "solution": [
+        8,
+        7,
+        1,
+        4,
+        9,
+        2,
+        5,
+        3
+      ],
+      "solution_count": 1,
+      "column_nodes": 1652
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 94,
+      "words": [
+        "ABCCA",
+        "DEFGA",
+        "ECHGFH"
+      ],
+      "letters": 8,
+      "solution": [
+        5,
+        9,
+        4,
+        8,
+        1,
+        2,
+        7,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 365
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 95,
+      "words": [
+        "ABBCD",
+        "CBADE",
+        "BBFGHF"
+      ],
+      "letters": 8,
+      "solution": [
+        5,
+        1,
+        6,
+        3,
+        9,
+        2,
+        7,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 1832
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 96,
+      "words": [
+        "ABACC",
+        "DEEFB",
+        "CGCHBI"
+      ],
+      "letters": 9,
+      "solution": [
+        4,
+        9,
+        1,
+        8,
+        2,
+        7,
+        3,
+        6,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 747
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 97,
+      "words": [
+        "ABBCD",
+        "EFGAF",
+        "CGBHFF"
+      ],
+      "letters": 8,
+      "solution": [
+        8,
+        7,
+        1,
+        0,
+        6,
+        9,
+        5,
+        2
+      ],
+      "solution_count": 1,
+      "column_nodes": 988
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 98,
+      "words": [
+        "ABCDB",
+        "EFACC",
+        "GHCGGA"
+      ],
+      "letters": 8,
+      "solution": [
+        8,
+        6,
+        2,
+        9,
+        4,
+        5,
+        1,
+        3
+      ],
+      "solution_count": 1,
+      "column_nodes": 350
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 99,
+      "words": [
+        "AABCD",
+        "DEFCE",
+        "BGHGGA"
+      ],
+      "letters": 8,
+      "solution": [
+        6,
+        1,
+        5,
+        4,
+        2,
+        8,
+        0,
+        9
+      ],
+      "solution_count": 1,
+      "column_nodes": 956
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 100,
+      "words": [
+        "ABCDD",
+        "BEDFA",
+        "GEHDAE"
+      ],
+      "letters": 8,
+      "solution": [
+        4,
+        7,
+        9,
+        8,
+        2,
+        5,
+        1,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 256
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 101,
+      "words": [
+        "ABACD",
+        "EFAEG",
+        "FDDHAE"
+      ],
+      "letters": 8,
+      "solution": [
+        7,
+        4,
+        8,
+        6,
+        9,
+        1,
+        3,
+        5
+      ],
+      "solution_count": 1,
+      "column_nodes": 586
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 102,
+      "words": [
+        "ABCDE",
+        "EFBGH",
+        "BIDDJI"
+      ],
+      "letters": 10,
+      "solution": [
+        6,
+        1,
+        9,
+        0,
+        5,
+        8,
+        3,
+        7,
+        2,
+        4
+      ],
+      "solution_count": 1,
+      "column_nodes": 3190
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 103,
+      "words": [
+        "ABACB",
+        "DBEAF",
+        "EGAHDB"
+      ],
+      "letters": 8,
+      "solution": [
+        6,
+        3,
+        2,
+        8,
+        1,
+        0,
+        4,
+        7
+      ],
+      "solution_count": 1,
+      "column_nodes": 1382
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 104,
+      "words": [
+        "ABBCD",
+        "AEFBB",
+        "GGDHEA"
+      ],
+      "letters": 8,
+      "solution": [
+        5,
+        3,
+        6,
+        2,
+        9,
+        4,
+        1,
+        7
+      ],
+      "solution_count": 1,
+      "column_nodes": 1150
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 105,
+      "words": [
+        "AABCD",
+        "DEAFC",
+        "EGFDHA"
+      ],
+      "letters": 8,
+      "solution": [
+        5,
+        2,
+        7,
+        8,
+        1,
+        6,
+        3,
+        4
+      ],
+      "solution_count": 1,
+      "column_nodes": 549
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 106,
+      "words": [
+        "ABBCD",
+        "EFBGB",
+        "GDHFDE"
+      ],
+      "letters": 8,
+      "solution": [
+        7,
+        3,
+        4,
+        5,
+        8,
+        6,
+        1,
+        9
+      ],
+      "solution_count": 1,
+      "column_nodes": 490
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 107,
+      "words": [
+        "AABCD",
+        "DEFDF",
+        "DGHGBH"
+      ],
+      "letters": 8,
+      "solution": [
+        8,
+        7,
+        6,
+        1,
+        5,
+        3,
+        0,
+        4
+      ],
+      "solution_count": 1,
+      "column_nodes": 830
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 108,
+      "words": [
+        "AABCA",
+        "DEABE",
+        "FFGDHC"
+      ],
+      "letters": 8,
+      "solution": [
+        7,
+        5,
+        9,
+        3,
+        2,
+        1,
+        0,
+        4
+      ],
+      "solution_count": 1,
+      "column_nodes": 601
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 109,
+      "words": [
+        "AABCD",
+        "ECEDF",
+        "BCGHAE"
+      ],
+      "letters": 8,
+      "solution": [
+        6,
+        1,
+        4,
+        2,
+        7,
+        5,
+        0,
+        8
+      ],
+      "solution_count": 1,
+      "column_nodes": 794
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 110,
+      "words": [
+        "ABCDE",
+        "BDEFG",
+        "HGFFIF"
+      ],
+      "letters": 9,
+      "solution": [
+        9,
+        6,
+        4,
+        2,
+        3,
+        8,
+        5,
+        1,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 553
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 111,
+      "words": [
+        "ABCDB",
+        "CEFAB",
+        "GBHEHC"
+      ],
+      "letters": 8,
+      "solution": [
+        8,
+        2,
+        4,
+        9,
+        5,
+        0,
+        1,
+        7
+      ],
+      "solution_count": 1,
+      "column_nodes": 830
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 112,
+      "words": [
+        "ABCCD",
+        "BEDCF",
+        "CDDFGH"
+      ],
+      "letters": 8,
+      "solution": [
+        7,
+        6,
+        1,
+        4,
+        8,
+        5,
+        2,
+        9
+      ],
+      "solution_count": 1,
+      "column_nodes": 455
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 113,
+      "words": [
+        "ABCBC",
+        "BDEAF",
+        "AGFFHD"
+      ],
+      "letters": 8,
+      "solution": [
+        1,
+        8,
+        2,
+        7,
+        3,
+        5,
+        0,
+        9
+      ],
+      "solution_count": 1,
+      "column_nodes": 1872
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 114,
+      "words": [
+        "AABBC",
+        "DEECE",
+        "FGFFDH"
+      ],
+      "letters": 8,
+      "solution": [
+        3,
+        4,
+        2,
+        6,
+        7,
+        1,
+        0,
+        9
+      ],
+      "solution_count": 1,
+      "column_nodes": 501
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 115,
+      "words": [
+        "ABACA",
+        "DEEFG",
+        "HIFDDC"
+      ],
+      "letters": 9,
+      "solution": [
+        8,
+        0,
+        7,
+        4,
+        5,
+        6,
+        9,
+        1,
+        2
+      ],
+      "solution_count": 1,
+      "column_nodes": 643
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 116,
+      "words": [
+        "ABCAA",
+        "ADEFD",
+        "GCDDHE"
+      ],
+      "letters": 8,
+      "solution": [
+        6,
+        9,
+        3,
+        2,
+        8,
+        4,
+        1,
+        0
+      ],
+      "solution_count": 1,
+      "column_nodes": 636
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 117,
+      "words": [
+        "ABCDD",
+        "DEBFG",
+        "EBFGCH"
+      ],
+      "letters": 8,
+      "solution": [
+        8,
+        4,
+        2,
+        6,
+        1,
+        5,
+        7,
+        3
+      ],
+      "solution_count": 1,
+      "column_nodes": 628
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 118,
+      "words": [
+        "AABBC",
+        "BDEFE",
+        "EGHHIJ"
+      ],
+      "letters": 10,
+      "solution": [
+        3,
+        8,
+        4,
+        6,
+        1,
+        9,
+        2,
+        0,
+        7,
+        5
+      ],
+      "solution_count": 1,
+      "column_nodes": 2428
+    },
+    {
+      "game_id": 34,
+      "difficulty": 3,
+      "puzzle_id": 119,
+      "words": [
+        "ABBCD",
+        "EDCAC",
+        "FGEAHE"
+      ],
+      "letters": 8,
+      "solution": [
+        4,
+        6,
+        7,
+        8,
+        5,
+        1,
+        0,
+        2
+      ],
+      "solution_count": 1,
+      "column_nodes": 495
+    }
+  ]
+}

@@ -14,46 +14,11 @@
       "flags": 0,
       "aux": "",
       "primary": "SUBMIT",
-      "rules": "Find the hidden digit sequence. Leading zero\nis allowed. Modes: 3/4/5 digits, UNIQUE or\nREPEAT. S = exact digit and position.\nB = right digit, wrong position. Exact\nmatches are consumed before counting B.\nEasy/Normal/Hard: 16/12/10 attempts.\nMASTER: 6/5/7 digits, 16 attempts.\nMID/SHORT/LONG select those lengths.\nDigits: enter. DEL: erase. EXE: submit.\nUP/DOWN: scroll attempts. No guess undo.",
+      "rules": "Find the hidden digit sequence.\nEASY/NORMAL/HARD/MASTER: 4/5/6/7 digits.\nRepeated digits and leading zero are allowed.\nS = exact digit and position.\nB = right digit, wrong position.\nExact matches are consumed before counting B.\nAttempts by level: 16/12/10/16.\nDigits enter; DEL erases; EXE submits.\nUP/DOWN scroll attempts. No guess undo.\nOlder saved games retain their original rules.",
       "modes": [
-        "MID UNIQUE",
-        "SHORT UNIQUE",
-        "LONG UNIQUE",
-        "MID REPEAT",
-        "SHORT REPEAT",
-        "LONG REPEAT"
+        "STANDARD"
       ],
       "bank_counts_by_mode": [
-        [
-          0,
-          0,
-          0,
-          0
-        ],
-        [
-          0,
-          0,
-          0,
-          0
-        ],
-        [
-          0,
-          0,
-          0,
-          0
-        ],
-        [
-          0,
-          0,
-          0,
-          0
-        ],
-        [
-          0,
-          0,
-          0,
-          0
-        ],
         [
           0,
           0,
@@ -177,6 +142,31 @@
       ]
     },
     {
+      "id": 33,
+      "name": "BLACK BOX",
+      "category": 0,
+      "slot": 5,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 0,
+      "flags": 3,
+      "aux": "RAY/CELL",
+      "primary": "CHECK",
+      "rules": "Find hidden atoms by firing beams from edges.\nE/N/H/MASTER: 5/6/7/8 square; 3/4/5/6 atoms.\nA beam hitting an atom is absorbed (H).\nAn atom diagonally ahead bends it away.\nTwo diagonally ahead reverse the beam.\nA side atom at entry reflects immediately (R).\nDirect hits take precedence over diagonals.\nExit numbers pair the entry and exit ports.\nAny layout with the correct atom count and\nALL the same ray outcomes wins; equivalent\nlayouts are accepted, not just the hidden one.\nCELLS: arrows move; EXE cycles blank/atom/X.\n1 atom, 2 excluded, 0/DEL clear. F4: RAYS.\nRAYS: arrows select port; EXE fires. F4: CELLS.\nF6 CHECK costs 5 penalty points if wrong.\nScore = new probes + penalties; lower is best.\nHINT reveals one atom and marks assisted.",
+      "modes": [
+        "STANDARD"
+      ],
+      "bank_counts_by_mode": [
+        [
+          0,
+          0,
+          0,
+          0
+        ]
+      ]
+    },
+    {
       "id": 6,
       "name": "MAKE TARGET",
       "category": 1,
@@ -184,27 +174,20 @@
       "difficulties": 4,
       "regular_difficulties": 4,
       "has_hell": false,
-      "generation_policy": 1,
+      "generation_policy": 0,
       "flags": 2,
       "aux": "ANSWER",
       "primary": "CHECK",
-      "rules": "Make target 24 or 10 using ALL four cards,\neach exactly once. + - * / and parentheses.\nExact rational intermediate values allowed.\nNo concatenation, powers or extra constants.\nEqual card values are separate usable cards.\nType expression; DEL erases; EXE checks.\nUsed cards are shaded. HINT: one first step.\nANSWER copies a full example; both assisted.\n96 characters, depth 12, 16 literals, 31 ops.\nReduced numerator/denominator <= 1000000000.\nMASTER cards 1..24 require fractions and\na nested expression; integers alone cannot win.",
+      "rules": "Choose a target 1..1000 on the entry screen.\nUse EVERY card exactly once to reach it.\nEASY/NORMAL/HARD/MASTER: 4/4/5/6 cards.\nUse + - * / and parentheses.\nExact rational intermediate values allowed.\nNo concatenation, powers or extra constants.\nEqual values are separate usable cards.\nEvery generated deck has a verified solution.\nType expression; DEL erases; EXE checks.\nHINT gives one first step; ANSWER copies one\nexample. Both mark assisted. All legal answers\nare accepted, not just that example.\n96 chars, nesting12, reduced values <= 1e9.\nOlder saved target10/24 decks remain playable.",
       "modes": [
-        "TARGET 24",
-        "TARGET 10"
+        "STANDARD"
       ],
       "bank_counts_by_mode": [
         [
-          30,
-          30,
-          30,
-          30
-        ],
-        [
-          30,
-          30,
-          30,
-          30
+          0,
+          0,
+          0,
+          0
         ]
       ]
     },
@@ -305,6 +288,31 @@
           0,
           0,
           0
+        ]
+      ]
+    },
+    {
+      "id": 34,
+      "name": "CRYPTARITHM",
+      "category": 1,
+      "slot": 5,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 1,
+      "flags": 1,
+      "aux": "NEXT",
+      "primary": "CHECK",
+      "rules": "Replace letters with decimal digits so the\nvertical addition is true. Each letter keeps\none digit; different letters use different\ndigits. Leading letters cannot be zero.\nE/N/H/MASTER: two 2/3/4/5-digit addends.\nLonger carries and more letters are involved;\nthis is a structural level, not a human rating.\n30 original, unique-solution puzzles per level.\nArrows select a letter. Digits set it.\nDEL clears it. NEXT selects the next blank.\nEXE or F6 checks all public arithmetic rules.\nAny valid assignment is accepted. UNDO works\non digit edits and checks. No stored answer\nis consulted by the native checker.",
+      "modes": [
+        "STANDARD"
+      ],
+      "bank_counts_by_mode": [
+        [
+          30,
+          30,
+          30,
+          30
         ]
       ]
     },
@@ -434,6 +442,32 @@
           50,
           50,
           50,
+          30
+        ]
+      ]
+    },
+    {
+      "id": 35,
+      "name": "HASHI",
+      "category": 2,
+      "slot": 5,
+      "difficulties": 5,
+      "regular_difficulties": 4,
+      "has_hell": true,
+      "generation_policy": 1,
+      "flags": 3,
+      "aux": "CHECK",
+      "primary": "CYCLE",
+      "rules": "Join visible islands with straight bridges.\nOnly horizontal/vertical bridges are allowed.\nEach pair has zero, one or two bridges.\nIsland numbers give their total bridge count.\nBridges cannot cross or pass through islands.\nAll islands must form one connected network.\nArrows select a visible neighboring island.\n2/4/6/8 cycle down/left/right/up bridges.\nEXE cycles last direction; DEL clears it.\nF4 checks. F3 REVEAL marks ASSISTED.",
+      "modes": [
+        "CLASSIC"
+      ],
+      "bank_counts_by_mode": [
+        [
+          30,
+          30,
+          30,
+          30,
           30
         ]
       ]
@@ -571,6 +605,31 @@
       ]
     },
     {
+      "id": 36,
+      "name": "NONOGRAM",
+      "category": 3,
+      "slot": 5,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 1,
+      "flags": 3,
+      "aux": "CHECK",
+      "primary": "MARK",
+      "rules": "Fill cells to match all row/column run clues.\nRuns appear in order, with an empty gap.\nA zero clue means the whole line is empty.\nMark every cell filled or empty to finish.\nArrows move. 1 fills; 0 marks an empty cross.\nEXE cycles unknown, filled, empty. DEL clears.\nF4 checks every visible run clue.\nF3 REVEAL shows one cell, marking ASSISTED.",
+      "modes": [
+        "CLASSIC"
+      ],
+      "bank_counts_by_mode": [
+        [
+          30,
+          30,
+          30,
+          30
+        ]
+      ]
+    },
+    {
       "id": 21,
       "name": "NIM",
       "category": 4,
@@ -582,19 +641,12 @@
       "flags": 5,
       "aux": "",
       "primary": "TAKE",
-      "rules": "Take stones from exactly one pile.\nThe last stone wins (normal play).\nArrows select pile; type amount, EXE.\nEasy: 3 piles up to 7; Normal: up to 15.\nHard: 4 piles up to 31.\nCPU Easy random, Normal 75% exact,\nHard uses the exact nim-sum policy.\nMASTER: verified four-pile tactical starts.\nCPU first / you first / local two players.\nMASTER keeps the same exact Hard CPU.\nIts starts allow YOU/P1 a forced win.\nUNDO restores your complete CPU round.\nUNDO marks assisted practice.",
+      "rules": "Take stones from exactly one pile.\nThe last stone wins (normal play).\nArrows select pile; type amount, EXE.\nEasy: 3 piles up to 7; Normal: up to 15.\nHard: 4 piles up to 31.\nCPU Easy random, Normal 75% exact,\nHard uses the exact nim-sum policy.\nMASTER: verified four-pile tactical starts.\nPlay against CPU: YOU FIRST or CPU FIRST.\nMASTER keeps the same exact Hard CPU.\nIts starts allow YOU a forced win.\nUNDO restores your complete CPU round.\nUNDO marks assisted practice.",
       "modes": [
-        "CPU / YOU FIRST",
-        "CPU / CPU FIRST",
-        "LOCAL 2P"
+        "YOU FIRST",
+        "CPU FIRST"
       ],
       "bank_counts_by_mode": [
-        [
-          0,
-          0,
-          0,
-          30
-        ],
         [
           0,
           0,
@@ -621,11 +673,10 @@
       "flags": 5,
       "aux": "",
       "primary": "TAKE",
-      "rules": "Take from one pile, or take the same\npositive amount from both piles.\nEmpty both piles to win.\nArrows select A / B / BOTH.\nType amount and press EXE.\nPile ranges: Easy 1..10, Normal 1..24,\nHard 1..40. Exact bounded DP on Hard.\nMASTER: verified long tactical starts.\nEasy random; Normal 75% exact moves.\nCPU first / you first / local two players.\nMASTER keeps the same exact Hard CPU.\nIts starts allow YOU/P1 a forced win.\nUNDO restores the complete CPU round.",
+      "rules": "Take from one pile, or take the same\npositive amount from both piles.\nEmpty both piles to win.\nArrows select A / B / BOTH.\nType amount and press EXE.\nPile ranges: Easy 1..10, Normal 1..24,\nHard 1..40. Exact bounded DP on Hard.\nMASTER: verified long tactical starts.\nEasy random; Normal 75% exact moves.\nPlay against CPU: YOU FIRST or CPU FIRST.\nMASTER keeps the same exact Hard CPU.\nIts starts allow YOU a forced win.\nUNDO restores the complete CPU round.",
       "modes": [
-        "CPU / YOU FIRST",
-        "CPU / CPU FIRST",
-        "LOCAL 2P"
+        "YOU FIRST",
+        "CPU FIRST"
       ],
       "bank_counts_by_mode": [
         [
@@ -639,12 +690,6 @@
           0,
           0,
           12
-        ],
-        [
-          0,
-          0,
-          0,
-          30
         ]
       ]
     },
@@ -660,19 +705,12 @@
       "flags": 5,
       "aux": "",
       "primary": "PLAY",
-      "rules": "Subtract k times SMALL from LARGE.\nk is a positive integer; no negatives.\nMaking zero wins. Values are re-sorted.\nType k in the shown range; EXE to play.\nEasy values 1..12; Normal 1..40;\nHard 1..99. All rules stay the same.\nHard uses exact memoized state analysis.\nMASTER: coprime multi-step tactical starts.\nEasy random; Normal 75% exact moves.\nCPU first / you first / local two players.\nMASTER keeps the same exact Hard CPU.\nIts starts allow YOU/P1 a forced win.\nUNDO restores the complete CPU round.",
+      "rules": "Subtract k times SMALL from LARGE.\nk is a positive integer; no negatives.\nMaking zero wins. Values are re-sorted.\nType k in the shown range; EXE to play.\nEasy values 1..12; Normal 1..40;\nHard 1..99. All rules stay the same.\nHard uses exact memoized state analysis.\nMASTER: coprime multi-step tactical starts.\nEasy random; Normal 75% exact moves.\nPlay against CPU: YOU FIRST or CPU FIRST.\nMASTER keeps the same exact Hard CPU.\nIts starts allow YOU a forced win.\nUNDO restores the complete CPU round.",
       "modes": [
-        "CPU / YOU FIRST",
-        "CPU / CPU FIRST",
-        "LOCAL 2P"
+        "YOU FIRST",
+        "CPU FIRST"
       ],
       "bank_counts_by_mode": [
-        [
-          0,
-          0,
-          0,
-          30
-        ],
         [
           0,
           0,
@@ -699,11 +737,10 @@
       "flags": 5,
       "aux": "",
       "primary": "TAKE",
-      "rules": "Take unused cards from 1 to 9.\nAny three of YOUR cards summing to 15\nwin, even when you hold more than three.\nAll cards used without a winner: draw.\nArrows + EXE, or a digit to take a card.\nBlue marks P1/YOU; red marks P2/CPU.\nEasy random; Normal 75% exact moves.\nHard uses the full exact minimax table.\nMASTER: verified midgame tactical starts.\nCPU first / you first / local two players.\nMASTER keeps the same exact Hard CPU.\nIts starts allow YOU/P1 a forced win.\nUNDO restores the complete CPU round.",
+      "rules": "Take unused cards from 1 to 9.\nAny three of YOUR cards summing to 15\nwin, even when you hold more than three.\nAll cards used without a winner: draw.\nArrows + EXE, or a digit to take a card.\nBlue marks YOU; red marks CPU.\nEasy random; Normal 75% exact moves.\nHard uses the full exact minimax table.\nMASTER: verified midgame tactical starts.\nPlay against CPU: YOU FIRST or CPU FIRST.\nMASTER keeps the same exact Hard CPU.\nIts starts allow YOU a forced win.\nUNDO restores the complete CPU round.",
       "modes": [
-        "CPU / YOU FIRST",
-        "CPU / CPU FIRST",
-        "LOCAL 2P"
+        "YOU FIRST",
+        "CPU FIRST"
       ],
       "bank_counts_by_mode": [
         [
@@ -717,12 +754,6 @@
           0,
           0,
           5
-        ],
-        [
-          0,
-          0,
-          0,
-          30
         ]
       ]
     },
@@ -738,11 +769,10 @@
       "flags": 5,
       "aux": "",
       "primary": "ADD",
-      "rules": "Take turns adding to the running total.\nReach the target EXACTLY to win.\nAn addition beyond the target is illegal.\nType the addition, then EXE.\nEasy: target 21; add 1, 2, or 3.\nNormal: target 31; add 1, 2, or 3.\nHard: target 23; add 1, 2, 3, or 4.\nHard uses exact addition-game analysis.\nMASTER: varied tactical target/add limits.\nEasy random; Normal 75% exact moves.\nCPU first / you first / local two players.\nMASTER keeps the same exact Hard CPU.\nIts starts allow YOU/P1 a forced win.",
+      "rules": "Take turns adding to the running total.\nReach the target EXACTLY to win.\nAn addition beyond the target is illegal.\nType the addition, then EXE.\nEasy: target 21; add 1, 2, or 3.\nNormal: target 31; add 1, 2, or 3.\nHard: target 23; add 1, 2, 3, or 4.\nHard uses exact addition-game analysis.\nMASTER: varied tactical target/add limits.\nEasy random; Normal 75% exact moves.\nPlay against CPU: YOU FIRST or CPU FIRST.\nMASTER keeps the same exact Hard CPU.\nIts starts allow YOU a forced win.",
       "modes": [
-        "CPU / YOU FIRST",
-        "CPU / CPU FIRST",
-        "LOCAL 2P"
+        "YOU FIRST",
+        "CPU FIRST"
       ],
       "bank_counts_by_mode": [
         [
@@ -756,12 +786,38 @@
           0,
           0,
           30
+        ]
+      ]
+    },
+    {
+      "id": 37,
+      "name": "REVERSI",
+      "category": 4,
+      "slot": 5,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 4,
+      "flags": 7,
+      "aux": "MOVES",
+      "primary": "PLACE",
+      "rules": "Place a disc to bracket an enemy line.\nFlip every bracketed line in 8 directions.\nBlack moves first; choose YOU or CPU first.\nArrows select; EXE or 5 places a disc.\nIf you cannot move, you pass automatically.\nNeither player can move: most discs wins.\nEqual counts draw; empty cells stay empty.\nF4 toggles dots marking legal placements.\nEasy CPU chooses a random legal move.\nNormal searches 1 ply, Hard up to 3,\nMASTER up to 5, with fixed node budgets.\nThe bounded CPU is not perfect play.\nHINT suggests a move and marks assisted.\nUNDO restores your complete CPU round.",
+      "modes": [
+        "YOU FIRST",
+        "CPU FIRST"
+      ],
+      "bank_counts_by_mode": [
+        [
+          0,
+          0,
+          0,
+          0
         ],
         [
           0,
           0,
           0,
-          30
+          0
         ]
       ]
     },
@@ -908,6 +964,31 @@
           30,
           30,
           30
+        ]
+      ]
+    },
+    {
+      "id": 38,
+      "name": "NET",
+      "category": 5,
+      "slot": 5,
+      "difficulties": 4,
+      "regular_difficulties": 4,
+      "has_hell": false,
+      "generation_policy": 0,
+      "flags": 3,
+      "aux": "LOCK",
+      "primary": "ROTATE",
+      "rules": "Rotate tiles to connect every square.\nEvery wire must meet its neighbour's wire.\nNo wires may leave the board; no wrapping.\nThe whole network must form one tree:\nall tiles connected, with no closed loops.\nArrows select. EXE/5 turns clockwise;\nDEL turns anticlockwise. F4 locks a tile.\nLocked tiles cannot be rotated until freed.\nF3 REVEAL sets one original orientation\nand locks it, marking assisted practice.\nEvery valid network wins, not just ours.\nE/N/H/M use 3/4/5/6 by 3/4/5/6 grids.\nSeeds construct a tree then rotate tiles.\nSolutions need not be unique; no rating claim.\nMoves count rotations, locks and reveals.",
+      "modes": [
+        "STANDARD"
+      ],
+      "bank_counts_by_mode": [
+        [
+          0,
+          0,
+          0,
+          0
         ]
       ]
     }

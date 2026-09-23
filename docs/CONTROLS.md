@@ -1,17 +1,15 @@
 # Screen and game controls
 
-These tables describe the current visible catalog, IDs1–28,31,32. Retired29/30
+These tables describe the current visible catalog, IDs1–28,31–38. Retired29/30
 are stored/decoded as legacy, never offered by the normal selector.
 
 | Screen/state | Arrows | Digits/operators | EXE / F6 | DEL | EXIT | F1 / F2 / F3 / F4 / F5 |
 |---|---|---|---|---|---|---|
-| Main/category | Wrapped 2×3 selector | 1–6 opens tile; operators unused | OPEN tile | Unused | Category→Main | STATS / Main SET / Main valid visible RESUME / — / — |
-| Game entry | UP/DOWN rows; LEFT/RIGHT clamp settings | Digits focus row only; operators unused | RESUME row resumes; all other rows request NEW | Unused | Category | — / — / context HELL or MODE / STATS / RULES |
-| Records | LEFT/RIGHT changes record-level filter where relevant | Unused | Close | Unused | Close | NORMAL / ASSIST / applicable MODE / applicable LEVEL / — |
+| Main/category | Wrapped 2×3 selector | 1–6 opens tile; operators unused | OPEN tile | Unused | Category→Main | — / Main SET / Main valid visible RESUME / — / — |
+| Game entry | UP/DOWN rows; LEFT/RIGHT clamp settings | Digits focus row only; operators unused | RESUME row resumes; all other rows request NEW | Unused | Category | — / — / HELL for LOGIC / — / RULES |
 | Rules | UP/DOWN scroll | Unused | Close, preserving result state | Unused | Close | Only F6 OK |
 | Settings | Unused | 1 toggles first help; 2 toggles time display | Unused | Unused | Save preferences→Main | HELP / TIME / DIAG / — / — |
 | NUM DIAG diagnostics | Unused | Unused | Close/cancel stress | Unused | Close/cancel stress | RESET / EXPORT / PAGE / STRESS or STOP / — |
-| Mode chooser | Select candidate | Unused | OK commits to entry | Unused | Cancel to entry | Only F6 OK |
 | NEW or INIT confirmation | Unused | Unused | Confirm once after release | Unused | Cancel | Only F6 YES |
 | Save error | Unused | Unused | Bounded retry | Unused | Keep RAM/play | Only F6 RETRY |
 | Result | Unused | Unused | NEW game | Unused | Game entry, NEW focused | NEW / — / — / — / RULES |
@@ -25,7 +23,7 @@ AC/ON and ALPHA-conflicted OFF are ignored. OS return inserts a release barrier.
 During play: F1 INIT restarts the same seed/run (confirmation after progress),
 F2 UNDO appears only with supported history, F3 HINT/REVEAL only for modules
 that supply it, F4 is listed below, F5 RULES, F6 mirrors the displayed primary
-EXE action. F1/F2/F3 assistance is reflected in separate record buckets. INIT,
+EXE action. F1/F2/F3 assistance is marked on the current run. INIT,
 reveal and answer do not silently become NEW. Unsupported softkeys are blank.
 All turn/edit actions ignore HOLD; only menu selectors and rules scroll repeat.
 
@@ -61,18 +59,22 @@ All turn/edit actions ignore HOLD; only menu selectors and rules scroll repeat.
 | 28 Lights Out | Wrapped cell selection | 5 also presses | Toggle cell and orthogonal neighbours | — | — |
 | 31 Shikaku | Cell; second corner during selection | — | First corner, then confirm rectangle | Remove entire selected rectangle | — |
 | 32 Slitherlink | Wrapped selected edge of current orientation | — | Toggle line; X→line | Toggle X; line→X | H / V orientation |
+| 33 Black Box | Select cell or ray port | 1 atom, 2 excluded, 0 clear | Cycle mark / fire ray; F6 CHECK | Clear mark | RAYS / CELLS |
+| 34 Cryptarithm | Select letter | Assign digit | Check arithmetic | Clear digit | NEXT blank letter |
+| 35 Hashi | Select island direction | 2/4/6/8 cycle bridges | Cycle last direction | Clear bridge | CHECK |
+| 36 Nonogram | Select cell | 1 fill, 0 cross | Cycle mark | Clear mark | CHECK |
+| 37 Reversi | Select square | 5 places disc | Place disc | — | Legal-move dots |
+| 38 Net | Select tile | 5 turns clockwise | Turn clockwise | Turn anticlockwise | Lock/unlock |
 
 Grid fixed clues cannot be edited. Numbrix/Magic retain an invalid draft after
 range errors; movement cancels it. Partial Magic has fixed clues; FREE does not.
 MASTER retains the same input controls. LOGIC HELL is selected only by F3
 on the difficulty row; F3 again restores the prior general level, LEFT goes to
-MASTER, RIGHT stays. Difficulty and mode changes apply only to NEW, not RESUME.
+MASTER, RIGHT stays. Difficulty and inline settings changes apply only to NEW, not RESUME.
 2048 TARGET uses goals512/1024/2048/8192; CLASSIC retains the original endless rules.
 Magic MASTER is a4×4 panmagic challenge; RULES lists the extra wrap-diagonal sums.
 
-Strategy21–25 have human-first, CPU-first and LOCAL2P modes. CPU pending hides
-F6 and rejects game input; MENU/OFF remain common actions. CPU undo restores the
-whole human+CPU round; LOCAL2P undo restores one move. MASTER introduces verified tactical starting positions, including LOCAL2P.
+Strategy21–25 and Reversi37 show a FIRST row with YOU or CPU; new local-two-player games are unavailable. CPU pending hides F6 and rejects game input; MENU/OFF remain common actions. CPU undo restores the whole human+CPU round. MASTER introduces verified tactical starts for21–25.
 HARD and MASTER use the same exact CPU; MASTER does not claim a stronger AI.
 
 Shikaku EXIT cancels an unfinished corner selection without leaving play;
@@ -86,8 +88,8 @@ The power key produces '^'; the negative-sign key produces '-'. Key-up clears
 the original physical key even when its character was transformed.
 
 All visible games count real active thought time without input. Entry, rules,
-records, modals, OS and OFF suspend active time; simple dim does not. Timer/HUD,
+rules, modals, OS and OFF suspend active time; simple dim does not. Timer/HUD,
 CPU and save activity never reset user inactivity. Only actual DOWN/HOLD restores
 brightness and resets it. Files are written only at dirty checkpoints (EXIT,
 MENU/OFF/APO, switching/replacing a game, result), preference save and explicit
-DIAG export. Opening RULES/STATS does not start games, consume RNG or write files.
+DIAG export. Opening RULES does not start games, consume RNG or write files.

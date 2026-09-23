@@ -24,8 +24,7 @@ static void entry_workflow(unsigned id,int launch)
  for(unsigned i=0;i<3;i++)tap(NGK_RIGHT);
  shot(id,"master-entry");tap(launch);
  assert(app.screen==NG_PLAY&&!app.modal&&app.session.game.difficulty==3&&app.session.game.moves==0&&ng_valid(&app.session.game));
- shot(id,"master-play");tap(NGK_EXIT);tap(NGK_F4);assert(app.modal==NG_MODAL_RECORDS&&app.record_difficulty==3);shot(id,"master-records");
- tap(NGK_LEFT);assert(app.record_difficulty==2);tap(NGK_RIGHT);assert(app.record_difficulty==3);tap(NGK_EXE);
+ shot(id,"master-play");tap(NGK_EXIT);tap(NGK_F4);assert(!app.modal);shot(id,"master-entry-resume");
  tap(NGK_F6);assert(app.modal==NG_MODAL_NEW&&app.session.game.difficulty==3);tap(NGK_EXIT);
  app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_RESUME);tap(NGK_F6);assert(app.screen==NG_PLAY&&app.session.game.difficulty==3);
  NgSettings copy;size_t n=ng_settings_encode(&app.settings,bytes,sizeof bytes);assert(n&&ng_settings_decode(&copy,bytes,n)&&copy.difficulty[id-1]==3);
@@ -45,7 +44,7 @@ static void legacy_roundtrip(unsigned id)
  /* Independent old three-level wire view: drop each mode's new fourth bucket. */
  size_t oldlen=legacy_wire(legacy,bytes,n,3);
  assert(oldlen==3371);assert(ng_decode(&decoded,legacy,oldlen,id));
- assert(decoded.stats.best[0][2][0].wins==1&&decoded.stats.best[0][3][0].completed==0);
+ assert(decoded.stats.started==1 && !decoded.stats.best[0][2][0].wins);
  session.game.pack_revision=1;assert(!memcmp(&session.game,&decoded.game,sizeof session.game));
 }
 int main(void)
@@ -60,10 +59,10 @@ int main(void)
   session.undo_count=1;session.undo[0]=session.game;complete(&session.game);ng_record_result(&session);ng_record_result(&session);
   assert(session.stats.best[0][3][0].wins==1&&session.stats.best[0][2][0].completed==0);
   size_t n=ng_encode(&session,bytes,sizeof bytes);assert(n&&ng_decode(&decoded,bytes,n,id));
-  assert(decoded.game.difficulty==3&&decoded.stats.best[0][3][0].wins==1&&decoded.undo_count==1&&decoded.undo[0].difficulty==3);
+  assert(decoded.game.difficulty==3&&decoded.stats.started==1&&!decoded.stats.best[0][3][0].wins&&decoded.undo_count==1&&decoded.undo[0].difficulty==3);
   assert(!memcmp(&session.game,&decoded.game,sizeof session.game));
-  NgSummary summary;ng_summarize(&decoded,&summary);assert(summary.completed==1&&summary.assisted==0&&summary.difficulty==3);
+  NgSummary summary;ng_summarize(&decoded,&summary);assert(!summary.completed&&summary.difficulty==3);
   legacy_roundtrip(id);entry_workflow(id,k%2?NGK_EXE:NGK_F6);
  }
- puts("Independent MASTER integration: four APIs, all valid cursors, handler completion, undo codec, distinct MASTER stats, duplicate-result guard and legacy HARD payload conversion; real entry clamp/EXE/F6, settings4, records and resume PASS");return 0;
+ puts("Independent MASTER integration: four APIs, all valid cursors, completion, compact undo codec, legacy HARD payload and inline entry/resume PASS");return 0;
 }

@@ -1,4 +1,4 @@
-/* Optional real-app renderer audit for all ten owned MASTER entries. */
+/* Optional real-app renderer audit for owned MASTER entries. */
 #include "app.h"
 #include "ui.h"
 #include <assert.h>
@@ -19,11 +19,11 @@ static void save(const char *dir,const char *name){
  assert(!fclose(f));
 }
 int main(int argc,char **argv){
- assert(argc==2);const unsigned ids[]={21,22,23,24,25,26,27,28,31,32};
+ assert(argc==2);const unsigned ids[]={21,22,23,24,25,26,27,28,31,32,37,38};
  for(unsigned i=0;i<sizeof ids/sizeof ids[0];i++){
   unsigned id=ids[i],mode=id>=26&&id<=28?1:0;ng_app_init(&app,(NgHooks){0},412);app.screen=NG_PLAY;app.selected_id=(uint8_t)id;app.active=true;app.session.stats.started=1;
   ng_new_supply(&app.session.game,id,3,mode,717,1,43,0);char name[40];snprintf(name,sizeof name,"master-%u",id);save(argv[1],name);
   if(id==31){ng_app_event(&app,NGK_EXE,NG_DOWN);ng_app_event(&app,NGK_EXE,NG_UP);ng_app_event(&app,NGK_RIGHT,NG_DOWN);ng_app_event(&app,NGK_RIGHT,NG_UP);save(argv[1],"master-31-selection");}
  }
- puts("Owned MASTER actual app renderer: ten games plus Shikaku selection, bounds checked PASS");return 0;
+ puts("Owned MASTER actual app renderer: twelve games plus Shikaku selection, bounds checked PASS");return 0;
 }

@@ -20,7 +20,8 @@ static void game(Codec *c,NgGame *g,bool modern)
  u32(c,&g->seed);u32(c,&g->rng);u32(c,&g->run_id);u32(c,&g->elapsed_ms);
  u32(c,&g->moves);u32(c,&g->score);u32(c,&g->puzzle_id);
  if(modern){u32(c,&g->supply_seed);u32(c,&g->supply_index);u32(c,&g->pack_revision);u32(c,&g->generation_policy);}
- else {g->pack_revision=1;g->generation_policy=ng_level_generation_policy(g->id,g->difficulty,g->mode);}
+ else {g->pack_revision=1;unsigned policy_mode=g->id>=21 && g->id<=25 && g->mode==2?0:g->mode;
+  g->generation_policy=g->id==6?NG_SUPPLY_BANK:ng_level_generation_policy(g->id,g->difficulty,policy_mode);}
  for(unsigned i=0;i<NG_CELLS;i++){uint16_t v=(uint16_t)g->board[i];u16(c,&v);if(!c->out)g->board[i]=v<=INT16_MAX?(int16_t)v:(int16_t)(-1-(int)(UINT16_MAX-v));}
  for(unsigned i=0;i<NG_CELLS;i++)u8(c,&g->fixed[i]);
  for(unsigned i=0;i<NG_CELLS;i++)u16(c,&g->notes[i]);
@@ -59,7 +60,7 @@ static size_t encode(const NgSession *s,uint8_t *out,size_t capacity)
  Codec c={.out=out,.size=capacity,.ok=true};
  /* Only named fixed-width members are encoded. No struct padding/pointers. */
  uint8_t count=s->undo_count;u8(&c,&count);
- stats(&c,(NgStats *)&s->stats,NG_LEVEL_COUNT);
+ u32(&c,(uint32_t *)&s->stats.started);
  if(!supplies(&c,(NgSession *)s))return 0;
  game(&c,(NgGame *)&s->game,true);
  for(unsigned i=0;i<count;i++)game(&c,(NgGame *)&s->undo[i],true);
@@ -72,11 +73,13 @@ bool ng_decode(NgSession *s,const uint8_t *data,size_t length,unsigned expected_
 {
  memset(s,0,sizeof(*s));Codec c={.in=data,.size=length,.ok=true};
  u8(&c,&s->undo_count);if(s->undo_count>NG_UNDO)return false;
- /* Exact old wire lengths disambiguate three/four levels without relabeling. */
+ /* New records omit cumulative statistics; old records remain readable. */
+ bool compact=length==1005u+1842u*(1u+s->undo_count);
  unsigned levels=length==1545u+1826u*(1u+s->undo_count)?3u:
   length==2057u+1826u*(1u+s->undo_count)?4u:NG_LEVEL_COUNT;
- bool modern=levels==NG_LEVEL_COUNT;
- stats(&c,&s->stats,levels);if(modern && !supplies(&c,s))return false;
+ bool modern=compact || levels==NG_LEVEL_COUNT;
+ if(compact)u32(&c,&s->stats.started);else stats(&c,&s->stats,levels);
+ if(modern && !supplies(&c,s))return false;
  game(&c,&s->game,modern);
  if(!c.ok || s->game.id!=expected_id || !ng_valid(&s->game))return false;
  if(s->undo_count && !(ng_module(expected_id)->flags&NGF_UNDO))return false;
@@ -89,16 +92,18 @@ bool ng_decode(NgSession *s,const uint8_t *data,size_t length,unsigned expected_
    u->status!=NG_PLAYING || u->cpu_pending)return false;
  }
  uint64_t total=0;
- for(unsigned m=0;m<NG_MODES;m++)for(unsigned d=0;d<NG_LEVEL_COUNT;d++)for(unsigned a=0;a<2;a++){
+ if(!compact)for(unsigned m=0;m<NG_MODES;m++)for(unsigned d=0;d<NG_LEVEL_COUNT;d++)for(unsigned a=0;a<2;a++){
   const NgBest *b=&s->stats.best[m][d][a];
   if((uint64_t)b->wins+b->losses+b->draws!=b->completed || b->completed>s->stats.started)return false;
   if(b->best_aux>(expected_id==26?30u:0u))return false;
   if(!b->wins && (b->best_moves || b->best_ms))return false;
   if(!b->completed && (b->best_score || b->best_aux))return false;
-  if((m>=ng_module(expected_id)->modes || d>=ng_difficulty_count(expected_id)) && b->completed)return false;
+  bool old_mode=s->game.pack_revision<=2 && ((expected_id==1 && m<6) ||
+   (expected_id==6 && m<2) || (expected_id>=21 && expected_id<=25 && m==2));
+  if(((m>=ng_module(expected_id)->modes && !old_mode) || d>=ng_difficulty_count(expected_id)) && b->completed)return false;
   total+=b->completed;
  }
- if(total>s->stats.started)return false;
+ if(total>s->stats.started || !s->stats.started)return false;
  return c.ok && c.pos==length;
 }
 static uint32_t satadd(uint32_t a,uint32_t b){return b>UINT32_MAX-a?UINT32_MAX:a+b;}

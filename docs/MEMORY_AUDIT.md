@@ -1,5 +1,7 @@
 # Memory and build audit
 
+> Historical 30-game baseline measurement. The current 36-game catalog, controls, and compact storage are documented in [README](../README.md), [GAME_CATALOG](GAME_CATALOG.md), and [STORAGE_FORMAT](STORAGE_FORMAT.md). The figures below have not been remeasured for the current build.
+
 Measured native build: `build-clean-1R7P67`. ELF SHA256 `3a005edc8a67ab56bb1c998c890463909be9f3b44fe328c43df9fe37f8da4a99`.
 This report separates ELF placement, compiler static analysis, host observations
 and device observations. **No total runtime RAM peak is inferred.**

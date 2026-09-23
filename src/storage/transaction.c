@@ -29,21 +29,48 @@ static void put32(uint8_t *p,uint32_t v)
 {for(unsigned i=0;i<4;i++)p[i]=(uint8_t)(v>>(8*i));}
 bool ng_settings_decode(NgSettings *s,const uint8_t *p,size_t n)
 {
- unsigned ids=n==63?30:NG_ID_MAX;
- if(n!=2*ids+3 || p[0]>NG_ID_MAX || p[1+2*ids]>1 || p[2+2*ids]>1)return false;
+ unsigned ids=n==63?30:n==67?32:NG_ID_MAX;
+ bool modern=n==2*NG_ID_MAX+3+1+NG_RECENT_LIMIT+2+2;
+ if((!modern && n!=2*ids+3) || p[0]>NG_ID_MAX || p[1+2*ids]>1 || p[2+2*ids]>1)return false;
  for(unsigned i=0;i<ids;i++) {
   const NgModule *m=ng_module(i+1);
-  if(p[1+i]>=ng_difficulty_count(i+1) || p[1+ids+i]>=(m?m->modes:1))return false;
+  unsigned old_modes=modern?0u:i==0?6u:i==5?2u:i>=20&&i<=24?3u:0u;
+  if(p[1+i]>=ng_difficulty_count(i+1) || p[1+ids+i]>=(old_modes?old_modes:(m?m->modes:1)))return false;
  }
  memset(s,0,sizeof *s);memset(s->difficulty,1,sizeof s->difficulty);s->last_game=p[0];
- memcpy(s->difficulty,p+1,ids);memcpy(s->mode,p+1+ids,ids);s->first_help=p[1+2*ids];s->show_time=p[2+2*ids];return true;
+ memcpy(s->difficulty,p+1,ids);memcpy(s->mode,p+1+ids,ids);s->first_help=p[1+2*ids];s->show_time=p[2+2*ids];
+ if(!modern){
+  s->mode[0]=0;s->mode[5]=0;
+  for(unsigned i=20;i<=24;i++)if(s->mode[i]>1)s->mode[i]=0;
+  s->target=24;return true;
+ }
+ size_t pos=2*NG_ID_MAX+3;s->recent_count=p[pos++];
+ if(s->recent_count>NG_RECENT_LIMIT)return false;
+ for(unsigned i=0;i<NG_RECENT_LIMIT;i++){
+  uint8_t id=p[pos++];if(i<s->recent_count){
+   if(ng_catalog_index(id)<0)return false;
+   for(unsigned j=0;j<i;j++)if(s->recent[j]==id)return false;
+   s->recent[i]=id;
+  }else if(id)return false;
+ }
+ s->pending_delete=p[pos++];
+ if(s->pending_delete && ng_catalog_index(s->pending_delete)<0)return false;
+ for(unsigned i=0;i<s->recent_count;i++)if(s->recent[i]==s->pending_delete)return false;
+ s->migration_complete=p[pos++];if(s->migration_complete>1)return false;
+ s->target=(uint16_t)p[pos]|((uint16_t)p[pos+1]<<8);
+ return s->target>=1 && s->target<=1000;
 }
 size_t ng_settings_encode(const NgSettings *s,uint8_t *p,size_t capacity)
 {
- if(capacity<2*NG_ID_MAX+3)return 0;
+ if(capacity<2*NG_ID_MAX+3+1+NG_RECENT_LIMIT+2+2)return 0;
  p[0]=s->last_game;memcpy(p+1,s->difficulty,NG_ID_MAX);memcpy(p+1+NG_ID_MAX,s->mode,NG_ID_MAX);
  p[1+2*NG_ID_MAX]=s->first_help;p[2+2*NG_ID_MAX]=s->show_time;
- NgSettings probe;return ng_settings_decode(&probe,p,2*NG_ID_MAX+3)?2*NG_ID_MAX+3:0;
+ size_t pos=2*NG_ID_MAX+3;
+ p[pos++]=s->recent_count;for(unsigned i=0;i<NG_RECENT_LIMIT;i++)p[pos++]=s->recent[i];
+ p[pos++]=s->pending_delete;
+ p[pos++]=s->migration_complete;
+ unsigned target=s->target?s->target:24;p[pos++]=(uint8_t)target;p[pos++]=(uint8_t)(target>>8);
+ NgSettings probe;return ng_settings_decode(&probe,p,pos)?pos:0;
 }
 static bool settings_valid(const uint8_t *p,size_t n){NgSettings probe;return ng_settings_decode(&probe,p,n);}
 static int read_slot(const NgIO *io,unsigned id,unsigned slot,uint32_t *generation,size_t *length)
@@ -63,7 +90,7 @@ static int read_slot(const NgIO *io,unsigned id,unsigned slot,uint32_t *generati
  if(io->close(io->context,fd)<0)error=true;
  if(error)return NG_LOAD_IO_ERROR;
  if(pos<HEADER || memcmp(buffer,"NGSAVE01",8) || get32(buffer+8)!=id ||
-  (get32(buffer+12)<1 || get32(buffer+12)>3) || get32(buffer+20)!=pos-HEADER ||
+  (get32(buffer+12)<1 || get32(buffer+12)>4) || get32(buffer+20)!=pos-HEADER ||
   ng_crc32(buffer,28)!=get32(buffer+28) ||
   ng_crc32(buffer+HEADER,pos-HEADER)!=get32(buffer+24))return NG_LOAD_INVALID;
  bool valid=id?ng_decode(&ng_storage_probe,buffer+HEADER,pos-HEADER,id):settings_valid(buffer+HEADER,pos-HEADER);
@@ -108,10 +135,12 @@ static bool write_record(const NgIO *io,unsigned id,NgSession *session,NgSetting
  if(id)payload=ng_encode(session,buffer+HEADER,sizeof(buffer)-HEADER);
  else payload=ng_settings_encode(settings,buffer+HEADER,sizeof buffer-HEADER);
  if(!payload)return false;
- memcpy(buffer,"NGSAVE01",8);put32(buffer+8,id);put32(buffer+12,3);
+ memcpy(buffer,"NGSAVE01",8);put32(buffer+8,id);put32(buffer+12,4);
  put32(buffer+16,next);put32(buffer+20,(uint32_t)payload);
  uint32_t crc=ng_crc32(buffer+HEADER,payload);put32(buffer+24,crc);put32(buffer+28,ng_crc32(buffer,28));
- size_t total=HEADER+payload,pos=0;int fd=io->open(io->context,id,slot,true);
+ size_t total=HEADER+payload,pos=0;
+ if(io->prepare && !io->prepare(io->context,id,slot,total))return false;
+ int fd=io->open(io->context,id,slot,true);
  if(fd<0)return false;
  bool ok=true;
  while(pos<total) {

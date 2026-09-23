@@ -1,58 +1,9 @@
-# Fixed archive storage audit
+# Compact storage and old-archive migration
 
-The old native namespace was NG00A/B.dat for settings and NG01A/B.dat through
-NG30A/B.dat for per-game runs plus aggregate statistics. It was bounded at 62
-files, not a demonstrated filename leak. These were real backups, not disposable
-temporary files. The MENU symptom has not been linked to this file count.
+The prior release stored all game progress in `NGARCA.dat` and `NGARCB.dat`, **462,032 bytes each**, or 924,064 logical bytes before filesystem overhead. Older releases also used `NG00A/B.dat` through `NG30A/B.dat`. These formats are now read-only migration sources. New writes go to exact-length `NG2xxA/B.dat` files; diagnostic builds use the separate ND prefix. There is no whole-archive allocation at first run.
 
-Release now uses NGARCA.dat and NGARCB.dat. Each is 462,032 bytes: a 32-byte
-ownership header and 33 bounded 14,000-byte slots (settings 0, stable IDs 1–32).
-Only the selected record is streamed; there is no whole-archive RAM buffer.
-Each record retains separate identity, version, generation, length, payload CRC
-and header CRC. Newest selection handles generation wrap. A damaged game record
-does not invalidate other records in the same archive. Each save writes the older
-copy, closes, reads it back, validates semantics and CRC, then updates generation.
-No save is marked successful on partial/zero write, readback failure or close error.
+The new settings record tracks at most five recent visible game IDs. Starting a sixth different game asks for confirmation and evicts the least recent save. The implementation persists a pending-delete marker before removing the victim, so an interrupted deletion is retried on startup. Each retained record has two validated A/B copies. The normal logical upper bound for five maximum-size saves and settings is **102,712 bytes**, though on-device flash block allocation is unmeasured.
 
-Normal files: 2, totaling 924,064 bytes, independent of game switches. Explicit
-DIAG EXPORT adds only fixed NGDIAG.txt, bounded by 24,576 bytes. Diagnostic builds
-use NDARCA/B.dat and NDDIAG.txt, a separate namespace. No automatic disk logging.
+At startup, migration reads the old settings and valid game records. Old data does not contain a last-play timestamp. The user-selected policy keeps `last_game` first, then selects the remaining records by descending save generation, up to five. Their current runs, undo, supply state and preferences are written twice to the new format and verified before owned old archives/records are removed. Cumulative statistics are intentionally discarded. Old local-two-player strategy runs are not imported because that mode is no longer selectable; old codec validation remains for read compatibility. Invalid, foreign or ownership-uncertain legacy files are left untouched. Migration can retry after interruption, and compact records already validated are reused.
 
-Legacy migration is explicit at startup using the not-yet-live application
-session as workspace, distinct from the transaction decoder probe. Version1
-three-level statistics and 30-ID settings decode to version3 five-level/32-ID
-structures with zero new statistics and NORMAL defaults for new preferences.
-The newest valid legacy slot is loaded; it is copied twice to the archive and
-both archive copies are semantically re-read before deletion of valid owned old
-files. Deletion requires correct magic, accepted version, identity, length, CRCs
-and state validation. Foreign/invalid files are preserved. When existing archive
-and legacy payload fingerprints disagree, both are preserved, migration reports
-incomplete, and normal load prefers the archive. Neither namespace's generation
-counter is assumed newer across independently used app versions.
-
-Migration is retryable in the same process and on later startup. An interrupted
-archive initialization has a valid NGINIT02 marker and no accepted records;
-a later write can finish initialization. Failure while creating a new file removes
-that newly-created file only after a successful close. Unknown or torn global
-ownership headers are preserved and reported as errors, never blindly rewritten.
-If such a header prevents archive use, validated legacy data remains a fallback.
-If a physical power cut tears the first ownership marker or final publication,
-manual inspection/recovery may be required; the implementation does not claim
-hardware-atomic 32-byte writes. Existing valid second copies remain readable.
-
-Transitional legacy sources are at most 62 additional bounded records. A
-conservative owned-data upper bound is 64 files / 1,792,064 bytes before explicit
-export; 65 files / 1,816,640 bytes including export. Conflicting or damaged
-sources may intentionally remain until inspected. This bound excludes unrelated
-files which NUM GAME neither owns nor deletes. No real user save was changed
-during development; test storage consists only of mock files.
-
-Verification: tests/test_native.c runs the production native adapter against a
-Fugue mock, including exact-EOF behavior, preallocated archive seek/read/write,
-16 interrupted-write cut points with retry, v1 newest-slot migration, divergent
-progress preservation, foreign filename preservation, valid initialization-marker
-restart, cross-record corruption isolation, bounded failed-close retry, readback
-corruption and a 1,000-switch/MENU loop ending with two files and zero handles.
-Generic transaction tests cover all game/mode/level encodings, CRCs, generation
-wrap, unsupported versions, malicious valid-CRC records and error isolation.
-Physical flash interruption and BFile latency remain HARDWARE TEST REQUIRED.
+Host mock tests cover exact-length files, two-slot recovery, failed writes/closes, legacy migration, pending eviction, separate NG/ND namespaces and 1,000 game/MENU transitions without leaked handles. The tests do not measure actual BFile flash creation time or prove atomicity under physical power loss. Both remain **HARDWARE TEST REQUIRED**. Back up the old archives before first use if their contents matter.

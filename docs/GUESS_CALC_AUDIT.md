@@ -516,3 +516,152 @@ now check `n*n`, `3n*n` and `2n+n` at three widths with both fonts, using
 explicit expected glyph colors and per-pixel write counts. The context suite
 now has **146 cases**. Direct current-root linkage with the same strict UBSan
 flags **PASS: 5,764,868 assertions, 3,130,547 module renderer rectangle checks**.
+
+## 2026-09-23 follow-up: revised Baseball/Target and new IDs 33/34
+
+This section supersedes the **fresh-run** rules for IDs 1 and 6 above. Their
+old pack data and revisions 1/2 remain available to saved runs. IDs 33/34 are
+new stable IDs; they do not replace another saved game ID.
+
+| Game | Fresh modes and structural levels | Supply / embedded records | Acceptance |
+|---|---|---|---|
+| 1 NUMBER BASEBALL | One mode; E/N/H/M = 4/5/6/7 digits, repeats and initial zero allowed; 16/12/10/16 attempts | Runtime xorshift construction; no bank | Multiset S/B feedback, exact code to win |
+| 6 MAKE TARGET | One mode; selected integer target 1..1000; E/N/H/M = 4/4/5/6 cards | Bounded constructive runtime generator; old 240 target bank records retained for old runs | Exact rational expression, every card exactly once, selected target |
+| 33 BLACK BOX | One mode; E/N/H/M = 5/6/7/8 square with 3/4/5/6 atoms | Runtime construction; no stored problems | Correct atom count and identical ray outcome at **every** edge port; equivalent layouts accepted |
+| 34 CRYPTARITHM | One mode; two 2/3/4/5-digit addends for E/N/H/M | 30 per level, **120 original records**; stable IDs 0..119 | All-different decimal letter assignments, no leading zero, exact addition |
+
+These levels describe actual structural changes, not measured human difficulty.
+Cryptarithm has 3..5 / 5..7 / 7..9 / 8..10 letters respectively. A unique solution
+is verified for every packaged cryptarithm; its native checker evaluates the
+public arithmetic rules and contains no witness. Black Box deliberately has no
+uniqueness promise, and equivalent ray layouts are valid solutions.
+
+### Construction, bounded work and old-state compatibility
+
+`gc_target_init(g,target)` accepts only a fresh revision-3 ID6 state and a target
+in 1..1000. Invalid arguments leave all bytes unchanged. It replays from the
+common seed, preserves seed/run/supply identity, and resets its own board, input,
+result and counters. Calling it after default target 24 initialization consumes
+no second random stream. Common INIT reconstructs the saved target, independent
+of the current entry preference. Fresh Baseball and Make Target use revision 3;
+legacy revisions keep their old modes, lengths, decks, IDs and rule validators.
+All **162 legacy initial-state fingerprints remain unchanged**.
+
+The new Target generator uses four finite arithmetic templates: `a*b+c-d`,
+`(a*b-c)/d`, `(a*b-c)/(d+e)`, and `(a*b-c)/d+e/f`. Positive cards are at most 1000.
+The final template constructs a noninteger intermediate fraction, but this is
+**not** a claim that every solution must use fractions. Each level needs at most
+five random template choices and five shuffle iterations, with no search,
+rejection loop, timeout or fallback. The production parser retains its exact
+rational arithmetic and bounded expression grammar. HINT reconstructs one first
+step and ANSWER reconstructs an example; both honestly mark assistance.
+
+Black Box samples distinct atom positions in a fixed number of bounded scans.
+Each beam checks direct absorption before diagonal deflection. Diagonal atoms
+at entry reflect it; two diagonals inside reverse it. Clockwise port numbering
+and paired exit observations are persistent. Each ray has at most 261 state
+iterations on the largest board; an impossible cyclic result is rejected, not
+silently converted to a reflection. CHECK compares all ports against the marked
+candidate. Score is fired probes plus five per failed CHECK, lower being better.
+HINT reveals one actual atom and marks assistance. X marks are user exclusions,
+not additional hidden clues. F4 switches CELLS/RAYS, EXE cycles a cell or fires,
+and F6 checks the whole layout; common dispatch preserves that F6 distinction.
+
+Cryptarithm generation is host-only and deterministically seeded by 202609233334.
+Canonicalization normalizes letter renaming **and operand commutation**. Numeric
+ordering alone would not be invariant under renaming; both operand orders are
+canonicalized before duplicate rejection. The generation attempt bound is 40000
+per level and the host column-search node bound is 200000 per candidate. The
+completed levels required 4599/12318/15316/727 candidates; none exhausted a bound.
+No generator or solver runs on the calculator. The runtime selects an already
+validated record using the shared bounded supply cycle.
+
+The older 900 + 330 GUESS/CALC bank records are byte-for-byte retained. Their
+embedded headers remain SHA256:
+
+- `assets/guesscalc_packs.h`: `430df5b94b2ffa37871443d84319aaa449576a55ad8944875317322d6521259a`.
+- `assets/guesscalc_master.h`: `0b363f2051bf312ca1a0e161e39bf5eecdf77192902adffb00a4379d6469f0d2`.
+
+The new Cryptarithm JSON SHA256 is
+`4a7ccaa0a307baed9af4475ad6cb3b9066e27b7e5e090462671b3a431c341871`;
+the generated native header SHA256 is
+`22b109847d9e876245e4a9c33543f2122a15daa2e81eaf077d27a469f65db14b`.
+Together this family now physically embeds 1350 bank records, including 240
+legacy-only Make Target records. Runtime Baseball/Target/Black Box seeds are
+not counted as finite bank records or claimed distinct canonical problems.
+
+### Independent tests and measured memory
+
+Executed with strict C11 `-Wall -Wextra -Werror`, UBSan and recovery disabled:
+
+- Retained/new core suite: **9,302,910 assertions**, including 6,288,154 rendered
+  rectangle checks. Revised Baseball covers four levels × 128 seeds and repeated
+  zero guesses. Target checks every target 1..1000 at each of four levels, all
+  cards, exact rational witnesses, an equivalent expression, deterministic
+  replay, invalid target nonmutation, rejected omissions and state corruptions.
+- Extra-game suite: **5,339,742 assertions**, including 5,183,420 rendered rectangle
+  checks. An independent padded-board compass model checks all 512 atom masks
+  on 3×3, all 6144 beams, reverse paths and clockwise rotations. Eleven distinct
+  same-count layout pairs with identical observations are accepted by the rules
+  checker. Additional 512 real-sized runs exercise every ray, edit, hint, CHECK,
+  replay, terminal validation and negative saved-state fields.
+- All 120 cryptarithms have exactly one solution independently counted by a C
+  weighted-sum/all-different model: **72,870 visited nodes**. This model uses
+  conservative sum bounds rather than the Python generator's column/carry
+  search. Every record is solved through production input/check actions;
+  duplicate digits, blank letters, leading zero, invalid status, board bounds,
+  clue corruption and cursor bounds are also tested.
+- `test_guesscalc_app` linked against the current common application passes the
+  ten retained game workflows, current MASTER modes, cold RESUME, INIT, result,
+  compact progress, seven 35-run supply cycles, Black Box F6/UNDO/save, Cryptarithm
+  edit/UNDO/save, and Target 1/1000 entry plus INIT. Its compact-save assertions
+  explicitly expect cumulative best/active-time statistics to be omitted.
+  TARGET-row digit selection does not insert the row shortcut into its draft;
+  zero is rejected without replacing the previous target or starting a game.
+- Module render bounds are checked for every tested state. Five host render
+  fixtures (Baseball MASTER, Target 1000 MASTER, Black Box EASY/MASTER and
+  Cryptarithm MASTER) were visually reviewed at 396×224 without clipping or
+  overlap. These are renderer fixtures, not hardware photographs.
+
+Installed-SDK SH GCC 14 compilation with `-Os -fstack-usage`, strict warnings and
+`-Wframe-larger-than=2048` passes. The new extra module object has 10,765 bytes in
+its code/read-only-data size class and **0 data / 0 BSS**; its Cryptarithm pack is
+**2760 bytes** (120 ×23-byte records). Runtime engines use only the existing
+fixed `NgGame`, local bounded arrays and constant pack; no heap allocations or
+additional persistent module RAM are introduced. Measured individual compiler
+frames: Black Box init 172 / ray 56 / complete 352 / valid 208 / action 196 / render 160
+bytes; Cryptarithm init 12 / complete 12 / valid 20 / action 8 / render 112 bytes. These
+are individual function frames, not measured peak stack or whole-call-chain RAM.
+The revised ten-game object has 85,704 bytes code/read-only data; Target's
+constructor frame is 80 bytes and its template helper 64 bytes. Whole G3A size,
+common state growth and final integrated memory belong to root's build audit.
+
+### Provenance and reproduction
+
+Both engines and all 120 alphametic records are original project material under
+the repository MIT license. No external problem file, dictionary, corpus,
+parsed record, bundled witness source or third-party solver was imported:
+external problem files=0, parsed external records=0, bundled external records=0.
+The [Black Box rules overview](https://www.chiark.greenend.org.uk/~sgtatham/puzzles/java/blackbox.html)
+was consulted for rule terminology only; its implementation and assets were not
+copied. SDK and font licenses are separate from puzzle-data provenance.
+
+```sh
+# Verify JSON, canonical families, all 120 unique public sums, and header parity:
+python3 tests/test_guesscalc_cryptarithm_generate.py
+# Deterministically rebuild the same original assets, then verify again:
+python3 tests/test_guesscalc_cryptarithm_generate.py --generate
+
+# A standalone independent extra-game regression, no registry stubs needed:
+cc -std=c11 -Wall -Wextra -Werror -g -fsanitize=undefined \
+  -fno-sanitize-recover=all -Iinclude -Isrc/games \
+  tests/test_guesscalc_extra.c src/games/guesscalc_extra.c \
+  src/core/common.c src/ui/draw.c -o build-host/test_gc_extra_rules
+build-host/test_gc_extra_rules
+```
+
+ASan remains unverified for the previously recorded host-runtime initialization
+failure; these results must not be labeled an ASan pass. Physical device
+latency, heap/stack peaks, keys, LCD and power/MENU behavior remain **HARDWARE
+TEST REQUIRED**. No hardware timing or difficulty rating is inferred from the
+host proof and renderer checks.

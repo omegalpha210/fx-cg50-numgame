@@ -15,7 +15,7 @@ static inline void gc_test_solve(NgGame *g,void *ctx,GcTestKey press){
  case 3:{if(g->difficulty==3){for(unsigned i=0;i<6;i++)answer[i]=(char)('0'+gc_master_mind[g->puzzle_id-90].solution[i]);}else{const GcMindPack *p=&gc_mind_pack[g->puzzle_id];for(unsigned i=0;i<p->n;i++)answer[i]=(char)('0'+p->solution[i]);}break;}
  case 4:snprintf(answer,sizeof(answer),"%d",g->difficulty==3?gc_master_lock[g->puzzle_id-90].solution:gc_lock_pack[g->puzzle_id].solution);break;
  case 5:snprintf(answer,sizeof(answer),"%d",g->difficulty==3?gc_master_sequence[g->puzzle_id-90].seq[6]:gc_sequence_pack[g->puzzle_id].seq[6]);break;
- case 6:snprintf(answer,sizeof(answer),"%s",g->difficulty==3?gc_master_target[g->puzzle_id-180].answer:gc_target_pack[g->puzzle_id].answer);break;
+ case 6:if(g->pack_revision==3){NgGame copy=*g;(void)ng_guesscalc[5].action(&copy,NGK_ANSWER);snprintf(answer,sizeof(answer),"%s",copy.input);}else snprintf(answer,sizeof(answer),"%s",g->difficulty==3?gc_master_target[g->puzzle_id-180].answer:gc_target_pack[g->puzzle_id].answer);break;
  case 7:snprintf(answer,sizeof(answer),"%s",g->difficulty==3?gc_master_countdown[g->puzzle_id-90].answer:gc_countdown_pack[g->puzzle_id].answer);break;
  case 8:for(unsigned i=0;i<(unsigned)g->data[0]-1;i++){while(g->cursor!=i)press(ctx,NGK_RIGHT);press(ctx,g->data[16+i]);}press(ctx,NGK_EXE);return;
  case 9:for(unsigned i=0;i<9;i++){while(g->cursor/3!=i/3)press(ctx,NGK_DOWN);while(g->cursor%3!=i%3)press(ctx,NGK_RIGHT);if(!g->fixed[i])press(ctx,'0'+(g->difficulty==3?gc_master_cross[g->puzzle_id-90].solution[i]:gc_cross_pack[g->puzzle_id].solution[i]));}press(ctx,NGK_EXE);return;

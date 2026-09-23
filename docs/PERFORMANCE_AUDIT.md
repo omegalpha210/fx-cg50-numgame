@@ -1,5 +1,7 @@
 # Host performance audit
 
+> Historical 30-game baseline measurement. The current 36-game catalog, controls, and compact storage are documented in [README](../README.md), [GAME_CATALOG](GAME_CATALOG.md), and [STORAGE_FORMAT](STORAGE_FORMAT.md). The figures below have not been remeasured for the current build.
+
 **Physical fx-CG50 latency, stack peak, heap/arena peak, and timeout/fallback frequency: NOT MEASURED — HARDWARE TEST REQUIRED.** The following numbers are measured host observations. No host-to-SH conversion or device target achievement is inferred.
 
 Two completed benchmark JSON inputs cover **30 visible games**, **213 mode/level configurations**, and **13,632 initial-load samples per build** (64 per configuration). Normal means diagnostics disabled, not an optimized native release. The largest measured normal load sample is **3.498000 ms** (02 EQUATION GUESS); the diagnostic maximum is **3.213000 ms** (20 SUM GRID). These are maxima of the sampled workload, not global worst-case bounds.

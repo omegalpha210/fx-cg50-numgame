@@ -1,0 +1,65 @@
+[
+  {
+    "game_id": 35,
+    "difficulty": 0,
+    "puzzle_id": 24,
+    "criterion": "largest bridge-degree total",
+    "state": "untouched initial board"
+  },
+  {
+    "game_id": 35,
+    "difficulty": 1,
+    "puzzle_id": 36,
+    "criterion": "largest bridge-degree total",
+    "state": "untouched initial board"
+  },
+  {
+    "game_id": 35,
+    "difficulty": 2,
+    "puzzle_id": 85,
+    "criterion": "largest bridge-degree total",
+    "state": "untouched initial board"
+  },
+  {
+    "game_id": 35,
+    "difficulty": 3,
+    "puzzle_id": 115,
+    "criterion": "largest bridge-degree total",
+    "state": "untouched initial board"
+  },
+  {
+    "game_id": 35,
+    "difficulty": 4,
+    "puzzle_id": 132,
+    "criterion": "largest bridge-degree total",
+    "state": "untouched initial board"
+  },
+  {
+    "game_id": 36,
+    "difficulty": 0,
+    "puzzle_id": 15,
+    "criterion": "longest run clue then most runs",
+    "state": "untouched initial board"
+  },
+  {
+    "game_id": 36,
+    "difficulty": 1,
+    "puzzle_id": 36,
+    "criterion": "longest run clue then most runs",
+    "state": "untouched initial board"
+  },
+  {
+    "game_id": 36,
+    "difficulty": 2,
+    "puzzle_id": 72,
+    "criterion": "longest run clue then most runs",
+    "state": "untouched initial board"
+  },
+  {
+    "game_id": 36,
+    "difficulty": 3,
+    "puzzle_id": 106,
+    "criterion": "longest run clue then most runs",
+    "state": "untouched initial board"
+  }
+]

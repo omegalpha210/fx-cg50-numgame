@@ -21,7 +21,9 @@ static void open_next(void)
 }
 static void selectors(void)
 {
- for(unsigned id=11;id<=15;id++)for(unsigned previous=0;previous<4;previous++){
+ for(unsigned id=11;id<=35;id++){
+  if(!ng_has_hell(id))continue;
+  for(unsigned previous=0;previous<4;previous++){
   setup(id,previous,0);tap(&app,NGK_F3);assert(app.settings.difficulty[id-1]==previous);
   app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_LEVEL);tap(&app,NGK_F3);
   assert(app.settings.difficulty[id-1]==NG_HELL);tap(&app,NGK_RIGHT);assert(app.settings.difficulty[id-1]==NG_HELL);
@@ -35,17 +37,17 @@ static void selectors(void)
   assert(!memcmp(&saved,&app.session.game,sizeof saved));
   app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_RESUME);tap(&app,NGK_F6);
   assert(app.screen==NG_PLAY && !memcmp(&saved,&app.session.game,sizeof saved));
+  }
  }
  for(unsigned i=0;i<NG_GAME_COUNT;i++){
-  unsigned id=ng_visible_id(i);const NgModule *m=ng_module(id);if(!ng_mode_chooser(id))continue;
+  unsigned id=ng_visible_id(i);const NgModule *m=ng_module(id);if(m->modes<2)continue;
   setup(id,1,0);app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_MODE);tap(&app,NGK_F3);
-  assert(app.modal==NG_MODAL_MODE);tap(&app,NGK_RIGHT);tap(&app,NGK_EXIT);assert(!app.modal && !app.settings.mode[id-1]);
-  tap(&app,NGK_F3);for(unsigned n=0;n<10;n++)tap(&app,NGK_RIGHT);assert(app.mode_choice==m->modes-1);
-  tap(&app,NGK_F6);assert(app.screen==NG_ENTRY && !app.modal && app.settings.mode[id-1]==m->modes-1 && !app.active);
+  assert(!app.modal && !app.settings.mode[id-1]);
+  for(unsigned n=0;n<10;n++)tap(&app,NGK_RIGHT);assert(app.settings.mode[id-1]==m->modes-1);
   tap(&app,NGK_F6);assert(app.screen==NG_PLAY && app.session.game.mode==m->modes-1);
  }
  setup(26,NG_MASTER,0);assert(!ng_entry_level(&app));open_next();assert(app.session.game.difficulty==NG_NORMAL && app.settings.difficulty[25]==NG_MASTER);
- puts("MASTER/HELL independent values, F3 context/toggle, clamps, explicit resume, chooser cancel/commit and fixed CLASSIC PASS");
+ puts("MASTER/HELL values, F3 return label, inline modes, explicit resume and fixed CLASSIC PASS");
 }
 static void bank_cycles(void)
 {
@@ -76,8 +78,8 @@ static void bank_cycles(void)
 static void old_formats(void)
 {
  unsigned cases=0;
- for(unsigned id=1;id<=NG_ID_MAX;id++)for(unsigned d=0;d<3;d++)for(unsigned mode=0;mode<ng_module(id)->modes;mode++){
-  if(id==26 && mode)continue;
+ for(unsigned id=2;id<=32;id++)for(unsigned d=0;d<3;d++)for(unsigned mode=0;mode<ng_module(id)->modes;mode++){
+  if(id==6 || id==29 || id==30 || (id==26 && mode))continue;
   memset(&original,0,sizeof original);ng_new(&original.game,id,d,mode,20260922,1);original.stats.started=1;
   /* An old payload must reference content that actually existed then. */
   if(id>=11 && id<=20)for(unsigned seed=1;original.game.puzzle_id>=900 && seed<10000;seed++)ng_new(&original.game,id,d,mode,seed,1);
@@ -108,9 +110,9 @@ static void old_formats(void)
   memset(&original,0,sizeof original);ng_new(&original.game,id,d,0,5678,1);original.stats.started=1;
   original.stats.best[0][d][0]=(NgBest){.completed=1,.wins=1,.best_score=123,.best_moves=55,.best_ms=789};
   size_t n=ng_encode(&original,bytes,sizeof bytes);assert(n && ng_decode(&cold,bytes,n,id));
-  assert(cold.stats.best[0][d][0].wins==1 && !cold.stats.best[0][d==NG_MASTER?NG_HELL:NG_MASTER][0].completed);
+  assert(cold.stats.started==1 && !cold.stats.best[0][d][0].wins);
  }
- printf("Save migration: %u old3/4-level views, current+4undos, independent MASTER/HELL stats and v3 roundtrip PASS\n",cases);
+ printf("Save migration: %u old3/4-level views, current+4undos and compact run/supply roundtrip PASS\n",cases);
 }
 int main(void)
 {

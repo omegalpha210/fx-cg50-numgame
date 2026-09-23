@@ -29,7 +29,7 @@ int main(void)
  ng_diag_stress_start();for(unsigned i=0;i<1000;i++)(void)ng_diag_stress_step();
  assert(!ng_diag_stress_active() && ng_diagnostics.stress_done==1000 && !ng_diagnostics.stress_failures);
  assert(!memcmp(&app,&snapshot,sizeof app) && disk.saves==writes);
- assert(ng_diagnostics.codec_peak<=NG_RECORD_MAX && ng_diagnostics.codec_peak>12000);
+ assert(ng_diagnostics.codec_peak==1005u+1842u*(1u+NG_UNDO));
  assert(!ng_diagnostics.handles && ng_diagnostics.timers==1);
  for(unsigned i=0;i<NG_GAME_COUNT;i++)assert(ng_diagnostics.load[ng_visible_id(i)].count>0);
  for(unsigned i=1;i<=NG_ID_MAX;i++){
@@ -43,7 +43,7 @@ int main(void)
  assert(stat(path,&st)==0 && st.st_size>1000 && st.st_size<=NG_DIAG_EXPORT_MAX);assert(ng_diag_export());
  assert(!ng_diagnostics.handles && ng_diagnostics.peak_handles==1);
  FILE *f=fopen(path,"r");assert(f);char text[NG_DIAG_EXPORT_MAX+1];size_t n=fread(text,1,NG_DIAG_EXPORT_MAX,f);text[n]=0;assert(!fclose(f));
- assert(strstr(text,"INCLUDED in _ostk") && strstr(text,"fixture_io=none") && strstr(text,"init_game=32") && strstr(text,"ready_game=32") && strstr(text,"stack_painting=none"));
+ assert(strstr(text,"INCLUDED in _ostk") && strstr(text,"fixture_io=none") && strstr(text,"init_game=38") && strstr(text,"ready_game=38") && strstr(text,"stack_painting=none"));
  assert(!unlink(path) && !rmdir(folder));ng_storage_directory(".");
  /* App global actions cancel work before they checkpoint/leave. */
  app.screen=NG_SETTINGS;tap(&app,NGK_F3);tap(&app,NGK_F4);assert(ng_diag_stress_active());

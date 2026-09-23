@@ -4,15 +4,15 @@
 #include <stddef.h>
 #include <stdint.h>
 
-#define NG_GAME_COUNT 30
-#define NG_ID_MAX 32
+#define NG_GAME_COUNT 36
+#define NG_ID_MAX 38
 #define NG_LEVEL_COUNT 5
 #define NG_CELLS 81
 #define NG_DATA 128
 #define NG_HISTORY 16
 #define NG_INPUT 97
 #define NG_UNDO 4
-/* IDs29/30 are legacy only; visible IDs1..28,31,32. Never reuse save IDs. */
+/* IDs29/30 are legacy only; new games use IDs33..38. Never reuse save IDs. */
 enum { NG_PLAYING, NG_WON, NG_LOST, NG_DRAW };
 /* Persisted values: MASTER was always 3. HELL is a new, separate value. */
 enum { NG_EASY, NG_NORMAL, NG_HARD, NG_MASTER, NG_HELL };
@@ -54,6 +54,7 @@ typedef struct {
  void (*render)(const NgGame *g,struct NgCanvas *c); /* content y=27..184 */
 } NgModule;
 extern const NgModule ng_guesscalc[10],ng_grids[10],ng_strategyquick[10],ng_boards[2];
+extern const NgModule ng_guesscalc_extra[2],ng_grids_extra[2],ng_strategyquick_extra[2];
 const NgModule *ng_module(unsigned id);
 unsigned ng_difficulty_count(unsigned id);
 unsigned ng_regular_difficulty_count(unsigned id);
@@ -71,6 +72,8 @@ unsigned ng_rand(NgGame *g,unsigned limit);
 void ng_new(NgGame *g,unsigned id,unsigned difficulty,unsigned mode,uint32_t seed,uint32_t run_id);
 void ng_new_supply(NgGame *g,unsigned id,unsigned difficulty,unsigned mode,
  uint32_t seed,uint32_t run_id,uint32_t supply_seed,uint32_t supply_index);
+void ng_new_supply_version(NgGame *g,unsigned id,unsigned difficulty,unsigned mode,
+ uint32_t seed,uint32_t run_id,uint32_t supply_seed,uint32_t supply_index,unsigned revision);
 bool ng_valid(const NgGame *g);
 bool ng_edit(NgGame *g,int key,const char *allowed,unsigned limit);
 void ng_message(NgGame *g,const char *message);

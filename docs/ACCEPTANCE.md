@@ -1,5 +1,7 @@
 # Runtime, UI and 30-game acceptance
 
+> Historical 30-game baseline measurement. The current 36-game catalog, controls, and compact storage are documented in [README](../README.md), [GAME_CATALOG](GAME_CATALOG.md), and [STORAGE_FORMAT](STORAGE_FORMAT.md). The figures below have not been remeasured for the current build.
+
 Visible catalog: **30 games, IDs1–28,31,32**. Arithmetic Rush29 and Number Memory30
 are legacy-only decoders/engines, not public games. All visible games have actual
 input/renderers, rules, content, transactional saves and executable validation.
