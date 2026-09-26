@@ -1,66 +1,52 @@
 # Physical fx-CG50 retest — HARDWARE TEST REQUIRED
 
-The reported persistent flashing MENU has not been reproduced on a physical
-calculator here. Its cause and cure are unconfirmed. Host tests establish a
-separate fixed boundary bug (timed transition discarded MENU/OFF), not proof of
-the persistent device failure. OFF/ON resumes the supported gint process/world;
-it is not equivalent to rear RESET or cold reinitialization.
+The previously reported persistent flashing MENU has not been reproduced or
+explained on a calculator here. Host tests fixed a separate timed-transition
+MENU/OFF boundary, but neither that fix nor the smaller v5 save proves the
+device symptom resolved. Use the exact `dist/SHA256SUMS.txt` before testing.
+Back up existing NG saves. NUM DIAG is a separate `NDSTATEA/B.dat` namespace
+and must be tested with disposable ND progress.
 
-Use the exact hashes in dist/SHA256SUMS.txt. Back up user saves and retained
-legacy files before testing. NUMGAME.g3a is the normal app. NUMGDIAG.g3a appears
-as NUM DIAG, internal @NGDIAG, and uses ND2xxA/B.dat + optional NDDIAG.txt. It does not
-migrate or overwrite NG saves. Use disposable diagnostic progress for failure
-injection; never use another app's files. No SDK/reference changes are needed.
+1. Cold launch with no unfinished game: Main F1 must be blank. START GAME,
+   return to Main, confirm F1 RESUME appears and opens the exact run.
+2. Return to the same game's entry: RESUME and START GAME must both appear,
+   with RESUME focused. Enter a different game's entry: no RESUME row or
+   softkey appears. Browsing alone must not delete the prior run.
+3. Start that different game: it must replace the old resume without a prompt.
+   Cold launch must reopen only the new game. Repeat with the same game's
+   START GAME and a changed difficulty/mode; RESUME retains its run settings.
+4. Complete a game. The modal must show EXIT VIEW RESULT. EXIT must reveal the
+   frozen final board; game input must not alter it. F6 NEW must use the
+   completed run's game/difficulty/mode. A second EXIT returns to entry.
+   Test held EXIT/EXE, completion EXE NEW and a cold launch with no RESUME.
+5. Run the same bank-backed game through a full cycle if practical: no base
+   puzzle repeats within that cycle, and the next cycle's first puzzle differs
+   from the preceding last when the bank has more than one. Check an
+   interrupted run resumes its cycle. Runtime-generated NEW should give a
+   fresh seed; exact content can collide in a small space.
+6. Review Cryptarithm letter column alignment, removed placeholders,
+   selection box, input mapping and menu icon at actual LCD size. Check the
+   recent six games' controls and displays against
+   [RECENT_SIX_AUDIT.md](RECENT_SIX_AUDIT.md), especially small Nonogram
+   clues, Hashi bridge/crossing feedback, Reversi CPU wait, and Net rotations.
+7. Measure actual free space, `NGSTATEA.dat/B.dat` sizes, first-save and
+   repeated-save latency, cold load and migration latency. A/B are two copies
+   of one state. Test valid v4 recent-five and legacy archive migration after
+   external backup; only the first valid unfinished run should remain. Test
+   one damaged copy and an interrupted write using disposable data.
+8. Repeat 1,000 game-entry/exit and MENU transitions. In NUM DIAG, inspect and
+   export handles (final 0), timer peak (at most 1), arena usage and stack
+   samples. Record exact MENU flash reproduction route, request/enter/return
+   counters, OS version, and whether OFF/ON changes it. Do not call a rear
+   RESET a verified fix.
+9. Verify normal font, HELL/ENHM, inline FIRST, all button labels and text
+   bounds, 2048 palette, long messages, large tiles and the six focused-game
+   captures on the real LCD. Host PNGs are not LCD photographs.
+10. Leave a game idle through dim and APO; restore brightness on one key and
+    before MENU/OFF. Check 60-second clock, OS timeout queries, RTC wrap,
+    pending CPU replay, save-failure MENU/OFF path, SHIFT+AC/ON and SHIFT+DOT.
 
-1. Record model, OS version, installed app hash, storage free bytes and cold-vs-
-   resumed launch. Open Settings→F3 DIAG; inspect counters, then F2 EXPORT only
-   when useful. The log is a bounded RAM ring, not a complete session history.
-2. Reproduce the user's route: enter two or more games, make moves, EXIT, open
-   RULES, explicitly RESUME, then MENU. Repeat across all36 visible games
-   and all screen classes. Log exact order and whether CASIO MAIN MENU appears.
-   If flashing occurs, record request/enter/return counts and export immediately
-   from Settings if reachable. Record whether OFF/ON preserves it. Do not label
-   rear RESET a fix or take it before collecting recoverable evidence.
-3. Follow [diagnostic measurement steps](DIAGNOSTICS.md): RESET, run 1,000 RAM
-   fixtures, EXPORT, then repeat separately with real game/MENU transitions and
-   heavy operations. Check handles return to0, active timer≤1, and arena live
-   usage does not grow with repeated work. Stack low-water is observed project
-   sampling, not a proven worst-case bound; SDK/OS/interrupt coverage is incomplete.
-   Hardware measured peak remains NOT MEASURED until this procedure is executed.
-4. Leave a game60s with no keys: its clock must advance about60s and dim must
-   still occur according to timeout. Verify OS30/60/180s and APO10/60min values,
-   then unsupported-query fallback60s/10min if possible. Dim must change actual
-   brightness, not paint black; restore exact prior brightness on one key and
-   before MENU/OFF. A wake key must produce no duplicate move/submission.
-5. Test APO immediately before/after a real input; save failure must not trap
-   OFF. Resume pending CPU exactly once and terminal results exactly once.
-   RULES/entry/modals and OS/OFF time must not inflate the game clock. Test RTC
-   midnight wrap and long gaps; timestamps spanning a full unobserved day need
-   separate evaluation because the clock source is time-of-day modulo24h.
-6. Check latched and held SHIFT+DOT, plain DOT, alpha conflict and subsequent
-   digits. F↔D must not insert '='. Ordinary AC/ON must not turn off. Hold EXE
-   across entry/confirmation, and arrows in menus vs turn games.
-7. Inspect normal font, all difficulty choices including full MASTER and separate red HELL, context F3 HELL, inline FIRST and other settings, independent row
-   focus and value selection, long modes/titles, colored operators and Equation
-   feedback. Inspect9×9 notes,6×6 cage clues,8×8 Shikaku/Slitherlink, two-digit
-   clues and maximum2048 tiles. Host screenshots are not LCD photographs.
-8. Test NEW defaults, digit focus, LEFT/RIGHT clamps and EXE/F6 from settings.
-   Cancel NEW without changing saved draft/RNG/settings. RESUME must use the
-   saved difficulty/mode. Shikaku EXIT during a corner cancels only selection;
-   Slitherlink reaches every edge and saves cursor143 on HARD.
-9. On disposable ND data, test full storage, missing partner, individual-record
-   corruption, interrupted writes and close failures. One damaged record must
-   not erase unrelated games. Fresh normal setup creates two small settings files; up to five games each
-   add two exact-length files. Explicit export adds a bounded text file. Measure
-   migration, first-save and startup latency.
-10. For release legacy migration, first keep an external backup. Test valid old
-    NG00–30 A/B and NGARCA/B archive progress, interrupted compact writes and
-    migration. Two compact copies must validate before owned old files are
-    removed. Unknown or foreign legacy files are preserved;
-    a torn ownership publication may require manual recovery. Never infer that
-    every NG-looking filename is owned or disposable.
-
-ASan also remains UNVERIFIED: the current macOS runtime was sampled stuck in
-shadow-memory initialization before main. Rerun the host suites with NG_ASAN=ON
-on a working runtime. UBSan/SH/package success does not replace either missing
-ASan execution or physical acceptance.
+ASan remains unverified on the available macOS runtime because execution
+stalled before test output. Host UBSan/SH/package checks do not replace this
+physical retest. [DIAGNOSTICS.md](DIAGNOSTICS.md) explains the instrumentation
+and its coverage limits.

@@ -87,6 +87,23 @@ def load_generator():
     spec=importlib.util.spec_from_file_location('grid_extra_generator',OUT/'generate.py');module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module);return module
 
 class ExtraTests(unittest.TestCase):
+    def test_nonogram_empty_lines_order_and_mandatory_gaps(self):
+        # Empty canonical run list renders as a literal 0 clue in the app.
+        public=dict(n=3,clues=[[] for _ in range(6)])
+        self.assertEqual(nono_reference(public)[0],[[0,0,0]])
+        public['clues'][0]=[1,1];public['clues'][3]=public['clues'][5]=[1]
+        self.assertEqual(nono_reference(public)[0],[[5,0,0]])
+        public['clues'][4]=[1];public['clues'][5]=[]
+        self.assertEqual(nono_reference(public)[0],[]) # Adjacent filled cells are one run.
+        public['clues'][0]=[2]
+        self.assertEqual(nono_reference(public)[0],[[3,0,0]])
+        public['clues'][0]=[4]
+        self.assertEqual(nono_reference(public)[0],[])
+        public=dict(n=5,clues=[[1,2],[],[],[],[],[1],[],[],[1],[1]])
+        self.assertEqual(nono_reference(public)[0],[[25,0,0,0,0]])
+        public['clues'][0]=[2,1]
+        self.assertEqual(nono_reference(public)[0],[])
+
     def test_native_pack_byte_reproduction(self):
         gen=load_generator()
         with tempfile.TemporaryDirectory() as directory:

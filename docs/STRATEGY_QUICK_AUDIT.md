@@ -78,9 +78,8 @@ than equality to a witness.
 ## Independent correctness and regression
 
 Strict C11 `-Wall -Wextra -Werror` and UBSan tests passed against the actual
-common registry, application, renderer and codec. In the isolated worker build,
-only unselected parallel-worker symbols were temporary link stubs; these
-must not enter the integrated source. Root runs the complete combined build.
+common registry, application, renderer and codec. The current focused checks
+link all production modules directly and use no temporary adapters.
 
 | Check | Verified coverage |
 |---|---|
@@ -92,7 +91,7 @@ must not enter the integrated source. Root runs the complete combined build.
 |Original CPU lifecycle|600 complete seeded games over five games × three levels × two CPU modes × 20 seeds|
 |MASTER starts|349 mode-specific no-repeat loads; 257 strategy playthroughs using exact play end in YOU wins; INIT, codec/undo snapshots and invalid identity checks|
 |2048|Merge once, no-op RNG, deterministic replay, exponent/score caps; 10,000 starting spawns yielded 9,016 twos and 984 fours|
-|2048 TARGET|All four terminal goals, replay/undo, mode-separated records and codec; CLASSIC remains active after reaching 8192|
+|2048 TARGET|All four terminal goals, replay/undo and codec; historical compatibility tests check mode-separated record structures; CLASSIC remains active after reaching 8192|
 |Sliding|1,200 original seeded starts; independent inversion parity; MASTER full 181,440-state 3×3 BFS and all 30 4×4 legal-path witnesses/admissible Manhattan bounds|
 |Lights|1,200 original starts and all 65,535 nonempty 4×4 press subsets; MASTER matrix RREF plus full affine nullspace versus generator row chasing certifies every minimum|
 |Actual app|64 setting requests (61 distinct new configurations): NEW, INIT, legal input, CPU, round UNDO, explicit RESUME, EXIT/MENU and codec|
@@ -109,11 +108,13 @@ by these host input tests.
 ## Compatibility, controls and assistance
 
 CLASSIC 2048 is still mode 0: data[3] is zero, 2048 achievement allows continued
-play, and only lack of legal moves ends the run. Existing CLASSIC saves and
-record buckets retain that meaning. TARGET is mode 1 and stores the goal
-exponent in data[3]; reaching it wins. The four goals have separate difficulty
-buckets, and mode separation prevents CLASSIC best scores being mixed with
-TARGET. The app starts new CLASSIC runs in its fixed NORMAL bucket while retaining the selected TARGET level; old CLASSIC E/N/H runs resume unchanged. Exponents cap at 30 and scores saturate at UINT32_MAX.
+play, and only lack of legal moves ends the run. TARGET is mode 1 and stores
+the goal exponent in data[3]; reaching it wins. Each difficulty has its own
+target goal. The app starts new CLASSIC runs at its fixed NORMAL level while
+retaining the selected TARGET level; compatible unfinished CLASSIC E/N/H runs
+resume unchanged. Version 5 does not persist cumulative records or best scores.
+Tests of mode-separated record structures cover historical compatibility only.
+Exponents cap at 30 and scores saturate at UINT32_MAX.
 
 E/N/H game initialization and existing puzzle identities are retained. MASTER
 Make Fifteen stores its even preplayed ply count separately from new player
@@ -156,7 +157,7 @@ Both games have original fixed-state C engines and renderers in
 `src/games/strategyquick_extra.c`. No external program code, puzzle corpus,
 image, or sound was copied. Their rule descriptions were checked against the
 [World Othello Federation official rules](https://www.worldothello.org/about/about-othello/othello-rules/official-rules/english)
-and [Simon Tatham's Net documentation](https://www.chiark.greenend.org.uk/~sgtatham/puzzles/js/net.html),
+and [Simon Tatham's Net documentation](https://www.chiark.greenend.org.uk/~sgtatham/puzzles/doc/net.html),
 respectively; these are rules references, not bundled assets. Original source,
 tests and renderer output use the repository MIT license.
 
@@ -209,7 +210,7 @@ Independent coverage in `tests/test_strategyquick_extra.c`:
   scores and turns; Net also rejects modified seed, RNG and immutable shapes.
 - Twelve real-app configurations cover NEW, CPU input barriers, full-round
   UNDO, assisted hint/reveal, explicit RESUME, RULES and INIT. Renderer bounds
-  checks cover 56,380 rectangles. Host captures were visually inspected:
+  checks cover 51,132 rectangles at two cursor positions. Host captures were visually inspected:
   [Reversi](../assets/strategyquick/extra-37-master.png) and
   [Net](../assets/strategyquick/extra-38-master.png). These are host rasters,
   not photos or hardware LCD evidence.
@@ -234,6 +235,80 @@ calls, interrupts and actual hardware peaks require separate accounting.
 Native frame evidence is in
 [extra-native-frames.json](../assets/strategyquick/extra-native-frames.json).
 The [ASan retry](../assets/strategyquick/extra-asan-attempt.json) compiled but
-produced no output and timed out after 15 seconds; it is NOT VERIFIED.
+produced no output and timed out after 20 seconds on 2026-09-26; it is
+NOT VERIFIED. That retry covers the engine/codec/renderer test build; the
+current full app tests are verified under UBSan.
 CPU elapsed time, device stack/heap peak and physical controls remain
 **HARDWARE TEST REQUIRED**. UBSan is verified; ASan is not claimed passed.
+
+
+## Focused recent-six follow-up — 2026-09-26
+
+This review covered Reversi and Net within the six-game audit, starting from
+local source `2ecaf26`. Their state layouts, generation policies, CPU budgets
+and rule verdicts were preserved. No new content bank or game was added.
+
+The production rules and validators agree: Reversi flips every bracketed ray
+without cascading, requires a flip for a move, passes only when no move exists,
+and ends when neither side can move. Disc counts determine win/loss/draw;
+unfilled cells are not awarded to either player. Net explicitly forbids loops
+and wrapping. Reciprocal ports, boundary closure, connectivity and the edge
+count together enforce a tree. Alternative valid rotations still win.
+
+The changes address specific control feedback:
+
+- Terminal Reversi and Net panels now describe F6 NEW and EXIT to the game
+  entry, instead of advertising placement/rotation actions that are frozen.
+- Reversi hides its human placement/F4 sidebar instruction while the CPU is
+  pending. Its current-player label, scores, legal dots and selected cell
+  remain separate. There is no LOCAL 2P mode or softkey.
+- Rotating Net's four-way cross gives an explicit unchanged-orientation
+  message. The board, RNG, assistance and move count are unchanged, so this
+  does not create an undo record. Locked rotations retain their clear warning.
+- Net rules now say exactly what a lock blocks: EXE/5/DEL. Assisted REVEAL can
+  reset and relock a locked tile; that existing behavior is now explicit.
+
+New independent named edge tests supplement the existing exhaustive oracles:
+12 Reversi fixtures cover simultaneous eight-direction flips, no cascade,
+occupied/own-disc/edge failures, human and CPU forced passes, full-board
+win/loss/draw, and a non-full early ending. These synthetic fixtures isolate
+rules and are not claimed as reachable complete game histories. Frozen keys,
+terminal score/turn corruption and codec round-trips are checked as well.
+
+Net tests isolate a connected tree with an open boundary port, a connected
+cycle, a reciprocal mismatch, and a disconnected cycle-plus-tree with exactly
+N−1 edges. All 15 nonzero port masks are exercised clockwise and anticlockwise
+(30 cases), including the symmetric cross, every lock case, assisted override,
+and frozen solved-state input. These tests agree with the independent DSU
+oracle; the engine completion algorithm was not rewritten.
+
+The actual application tests use the real version-5 A/B transaction hooks.
+All 12 game/level/mode configurations pass START, deferred CPU input barriers,
+whole-round UNDO, hint/reveal, same-game RESUME, Main F1 cold RESUME, RULES and
+INIT. Eight Reversi configurations additionally checkpoint while the CPU is
+pending; a cold resume produces the identical CPU reply and preserves the
+human-round undo snapshot. Six further result paths cover Reversi win/loss/draw and Net solved:
+completion modal → EXIT VIEW RESULT → frozen board → EXIT entry, direct
+modal EXE NEW, and result-view F6 NEW. Held EXIT/EXE/F6 cannot cross the next
+screen, frozen keys and clocks do not mutate the result, completion durably
+clears the resume, and a newly started run cold-loads again.
+
+The `tests/test_strategyquick_capture.c` host harness accepts `OUTPUT_DIR recent`
+after compilation to render only these two games for focused inspection. It drives gameplay through the real application
+and captures the initial board, CPU wait, completion modal, frozen result and
+next run. These are actual host renderer outputs, not hardware photographs.
+The common renderer now hides inactive F3/F4 keys during Reversi CPU work
+and labels its result with the actual difficulty and UNASSISTED/ASSISTED,
+avoiding confusion between NORMAL difficulty and unassisted play. The result
+title identifies the human or CPU winner. Root applied these shared changes.
+Reviewed host evidence: [CPU wait](../assets/strategyquick/extra-37-cpu.png),
+[completion modal](../assets/strategyquick/extra-37-result-modal.png),
+[Reversi result](../assets/strategyquick/extra-37-result.png), and
+[Net result](../assets/strategyquick/extra-38-result.png).
+
+Strict C11/UBSan `strategyquick` and `strategyquick_extra` targets pass against
+the integrated core. The new game source also passes strict SH GCC with the
+2048-byte individual-frame gate; its largest frame remains 280 B. ASan remains
+unverified as described above. Native LCD clarity of the 8×8 legal dots and
+6×6 lock marks, physical controls, storage latency and MENU behavior remain
+**HARDWARE TEST REQUIRED**. This audit does not claim to resolve MENU flicker.

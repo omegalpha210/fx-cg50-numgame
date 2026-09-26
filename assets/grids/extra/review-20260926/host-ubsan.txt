@@ -1,0 +1,2 @@
+HASHI raster/union-find: 59049 assignments, 10496 connected noncrossing, 26244 crossing, 33193 disconnected PASS
+grids_extra: 270 witnesses/actions, independent completion, states, content bounds PASS

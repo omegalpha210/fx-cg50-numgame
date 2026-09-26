@@ -1,8 +1,10 @@
 {
   "status": "NOT_VERIFIED_RUNTIME_TIMEOUT",
-  "timeout_seconds": 15,
+  "timeout_seconds": 20,
   "stdout_bytes": 0,
   "stderr_bytes": 0,
-  "scope": "Host ASan attempt, not hardware test",
-  "build_and_attempt_seconds": 17.01
+  "seconds": 20.003,
+  "scope": "Owned engine/codec/renderer tests; real common modules, no temporary link adapters; no app workflow in this run",
+  "date": "2026-09-26",
+  "sanitizer": "AddressSanitizer"
 }

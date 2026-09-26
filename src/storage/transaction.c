@@ -166,3 +166,114 @@ int ng_settings_load_io(NgSettings *s,const NgIO *io)
  return rc;
 }
 bool ng_settings_save_io(NgSettings *s,const NgIO *io){return write_record(io,0,NULL,s);}
+
+/* Version 5 keeps preferences and the sole unfinished run in one transaction.
+ * Its old slot remains valid until the replacement has been closed and checked. */
+static int read_state_slot(const NgIO *io,unsigned slot,NgSettings *settings,
+ NgSession *session,bool *active,uint32_t *generation,size_t *length)
+{
+ int fd=io->open(io->context,0,slot,false);
+ if(fd==-2)return NG_LOAD_ABSENT;
+ if(fd<0)return NG_LOAD_IO_ERROR;
+ size_t pos=0;bool error=false;
+ while(pos<sizeof buffer){
+  ptrdiff_t n=io->read(io->context,fd,buffer+pos,sizeof buffer-pos);
+  if(n<0 || (size_t)n>sizeof buffer-pos){error=true;break;}
+  if(!n)break;
+  pos+=(size_t)n;
+ }
+ if(pos==sizeof buffer){uint8_t excess;if(io->read(io->context,fd,&excess,1)!=0)error=true;}
+ if(io->close(io->context,fd)<0)error=true;
+ if(error)return NG_LOAD_IO_ERROR;
+ if(pos<HEADER+5 || memcmp(buffer,"NGSAVE01",8) || get32(buffer+8)!=0 ||
+  get32(buffer+12)!=5 || get32(buffer+20)!=pos-HEADER ||
+  ng_crc32(buffer,28)!=get32(buffer+28) ||
+  ng_crc32(buffer+HEADER,pos-HEADER)!=get32(buffer+24))return NG_LOAD_INVALID;
+ const uint8_t *p=buffer+HEADER;size_t n=pos-HEADER;
+ unsigned settings_len=(unsigned)p[0]|((unsigned)p[1]<<8);
+ if(settings_len>n-5)return NG_LOAD_INVALID;
+ unsigned run_flag=p[2+settings_len];
+ unsigned game_len=(unsigned)p[3+settings_len]|((unsigned)p[4+settings_len]<<8);
+ if(run_flag>1 || 5u+settings_len+game_len!=n || (!run_flag && game_len))return NG_LOAD_INVALID;
+ NgSettings probe_settings;NgSession *probe_session=session?session:&ng_storage_probe;
+ NgSettings *out_settings=settings?settings:&probe_settings;
+ if(!ng_settings_decode(out_settings,p+2,settings_len) ||
+  out_settings->recent_count || out_settings->pending_delete ||
+  !out_settings->migration_complete)return NG_LOAD_INVALID;
+ if(run_flag){
+  unsigned id=out_settings->last_game;
+  if(ng_catalog_index(id)<0 || !game_len ||
+   !ng_single_decode(probe_session,p+5+settings_len,game_len,id) ||
+   probe_session->game.status!=NG_PLAYING)return NG_LOAD_INVALID;
+ }else memset(probe_session,0,sizeof *probe_session);
+ if(active)*active=run_flag!=0;
+ *generation=get32(buffer+16);*length=pos;
+ return NG_LOAD_OK;
+}
+bool ng_state_slot_valid(const NgIO *io,unsigned slot)
+{uint32_t gen=0;size_t len=0;return slot<2 && read_state_slot(io,slot,NULL,NULL,NULL,&gen,&len)==NG_LOAD_OK;}
+int ng_state_load_io(NgSettings *settings,NgSession *session,bool *active,const NgIO *io)
+{
+ uint32_t generations[2]={0,0},gen=0;size_t lengths[2]={0,0},len=0;
+ int rc[2];
+ rc[0]=read_state_slot(io,0,NULL,NULL,NULL,&generations[0],&lengths[0]);
+ rc[1]=read_state_slot(io,1,NULL,NULL,NULL,&generations[1],&lengths[1]);
+ if(rc[0]!=NG_LOAD_OK && rc[1]!=NG_LOAD_OK){
+  if(rc[0]==NG_LOAD_IO_ERROR || rc[1]==NG_LOAD_IO_ERROR)return NG_LOAD_IO_ERROR;
+  return rc[0]==NG_LOAD_ABSENT && rc[1]==NG_LOAD_ABSENT?NG_LOAD_ABSENT:NG_LOAD_INVALID;
+ }
+ unsigned best=newest(generations,rc);
+ int result=read_state_slot(io,best,settings,session,active,&gen,&len);
+ if(result!=NG_LOAD_OK && rc[1-best]==NG_LOAD_OK){
+  result=read_state_slot(io,1-best,settings,session,active,&gen,&len);
+  if(result==NG_LOAD_OK){settings->generation=gen;return NG_LOAD_RECOVERED;}
+ }
+ if(result!=NG_LOAD_OK)return result;
+ settings->generation=gen;
+ return rc[1-best]==NG_LOAD_INVALID || rc[1-best]==NG_LOAD_IO_ERROR?NG_LOAD_RECOVERED:NG_LOAD_OK;
+}
+bool ng_state_save_io(NgSettings *settings,const NgSession *session,bool active,const NgIO *io)
+{
+ if(active && (!session || !ng_valid(&session->game) || session->game.status!=NG_PLAYING ||
+  settings->last_game!=session->game.id))return false;
+ NgSettings saved=*settings;
+ saved.recent_count=0;memset(saved.recent,0,sizeof saved.recent);
+ saved.pending_delete=0;saved.migration_complete=1;
+ uint32_t gen[2]={0,0};size_t len[2]={0,0};int rc[2];
+ rc[0]=read_state_slot(io,0,NULL,NULL,NULL,&gen[0],&len[0]);
+ rc[1]=read_state_slot(io,1,NULL,NULL,NULL,&gen[1],&len[1]);
+ if(rc[0]==NG_LOAD_IO_ERROR || rc[1]==NG_LOAD_IO_ERROR)return false;
+ unsigned best=newest(gen,rc),slot=rc[best]==NG_LOAD_OK?1-best:0;
+ uint32_t next=rc[best]==NG_LOAD_OK?gen[best]+1:1;
+ uint8_t *p=buffer+HEADER;
+ size_t sn=ng_settings_encode(&saved,p+2,sizeof buffer-HEADER-5);
+ if(!sn || sn>UINT16_MAX)return false;
+ p[0]=(uint8_t)sn;p[1]=(uint8_t)(sn>>8);p[2+sn]=active?1:0;
+ size_t gn=active?ng_single_encode(session,p+5+sn,sizeof buffer-HEADER-5-sn):0;
+ if(active && !gn)return false;
+ if(gn>UINT16_MAX)return false;
+ p[3+sn]=(uint8_t)gn;p[4+sn]=(uint8_t)(gn>>8);
+ size_t payload=5+sn+gn,total=HEADER+payload;
+ memcpy(buffer,"NGSAVE01",8);put32(buffer+8,0);put32(buffer+12,5);
+ put32(buffer+16,next);put32(buffer+20,(uint32_t)payload);
+ uint32_t crc=ng_crc32(p,payload);put32(buffer+24,crc);put32(buffer+28,ng_crc32(buffer,28));
+ if(io->prepare && !io->prepare(io->context,0,slot,total))return false;
+ int fd=io->open(io->context,0,slot,true);
+ if(fd<0)return false;
+ size_t done=0;bool ok=true;
+ while(done<total){
+  ptrdiff_t n=io->write(io->context,fd,buffer+done,total-done);
+  if(n<=0 || (size_t)n>total-done){ok=false;break;}
+  done+=(size_t)n;
+ }
+ int closed=io->close(io->context,fd);
+ if(!ok)return false;
+ uint32_t checked=0;size_t checked_len=0;
+ if(read_state_slot(io,slot,NULL,NULL,NULL,&checked,&checked_len)!=NG_LOAD_OK ||
+  checked!=next || checked_len!=total || get32(buffer+24)!=crc)return false;
+ /* A close can report an error after all bytes reached durable storage. The
+  * reopened semantic/CRC check is the commit decision, including that case. */
+ (void)closed;
+ *settings=saved;settings->generation=next;
+ return true;
+}

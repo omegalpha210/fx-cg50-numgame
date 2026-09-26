@@ -665,3 +665,162 @@ failure; these results must not be labeled an ASan pass. Physical device
 latency, heap/stack peaks, keys, LCD and power/MENU behavior remain **HARDWARE
 TEST REQUIRED**. No hardware timing or difficulty rating is inferred from the
 host proof and renderer checks.
+
+## 2026-09-26 focused audit: Cryptarithm alignment and Black Box rules
+
+This bounded follow-up began on local branch `codex/lazy-five-36-games`, HEAD
+`2ecaf26aa517f3cfd57da88ab10aa7a709b05e5e`, with a clean working tree. It changes
+only the owned extra-game renderer/actions, extra-game tests, the owned app
+workflow test and this audit. Shared icons, menus, storage and native controls
+are root-owned. No puzzle assets, IDs, seeds, difficulty definitions or game
+state layout changed.
+
+### Cryptarithm presentation
+
+The previous renderer right-justified strings with `%6s`, then drew them using
+a proportional font. Character-count padding therefore did not align numeric
+places. The numeric preview also began at one fixed left edge regardless of
+word length. Both the numeric preview and mapping cards displayed `_` for every
+unassigned digit.
+
+The corrected renderer uses six integer column cells with a **12-pixel pitch**.
+The units-cell centers are x90 for letters and x186 for the digit preview; each
+higher place is exactly 12 pixels to the left. Each glyph is individually
+centered using its actual `ng_text_width` metric. The test explicitly confirms
+that `I` and `A` have different widths in the real normal font. Operators and
+horizontal rules share the same cell boundaries; a longer result remains
+aligned at the units place. Pixel rounding inside each cell is deterministic.
+
+Unassigned digit-preview cells now draw nothing. An unassigned mapping card
+shows only its letter; assigned cards retain `letter = digit`. Every occurrence
+of the selected letter is boxed and colored blue in the sum, the selected card
+retains its border, and `Selected A: unset` / `Selected A = 7` identifies the
+active mapping. No underscore placeholders remain in this renderer. Selection
+boxes stay inside their 12-pixel cells, so adjacent repeated letters do not
+overwrite each other's borders. RULES now describes this feedback.
+
+The icon's former whole-string geometry was reported to root: its letters,
+operator, horizontal rule and result need individually centered glyphs on an
+integer grid inside the existing 40×32 icon box. This worker did not change
+`src/ui/icons.c`; icon implementation and icon-specific tests belong to root.
+
+### Rules, boundaries and completed-state behavior
+
+Black Box retains its documented traditional beam rules and observational
+completion test. Added hand-derived cases independently establish empty-board
+exit mapping for **every port at sizes 2..8**, both corner entries and adjacent
+corner objects, direct-hit precedence, left and right deflection, two interior
+diagonal objects reversing a beam, and two edge-adjacent objects reflecting it.
+These supplement the existing exhaustive 512 masks / 6144 rays on 3×3, reciprocal
+paths, rotations and 11 pairs of different same-count layouts with identical
+observations. A paired exit already revealed by a probe does not consume
+another probe or move. Missing reciprocal data or contradictory fired-port
+metadata is rejected. An extra guessed atom prevents completion; an X exclusion
+does not count as an atom. HINT with every actual atom already marked is a
+non-assisting no-op. Counter bounds do not overflow or change state.
+
+The Black Box screen was reviewed in both phases. Guesses and X exclusions are
+inside the grid; untested perimeter port labels are muted; observed H/R/exit
+labels are blue; the active port has a magenta outline and a separate named-port
+result. CELLS/RAYS heading and action instructions distinguish editing from
+firing. No hidden atom is rendered as an unassisted clue.
+
+Cryptarithm supports **addition only**. Public puzzle 0 is `AA + BC = BDB` and
+provides three focused cases, without introducing a native answer table:
+
+- `A=9,B=1,C=2,D=1` gives `99+12=111` numerically but is rejected because B and D
+  are different letters using the same digit.
+- `A=1,B=0,C=9,D=2` gives `11+09=020` numerically but is rejected for leading zero;
+  all four assigned digits are distinct in this counterexample.
+- `A=8,B=1,C=3,D=0` gives `88+13=101`, verifies two carries and repeated-letter
+  consistency, and accepts an interior zero. Changing only D to 2 preserves
+  digit distinctness but fails the arithmetic.
+
+Additional checks cover blank/invalid digits, same-value edit no-ops, repeated
+DEL, NEXT with one unassigned letter, unsupported subtraction input, invalid
+puzzle IDs, and move/check counter limits. All 120 packaged problems still have
+exactly one solution under the separate weighted-sum model (72,870 visited
+nodes); the native checker evaluates mappings and arithmetic, not a witness.
+
+The focused audit found both module action functions processed navigation and
+F4 before checking terminal status. They now reject every gameplay action before
+any state change once complete. Tests compare **every byte** after arrows,
+selection/phase changes, HINT, EXE/F6, DEL and digit attempts on completed states.
+This complements root's common frozen-result dispatch.
+
+### Application integration and regressions
+
+`test_guesscalc_app` now uses the real v5 combined snapshot hooks. It replaces
+obsolete recent-five / NEW-confirmation / persisted-completion expectations with
+one resumable unfinished run, Main F1, same-game entry RESUME focus, different-
+game browsing that preserves the active run, and immediate START with current
+settings. Cold restore preserves the draft and current supply. Completed runs
+load as no active resume; the completed board stays frozen in RAM. Held EXIT
+closes only the result modal, F6 starts the next run, and a later EXIT returns to
+entry. MENU and logical power-off hooks remain callable from the result view.
+
+All retained GUESS/CALC workflows and current MASTER modes are exercised.
+Eight bank families (IDs 2,3,4,5,7,8,9,34) each run **65 successive STARTs**: two
+complete 30-record cycles, then five entries of the next cycle. Every full cycle
+visits each base ID exactly once and never repeats the preceding ID across its
+boundary. Two cold restarts per family verify active cycle continuity. No
+permanent cleared-history claim is made. Black Box and Cryptarithm additionally
+exercise production app editing, UNDO, save/restore and completion; Target 1/1000
+entry, rejected zero and INIT retention remain covered.
+
+A new app regression reproduced a common-code defect: changing an entry
+preference to MASTER, then resuming and completing an EASY puzzle, caused NEW
+to start MASTER. Root fixed result NEW to use the completed run's parameters.
+The owned regression now verifies both completion EXE and frozen-result F6,
+along with Equation Guess mode retention and saved Make Target target retention
+when entry preferences differ. The game engines were not changed to mask this
+routing issue.
+
+### Executed checks and limits
+
+- C11 `-Wall -Wextra -Werror`, UBSan with recovery disabled: owned retained suite
+  **9,302,910 assertions**, extra suite **14,287,909 assertions**. These totals
+  include pixel/rectangle comparisons, not that many distinct puzzle cases.
+- The extra suite performs **360 equation/mapping pixel comparisons**: every
+  one of 120 records empty, partially assigned and solved. The reference renders
+  from the units place outward and checks absent placeholders, true glyph
+  widths, decimal alignment, operator/rule alignment, and selected-letter boxes.
+  Render calls are also checked not to mutate their game state.
+- The three owned CTest targets pass against current common source; the final
+  app test also passes the added mode/target preference boundary cases. Python
+  pack verification passes all 120 original unique alphametics and header parity.
+- Five 396×224 host captures were visually reviewed: Cryptarithm EASY empty,
+  MASTER partial and MASTER solved, plus Black Box MASTER marks and rays. These
+  module captures do not themselves prove common menu/footer or hardware LCD
+  behavior.
+- Installed-SDK SH GCC with `-Os -fstack-usage`, strict warnings and a 2048-byte
+  frame warning gate passes for the extra module. Object code/read-only data is
+  **11,221 bytes**, data 0/BSS 0; Cryptarithm render's individual frame is 120 bytes
+  and its glyph helper's is 20 bytes. These are compiler frames, not measured
+  whole-call-stack peaks. The native cryptarithm pack is unchanged at 2760 bytes.
+- ASan+UBSan was retried with a 15-second subprocess limit. It produced no output
+  before timeout and is **unverified**, not a pass. The previous host runtime
+  initialization issue remains documented; this retry alone does not establish
+  where execution stalled. Physical key/HOLD timing, LCD contrast, hardware
+  latency and device memory peaks remain **HARDWARE TEST REQUIRED**.
+
+Unchanged asset SHA256:
+`guesscalc_cryptarithm.h` =
+`22b109847d9e876245e4a9c33543f2122a15daa2e81eaf077d27a469f65db14b`;
+`guesscalc_cryptarithm.json` =
+`4a7ccaa0a307baed9af4475ad6cb3b9066e27b7e5e090462671b3a431c341871`.
+No external problem data or implementation was added.
+
+Reproduce the focused checks and module captures:
+
+```sh
+cmake -S tests -B build-host/guesscalc-focused/app-build -DNG_SANITIZE=ON
+cmake --build build-host/guesscalc-focused/app-build \
+  --target test_guesscalc test_guesscalc_extra test_guesscalc_app -j4
+ctest --test-dir build-host/guesscalc-focused/app-build --output-on-failure \
+  -R '^guesscalc(_app|_extra)?$'
+python3 tests/test_guesscalc_cryptarithm_generate.py
+mkdir -p build-host/guesscalc-focused/captures
+build-host/guesscalc-focused/app-build/test_guesscalc_extra \
+  --capture-dir build-host/guesscalc-focused/captures
+```

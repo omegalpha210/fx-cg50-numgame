@@ -62,6 +62,7 @@ if entry_frames:sheet(entry_frames,'entry-layout-native.png',1,2)
 if overflow_frames:sheet(overflow_frames,'overflow-native.png',1,2)
 (OUT/'README.md').write_text('# Actual renderer captures\n\n396×224 pixels from `src/ui/render.c` and the same game render adapters as the SH build.\nHost RGB565 backend, not a desktop mockup or a hardware LCD photograph.\n\n[All menus / game icons, native](menus-native.png) · [Integer 2×](menus-2x.png).\n[Entry settings](entry-layout-native.png) · [Overflow/large values](overflow-native.png).\nThe normal font matches DIFF EQ/gint 8×9; compact clues retain 5×7.\n\n'+''.join(f'- [{p.stem}]({p.stem}.png)\n' for p in paths)+''.join(f'- [NUM DIAG {name}]({name}.png)\n' for name in diagnostic_names if (OUT/(name+'.png')).exists())+'\n`contact-native.png`: 1×. `category-*-2x.png`: nearest-neighbor integer 2×.\n39-2048-large, 48–53 and 57–58 are explicit renderer stress fixtures (52 selects an actual verified pack entry); maximum scores are not played results.\n')
 for obsolete in ('29-play','30-play','37-memory-pause','38-memory-loss','44-entry-long-mode',
+                 '32-resume-entry','41-entry-no-stats',
                  '41-records','36-stats','45-entry-local-2p','48-max-statistics','49-max-records',
                  '01-mode-chooser','21-mode-chooser','22-mode-chooser','23-mode-chooser',
                  '24-mode-chooser','25-mode-chooser'):

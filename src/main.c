@@ -30,11 +30,10 @@ static const int logical_keys[]={'0','1','2','3','4','5','6','7','8','9',
  NGK_F1,NGK_F2,NGK_F3,NGK_F4,NGK_F5,NGK_F6,NGK_EXIT,NGK_MENU,NGK_SHIFT,NGK_ALPHA,NGK_ACON,'-'};
 static void rect(void *ctx,int x,int y,int w,int h,uint16_t color)
 {(void)ctx;drect(x,y,x+w-1,y+h-1,color);}
-static int load(void *ctx,NgSession *s,unsigned id){(void)ctx;return ng_storage_load(s,id);}
-static bool save(void *ctx,NgSession *s){(void)ctx;return ng_storage_save(s);}
-static int load_settings(void *ctx,NgSettings *s){(void)ctx;if(!ng_storage_migrate(&app.session))snprintf(app.notice,sizeof app.notice,"Legacy saves retained; migration incomplete.");return ng_settings_load(s);}
-static bool save_settings(void *ctx,NgSettings *s){(void)ctx;return ng_settings_save(s);}
-static bool remove_game(void *ctx,unsigned id){(void)ctx;return ng_storage_delete(id);}
+static int load_state(void *ctx,NgSettings *settings,NgSession *session,bool *active)
+{(void)ctx;if(!ng_state_migrate(session))snprintf(app.notice,sizeof app.notice,"Old saves retained; migration incomplete.");return ng_state_load(settings,session,active);}
+static bool save_state(void *ctx,NgSettings *settings,const NgSession *session,bool active)
+{(void)ctx;return ng_state_save(settings,session,active);}
 static int pulse(void) __attribute__((no_instrument_function));
 static int pulse(void){wakeup=1;return TIMER_CONTINUE;}
 static void restore_light(void)
@@ -104,7 +103,7 @@ int main(void)
  ng_diag_stack_range((uintptr_t)gint_stack_top,(uintptr_t)mmu_uram()+mmu_uram_size());
 #endif
  dsetvram(gint_vram,NULL);
- NgHooks hooks={NULL,load,save,load_settings,save_settings,osmenu,off,remove_game};
+ NgHooks hooks={.load_state=load_state,.save_state=save_state,.os_menu=osmenu,.power_off=off};
  rtc_time_t time;rtc_get_time(&time);
  uint32_t seed=rtc_ticks()^((uint32_t)time.year<<16)^((uint32_t)time.month_day<<8)^time.month;
  ng_app_init(&app,hooks,seed);keydev_set_transform(keydev_std(),(keydev_transform_t){KEYDEV_TR_REPEATS,repeat});

@@ -1,5 +1,9 @@
 # Runtime audit
 
+This records the earlier runtime investigation and its historical storage/UI
+state. The current single-resume storage and controls are documented in
+[STORAGE_FORMAT.md](STORAGE_FORMAT.md) and [CONTROLS.md](CONTROLS.md).
+
 Baseline ad9c34a is tagged backup/pre-runtime-board-20260922. Native device
 observation: MENU flashes after switching games, OFF/ON does not resolve it,
 rear RESET was needed. **The physical symptom has not been reproduced here and

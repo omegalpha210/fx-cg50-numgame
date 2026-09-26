@@ -133,8 +133,11 @@ void ng_game_icon(NgCanvas *c,int x,int y,unsigned id,int accent)
   ng_rect(c,x+19,y+22,5,5,NG_INK);ng_rect(c,x+27,y+6,4,4,NG_INK);
   ng_line(c,x+28,y+15,x+39,y+15,accent);break;
  case 34: /* CRYPTARITHM: letters resolve to a digit sum. */
-  ng_small(c,x+5,y+1,"AB",NG_INK);ng_small(c,x+1,y+11,"+BA",accent);
-  ng_line(c,x+1,y+21,x+36,y+21,accent);ng_small(c,x+10,y+23,"??",NG_INK);break;
+  digit(c,x+16,y+1,'A',NG_INK);digit(c,x+25,y+1,'B',NG_INK);
+  digit(c,x+5,y+11,'+',accent);digit(c,x+16,y+11,'B',NG_INK);
+  digit(c,x+25,y+11,'A',NG_INK);
+  ng_line(c,x+5,y+21,x+35,y+21,accent);
+  digit(c,x+16,y+23,'?',NG_INK);digit(c,x+25,y+23,'?',NG_INK);break;
  case 35: /* HASHI: numbered islands with two parallel bridges. */
   ring(c,x+6,y+8,5,accent);ring(c,x+33,y+8,5,accent);
   digit(c,x+4,y+5,'2',NG_INK);digit(c,x+31,y+5,'3',NG_INK);

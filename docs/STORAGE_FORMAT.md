@@ -1,13 +1,65 @@
-# Compact save records v4
+# Single-resume save format (v5)
 
-Normal files are `NG200A.dat` / `NG200B.dat` for settings and `NG2xxA.dat` / `NG2xxB.dat` for each retained game ID (`xx` is the two-digit ID). NUM DIAG uses the same names with `ND` in place of `NG`. Only the five most recently played visible games retain records. Files are created on demand at their exact encoded byte length. A fresh installation creates only two small settings files. The calculator filesystem may allocate larger physical blocks; byte counts here refer to logical file lengths.
+NUM GAME retains **one unfinished run for the entire app**. `NGSTATEA.dat` and
+`NGSTATEB.dat` are two crash-recovery copies of that one logical state, not two
+game slots. NUM DIAG uses `NDSTATEA.dat` and `NDSTATEB.dat` independently. No
+per-game save file is created by v5. Starting another run replaces the previous
+logical resume after the new transaction validates; completing a run commits an
+empty resume while the final board remains visible in RAM. See
+[RESUME_POLICY.md](RESUME_POLICY.md) for the UI transitions.
 
-Every record has a 32-byte little-endian header: eight-byte magic `NGSAVE01`, stable record ID, version **4**, generation, exact payload length, payload CRC32, and header CRC32. Each saved game and settings has A/B slots. Loading chooses the newest semantically valid slot with generation wrap handling. Saving replaces the older slot, closes it, reopens it, checks its full CRC and state, and only then reports success. The other valid slot remains available after a failed write. Unsupported or corrupt records do not validate by matching a stored answer; each engine checks state and rules.
+Each file has a 32-byte little-endian header (`NGSAVE01`, record ID 0, version
+5, generation, exact payload length, payload CRC32, header CRC32). The payload
+contains the length and 89-byte preferences, an active flag, the run length,
+and, when active, that unfinished run. Preferences retain legacy wire fields
+for migration compatibility but v5 writes the recent list and pending deletion
+as zero. The run contains its current game, up to four bounded undo states,
+run counter, and **only its current mode/level puzzle cycle**. It does not
+serialize cumulative statistics, completed boards or every mode/level cycle.
+Integer fields are encoded explicitly; raw C structure padding and pointers
+are never stored.
 
-A current game payload is `1005 + 1842 × (1 + undo_count)` bytes, where undo count is 0–4. It contains the started count, one bounded puzzle-supply cycle per mode/level, current game and up to four undo states. **Per-mode, per-level cumulative statistics have been removed.** A no-undo game file is 2,879 bytes including its header; the conservative four-undo maximum is 10,247 bytes. Settings payload is 89 bytes (121 with header) and includes game preferences, last game, five recent IDs, pending eviction, migration completion, and Make Target's 1–1000 target. Five maximum-length game records with two copies each plus two settings copies total at most **102,712 logical bytes**, before filesystem block overhead. Real games may use less and need not support four undo states.
+| v5 state | Exact bytes per file | Two copies |
+|---|---:|---:|
+| Preferences, no unfinished run | 126 | 252 |
+| Fresh unfinished run, no undo | 1,998 | 3,996 |
+| One undo snapshot | 3,840 | 7,680 |
+| Maximum four undo snapshots | 9,366 | 18,732 |
 
-`NgGame` stores bounded fields for module state, input, board, RNG/seed, puzzle ID, run identity, active time, and supply identity. Integers are serialized explicitly; raw C structs, pointers and padding are never written. Decoder checks exact length, CRC, IDs, revision, input bounds, module state, undo consistency, terminal state and puzzle-supply rules. Old v1/v2/v3 records remain readable for migration. Old MASTER remains difficulty value 3 and HELL is 4. Legacy IDs 29/30 are readable but absent from the visible selector.
+The run payload is `30 + 1842 × (1 + undo_count)` bytes. All six recently added
+games start with a 1,998-byte v5 file; later size depends on their actual undo
+count. A game without undo stays at 1,998 bytes. File lengths are exact in the
+host adapter and requested exactly through BFile on the calculator; physical
+filesystem block allocation may be larger.
 
-A sixth distinct game starts an eviction confirmation. The app records the victim as a pending deletion in settings, removes both copies, clears the pending marker, then creates the new game's data. Startup repeats a pending deletion after interruption. Checkpoints occur at game switch/replacement, EXIT, MENU, SHIFT+AC/ON, APO, and results, rather than every keypress. MENU/OFF still invoke the OS action after a failed checkpoint and keep dirty RAM state for a later retry. Native BFile work is synchronous on the main thread inside `gint_world_switch`; actual device latency and power-cut behavior remain **HARDWARE TEST REQUIRED**.
+Before v5, v4 used two 121-byte settings files plus two files **per retained
+game**. A no-undo game record was 2,879 bytes; one maximum four-undo record
+was 10,247 bytes. Five no-undo games therefore occupied 29,032 logical bytes
+across 12 files; the five-game four-undo upper bound was 102,712 bytes. The
+host benchmark directly measured a two-copy maximum-undo v4 game at 20,494
+bytes versus v5's 18,732 bytes for the same run plus settings. The greater
+saving comes from removing the other four logical resumes and their files.
+[Previous host benchmark](host-benchmark-36-normal.json) and
+[current v5 host benchmark](host-benchmark-v5-normal.json) contain the raw
+measurements. Host timings are not calculator flash timings.
 
-[Migration and recovery](STORAGE_ARCHIVE_AUDIT.md) describes the old fixed archives and first-start conversion.
+To load, the adapter validates both copies' header, CRC, exact length, settings,
+game ID, module state and undo relationship. It chooses the newest valid
+generation with wrap handling. A failed partial write leaves the other copy
+available. Saving replaces only the older copy, closes and reads it back before
+reporting success. On startup, validated v4 recent-five settings select the
+first valid unfinished run in recency order. Old formats without that list use
+last-game preference, then save generation with deterministic ties. Completed
+runs are skipped. Preferences and the selected run are written and read back in
+both v5 copies before old owned files are retired. A failed migration retains
+the old source for retry. Exact old `NG2xxA/B` paths are private to this app;
+legacy names are removed only when their record or archive ownership validates.
+
+Checkpoint triggers include START GAME, EXIT, MENU, SHIFT+AC/ON, APO, settings
+changes and completion. Game keys are not individually written. Native BFile
+transactions run synchronously on the main thread inside `gint_world_switch`.
+Host tests cover partial writes, a corrupt latest copy, migration variants and
+1,000 game switches with exactly two v5 files, zero final handles and one peak
+timer. Actual flash latency, physical block usage and power-cut behavior remain
+**HARDWARE TEST REQUIRED**. Older archive details remain in
+[STORAGE_ARCHIVE_AUDIT.md](STORAGE_ARCHIVE_AUDIT.md).

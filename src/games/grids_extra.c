@@ -49,10 +49,24 @@ static bool hashi_schema(const GridsHashiPuzzle *p)
  }
  return true;
 }
+static bool hashi_crossing(const NgGame *g,const GridsHashiPuzzle *p,unsigned *cell)
+{
+ unsigned n=p->n;
+ for(unsigned i=0;i<p->count;i++){
+  unsigned a=p->pos[i];int b=neighbor(p,a,1);if(b<0||!bridges(g,a,(unsigned)b))continue;
+  for(unsigned j=0;j<p->count;j++){
+   unsigned c=p->pos[j];int d=neighbor(p,c,2);if(d<0||!bridges(g,c,(unsigned)d))continue;
+   if(a%n<c%n&&c%n<(unsigned)b%n&&c/n<a/n&&a/n<(unsigned)d/n){
+    if(cell)*cell=(a/n)*n+c%n;
+    return true;
+   }
+  }
+ }
+ return false;
+}
 bool grids_hashi_rules(const NgGame *g,const GridsHashiPuzzle *p)
 {
  if(!hashi_schema(p)||g->rows!=p->n||g->cols!=p->n)return false;
- unsigned n=p->n;
  for(unsigned cell=0;cell<NG_CELLS;cell++){
   int i=island(p,cell),v=g->board[cell];
   if(i<0){if(v)return false;continue;}
@@ -60,13 +74,7 @@ bool grids_hashi_rules(const NgGame *g,const GridsHashiPuzzle *p)
   if(incident(g,p,cell)!=p->clue[i])return false;
  }
  /* A horizontal and vertical segment may meet only at a shared island. */
- for(unsigned i=0;i<p->count;i++){
-  unsigned a=p->pos[i];int b=neighbor(p,a,1);if(b<0||!bridges(g,a,(unsigned)b))continue;
-  for(unsigned j=0;j<p->count;j++){
-   unsigned c=p->pos[j];int d=neighbor(p,c,2);if(d<0||!bridges(g,c,(unsigned)d))continue;
-   if(a%n<c%n&&c%n<(unsigned)b%n&&c/n<a/n&&a/n<(unsigned)d/n)return false;
-  }
- }
+ if(hashi_crossing(g,p,NULL))return false;
  uint8_t queue[25],seen[25]={0};unsigned head=0,tail=1;queue[0]=0;seen[0]=1;
  while(head<tail){
   unsigned a=p->pos[queue[head++]];
@@ -120,7 +128,12 @@ static void init(NgGame *g)
 static bool check(NgGame *g)
 {
  if(grids_extra_complete(g)){g->status=NG_WON;g->score=g->moves;ng_message(g,"Complete: every visible rule is satisfied.");}
- else ng_message(g,g->id==35?"Check island totals, crossings and connection.":"Mark every cell; match all row/column clues.");
+ else if(g->id==35){
+  const GridsHashiPuzzle *p=hashi(g);bool totals=true;
+  for(unsigned i=0;i<p->count;i++)if(incident(g,p,p->pos[i])!=p->clue[i])totals=false;
+  if(hashi_crossing(g,p,NULL))ng_message(g,"Bridges cannot cross. Clear a marked crossing.");
+  else ng_message(g,totals?"All totals match, but the network is disconnected.":"Match each island's total, then connect all islands.");
+ }else ng_message(g,"Mark every cell; match all row/column clues.");
  return true;
 }
 static bool set_bridge(NgGame *g,const GridsHashiPuzzle *p,int value)
@@ -131,7 +144,9 @@ static bool set_bridge(NgGame *g,const GridsHashiPuzzle *p,int value)
  int factor=a/g->cols==b/g->cols?1:3,old=(g->board[a]/factor)%3;
  if(value<0)value=(old+1)%3;
  if(value==old)return false;
- g->board[a]=(int16_t)(g->board[a]+(value-old)*factor);g->moves++;g->message[0]=0;return true;
+ g->board[a]=(int16_t)(g->board[a]+(value-old)*factor);g->moves++;g->message[0]=0;
+ if(hashi_crossing(g,p,NULL))ng_message(g,"Crossing marked in red. Clear or reroute a bridge.");
+ return true;
 }
 static bool action(NgGame *g,int key)
 {
@@ -196,23 +211,39 @@ static bool valid(const NgGame *g)
 static void render_hashi(const NgGame *g,NgCanvas *c,const GridsHashiPuzzle *p)
 {
  int pitch=128/(p->n-1),ox=48,oy=40;char text[48];
+ int target=neighbor(p,g->cursor,(unsigned)g->data[0]);
+ if(target>=0&&!bridges(g,g->cursor,(unsigned)target)){
+  int x=ox+(int)(g->cursor%p->n)*pitch,y=oy+(int)(g->cursor/p->n)*pitch;
+  int dx=target%p->n-(int)(g->cursor%p->n),dy=target/p->n-(int)(g->cursor/p->n);
+  int distance=dx?dx:dy,length=(distance<0?-distance:distance)*pitch,stepx=(dx>0)-(dx<0),stepy=(dy>0)-(dy<0);
+  /* A dashed candidate is not a real bridge; the sidebar labels it EMPTY. */
+  for(int k=9;k<length-8;k+=5)ng_line(c,x+k*stepx,y+k*stepy,x+(k+1)*stepx,y+(k+1)*stepy,NG_BLUE);
+ }
  for(unsigned i=0;i<p->count;i++)for(unsigned d=1;d<=2;d++){
   unsigned a=p->pos[i];int b=neighbor(p,a,d);if(b<0)continue;int count=bridges(g,a,(unsigned)b);if(!count)continue;
   int x=ox+(int)(a%p->n)*pitch,y=oy+(int)(a/p->n)*pitch,xx=ox+(b%p->n)*pitch,yy=oy+(b/p->n)*pitch;
-  if(count==1)ng_line(c,x,y,xx,yy,NG_INK);
-  else if(d==1){ng_line(c,x,y-2,xx,y-2,NG_INK);ng_line(c,x,y+2,xx,y+2,NG_INK);}
-  else {ng_line(c,x-2,y,x-2,yy,NG_INK);ng_line(c,x+2,y,x+2,yy,NG_INK);}
+  int color=((a==g->cursor&&b==target)||((unsigned)b==g->cursor&&(int)a==target))?NG_BLUE:NG_INK;
+  if(count==1)ng_line(c,x,y,xx,yy,color);
+  else if(d==1){ng_line(c,x,y-2,xx,y-2,color);ng_line(c,x,y+2,xx,y+2,color);}
+  else {ng_line(c,x-2,y,x-2,yy,color);ng_line(c,x+2,y,x+2,yy,color);}
+ }
+ unsigned crossing;
+ if(hashi_crossing(g,p,&crossing)){
+  int x=ox+(int)(crossing%p->n)*pitch,y=oy+(int)(crossing/p->n)*pitch;
+  ng_line(c,x-3,y-3,x+3,y+3,NG_RED);ng_line(c,x-3,y+3,x+3,y-3,NG_RED);
  }
  for(unsigned i=0;i<p->count;i++){
   unsigned cell=p->pos[i];int x=ox+(int)(cell%p->n)*pitch,y=oy+(int)(cell/p->n)*pitch;
   unsigned total=incident(g,p,cell);int color=total>p->clue[i]?NG_RED:total==p->clue[i]?NG_GREEN:NG_INK;
-  ng_rect(c,x-7,y-7,15,15,NG_WHITE);ng_border(c,x-7,y-7,15,15,cell==g->cursor?NG_BLUE:NG_LINE,cell==g->cursor?2:1);
+  ng_rect(c,x-7,y-7,15,15,(int)cell==target?NG_PALE:NG_WHITE);ng_border(c,x-7,y-7,15,15,cell==g->cursor||(int)cell==target?NG_BLUE:NG_LINE,cell==g->cursor?2:1);
   snprintf(text,sizeof text,"%u",p->clue[i]);ng_center(c,x-6,y-5,13,text,color,1);
  }
  static const char *directions[]={"UP (8)","RIGHT (6)","DOWN (2)","LEFT (4)"};
  ng_text(c,235,66,"BRIDGE DIRECTION",NG_INK,1);ng_text(c,235,83,directions[g->data[0]],NG_BLUE,1);
  snprintf(text,sizeof text,"TOTAL %u / %u",incident(g,p,g->cursor),p->clue[island(p,g->cursor)]);ng_text(c,235,104,text,NG_INK,1);
- ng_small(c,235,128,"2/4/6/8 CYCLE 0-1-2",NG_MUTED);ng_text(c,235,143,"EXE: CYCLE",NG_BLUE,1);ng_text(c,235,160,"F4: CHECK",NG_MUTED,1);ng_small(c,235,178,"DEL: CLEAR BRIDGE",NG_MUTED);
+ if(target<0)snprintf(text,sizeof text,"EDGE: NO ISLAND");
+ else {int count=bridges(g,g->cursor,(unsigned)target);snprintf(text,sizeof text,"EDGE: %s",count==0?"EMPTY (DASHED)":count==1?"SINGLE":"DOUBLE");}
+ ng_small(c,235,122,text,NG_BLUE);ng_small(c,235,135,"2/4/6/8 CYCLE 0-1-2",NG_MUTED);ng_text(c,235,147,"EXE: CYCLE",NG_BLUE,1);ng_text(c,235,163,"F4: CHECK",NG_MUTED,1);ng_small(c,235,178,"DEL: CLEAR BRIDGE",NG_MUTED);
 }
 static unsigned unpack(uint32_t clue,unsigned values[5])
 {unsigned count=0;while(clue&&count<5){values[count++]=clue&15u;clue>>=4;}return count;}
@@ -244,6 +275,6 @@ static void render(const NgGame *g,NgCanvas *c)
 }
 static const char *mode_name(unsigned mode){(void)mode;return "CLASSIC";}
 const NgModule ng_grids_extra[2]={
- {35,"HASHI","HASHI","Join visible islands with straight bridges.\nOnly horizontal/vertical bridges are allowed.\nEach pair has zero, one or two bridges.\nIsland numbers give their total bridge count.\nBridges cannot cross or pass through islands.\nAll islands must form one connected network.\nArrows select a visible neighboring island.\n2/4/6/8 cycle down/left/right/up bridges.\nEXE cycles last direction; DEL clears it.\nF4 checks. F3 REVEAL marks ASSISTED.",NGF_UNDO|NGF_HINT,"CHECK","CYCLE",1,mode_name,init,action,NULL,valid,render},
+ {35,"HASHI","HASHI","Join visible islands with straight bridges.\nOnly horizontal/vertical bridges are allowed.\nEach pair has zero, one or two bridges.\nIsland numbers give their total bridge count.\nBridges cannot cross or pass through islands.\nAll islands must form one connected network.\nArrows select a visible neighboring island.\n2/4/6/8 cycle down/left/right/up bridges.\nEXE cycles last direction; DEL clears it.\nBlue dashed edge is empty; red X is a crossing.\nF4 checks. F3 REVEAL marks ASSISTED.",NGF_UNDO|NGF_HINT,"CHECK","CYCLE",1,mode_name,init,action,NULL,valid,render},
  {36,"NONOGRAM","NONOGRAM","Fill cells to match all row/column run clues.\nRuns appear in order, with an empty gap.\nA zero clue means the whole line is empty.\nMark every cell filled or empty to finish.\nArrows move. 1 fills; 0 marks an empty cross.\nEXE cycles unknown, filled, empty. DEL clears.\nF4 checks every visible run clue.\nF3 REVEAL shows one cell, marking ASSISTED.",NGF_UNDO|NGF_HINT,"CHECK","MARK",1,mode_name,init,action,NULL,valid,render}
 };

@@ -25,8 +25,11 @@ static void entry_workflow(unsigned id,int launch)
  shot(id,"master-entry");tap(launch);
  assert(app.screen==NG_PLAY&&!app.modal&&app.session.game.difficulty==3&&app.session.game.moves==0&&ng_valid(&app.session.game));
  shot(id,"master-play");tap(NGK_EXIT);tap(NGK_F4);assert(!app.modal);shot(id,"master-entry-resume");
- tap(NGK_F6);assert(app.modal==NG_MODAL_NEW&&app.session.game.difficulty==3);tap(NGK_EXIT);
- app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_RESUME);tap(NGK_F6);assert(app.screen==NG_PLAY&&app.session.game.difficulty==3);
+ tap(NGK_F6);assert(app.screen==NG_PLAY&&!app.modal&&app.session.game.difficulty==3);
+ tap(NGK_EXIT);app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_NEW);
+ tap(NGK_F6);assert(app.screen==NG_PLAY&&!app.modal&&app.session.game.difficulty==3&&app.session.game.run_id==2);
+ tap(NGK_EXIT);app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_RESUME);
+ tap(NGK_F6);assert(app.screen==NG_PLAY&&app.session.game.difficulty==3);
  NgSettings copy;size_t n=ng_settings_encode(&app.settings,bytes,sizeof bytes);assert(n&&ng_settings_decode(&copy,bytes,n)&&copy.difficulty[id-1]==3);
 }
 static void complete(NgGame *g)

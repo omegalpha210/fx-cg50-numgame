@@ -39,6 +39,14 @@ static bool supplies(Codec *c,NgSession *s)
  }
  return c->ok;
 }
+static bool one_supply(Codec *c,NgSupply *b)
+{
+ u32(c,&b->shuffle);u16(c,&b->next);u16(c,&b->count);
+ for(unsigned i=0;i<4;i++)u32(c,&b->recent[i]);
+ u8(c,&b->recent_count);
+ return c->ok && b->count<=4096 && b->next<=b->count &&
+  b->recent_count<=4 && (!b->count || b->shuffle);
+}
 static void stats(Codec *c,NgStats *s,unsigned levels)
 {
  u32(c,&s->started);u32(c,&s->active_ms);
@@ -69,6 +77,47 @@ static size_t encode(const NgSession *s,uint8_t *out,size_t capacity)
 }
 size_t ng_encode(const NgSession *s,uint8_t *out,size_t capacity)
 {NgDiagScope scope=ng_diag_begin(NGOP_ENCODE,s->game.id);size_t bytes=encode(s,out,capacity);ng_diag_end(scope);return bytes;}
+size_t ng_single_encode(const NgSession *s,uint8_t *out,size_t capacity)
+{
+ if(s->undo_count>NG_UNDO || !ng_valid(&s->game) || !s->stats.started ||
+  (s->undo_count && !(ng_module(s->game.id)->flags&NGF_UNDO)))return 0;
+ Codec c={.out=out,.size=capacity,.ok=true};
+ uint8_t count=s->undo_count;u8(&c,&count);
+ u32(&c,(uint32_t *)&s->stats.started);
+ unsigned m=s->game.mode,d=s->game.difficulty;
+ if(m>=NG_MODES || d>=NG_LEVEL_COUNT || !one_supply(&c,(NgSupply *)&s->supply[m][d]))return 0;
+ game(&c,(NgGame *)&s->game,true);
+ for(unsigned i=0;i<count;i++)game(&c,(NgGame *)&s->undo[i],true);
+ if(c.ok)ng_diag_codec(c.pos);
+ return c.ok?c.pos:0;
+}
+bool ng_single_decode(NgSession *s,const uint8_t *data,size_t length,unsigned expected_id)
+{
+ memset(s,0,sizeof *s);
+ Codec c={.in=data,.size=length,.ok=true};
+ u8(&c,&s->undo_count);if(s->undo_count>NG_UNDO)return false;
+ if(length!=30u+1842u*(1u+s->undo_count))return false;
+ u32(&c,&s->stats.started);
+ NgSupply bag={0};if(!one_supply(&c,&bag))return false;
+ game(&c,&s->game,true);
+ if(!c.ok || s->game.id!=expected_id || !ng_valid(&s->game) ||
+  s->game.mode>=NG_MODES || s->game.difficulty>=NG_LEVEL_COUNT ||
+  !s->stats.started ||
+  (s->undo_count && !(ng_module(expected_id)->flags&NGF_UNDO)))return false;
+ s->supply[s->game.mode][s->game.difficulty]=bag;
+ for(unsigned i=0;i<s->undo_count;i++){
+  game(&c,&s->undo[i],true);const NgGame *u=&s->undo[i];
+  if(!c.ok || !ng_valid(u) || u->id!=expected_id ||
+   u->seed!=s->game.seed || u->run_id!=s->game.run_id ||
+   u->mode!=s->game.mode || u->difficulty!=s->game.difficulty ||
+   u->puzzle_id!=s->game.puzzle_id || u->supply_seed!=s->game.supply_seed ||
+   u->supply_index!=s->game.supply_index ||
+   u->pack_revision!=s->game.pack_revision ||
+   u->generation_policy!=s->game.generation_policy ||
+   u->status!=NG_PLAYING || u->cpu_pending)return false;
+ }
+ return c.ok && c.pos==length;
+}
 bool ng_decode(NgSession *s,const uint8_t *data,size_t length,unsigned expected_id)
 {
  memset(s,0,sizeof(*s));Codec c={.in=data,.size=length,.ok=true};

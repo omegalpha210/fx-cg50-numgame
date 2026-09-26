@@ -53,10 +53,17 @@ typedef struct {
 uint32_t ng_crc32(const void *data,size_t size);
 size_t ng_encode(const NgSession *s,uint8_t *out,size_t capacity);
 bool ng_decode(NgSession *s,const uint8_t *data,size_t length,unsigned expected_id);
+/* Version-5 resume payload stores only its current mode/level supply. */
+size_t ng_single_encode(const NgSession *s,uint8_t *out,size_t capacity);
+bool ng_single_decode(NgSession *s,const uint8_t *data,size_t length,unsigned expected_id);
 int ng_load_io(NgSession *s,unsigned id,const NgIO *io);
 bool ng_save_io(NgSession *s,const NgIO *io);
 int ng_settings_load_io(NgSettings *s,const NgIO *io);
 bool ng_settings_save_io(NgSettings *s,const NgIO *io);
+/* Version 5: one atomic settings + optional unfinished-run snapshot. */
+int ng_state_load_io(NgSettings *settings,NgSession *session,bool *active,const NgIO *io);
+bool ng_state_save_io(NgSettings *settings,const NgSession *session,bool active,const NgIO *io);
+bool ng_state_slot_valid(const NgIO *io,unsigned slot);
 size_t ng_settings_encode(const NgSettings *s,uint8_t *out,size_t capacity);
 bool ng_settings_decode(NgSettings *s,const uint8_t *data,size_t length);
 uint32_t ng_session_fingerprint(const NgSession *s);
@@ -70,6 +77,10 @@ int ng_settings_load(NgSettings *s);
 bool ng_settings_save(NgSettings *s);
 bool ng_storage_cleanup(void);
 bool ng_storage_delete(unsigned id);
+int ng_state_load(NgSettings *settings,NgSession *session,bool *active);
+bool ng_state_save(NgSettings *settings,const NgSession *session,bool active);
+/* Migrates validated older saves into the two-file version-5 namespace. */
+bool ng_state_migrate(NgSession *workspace);
 /* Startup only: workspace must not contain a live game. Retryable; false preserves sources. */
 bool ng_storage_migrate(NgSession *workspace);
 /* RAM fixture only, uses the existing transaction workspace; never writes files. */

@@ -11,6 +11,11 @@
 #include <sys/stat.h>
 #include <time.h>
 #include <unistd.h>
+#ifdef NG_DIAGNOSTIC
+#define BENCH_PREFIX "ND"
+#else
+#define BENCH_PREFIX "NG"
+#endif
 /* Host evidence only. These ABI, timings and process peaks are not SH values. */
 static NgApp app;
 static NgSession saved,cold;
@@ -103,14 +108,30 @@ int main(void)
   assert(ng_storage_load(&cold,11)==NG_LOAD_OK);assert(!memcmp(&cold,&saved,sizeof saved));
   assert(!ng_diagnostics.handles && ng_diagnostics.timers==1);
  }
- printf("\"checkpoint\":{\"scope\":\"POSIX exact-length compact save including existing copies+CRC+readback, excludes explicit cold-load assertion\",\"first_create_ms\":%.6f,",first*1000);summary(128);
- printf(",\"payload_bytes\":%zu,\"record_with_header_bytes\":%zu,\"archive_files\":%u,\"total_archive_bytes\":%zu,\"handles\":%u},",payload,payload+32,files(folder),2*(payload+32),ng_diagnostics.handles);assert(files(folder)==2);
+ printf("\"legacy_checkpoint\":{\"scope\":\"POSIX v4 exact-length game record, two-copy CRC+readback\",\"first_create_ms\":%.6f,",first*1000);summary(128);
+ printf(",\"payload_bytes\":%zu,\"record_with_header_bytes\":%zu,\"physical_files\":%u,\"total_bytes\":%zu},",payload,payload+32,files(folder),2*(payload+32));assert(files(folder)==2);
+ for(unsigned slot=0;slot<2;slot++){char path[128];snprintf(path,sizeof path,"%s/%s211%c.dat",folder,BENCH_PREFIX,'A'+slot);assert(!unlink(path));}
+ NgSettings preferences={.last_game=11,.show_time=1,.target=24};
+ memset(preferences.difficulty,1,sizeof preferences.difficulty);preferences.mode[25]=1;
+ assert(ng_state_save(&preferences,&saved,false));assert(ng_state_save(&preferences,&saved,false));
+ assert(files(folder)==2);size_t empty_bytes=2u*(32u+5u+ng_settings_encode(&preferences,wire,sizeof wire));
+ size_t single_payload=ng_single_encode(&saved,wire,sizeof wire);assert(single_payload);
+ double initial=now();assert(ng_state_save(&preferences,&saved,true));initial=now()-initial;
+ assert(ng_state_save(&preferences,&saved,true));
+ for(unsigned k=0;k<128;k++){
+  double t=now();assert(ng_state_save(&preferences,&saved,true));samples[k]=now()-t;
+  NgSettings loaded_settings;bool active=false;
+  assert(ng_state_load(&loaded_settings,&cold,&active)==NG_LOAD_OK && active);
+  assert(!memcmp(&cold.game,&saved.game,sizeof saved.game));
+  assert(cold.undo_count==saved.undo_count && !memcmp(cold.undo,saved.undo,sizeof saved.undo));
+  assert(!ng_diagnostics.handles && ng_diagnostics.timers==1);
+ }
+ printf("\"checkpoint\":{\"scope\":\"POSIX v5 combined settings+one resume, two-copy CRC+readback; explicit cold load excluded\",\"first_active_ms\":%.6f,",initial*1000);summary(128);
+ printf(",\"resume_payload_bytes\":%zu,\"empty_total_bytes\":%zu,\"record_with_header_bytes\":%zu,\"physical_files\":%u,\"total_bytes\":%zu,\"handles\":%u},",single_payload,empty_bytes,32u+5u+ng_settings_encode(&preferences,wire,sizeof wire)+single_payload,files(folder),2u*(32u+5u+ng_settings_encode(&preferences,wire,sizeof wire)+single_payload),ng_diagnostics.handles);assert(files(folder)==2);
 #ifdef NG_DIAGNOSTIC
  printf("\"diagnostics\":{\"sampled_stack_bytes\":%lu,\"samples\":%u,\"deepest_game\":%u,\"deepest_operation\":\"%s\",\"codec_peak\":%u,\"read_calls\":%u,\"write_calls\":%u,\"read_bytes\":%u,\"write_bytes\":%u},",(unsigned long)(ng_diagnostics.stack_base-ng_diagnostics.stack_low),ng_diagnostics.stack_samples,ng_diagnostics.peak_game,ng_diag_operation_name(ng_diagnostics.peak_operation),ng_diagnostics.codec_peak,ng_diagnostics.read_calls,ng_diagnostics.write_calls,ng_diagnostics.read_bytes,ng_diagnostics.write_bytes);
- const char *prefix="ND";
 #else
- const char *prefix="NG";
 #endif
- for(unsigned slot=0;slot<2;slot++){char path[128];snprintf(path,sizeof path,"%s/%s211%c.dat",folder,prefix,'A'+slot);assert(!unlink(path));}assert(!rmdir(folder));ng_storage_directory(".");
+ for(unsigned slot=0;slot<2;slot++){char path[128];snprintf(path,sizeof path,"%s/%sSTATE%c.dat",folder,BENCH_PREFIX,'A'+slot);assert(!unlink(path));}assert(!rmdir(folder));ng_storage_directory(".");
  printf("\"rectangles\":%u,\"limits\":\"No host->SH timing/ABI conversion; RSS highwater includes runtime/pages and is not live heap. App allocation zero is source ownership, not OS allocation coverage. No wall-clock timeout implemented in engines; bounded construction/host banks avoid device search. Hardware latency/fallback budgets unverified.\"}\n",rectangles);return 0;
 }

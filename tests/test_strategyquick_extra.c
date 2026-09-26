@@ -1,7 +1,7 @@
 #include "../src/games/strategyquick.h"
 #include "storage.h"
 #ifdef SQ_EXTRA_APP_TEST
-#include "app.h"
+#include "support.h"
 #endif
 #include <assert.h>
 #include <stdio.h>
@@ -132,7 +132,7 @@ static void reversi_lifecycle(void)
   roundtrip_extra(&g);
   for(unsigned step=0;g.status==NG_PLAYING && step<60;step++){
    uint64_t legal=reference_moves(g.board,g.turn+1);assert(legal);
-   if(g.cpu_pending){NgGame before=g;assert(!m->action(&g,NGK_EXE));assert(!memcmp(&before,&g,sizeof g));assert(m->action(&g,NGK_CPU));}
+   if(g.cpu_pending){NgGame before=g;const int blocked[]={NGK_EXE,NGK_HINT,NGK_AUX,NGK_RIGHT,NGK_DEL,'5'};for(unsigned k=0;k<sizeof blocked/sizeof blocked[0];k++){assert(!m->action(&g,blocked[k]));assert(!memcmp(&before,&g,sizeof g));}assert(m->action(&g,NGK_CPU));}
    else{g.cursor=(uint8_t)nth_bit(legal,random_below(bit_count(legal)));NgGame before=g;assert(m->action(&g,NGK_EXE));int16_t want[64];memcpy(want,before.board,sizeof want);reference_place(want,1,before.cursor);assert(!memcmp(g.board,want,sizeof want));}
    static const int budgets[4]={0,256,1500,6000},depths[4]={0,1,3,5};
    assert(ng_valid(&g));assert(g.data[2]<=budgets[d] && g.data[3]<=depths[d]);passes+=g.data[1]!=0;roundtrip_extra(&g);plies++;
@@ -221,6 +221,96 @@ static void net_lifecycle(void)
  assert(g.status==NG_WON);
  printf("NET lifecycle: %u generated/replayed/completed seeds, alternate solution seed %u, rotations/locks/reveals/codec PASS\n",cases,alternative);
 }
+/* Named edge fixtures complement the broad randomized/ray audits. These
+ * synthetic positions isolate rules; they are not claimed as reachable games. */
+static NgGame reversi_fixture(const int16_t board[64],unsigned turn,unsigned last)
+{
+ NgGame g=fresh_extra(37,0,0,73);memcpy(g.board,board,64*sizeof *board);
+ g.turn=(uint8_t)turn;g.cpu_pending=(uint8_t)turn;g.data[0]=(int32_t)last;
+ g.moves=bit_count(owners(board,1)|owners(board,2))-4;g.score=bit_count(owners(board,1));g.message[0]=0;
+ assert(ng_valid(&g));return g;
+}
+static void extra_pixel(void *context,int x,int y,int w,int h,uint16_t color);
+static void frozen_extra(const NgGame *g)
+{
+ const int keys[]={NGK_UP,NGK_DOWN,NGK_LEFT,NGK_RIGHT,NGK_EXE,NGK_DEL,NGK_HINT,NGK_AUX,NGK_CPU,'0','5','9','+','='};
+ for(unsigned i=0;i<sizeof keys/sizeof keys[0];i++){NgGame copy=*g;assert(!module_extra(g->id)->action(&copy,keys[i]));assert(!memcmp(&copy,g,sizeof copy));}
+ unsigned count=0;NgCanvas canvas={&count,extra_pixel};module_extra(g->id)->render(g,&canvas);assert(count);
+}
+static void reversi_edges(void)
+{
+ const NgModule *m=module_extra(37);unsigned checks=0;
+ for(unsigned player=1;player<=2;player++){
+  int16_t b[64]={0};unsigned center=27;
+  for(unsigned d=0;d<8;d++){uint64_t near=shifted(UINT64_C(1)<<center,d),far=shifted(near,d);assert(near&&far);b[nth_bit(near,0)]=(int16_t)(3-player);b[nth_bit(far,0)]=(int16_t)player;}
+  int16_t expected[64];memcpy(expected,b,sizeof b);assert(bit_count(reference_flips(owners(b,player),owners(b,3-player),center))==8);
+  reference_place(expected,player,center);assert(sq_reversi_place(b,player,center)&&!memcmp(b,expected,sizeof b));assert(bit_count(owners(b,player))==17);checks++;
+ }
+ /* Flipping the ray at 27->28 must not cascade from 28 into a second line. */
+ int16_t b[64]={0};b[28]=2;b[29]=1;b[20]=2;b[12]=1;assert(sq_reversi_place(b,1,27));assert(b[28]==1&&b[20]==2);checks++;
+ /* Neither an adjacent friendly disc nor the far board edge brackets an
+  * opponent line. Occupied destinations also leave the board unchanged. */
+ memset(b,0,sizeof b);b[1]=1;b[2]=2;b[3]=1;int16_t before[64];memcpy(before,b,sizeof b);assert(!sq_reversi_place(b,1,0)&&!memcmp(b,before,sizeof b));
+ memset(b,0,sizeof b);for(unsigned p=1;p<8;p++)b[p]=2;memcpy(before,b,sizeof b);assert(!sq_reversi_place(b,1,0)&&!memcmp(b,before,sizeof b));assert(!sq_reversi_place(b,1,1)&&!memcmp(b,before,sizeof b));checks+=3;
+ /* Human and CPU both retain their turn when the opponent must pass. */
+ for(unsigned player=1;player<=2;player++){
+  for(unsigned p=0;p<64;p++)b[p]=(int16_t)player;
+  b[0]=b[63]=0;b[1]=b[62]=(int16_t)(3-player);NgGame g=reversi_fixture(b,player-1,1);
+  assert(reference_moves(b,player)==((UINT64_C(1)<<63)|1)&&!reference_moves(b,3-player));g.cursor=0;
+  assert(m->action(&g,player==1?NGK_EXE:NGK_CPU));assert(ng_valid(&g)&&g.status==NG_PLAYING&&g.turn==player-1&&g.data[1]==(int)(3-player));
+  assert(g.cpu_pending==(player==2)&&g.score==(player==1?62u:1u));roundtrip_extra(&g);
+  NgGame bad=g;bad.data[1]=(int32_t)player;assert(!ng_valid(&bad));bad=g;bad.turn^=1;bad.cpu_pending=bad.turn;assert(!ng_valid(&bad));
+  uint64_t legal=reference_moves(g.board,player);assert(bit_count(legal)==1);g.cursor=(uint8_t)nth_bit(legal,0);
+  assert(m->action(&g,player==1?NGK_EXE:NGK_CPU));assert(ng_valid(&g)&&g.status==(player==1?NG_WON:NG_LOST)&&g.moves==60&&!g.cpu_pending&&!g.data[1]);frozen_extra(&g);roundtrip_extra(&g);checks++;
+ }
+ for(int outcome=-1;outcome<=1;outcome++){
+  for(unsigned p=0;p<64;p++)b[p]=p>=2&&p<=31?1:2;
+  b[0]=0;if(outcome<0)b[31]=2;else if(outcome>0)b[63]=1;
+  NgGame g=reversi_fixture(b,0,62);g.cursor=0;assert(m->action(&g,NGK_EXE));
+  assert(ng_valid(&g)&&g.status==(outcome<0?NG_LOST:outcome>0?NG_WON:NG_DRAW)&&g.score==(uint32_t)(32+outcome)&&g.moves==60);
+  NgGame bad=g;bad.score++;assert(!ng_valid(&bad));bad=g;bad.status=NG_PLAYING;assert(!ng_valid(&bad));
+  frozen_extra(&g);roundtrip_extra(&g);checks++;
+ }
+ for(unsigned p=0;p<64;p++)b[p]=1;
+ b[0]=b[63]=0;b[1]=2;NgGame g=reversi_fixture(b,0,1);g.cursor=0;assert(m->action(&g,NGK_EXE));
+ assert(ng_valid(&g)&&g.status==NG_WON&&g.score==63&&g.moves==59&&!g.board[63]);assert(!reference_moves(g.board,1)&&!reference_moves(g.board,2));frozen_extra(&g);roundtrip_extra(&g);checks++;
+ printf("REVERSI named edges: %u simultaneous/cascade/illegal/pass/full/draw/early-end cases; frozen input and corruption checks PASS\n",checks);
+}
+static void net_edges(void)
+{
+ NgGame g={0};g.rows=g.cols=3;
+ const int16_t snake[9]={2,10,12,6,10,9,3,10,8};memcpy(g.board,snake,sizeof snake);assert(reference_net(g.board,3)&&sq_net_complete(&g)&&sq_net_connected(&g)==9);
+ /* A connected tree with a dangling north port remains connected, but loses. */
+ g.board[0]|=1;assert(sq_net_connected(&g)==9&&!sq_net_complete(&g)&&!reference_net(g.board,3));
+ memcpy(g.board,snake,sizeof snake);g.board[0]|=4;g.board[3]|=1;assert(sq_net_connected(&g)==9&&!sq_net_complete(&g)&&!reference_net(g.board,3));/* connected cycle */
+ memcpy(g.board,snake,sizeof snake);g.board[0]=4;assert(!sq_net_complete(&g)&&!reference_net(g.board,3));/* unmatched neighbours */
+ const int16_t deceptive[9]={6,12,4,3,9,5,2,10,9};memcpy(g.board,deceptive,sizeof deceptive);
+ unsigned ports=0;for(unsigned p=0;p<9;p++)ports+=bit_count((unsigned)g.board[p]);assert(ports==16&&sq_net_connected(&g)==4&&!sq_net_complete(&g));/* N-1 edges, but cycle + separate tree */
+ const NgModule *m=module_extra(38);unsigned seen=0,cases=0;
+ for(unsigned seed=1;seed<=100 && seen!=0xfffeu;seed++){
+  NgGame start=fresh_extra(38,3,0,seed);
+  for(unsigned p=0;p<36;p++){
+   unsigned mask=(unsigned)start.board[p];if(seen&(1u<<mask))continue;
+   for(unsigned direction=0;direction<2;direction++){
+    g=start;g.cursor=(uint8_t)p;NgGame before=g;unsigned expected=mask;
+    for(unsigned k=0;k<(direction?3u:1u);k++)expected=rotate_mask(expected);
+    assert(m->action(&g,direction?NGK_DEL:NGK_EXE));assert((unsigned)g.board[p]==expected&&g.rng==before.rng&&g.moves==before.moves+(expected!=mask)&&ng_valid(&g));
+    if(expected==mask)assert(strstr(g.message,"same after rotation"));
+    assert(!memcmp(g.fixed,before.fixed,sizeof g.fixed)&&g.assisted==before.assisted);cases++;
+   }
+   g=start;g.cursor=(uint8_t)p;assert(m->action(&g,NGK_AUX)&&g.fixed[p]);unsigned moves=g.moves;uint32_t rng=g.rng;
+   const int locked_keys[]={NGK_EXE,'5',NGK_DEL};for(unsigned i=0;i<3;i++){assert(m->action(&g,locked_keys[i]));assert(g.board[p]==(int)mask&&g.moves==moves&&g.rng==rng&&g.fixed[p]&&strstr(g.message,"Locked"));}
+   assert(ng_valid(&g));assert(m->action(&g,NGK_AUX)&&!g.fixed[p]&&g.moves==moves+1);roundtrip_extra(&g);seen|=1u<<mask;
+  }
+ }
+ assert(seen==0xfffeu);
+ g=fresh_extra(38,2,0,971);unsigned p=0;while(g.board[p]==g.data[p])p++;g.cursor=(uint8_t)p;
+ assert(m->action(&g,NGK_AUX)&&g.fixed[p]);assert(m->action(&g,NGK_HINT)&&g.fixed[p]&&g.board[p]==g.data[p]&&g.assisted&&g.data[81]==(int)p&&ng_valid(&g));roundtrip_extra(&g);
+ for(unsigned i=0;g.status==NG_PLAYING&&i<25;i++)assert(m->action(&g,NGK_HINT));
+ assert(g.status==NG_WON&&ng_valid(&g));frozen_extra(&g);roundtrip_extra(&g);
+ printf("NET named edges: connected dangling port/cycle, reciprocal mismatch, N-1-edge disconnected graph; %u directional rotations/all 15 masks and locks/reveal/frozen input PASS\n",cases);
+}
+
 #define REJECT(field,value) do{NgGame bad=original;bad.field=(value);assert(!ng_valid(&bad));}while(0)
 static void invalid_extra(void)
 {
@@ -247,31 +337,84 @@ static void extra_press(NgApp *app,int key)
 {ng_app_event(app,key,NG_DOWN);ng_app_event(app,key,NG_UP);}
 static void extra_app(void)
 {
- unsigned cases=0;
+ static TestDisk disk;unsigned cases=0;
  for(unsigned id=37;id<=38;id++)for(unsigned d=0;d<4;d++)for(unsigned mode=0;mode<module_extra(id)->modes;mode++){
-  NgApp app;ng_app_init(&app,(NgHooks){0},812);app.settings.difficulty[id-1]=(uint8_t)d;app.settings.mode[id-1]=(uint8_t)mode;
+  memset(&disk,0,sizeof disk);disk.write_budget=-1;NgApp app;ng_app_init(&app,test_hooks(&disk),812);app.settings.difficulty[id-1]=(uint8_t)d;app.settings.mode[id-1]=(uint8_t)mode;
   extra_press(&app,id==37?'5':'6');extra_press(&app,'6');assert(app.screen==NG_ENTRY&&app.selected_id==id);extra_press(&app,NGK_F6);
   NgGame *g=&app.session.game;assert(app.screen==NG_PLAY&&g->id==id&&g->difficulty==d&&g->mode==mode&&ng_valid(g));
   if(g->cpu_pending){assert(ng_app_cpu(&app));assert(!g->cpu_pending&&!app.session.undo_count);}
   if(id==37)g->cursor=(uint8_t)nth_bit(reference_moves(g->board,1),0);
   else {unsigned p=0;while(rotate_mask((unsigned)g->board[p])==(unsigned)g->board[p])p++;g->cursor=(uint8_t)p;}
   NgGame before=*g;extra_press(&app,NGK_EXE);assert(g->moves==before.moves+1&&app.session.undo_count==1);
-  if(id==37){assert(g->cpu_pending);NgGame pending=*g;extra_press(&app,NGK_EXE);assert(!memcmp(g,&pending,sizeof pending));assert(ng_app_cpu(&app));assert(app.session.undo_count==1);}
+  if(id==37){
+   assert(g->cpu_pending);NgGame pending=*g;extra_press(&app,NGK_EXE);assert(!memcmp(g,&pending,sizeof pending));assert(ng_checkpoint(&app));
+   NgApp cold_cpu;ng_app_init(&cold_cpu,test_hooks(&disk),992);assert(cold_cpu.resumable&&cold_cpu.session.game.cpu_pending);
+   assert(cold_cpu.session.undo_count==app.session.undo_count&&!memcmp(cold_cpu.session.undo,app.session.undo,app.session.undo_count*sizeof(NgGame)));extra_press(&cold_cpu,NGK_F1);
+   assert(ng_app_cpu(&cold_cpu)&&ng_valid(&cold_cpu.session.game));assert(ng_app_cpu(&app));assert(app.session.undo_count==1&&!memcmp(g,&cold_cpu.session.game,sizeof *g));
+  }
   assert(ng_valid(g));roundtrip_extra(g);extra_press(&app,NGK_F2);assert(g->assisted&&g->moves==before.moves&&g->rng==before.rng&&!memcmp(g->board,before.board,sizeof g->board)&&ng_valid(g));
   extra_press(&app,NGK_F3);assert(g->assisted&&ng_valid(g));if(id==38)assert(g->data[81]>=0&&g->fixed[g->data[81]]);
-  NgGame checkpoint=*g;extra_press(&app,NGK_EXIT);assert(app.screen==NG_ENTRY);app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_RESUME);extra_press(&app,NGK_EXE);assert(app.screen==NG_PLAY&&!memcmp(g,&checkpoint,sizeof checkpoint));
+  NgGame checkpoint=*g;extra_press(&app,NGK_EXIT);assert(app.screen==NG_ENTRY);
+  NgApp cold;ng_app_init(&cold,test_hooks(&disk),912);assert(cold.resumable&&cold.screen==NG_MAIN);extra_press(&cold,NGK_F1);assert(cold.screen==NG_PLAY&&!memcmp(&cold.session.game,&checkpoint,sizeof checkpoint));
+ app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_RESUME);extra_press(&app,NGK_EXE);assert(app.screen==NG_PLAY&&!memcmp(g,&checkpoint,sizeof checkpoint));
   extra_press(&app,NGK_F5);assert(app.modal==NG_MODAL_RULES);extra_press(&app,NGK_EXIT);assert(!app.modal&&!memcmp(g,&checkpoint,sizeof checkpoint));
   extra_press(&app,NGK_F1);assert(app.modal==NG_MODAL_INIT);extra_press(&app,NGK_EXE);assert(g->seed==checkpoint.seed&&g->moves==0&&g->assisted&&ng_valid(g));
   cases++;
  }
- printf("Extra real app: %u configurations; NEW/CPU barrier/round UNDO/REVEAL/RESUME/RULES/INIT PASS\n",cases);
+ printf("Extra real app: %u configurations; START/CPU barrier/round UNDO/REVEAL/v5 cold + local RESUME/RULES/INIT PASS\n",cases);
+}
+static void app_pixel_extra(void *context,int x,int y,int w,int h,uint16_t color)
+{unsigned *draws=context;assert(x>=0&&y>=0&&w>0&&h>0&&x+w<=396&&y+h<=224);(void)color;(*draws)++;}
+static void render_app_extra(const NgApp *app)
+{unsigned draws=0;NgCanvas canvas={&draws,app_pixel_extra};ng_render(app,&canvas);assert(draws);}
+static void completion_app_extra(void)
+{
+ static TestDisk disk;unsigned cases=0;
+ for(unsigned id=37;id<=38;id++)for(unsigned path=0;path<3;path++){
+  memset(&disk,0,sizeof disk);disk.write_budget=-1;NgApp app;ng_app_init(&app,test_hooks(&disk),881);app.settings.difficulty[id-1]=0;
+  open_game(&app,id);
+  assert(app.screen==NG_PLAY&&app.resumable);NgGame *g=&app.session.game;
+  if(id==37){
+   int16_t board[64];for(unsigned p=0;p<64;p++)board[p]=p>=2&&p<=31?1:2;
+   board[0]=0;if(path==0)board[31]=2;else if(path==2)board[63]=1;
+   *g=reversi_fixture(board,0,62);g->cursor=0;extra_press(&app,NGK_EXE);
+   assert(g->status==(path==0?NG_LOST:path==1?NG_DRAW:NG_WON));
+  }else{
+   for(unsigned p=0;p<g->rows*g->cols;p++)g->board[p]=(int16_t)g->data[p];
+   unsigned p=0;while(rotate_mask((unsigned)g->board[p])==(unsigned)g->board[p])p++;
+   g->board[p]=(int16_t)rotate_mask((unsigned)g->board[p]);g->cursor=(uint8_t)p;g->moves=12;g->score=sq_net_connected(g);assert(ng_valid(g));
+   extra_press(&app,NGK_DEL);assert(g->status==NG_WON);
+  }
+  assert(ng_valid(g)&&app.modal==NG_MODAL_RESULT&&!app.resumable);render_app_extra(&app);NgGame finished=*g;
+  NgApp cold;ng_app_init(&cold,test_hooks(&disk),990);assert(!cold.resumable);extra_press(&cold,NGK_F1);assert(cold.screen==NG_MAIN);
+  if(path!=1){
+   ng_app_event(&app,NGK_EXIT,NG_DOWN);assert(app.screen==NG_PLAY&&app.result_view&&!app.modal);
+   ng_app_event(&app,NGK_EXIT,NG_HOLD);ng_app_event(&app,NGK_EXIT,NG_DOWN);assert(app.screen==NG_PLAY&&app.result_view&&!memcmp(g,&finished,sizeof finished));
+   ng_app_event(&app,NGK_EXIT,NG_UP);render_app_extra(&app);
+   const int frozen_keys[]={NGK_F1,NGK_F2,NGK_F3,NGK_F4,NGK_EXE,NGK_DEL,NGK_UP,NGK_RIGHT,NGK_DOWN,NGK_LEFT,'0','5','9','+','='};
+   for(unsigned i=0;i<sizeof frozen_keys/sizeof frozen_keys[0];i++){extra_press(&app,frozen_keys[i]);assert(!app.modal&&app.result_view&&!memcmp(g,&finished,sizeof finished));}
+   assert(!ng_app_tick(&app,1000)&&!ng_app_cpu(&app)&&!memcmp(g,&finished,sizeof finished));
+   extra_press(&app,NGK_F5);assert(app.modal==NG_MODAL_RULES);extra_press(&app,NGK_EXIT);assert(!app.modal&&app.result_view&&!memcmp(g,&finished,sizeof finished));
+   if(path==0){
+    extra_press(&app,NGK_EXIT);assert(app.screen==NG_ENTRY&&!app.resumable&&!app.result_view);
+    assert(ng_entry_action(&app,app.entry_selection)==NG_ENTRY_NEW);
+    for(unsigned row=0;row<ng_entry_count(&app);row++)assert(ng_entry_action(&app,row)!=NG_ENTRY_RESUME);
+    render_app_extra(&app);
+   }
+  }
+  int key=path==1?NGK_EXE:NGK_F6;ng_app_event(&app,key,NG_DOWN);
+  assert(app.screen==NG_PLAY&&!app.modal&&!app.result_view&&app.resumable&&g->status==NG_PLAYING&&g->id==id&&g->difficulty==finished.difficulty&&g->mode==finished.mode&&g->seed!=finished.seed&&ng_valid(g));
+  NgGame started=*g;ng_app_event(&app,key,NG_HOLD);ng_app_event(&app,key,NG_DOWN);assert(!memcmp(g,&started,sizeof started));ng_app_event(&app,key,NG_UP);render_app_extra(&app);
+  ng_app_init(&cold,test_hooks(&disk),991);assert(cold.resumable&&!memcmp(&cold.session.game,&started,sizeof started));cases++;
+ }
+ printf("Extra actual result flow: %u WIN/LOSS/DRAW/SOLVED paths, modal NEW / VIEW RESULT / entry / F6 NEW, frozen keys/timer/held barriers and durable clear/cold NEW PASS\n",cases);
 }
 #endif
 int test_strategyquick_extra(void)
 {
- setvbuf(stdout,NULL,_IONBF,0);reversi_rules();reversi_endgames();reversi_replay();reversi_lifecycle();net_rules();net_lifecycle();invalid_extra();extra_render();
+ setvbuf(stdout,NULL,_IONBF,0);reversi_rules();reversi_endgames();reversi_replay();reversi_lifecycle();net_rules();net_lifecycle();reversi_edges();net_edges();invalid_extra();extra_render();
 #ifdef SQ_EXTRA_APP_TEST
- extra_app();
+ extra_app();completion_app_extra();
 #endif
  return 0;
 }

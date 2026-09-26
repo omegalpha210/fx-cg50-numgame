@@ -5,6 +5,16 @@
 #include <string.h>
 #include <limits.h>
 static uint32_t satadd(uint32_t a,uint32_t b){return b>UINT32_MAX-a?UINT32_MAX:a+b;}
+static uint32_t advance_seed(uint32_t seed)
+{seed^=seed<<13;seed^=seed>>17;seed^=seed<<5;return seed?seed:1;}
+static uint32_t puzzle_fingerprint(const NgGame *g)
+{
+ uint32_t board=ng_crc32(g->board,sizeof g->board);
+ uint32_t fixed=ng_crc32(g->fixed,sizeof g->fixed);
+ uint32_t data=ng_crc32(g->data,sizeof g->data);
+ return board^(fixed<<1 | fixed>>31)^(data<<7 | data>>25)^
+  ((uint32_t)g->rows<<24)^((uint32_t)g->cols<<16);
+}
 static void barrier(NgApp *a){a->epoch++;ng_app_barrier(a);}
 void ng_app_barrier(NgApp *a){a->blocked|=a->held;a->shift_pending=false;a->alpha_pending=false;}
 static void modal(NgApp *a,unsigned which){a->modal=(uint8_t)which;a->rules_scroll=0;barrier(a);}
@@ -16,16 +26,10 @@ int ng_key_index(int key)
  if(key>=NGK_UP && key<=NGK_ACON)return 19+key-NGK_UP;
  return -1;
 }
-static int recent_position(const NgSettings *s,unsigned id)
-{for(unsigned i=0;i<s->recent_count;i++)if(s->recent[i]==id)return (int)i;return -1;}
-static void recent_touch(NgSettings *s,unsigned id)
+static void resume_setting(NgSettings *s,unsigned id)
 {
- int found=recent_position(s,id);if(found==0)return;
- unsigned end=found>=0?(unsigned)found:s->recent_count;
- if(found<0 && end==NG_RECENT_LIMIT){s->pending_delete=s->recent[NG_RECENT_LIMIT-1];end--;}
- else if(found<0)s->recent_count++;
- for(unsigned i=end;i>0;i--)s->recent[i]=s->recent[i-1];
- s->recent[0]=(uint8_t)id;
+ (void)id;s->recent_count=0;memset(s->recent,0,sizeof s->recent);
+ s->pending_delete=0;
 }
 void ng_app_init(NgApp *a,NgHooks hooks,uint32_t seed)
 {
@@ -33,112 +37,145 @@ void ng_app_init(NgApp *a,NgHooks hooks,uint32_t seed)
  a->backlight_ms=60000;a->apo_ms=600000;a->power_available=true;
  memset(a->settings.difficulty,1,sizeof(a->settings.difficulty));a->settings.show_time=1;a->settings.target=24;a->settings.migration_complete=1;
  a->settings.mode[25]=1;memset(a->previous_level,1,sizeof a->previous_level);
- if(hooks.load_settings) {
-  int rc=hooks.load_settings(hooks.context,&a->settings);
-  if(rc>=NG_LOAD_INVALID)snprintf(a->notice,sizeof(a->notice),"Settings unavailable; defaults in use");
+ if(hooks.load_state){
+  bool saved=false;int rc=hooks.load_state(hooks.context,&a->settings,&a->session,&saved);
+  if(rc==NG_LOAD_OK || rc==NG_LOAD_RECOVERED){
+   a->resumable=saved && a->session.game.status==NG_PLAYING;
+   a->active=a->resumable;
+   if(rc==NG_LOAD_RECOVERED)snprintf(a->notice,sizeof a->notice,"Backup recovered.");
+  }else if(rc>=NG_LOAD_INVALID && !a->notice[0])snprintf(a->notice,sizeof a->notice,"Save unavailable; defaults in use.");
+ }else{
+  if(hooks.load_settings){
+   int rc=hooks.load_settings(hooks.context,&a->settings);
+   if(rc>=NG_LOAD_INVALID)snprintf(a->notice,sizeof a->notice,"Settings unavailable; defaults in use");
+  }
+  if(hooks.load)for(unsigned index=0;index<a->settings.recent_count;index++){
+   unsigned id=a->settings.recent[index];
+   int rc=hooks.load(hooks.context,&a->session,id);
+   if((rc==NG_LOAD_OK || rc==NG_LOAD_RECOVERED) && a->session.game.status==NG_PLAYING){
+    a->active=a->resumable=true;resume_setting(&a->settings,id);
+    if(rc==NG_LOAD_RECOVERED)snprintf(a->notice,sizeof a->notice,"Backup recovered for game %u",id);
+    break;
+   }
+  }
+  if(!a->resumable)memset(&a->session,0,sizeof a->session);
  }
- if(hooks.load)for(unsigned index=0;index<a->settings.recent_count;index++) {
-  unsigned id=a->settings.recent[index];
-  int rc=hooks.load(hooks.context,&a->session,id);
-  if(rc==NG_LOAD_OK || rc==NG_LOAD_RECOVERED)ng_summarize(&a->session,&a->summary[id-1]);
-  if(rc==NG_LOAD_RECOVERED)snprintf(a->notice,sizeof(a->notice),"Backup recovered for game %u",id);
-  else if(rc>=NG_LOAD_INVALID)snprintf(a->notice,sizeof(a->notice),"Game %u save unavailable; others retained",id);
- }
- memset(&a->session,0,sizeof(a->session));
  for(unsigned i=0;i<NG_ID_MAX;i++)if(a->settings.difficulty[i]<NG_HELL)a->previous_level[i]=a->settings.difficulty[i];
 }
 bool ng_checkpoint(NgApp *a)
 {
- bool writing=(a->active && a->dirty) || a->settings_dirty || a->settings.pending_delete;
+ bool writing=(a->active && a->dirty) || a->settings_dirty;
  if(writing)ng_diag_emit(NGD_SAVE_BEGIN,a->epoch,0);
  bool ok=true;
- if(a->active && a->dirty) {
-  ng_record_result(&a->session);
-  if(a->hooks.save)ok=a->hooks.save(a->hooks.context,&a->session);
-  if(ok){a->dirty=false;ng_summarize(&a->session,&a->summary[a->session.game.id-1]);
-   if(ng_catalog_index(a->session.game.id)>=0){recent_touch(&a->settings,a->session.game.id);a->settings_dirty=true;}
+ if(writing){
+  if(a->active && a->session.game.status)ng_record_result(&a->session);
+  resume_setting(&a->settings,a->resumable?a->session.game.id:0);
+  if(a->hooks.save_state)ok=a->hooks.save_state(a->hooks.context,&a->settings,&a->session,a->resumable);
+  else {
+   if(a->resumable && a->active && a->dirty && a->hooks.save)
+    ok=a->hooks.save(a->hooks.context,&a->session);
+   if(ok && a->hooks.save_settings)ok=a->hooks.save_settings(a->hooks.context,&a->settings);
   }
- }
- if(ok && a->settings_dirty) {
-  if(a->hooks.save_settings)ok=a->hooks.save_settings(a->hooks.context,&a->settings);
-  if(ok)a->settings_dirty=false;
- }
- if(ok && a->settings.pending_delete){
-  unsigned id=a->settings.pending_delete;
-  if(a->hooks.remove_game)ok=a->hooks.remove_game(a->hooks.context,id);
-  if(ok){a->summary[id-1].exists=0;a->settings.pending_delete=0;a->settings_dirty=true;}
- }
- if(ok && a->settings_dirty){
-  if(a->hooks.save_settings)ok=a->hooks.save_settings(a->hooks.context,&a->settings);
-  if(ok)a->settings_dirty=false;
+  if(ok)a->dirty=a->settings_dirty=false;
  }
  a->save_failed=!ok;if(writing)ng_diag_emit(ok?NGD_SAVE_END:NGD_SAVE_ERROR,a->epoch,0);return ok;
 }
 static bool enter(NgApp *a,unsigned id)
 {
  if(!ng_checkpoint(a)){modal(a,NG_MODAL_SAVE_ERROR);return false;}
- a->selected_id=(uint8_t)id;a->entry_selection=0;
+ a->selected_id=(uint8_t)id;
  a->target_draft[0]=0;
- a->screen=NG_ENTRY;a->modal=NG_MODAL_NONE;a->active=false;
- memset(&a->session,0,sizeof(a->session));
- if(a->hooks.load && a->summary[id-1].exists) {
-  int rc=a->hooks.load(a->hooks.context,&a->session,id);
-  if(rc==NG_LOAD_OK || rc==NG_LOAD_RECOVERED)a->active=true;
-  else {a->summary[id-1].exists=0;snprintf(a->notice,sizeof(a->notice),"Saved run unavailable");}
- }
- a->entry_selection=(uint8_t)ng_entry_row(a,NG_ENTRY_NEW);barrier(a);return true;
+ a->screen=NG_ENTRY;a->modal=NG_MODAL_NONE;
+ a->entry_selection=(uint8_t)ng_entry_row(a,a->resumable && a->session.game.id==id?NG_ENTRY_RESUME:NG_ENTRY_NEW);
+ barrier(a);return true;
 }
-static void start(NgApp *a)
+static void start(NgApp *a,bool continue_result)
 {
- if(!ng_checkpoint(a)){modal(a,NG_MODAL_SAVE_ERROR);return;}
+ if(!a->hooks.save_state && !ng_checkpoint(a)){modal(a,NG_MODAL_SAVE_ERROR);return;}
  unsigned id=a->selected_id;
- if(recent_position(&a->settings,id)<0 && a->settings.recent_count==NG_RECENT_LIMIT && !a->evict_confirmed){modal(a,NG_MODAL_EVICT);return;}
- a->evict_confirmed=false;
- uint32_t run=a->session.stats.started+1;
- a->seed^=a->seed<<13;a->seed^=a->seed>>17;a->seed^=a->seed<<5;
- unsigned d=a->settings.difficulty[id-1],mode=a->settings.mode[id-1];
+ bool same=a->active && a->session.game.id==id;
+ uint32_t run=same?satadd(a->session.stats.started,1):1;
+ uint32_t seed=advance_seed(a->seed);
+ unsigned d=continue_result?a->session.game.difficulty:a->settings.difficulty[id-1];
+ unsigned mode=continue_result?a->session.game.mode:a->settings.mode[id-1];
+ unsigned target=continue_result && id==6?(unsigned)a->session.game.data[0]:a->settings.target;
  if(id==26 && !mode)d=NG_NORMAL;
  unsigned count=ng_bank_count(id,d,mode);
- NgSupply staged=a->session.supply[mode][d],*bag=&staged;a->before=a->session.game;
+ NgSupply staged={0};if(same)staged=a->session.supply[mode][d];
+ NgSupply *bag=&staged;
+ a->before=a->session.game;
  if(count && count<=4096){
   bool cycle=bag->count!=count || bag->next>=count || !bag->shuffle;
   if(cycle){
    bag->count=(uint16_t)count;bag->next=0;
-   uint32_t stride=a->seed&UINT32_C(0xffff0000);if(!stride)stride=UINT32_C(0x10000);
-   bag->shuffle=stride|((a->seed&65535u)%count);
+   uint32_t stride=seed&UINT32_C(0xffff0000);if(!stride)stride=UINT32_C(0x10000);
+   bag->shuffle=stride|((seed&65535u)%count);
   }
-  /* Rotate a fresh permutation away from up to four recent puzzle IDs.
-   * At most count candidates; no time-dependent solver or partial puzzle. */
+  /* At a cycle boundary (including an imported save with no cycle metadata),
+   * keep the next puzzle distinct from the run being replaced. */
+  bool avoid_previous=same && a->before.difficulty==d &&
+   a->before.mode==mode && count>1;
   for(unsigned attempt=0;attempt<count;attempt++){
-   ng_new_supply(&a->session.game,id,d,mode,a->seed,run,bag->shuffle,bag->next);
-   bool recent=false;
-   unsigned remembered=bag->recent_count<count?bag->recent_count:count-1;
-   for(unsigned i=0;i<remembered;i++)if(bag->recent[i]==a->session.game.puzzle_id)recent=true;
-   if(!cycle || !recent)break;
+   ng_new_supply(&a->session.game,id,d,mode,seed,run,bag->shuffle,bag->next);
+   if(!cycle || !avoid_previous ||
+    a->session.game.puzzle_id!=a->before.puzzle_id)break;
    if(attempt+1<count)bag->shuffle=(bag->shuffle&UINT32_C(0xffff0000))|(((bag->shuffle&65535u)+1)%count);
   }
   bag->next++;
   for(unsigned i=3;i;i--)bag->recent[i]=bag->recent[i-1];
   bag->recent[0]=a->session.game.puzzle_id;if(bag->recent_count<4)bag->recent_count++;
- }else ng_new(&a->session.game,id,d,mode,a->seed,run);
- if(id==6 && !gc_target_init(&a->session.game,a->settings.target)){
-  a->session.game=a->before;snprintf(a->notice,sizeof a->notice,"Target setup failed; previous run retained.");modal(a,NG_MODAL_NONE);return;
+ }else ng_new(&a->session.game,id,d,mode,seed,run);
+ if(id==6 && !gc_target_init(&a->session.game,target)){
+  a->session.game=a->before;
+  snprintf(a->notice,sizeof a->notice,"Target setup failed; previous run retained.");modal(a,NG_MODAL_NONE);return;
+ }
+ if(!count){
+  bool compare=same && a->before.difficulty==d && a->before.mode==mode &&
+   staged.recent_count;
+  uint32_t fingerprint=puzzle_fingerprint(&a->session.game);
+  for(unsigned attempt=0;compare && fingerprint==staged.recent[0] && attempt<3;attempt++){
+   seed=advance_seed(seed);ng_new(&a->session.game,id,d,mode,seed,run);
+   if(id==6 && !gc_target_init(&a->session.game,target))break;
+   fingerprint=puzzle_fingerprint(&a->session.game);
+  }
+  staged.recent[0]=fingerprint;staged.recent_count=1;
  }
  if(!ng_valid(&a->session.game)){
-  a->session.game=a->before;snprintf(a->notice,sizeof a->notice,"Puzzle validation failed; previous run retained.");modal(a,NG_MODAL_NONE);return;
+  a->session.game=a->before;
+  snprintf(a->notice,sizeof a->notice,"Puzzle validation failed; previous run retained.");modal(a,NG_MODAL_NONE);return;
  }
+ NgSettings previous_settings=a->settings;
+ NgSupply previous_supply[NG_MODES][NG_LEVEL_COUNT];
+ memcpy(previous_supply,a->session.supply,sizeof previous_supply);
+ uint8_t previous_undo=a->session.undo_count;
+ uint32_t previous_started=a->session.stats.started;
+ bool previous_active=a->active,previous_resume=a->resumable;
+ bool previous_dirty=a->dirty,previous_settings_dirty=a->settings_dirty;
+ if(!same)memset(a->session.supply,0,sizeof a->session.supply);
  a->session.supply[mode][d]=staged;
- a->session.undo_count=0;a->session.stats.started=satadd(a->session.stats.started,1);
- a->active=true;a->dirty=true;a->screen=NG_PLAY;a->modal=NG_MODAL_NONE;
- a->settings.last_game=(uint8_t)id;a->settings_dirty=true;barrier(a);
+ a->session.undo_count=0;a->session.stats.started=run;
+ a->active=a->resumable=true;a->dirty=true;
+ a->settings.last_game=(uint8_t)id;resume_setting(&a->settings,id);a->settings_dirty=true;
+ if(!ng_checkpoint(a)){
+  a->session.game=a->before;memcpy(a->session.supply,previous_supply,sizeof previous_supply);
+  a->session.undo_count=previous_undo;a->session.stats.started=previous_started;
+  a->settings=previous_settings;a->active=previous_active;a->resumable=previous_resume;
+  a->dirty=previous_dirty;a->settings_dirty=previous_settings_dirty;
+  a->start_failed=true;a->start_failed_result=continue_result;
+  modal(a,NG_MODAL_SAVE_ERROR);return;
+ }
+ a->start_failed=a->start_failed_result=false;a->seed=seed;
+ if(!same)memset(a->session.stats.best,0,sizeof a->session.stats.best);
+ a->screen=NG_PLAY;a->modal=NG_MODAL_NONE;a->result_view=false;barrier(a);
  if(a->settings.first_help && run==1)modal(a,NG_MODAL_RULES);
 }
 static void resume(NgApp *a)
 {
- if(!a->active){start(a);return;}
+ if(!a->resumable || !a->active || a->session.game.status ||
+  a->session.game.id!=a->selected_id)return;
  a->screen=NG_PLAY;a->modal=NG_MODAL_NONE;
- a->settings.last_game=a->selected_id;recent_touch(&a->settings,a->selected_id);a->settings_dirty=true;barrier(a);
- if(a->session.game.status)modal(a,NG_MODAL_RESULT);
+ a->result_view=false;
+ barrier(a);
 }
 static void init_same(NgApp *a)
 {
@@ -165,8 +202,11 @@ static void init_same(NgApp *a)
 static bool finished(NgApp *a)
 {
  if(!a->session.game.status)return false;
- ng_record_result(&a->session);a->dirty=true;
- (void)ng_checkpoint(a);modal(a,NG_MODAL_RESULT);return true;
+ a->resumable=false;resume_setting(&a->settings,0);
+ ng_record_result(&a->session);a->dirty=true;a->settings_dirty=true;
+ if(!ng_checkpoint(a))modal(a,NG_MODAL_SAVE_ERROR);
+ else modal(a,NG_MODAL_RESULT);
+ return true;
 }
 static bool perform(NgApp *a,int key)
 {
@@ -232,11 +272,6 @@ static bool dispatch(NgApp *a,int key)
   return true;
  }
  if(a->modal) {
-  if(a->modal==NG_MODAL_EVICT){
-   if(key==NGK_EXIT)modal(a,NG_MODAL_NONE);
-   else if(key==NGK_EXE || key==NGK_F6){a->evict_confirmed=true;modal(a,NG_MODAL_NONE);start(a);}
-   return true;
-  }
   if(a->modal==NG_MODAL_MODE){
    unsigned count=ng_module(a->selected_id)->modes;
    if(key==NGK_EXIT)modal(a,NG_MODAL_NONE);
@@ -269,18 +304,21 @@ static bool dispatch(NgApp *a,int key)
   if(a->modal==NG_MODAL_RULES) {
    if(key==NGK_DOWN && a->rules_scroll<100)a->rules_scroll++;
    else if(key==NGK_UP && a->rules_scroll)a->rules_scroll--;
-   else if(key==NGK_EXIT || key==NGK_EXE || key==NGK_F6)modal(a,a->screen==NG_PLAY && a->session.game.status?NG_MODAL_RESULT:NG_MODAL_NONE);
+   else if(key==NGK_EXIT || key==NGK_EXE || key==NGK_F6)modal(a,a->screen==NG_PLAY && a->session.game.status && !a->result_view?NG_MODAL_RESULT:NG_MODAL_NONE);
    return true;
   }
   if(a->modal==NG_MODAL_RESULT) {
-   if(key==NGK_F1 || key==NGK_EXE || key==NGK_F6)start(a);
-   else if(key==NGK_EXIT){a->screen=NG_ENTRY;a->entry_selection=(uint8_t)ng_entry_row(a,NG_ENTRY_NEW);modal(a,NG_MODAL_NONE);}
+   if(key==NGK_F1 || key==NGK_EXE || key==NGK_F6)start(a,true);
+   else if(key==NGK_EXIT){a->result_view=true;modal(a,NG_MODAL_NONE);}
    else if(key==NGK_F5)modal(a,NG_MODAL_RULES);
    return true;
   }
   if(a->modal==NG_MODAL_SAVE_ERROR) {
-   if(key==NGK_EXE || key==NGK_F6){if(ng_checkpoint(a))modal(a,a->screen==NG_PLAY && a->session.game.status?NG_MODAL_RESULT:NG_MODAL_NONE);}
-   else if(key==NGK_EXIT)modal(a,a->screen==NG_PLAY && a->session.game.status?NG_MODAL_RESULT:NG_MODAL_NONE);
+   if(key==NGK_EXE || key==NGK_F6){
+    if(a->start_failed)start(a,a->start_failed_result);
+    else if(ng_checkpoint(a))modal(a,a->screen==NG_PLAY && a->session.game.status && !a->result_view?NG_MODAL_RESULT:NG_MODAL_NONE);
+   }
+   else if(key==NGK_EXIT){a->start_failed=a->start_failed_result=false;modal(a,a->screen==NG_PLAY && a->session.game.status && !a->result_view?NG_MODAL_RESULT:NG_MODAL_NONE);}
    return true;
   }
   if(a->modal==NG_MODAL_PAUSE) {
@@ -288,7 +326,7 @@ static bool dispatch(NgApp *a,int key)
    return true;
   }
   if(key==NGK_EXIT){modal(a,NG_MODAL_NONE);return true;}
-  if(key==NGK_EXE || key==NGK_F6){if(a->modal==NG_MODAL_INIT)init_same(a);else start(a);}
+  if(key==NGK_EXE || key==NGK_F6){if(a->modal==NG_MODAL_INIT)init_same(a);else start(a,false);}
   return true;
  }
  if(a->screen==NG_MAIN || a->screen==NG_CATEGORY) {
@@ -298,7 +336,7 @@ static bool dispatch(NgApp *a,int key)
   else if(key==NGK_DOWN)a->selection=(uint8_t)((a->selection+2)%6);
   else if(key==NGK_EXIT && a->screen==NG_CATEGORY){a->screen=NG_MAIN;a->selection=a->category;barrier(a);}
   else if(key==NGK_F2 && a->screen==NG_MAIN){a->screen=NG_SETTINGS;barrier(a);}
-  else if(key==NGK_F3 && a->screen==NG_MAIN && ng_catalog_index(a->settings.last_game)>=0 && a->summary[a->settings.last_game-1].exists){if(enter(a,a->settings.last_game))resume(a);}
+  else if(key==NGK_F1 && a->screen==NG_MAIN && a->resumable){a->selected_id=a->session.game.id;resume(a);}
   else if((key>='1' && key<='6') || key==NGK_EXE || key==NGK_F6) {
    unsigned selection=(key>='1' && key<='6')?(unsigned)(key-'1'):a->selection;
    if(a->screen==NG_MAIN){a->category=(uint8_t)selection;a->screen=NG_CATEGORY;a->selection=0;barrier(a);}
@@ -345,8 +383,7 @@ static bool dispatch(NgApp *a,int key)
    }else if(key==NGK_EXE || key==NGK_F6){
     if(!target_commit(a))return true;
     if(choice==NG_ENTRY_RESUME)resume(a);
-    else if(a->active && !a->session.game.status)modal(a,NG_MODAL_NEW);
-    else start(a);
+    else start(a,false);
    }
   }
   return true;
@@ -366,9 +403,15 @@ static bool dispatch(NgApp *a,int key)
  }
  if(a->screen==NG_PLAY) {
   const NgModule *m=ng_module(a->session.game.id);
+  if(a->session.game.status){
+   if(key==NGK_EXIT){a->screen=NG_ENTRY;a->result_view=false;a->entry_selection=(uint8_t)ng_entry_row(a,NG_ENTRY_NEW);barrier(a);}
+   else if(key==NGK_F6)start(a,true);
+   else if(key==NGK_F5)modal(a,NG_MODAL_RULES);
+   return true;
+  }
   if(key==NGK_EXIT) {
    if(a->session.game.id==31 && a->session.game.phase==1)return perform(a,key);
-   if(ng_checkpoint(a)){a->screen=NG_ENTRY;a->entry_selection=(uint8_t)ng_entry_row(a,NG_ENTRY_NEW);barrier(a);}
+   if(ng_checkpoint(a)){a->screen=NG_ENTRY;a->entry_selection=(uint8_t)ng_entry_row(a,NG_ENTRY_RESUME);barrier(a);}
    else modal(a,NG_MODAL_SAVE_ERROR);
   }
   else if(key==NGK_F1){if(a->session.game.moves || a->session.game.input[0] || a->session.game.assisted || a->session.game.elapsed_ms || a->session.game.phase)modal(a,NG_MODAL_INIT);else init_same(a);}

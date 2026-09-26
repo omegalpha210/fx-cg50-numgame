@@ -107,17 +107,16 @@ static void lifecycle_all(void)
   if(!app.session.game.status){fprintf(stderr,"UI game %u did not finish: %s\n",id,app.session.game.message);abort();}
   assert(app.modal==NG_MODAL_RESULT);assert(ng_valid(&app.session.game));assert(app.session.game.recorded);
   tap(&app,NGK_F5);assert(app.modal==NG_MODAL_RULES);tap(&app,NGK_EXIT);assert(app.modal==NG_MODAL_RESULT);
-  uint32_t count=app.summary[id-1].assisted+app.summary[id-1].completed;
-  assert(count==1);assert(ng_checkpoint(&app));assert(ng_checkpoint(&app));assert(app.summary[id-1].assisted+app.summary[id-1].completed==count);
-  ng_app_init(&cold,test_hooks(&disk),900+id);assert(cold.summary[id-1].exists);
+  assert(!app.resumable);NgGame completed=app.session.game;
+  assert(ng_checkpoint(&app));assert(ng_checkpoint(&app));
+  tap(&app,NGK_EXIT);assert(app.screen==NG_PLAY && app.result_view && !app.modal);
+  tap(&app,'1');tap(&app,NGK_EXE);assert(!memcmp(&app.session.game,&completed,sizeof completed));
+  test_render(&app);tap(&app,NGK_EXIT);assert(app.screen==NG_ENTRY && !app.result_view);
+  ng_app_init(&cold,test_hooks(&disk),900+id);assert(!cold.resumable);
+  tap(&cold,NGK_F1);assert(cold.screen==NG_MAIN);
   tap(&cold,'1'+(int)(ng_catalog_index(id)/6));tap(&cold,'1'+(int)(ng_catalog_index(id)%6));
-  unsigned writes=disk.saves;NgGame saved=cold.session.game;NgSettings settings=cold.settings;
-  tap(&cold,NGK_F4);assert(!cold.modal);tap(&cold,NGK_F2);tap(&cold,NGK_F3);tap(&cold,NGK_F4);
-  assert(disk.saves==writes && !memcmp(&saved,&cold.session.game,sizeof(saved)) && !memcmp(&settings,&cold.settings,sizeof(settings)));
-  tap(&cold,'1');tap(&cold,NGK_F6);
-  assert(cold.modal==NG_MODAL_RESULT && cold.session.game.rng==app.session.game.rng);
-  assert(cold.session.game.elapsed_ms==app.session.game.elapsed_ms);test_render(&cold);
-  printf("UI complete/checkpoint/cold result: %02u %s\n",id,m->name);
+  assert(ng_entry_action(&cold,0)==NG_ENTRY_NEW);
+  printf("UI complete/result view/cold no-resume: %02u %s\n",id,m->name);
  }
 }
 static void controls(void)
@@ -134,26 +133,24 @@ static void controls(void)
  unsigned off=disk.off,menu=disk.menu;tap(&app,NGK_ACON);assert(disk.off==off);tap(&app,NGK_SHIFT);tap(&app,NGK_ACON);assert(disk.off==off+1);tap(&app,NGK_MENU);assert(disk.menu==menu+1);
  disk.write_budget=1;app.dirty=true;tap(&app,NGK_EXIT);assert(app.modal==NG_MODAL_SAVE_ERROR && app.screen==NG_PLAY);tap(&app,NGK_MENU);assert(disk.menu==menu+2);disk.write_budget=-1;tap(&app,NGK_EXE);assert(!app.modal);
  open_game(&app,21);ng_app_tick(&app,500);uint32_t elapsed=app.session.game.elapsed_ms;tap(&app,NGK_F5);ng_app_tick(&app,90000);assert(app.session.game.elapsed_ms==elapsed);tap(&app,NGK_EXIT);tap(&app,NGK_MENU);
- ng_app_init(&cold,test_hooks(&disk),32);tap(&cold,NGK_F3);assert(cold.session.game.id==21 && cold.session.game.elapsed_ms==elapsed);
+ ng_app_init(&cold,test_hooks(&disk),32);tap(&cold,NGK_F1);assert(cold.screen==NG_PLAY && cold.session.game.id==21 && cold.session.game.elapsed_ms==elapsed);
 }
 static void cross_game(void)
 {
- NgGame sudoku,tiles,nim;
- open_game(&app,11);tap(&app,'5');tap(&app,NGK_F4);tap(&app,NGK_RIGHT);tap(&app,'3');ng_app_tick(&app,1234);sudoku=app.session.game;tap(&app,NGK_EXIT);
- open_game(&app,26);tap(&app,NGK_LEFT);ng_app_tick(&app,2134);tiles=app.session.game;tap(&app,NGK_EXIT);
- open_game(&app,21);tap(&app,'1');tap(&app,NGK_EXE);assert(app.session.game.cpu_pending);nim=app.session.game;tap(&app,NGK_MENU);
- ng_app_init(&cold,test_hooks(&disk),32);
- unsigned ids[]={11,26,21};NgGame *expected[]={&sudoku,&tiles,&nim};
- for(unsigned i=0;i<3;i++){
-  while(cold.screen!=NG_MAIN)tap(&cold,NGK_EXIT);
-  tap(&cold,'1'+(int)(ng_catalog_index(ids[i])/6));tap(&cold,'1'+(int)(ng_catalog_index(ids[i])%6));tap(&cold,'1');tap(&cold,NGK_F6);
-  assert(!memcmp(&cold.session.game,expected[i],sizeof(NgGame)));
-  if(ids[i]==21){assert(ng_app_cpu(&cold));uint32_t moves=cold.session.game.moves;assert(!ng_app_cpu(&cold));assert(cold.session.game.moves==moves);tap(&cold,NGK_F2);assert(cold.session.game.turn==0 && !cold.session.game.cpu_pending);}
- }
+ open_game(&app,11);tap(&app,'5');tap(&app,NGK_F4);tap(&app,NGK_RIGHT);tap(&app,'3');ng_app_tick(&app,1234);tap(&app,NGK_EXIT);
+ open_game(&app,26);tap(&app,NGK_LEFT);ng_app_tick(&app,2134);tap(&app,NGK_EXIT);
+ open_game(&app,21);tap(&app,'1');tap(&app,NGK_EXE);assert(app.session.game.cpu_pending);NgGame nim=app.session.game;tap(&app,NGK_MENU);
+ ng_app_init(&cold,test_hooks(&disk),32);assert(cold.resumable && cold.session.game.id==21);
+ tap(&cold,NGK_F1);assert(cold.screen==NG_PLAY && !memcmp(&cold.session.game,&nim,sizeof nim));
+ assert(ng_app_cpu(&cold));uint32_t moves=cold.session.game.moves;
+ assert(!ng_app_cpu(&cold) && cold.session.game.moves==moves);
+ tap(&cold,NGK_F2);assert(cold.session.game.turn==0 && !cold.session.game.cpu_pending);
+ tap(&cold,NGK_EXIT);while(cold.screen!=NG_MAIN)tap(&cold,NGK_EXIT);
+ tap(&cold,'3');tap(&cold,'1');assert(ng_entry_action(&cold,0)==NG_ENTRY_NEW);
 }
 int main(void)
 {
  setbuf(stdout,NULL);
  disk.write_budget=-1;ng_app_init(&app,test_hooks(&disk),54321);test_render(&app);
- lifecycle_all();controls();cross_game();puts("30 renderer/input workflows, save isolation, barriers, OS checkpoints PASS");return 0;
+ lifecycle_all();controls();cross_game();puts("30 renderer/input workflows, single resume, result view, barriers, OS checkpoints PASS");return 0;
 }

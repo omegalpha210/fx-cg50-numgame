@@ -23,8 +23,10 @@ PUBLIC_DOCS={
     'MEMORY_METHOD.md','PERFORMANCE_AUDIT.md','PERFORMANCE_36.md','PERFORMANCE.md',
     'host-benchmark-normal.json','host-benchmark-diagnostic.json',
     'host-benchmark-36-normal.json','host-benchmark-36-diagnostic.json',
+    'host-benchmark-v5-normal.json','host-benchmark-v5-diagnostic.json',
     'host-benchmark-build-evidence.json',
     'POWER_TIMER_AUDIT.md','PUBLIC_SOURCE_AUDIT.md','RULES.md',
+    'RESUME_POLICY.md','CONTENT_CYCLE.md','RECENT_SIX_AUDIT.md',
     'RUNTIME_AUDIT.md','STORAGE_ARCHIVE_AUDIT.md','STORAGE_FORMAT.md',
     'STRATEGY_QUICK_AUDIT.md','UI_CONVENTIONS.md','UI_LAYOUT_KO.md',
     'UI_REFRESH_KO.md','acceptance-matrix.csv','asset-manifest.json',
@@ -64,7 +66,9 @@ def public_png(name):
     if re.fullmatch(r'assets/grids/master/(?:capture-\d+|contact)\.png',name):return True
     if re.fullmatch(r'assets/grids/expanded/(?:capture-\d+-mode\d+|contact)\.png',name):return True
     if re.fullmatch(r'assets/grids/extra/(?:capture-\d+-\d+|contact)\.png',name):return True
+    if re.fullmatch(r'assets/grids/extra/review-20260926/(?:contact|hashi-(?:empty|single|double|crossing)|nonogram-zero-marks)\.png',name):return True
     if re.fullmatch(r'assets/strategyquick/extra-\d+-master\.png',name):return True
+    if re.fullmatch(r'assets/strategyquick/extra-(?:37-(?:cpu|result|result-modal)|38-result)\.png',name):return True
     if re.fullmatch(r'assets/boards/captures/(?:(?:31|32)-[0-3]-(?:complete|corner|start|edge)|(?:completed-)?contact)\.png',name):return True
     if re.fullmatch(r'docs/captures/(?:\d{2}-[a-z0-9-]+|category-[1-6]-2x|[a-z-]+-native|menus-2x)\.png',name):return True
     return False
@@ -80,7 +84,7 @@ def allowed(name,include_dist=False):
     if parts[0]=='assets':
         if p.suffix=='.png':return public_png(name)
         if len(parts)==2:return p.name in ASSET_JSON_ROOT|ASSET_HEADER_ROOT
-        if parts[1]=='grids':return bool(re.fullmatch(r'assets/grids/(?:(?:1[1-9]|20)|audit)\.json',name) or re.fullmatch(r'assets/grids/master/(?:(?:1[1-9]|20)(?:-generation)?|audit|legacy-sha256)\.json',name) or re.fullmatch(r'assets/grids/expanded/(?:(?:1[1-5]-[0-4]|1[6-9]-3|20-3)(?:-generation)?|audit|capture-selection|memory|seed-replay)\.json',name) or re.fullmatch(r'assets/grids/extra/(?:(?:35-[0-4]|36-[0-3])(?:-generation)?|audit|capture-selection|memory)\.json',name) or name=='assets/grids/extra/generate.py')
+        if parts[1]=='grids':return bool(re.fullmatch(r'assets/grids/(?:(?:1[1-9]|20)|audit)\.json',name) or re.fullmatch(r'assets/grids/master/(?:(?:1[1-9]|20)(?:-generation)?|audit|legacy-sha256)\.json',name) or re.fullmatch(r'assets/grids/expanded/(?:(?:1[1-5]-[0-4]|1[6-9]-3|20-3)(?:-generation)?|audit|capture-selection|memory|seed-replay)\.json',name) or re.fullmatch(r'assets/grids/extra/(?:(?:35-[0-4]|36-[0-3])(?:-generation)?|audit|capture-selection|memory)\.json',name) or re.fullmatch(r'assets/grids/extra/review-20260926/(?:audit\.json|independent-validation\.txt|host-(?:ubsan|asan)\.txt)',name) or name=='assets/grids/extra/generate.py')
         if parts[1] in ASSET_JSON_SUB:
             return len(parts)==3 and (p.name in ASSET_JSON_SUB[parts[1]] or (parts[1]=='strategyquick' and p.name in {'tables.h','master_quick.h','master_strategy.h'}))
         return False

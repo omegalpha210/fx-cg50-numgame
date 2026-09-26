@@ -340,14 +340,14 @@ cc -std=c11 -Wall -Wextra -Werror -fsanitize=undefined \
 ./build-grid-extra-test
 ```
 
-The four Python tests pass for every bank, including independent uniqueness,
+The five Python tests pass for every bank, including independent uniqueness,
 canonical checks, seed/rating replay, exhaustive small spaces and native pack
 reproduction. The strict C11/UBSan suite completes all 270 puzzles using real
 key actions and checks malformed states, disconnected/crossing HASHI boards,
 NONOGRAM run order/unknown cells, and pixel bounds for every initial/won board.
 The engine and pack pass strict SH compilation. Engine text/read-only size is
-6,958 bytes, with zero data/BSS; largest individual frame is render 196 bytes,
-HASHI rules 112 bytes, valid 48 bytes and init 16 bytes. These are compiler
+7,992 bytes, with zero data/BSS; largest individual frame is render 200 bytes,
+HASHI rules 96 bytes, valid 48 bytes and init 16 bytes. These are compiler
 estimates, not a measured hardware call-chain peak.
 
 Nine initial-board captures select the largest bridge-degree totals and longest
@@ -359,3 +359,49 @@ inspected, and renderers never read a witness. `assets/grids/extra/audit.json`,
 results. The extra-game ASan binary built but timed out without test output
 after 15 seconds: **ASan NOT VERIFIED**. Hardware readability, controls, stack
 peak and latency remain **HARDWARE TEST REQUIRED**.
+
+### Focused HASHI/NONOGRAM review, 2026-09-26
+
+The retained completion validators agree with the new independent edge cases;
+no puzzle rules or bank content changed. HASHI's interaction feedback needed a
+small correction: the selected edge previously appeared only as a direction in
+the sidebar, and a crossing received only the generic CHECK message. The selected
+island and target now have blue outlines. An empty candidate has a dashed blue
+line explicitly labelled EMPTY; actual single/double bridges have one/two solid
+strokes. The first real crossing has a red X, and both bridge edits and CHECK
+give a specific crossing message. Exact island totals with separated components
+receive a disconnected-network message. Incorrect unfinished boards remain
+editable and saveable, preserving existing undo and correction behavior.
+
+An independent native truth model rasterizes bridge interiors and uses
+union/find to test connectivity. All 59,049 assignments on a ten-edge geometry
+agree with completion: 10,496 connected noncrossing boards; 26,244 crossing and
+33,193 disconnected assignments (the latter two categories overlap). This adds
+coverage for single/double bridges, crossings, isolated components and connected
+cycles without importing the engine's nearest-neighbor or traversal helpers.
+Pixel probes check dashed, single, double and crossing marks. The existing
+public-clue counters still verify all 270 unique banks and exact native pack
+reproduction.
+
+NONOGRAM's renderer and input semantics required no change. Native and independent
+Python fixtures now explicitly cover zero/empty lines, run ordering, mandatory
+gaps, merged adjacent runs, impossible lengths, unknown cells and five-run 9×9
+clues. A zero is drawn for an empty line; it is never an absent constraint.
+Filled black, empty X and unknown white cells remain distinct. Small clue digits
+fit in the host captures; actual calculator LCD readability remains a hardware
+check.
+
+All 270 completed module states reject arrows, digits, edits, CHECK and REVEAL
+without changing any state byte. This supports the common frozen result view;
+modal dismissal, F6 NEW, entry/resume placement, storage and physical MENU are
+owned and tested by the integration layer. The tests select bank ordinals by
+visiting a complete cycle rather than assuming a particular shuffle formula.
+No shared API or save field was added.
+
+Current evidence is in `assets/grids/extra/review-20260926/`: five focused native
+renderer captures, their contact sheet, C11/UBSan output, five Python tests,
+and the concise audit JSON. The crossing and NONOGRAM mark captures deliberately
+show incorrect/partial player states. Reproduce those content-only captures with
+the above C test binary's `--audit-capture OUTPUT_DIRECTORY` option. The current
+SH object measurements are in `assets/grids/extra/memory.json`; individual frames
+are not a whole-call-chain or physical-device peak.

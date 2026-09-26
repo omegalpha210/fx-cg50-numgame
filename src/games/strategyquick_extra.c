@@ -190,7 +190,8 @@ static void rv_render(const NgGame *g,NgCanvas *c)
  snprintf(text,sizeof text,"YOU (%s): %d",g->mode?"WHITE":"BLACK",rv_count(g->board,1));ng_text(c,180,62,text,NG_INK,1);
  snprintf(text,sizeof text,"CPU (%s): %d",g->mode?"BLACK":"WHITE",rv_count(g->board,2));ng_text(c,180,85,text,NG_INK,1);
  snprintf(text,sizeof text,"Legal moves: %u",sq_reversi_moves(g->board,g->turn+1u,NULL));ng_text(c,180,112,text,NG_MUTED,1);
- ng_text(c,180,139,"EXE: PLACE DISC",NG_INK,1);ng_small(c,180,159,"F4 toggles legal-move dots",NG_MUTED);
+ if(g->status==NG_PLAYING && !g->cpu_pending){ng_text(c,180,139,"EXE: PLACE DISC",NG_INK,1);ng_small(c,180,159,"F4 toggles legal-move dots",NG_MUTED);}
+ else if(g->status!=NG_PLAYING){ng_text(c,180,139,"F6: NEW GAME",NG_INK,1);ng_small(c,180,159,"EXIT: GAME MENU",NG_MUTED);}
 }
 
 /* NET: N/E/S/W ports1/2/4/8. data0..35 retains the original tree solely
@@ -276,7 +277,7 @@ static bool net_action(NgGame *g,int key)
  if(key==NGK_EXE || key=='5' || key==NGK_DEL){
   if(g->fixed[p]){ng_message(g,"Locked tile: F4 unlocks");return true;}
   unsigned rotations=key==NGK_DEL?3:1;int16_t before=g->board[p];while(rotations--)g->board[p]=(int16_t)net_rotate((unsigned)g->board[p]);
-  if(g->board[p]==before)return false;
+  if(g->board[p]==before){ng_message(g,"This tile looks the same after rotation");return true;}
   g->moves++;g->data[81]=-1;g->message[0]=0;net_update(g);return true;
  }
  return false;
@@ -316,14 +317,19 @@ static void net_render(const NgGame *g,NgCanvas *c)
  }
  char text[48];snprintf(text,sizeof text,"CONNECTED %u / %u",connected,n*n);ng_text(c,181,39,text,NG_BLUE,1);
  ng_text(c,181,65,"ONE TREE, NO LOOPS",NG_INK,1);ng_small(c,181,87,"Red node is the source",NG_MUTED);
- ng_text(c,181,109,"EXE: TURN RIGHT",NG_INK,1);ng_text(c,181,132,"DEL: TURN LEFT",NG_INK,1);
- ng_small(c,181,155,"F4 LOCK / F3 REVEAL",NG_MUTED);
+ if(g->status==NG_PLAYING){
+  ng_text(c,181,109,"EXE: TURN RIGHT",NG_INK,1);ng_text(c,181,132,"DEL: TURN LEFT",NG_INK,1);
+  ng_small(c,181,155,"F4 LOCK / F3 REVEAL",NG_MUTED);
+ }else{
+  ng_text(c,181,109,"NETWORK COMPLETE",NG_GREEN,1);ng_text(c,181,132,"F6: NEW GAME",NG_INK,1);
+  ng_small(c,181,155,"EXIT: GAME MENU",NG_MUTED);
+ }
 }
 const NgModule ng_strategyquick_extra[2]={
  {37,"REVERSI","REVERSI",
  "Place a disc to bracket an enemy line.\nFlip every bracketed line in 8 directions.\nBlack moves first; choose YOU or CPU first.\nArrows select; EXE or 5 places a disc.\nIf you cannot move, you pass automatically.\nNeither player can move: most discs wins.\nEqual counts draw; empty cells stay empty.\nF4 toggles dots marking legal placements.\nEasy CPU chooses a random legal move.\nNormal searches 1 ply, Hard up to 3,\nMASTER up to 5, with fixed node budgets.\nThe bounded CPU is not perfect play.\nHINT suggests a move and marks assisted.\nUNDO restores your complete CPU round.",
  NGF_CPU|NGF_UNDO|NGF_HINT,"MOVES","PLACE",2,sq_strategy_mode,rv_init,rv_action,NULL,rv_valid,rv_render},
  {38,"NET","NET",
- "Rotate tiles to connect every square.\nEvery wire must meet its neighbour's wire.\nNo wires may leave the board; no wrapping.\nThe whole network must form one tree:\nall tiles connected, with no closed loops.\nArrows select. EXE/5 turns clockwise;\nDEL turns anticlockwise. F4 locks a tile.\nLocked tiles cannot be rotated until freed.\nF3 REVEAL sets one original orientation\nand locks it, marking assisted practice.\nEvery valid network wins, not just ours.\nE/N/H/M use 3/4/5/6 by 3/4/5/6 grids.\nSeeds construct a tree then rotate tiles.\nSolutions need not be unique; no rating claim.\nMoves count rotations, locks and reveals.",
+ "Rotate tiles to connect every square.\nEvery wire must meet its neighbour's wire.\nNo wires may leave the board; no wrapping.\nThe whole network must form one tree:\nall tiles connected, with no closed loops.\nArrows select. EXE/5 turns clockwise;\nDEL turns anticlockwise. F4 locks a tile.\nLocks block EXE/5/DEL until unlocked.\nF3 REVEAL sets one original orientation\nand locks it, marking assisted practice.\nREVEAL can reset a locked tile too.\nEvery valid network wins, not just ours.\nE/N/H/M use 3/4/5/6 by 3/4/5/6 grids.\nSeeds construct a tree then rotate tiles.\nSolutions need not be unique; no rating claim.\nMoves count rotations, locks and reveals.",
  NGF_UNDO|NGF_HINT,"LOCK","ROTATE",1,NULL,net_init,net_action,NULL,net_valid,net_render}
 };

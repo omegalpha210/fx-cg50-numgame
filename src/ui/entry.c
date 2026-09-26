@@ -9,10 +9,10 @@ bool ng_mode_chooser(unsigned id)
  (void)id;return false;
 }
 unsigned ng_entry_count(const NgApp *a)
-{return (a->active?1u:0u)+1u+(ng_entry_level(a)?1u:0u)+(a->selected_id==6?1u:0u)+(ng_module(a->selected_id)->modes>1?1u:0u);}
+{return (a->resumable && a->session.game.id==a->selected_id?1u:0u)+1u+(ng_entry_level(a)?1u:0u)+(a->selected_id==6?1u:0u)+(ng_module(a->selected_id)->modes>1?1u:0u);}
 int ng_entry_action(const NgApp *a,unsigned row)
 {
- if(a->active){if(!row)return NG_ENTRY_RESUME;row--;}
+ if(a->resumable && a->session.game.id==a->selected_id){if(!row)return NG_ENTRY_RESUME;row--;}
  if(!row)return NG_ENTRY_NEW;
  row--;
  if(ng_entry_level(a)){if(!row)return NG_ENTRY_LEVEL;row--;}

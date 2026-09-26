@@ -6,9 +6,10 @@ frames do not establish device peak RAM or latency. The reported persistent MENU
 flashing remains unreproduced and its cause is unknown.
 
 NUM GAME is the normal application. NUM DIAG uses the same game engines and
-content, a separate menu identity, and compact `ND2xxA/B.dat` saves instead of
-normal `NG2xxA/B.dat` saves. It never migrates or writes normal NG progress.
-Each namespace retains at most five game saves plus settings, with two exact-length copies each. Diagnostic function-entry hooks
+content, a separate menu identity, and `NDSTATEA/B.dat` saves instead of
+normal `NGSTATEA/B.dat` saves. It never migrates or writes normal NG progress.
+Each namespace retains one unfinished run in two exact-length transaction copies;
+see [the v5 format](STORAGE_FORMAT.md). Diagnostic function-entry hooks
 add code, static counters, stack work and time overhead; its observations describe
 the instrumented build. Compare the [normal build report](build-metrics.json),
 [diagnostic build report](diagnostic-build-metrics.json) and

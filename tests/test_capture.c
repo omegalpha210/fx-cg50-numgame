@@ -45,7 +45,19 @@ int main(void)
   if(id==29)tap(&app,'2');
   char name[40];snprintf(name,sizeof(name),"%02u-play",id);capture(name);
  }
- open_game(&app,1);gc_test_solve(&app.session.game,&app,press_capture);capture("31-result-win");tap(&app,NGK_EXIT);capture("32-resume-entry");tap(&app,NGK_F4);capture("41-entry-no-stats");tap(&app,'1');tap(&app,NGK_F6);tap(&app,NGK_EXIT);tap(&app,'2');tap(&app,NGK_EXE);
+ main_screen();unsigned crypt_index=(unsigned)ng_catalog_index(34);
+ tap(&app,'1'+(int)(crypt_index/6));
+ while(app.selection!=crypt_index%6)tap(&app,NGK_RIGHT);
+ capture("34-cryptarithm-icon");tap(&app,NGK_EXE);tap(&app,NGK_F6);
+ capture("34-cryptarithm-aligned-layout");
+ open_game(&app,1);gc_test_solve(&app.session.game,&app,press_capture);
+ capture("31-result-win");capture("31-modal-view-result");
+ tap(&app,NGK_EXIT);capture("32-frozen-result-f6-new");
+ tap(&app,NGK_EXIT);capture("32-completed-entry-no-resume");
+ open_game(&app,1);tap(&app,NGK_EXIT);capture("32-same-game-entry-resume-start");
+ main_screen();capture("32-main-f1-resume");
+ tap(&app,'1');tap(&app,'2');capture("32-different-game-entry-no-resume");
+ tap(&app,NGK_F6);
  tap(&app,'0');tap(&app,NGK_F6);capture("33-input-error");tap(&app,NGK_F1);capture("34-init-confirm");tap(&app,NGK_EXIT);
  tap(&app,NGK_F5);capture("35-rules");tap(&app,NGK_EXIT);main_screen();tap(&app,NGK_F1);capture("36-main-no-stats");
  open_game(&app,31);tap(&app,NGK_EXE);tap(&app,NGK_RIGHT);tap(&app,NGK_DOWN);capture("37-shikaku-corner");tap(&app,NGK_EXIT);
@@ -91,7 +103,7 @@ int main(void)
  open_game(&app,21);capture("59-idle-000");ng_app_tick(&app,60000);capture("60-idle-060");
  memset(&disk,0,sizeof disk);disk.write_budget=-1;ng_app_init(&app,test_hooks(&disk),9654);open_game(&app,31);ng_app_tick(&app,1);assert(ng_checkpoint(&app));ng_app_tick(&app,1);
  disk.write_budget=0;tap(&app,NGK_EXIT);assert(app.modal==NG_MODAL_SAVE_ERROR);capture("61-save-error");disk.write_budget=-1;tap(&app,NGK_EXE);assert(!app.modal);capture("62-save-retry");
- assert(disk.lengths[31][0]&&disk.lengths[31][1]);disk.bytes[31][1][40]^=1;ng_app_init(&app,test_hooks(&disk),123);capture("63-backup-recovered");
+ assert(disk.lengths[0][0]&&disk.lengths[0][1]);disk.bytes[0][1][40]^=1;ng_app_init(&app,test_hooks(&disk),123);capture("63-backup-recovered");
  main_screen();tap(&app,'2');tap(&app,'1');app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_TARGET);
  app.notice[0]=0;
  capture("63-target-inline-entry");

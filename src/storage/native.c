@@ -67,6 +67,8 @@ static void name_for(char *name,size_t size,unsigned id,unsigned slot,bool archi
 }
 static void compact_name(char *name,size_t size,unsigned id,unsigned slot)
 {snprintf(name,size,"%s2%02u%c.dat",prefix,id,slot?'B':'A');}
+static void state_name(char *name,size_t size,unsigned slot)
+{snprintf(name,size,"%sSTATE%c.dat",prefix,slot?'B':'A');}
 #ifdef FXCG50
 static void native_path(uint16_t *path,const char *name)
 {const char *root="\\\\fls0\\";unsigned n=0;while(*root)path[n++]=(unsigned char)*root++;do{path[n++]=(unsigned char)*name;}while(*name++);}
@@ -207,6 +209,18 @@ static int compact_close(void *ctx,int fd)
  }
  return rc;
 }
+static int state_open(void *ctx,unsigned id,unsigned slot,bool writing)
+{
+ (void)ctx;if(id || slot>1 || !cleanup())return -1;
+ char name[24];state_name(name,sizeof name,slot);
+ int fd;
+ if(writing){if(compact_size<32 || compact_size>NG_RECORD_MAX)return -1;fd=exact_open(name,compact_size);}
+ else {bool created=false;fd=raw_open(name,false,false,&created);}
+ if(fd<0)return fd;
+ compact_writer=writing;
+ if(writing)snprintf(compact_write_name,sizeof compact_write_name,"%s",name);
+ position=record_base=0;record_limit=NG_RECORD_MAX;return fd;
+}
 static ptrdiff_t file_read(void *ctx,int fd,void *out,size_t size)
 {
  (void)ctx;if(position>=record_limit)return 0;
@@ -221,6 +235,7 @@ static ptrdiff_t file_write(void *ctx,int fd,const void *in,size_t size)
 static const NgIO legacy={NULL,file_open,file_read,file_write,file_close,NULL};
 static const NgIO archive={(void *)&archive_context,file_open,file_read,file_write,file_close,NULL};
 static const NgIO compact={(void *)&compact_context,compact_open,file_read,file_write,compact_close,compact_prepare};
+static const NgIO state={(void *)&compact_context,state_open,file_read,file_write,compact_close,compact_prepare};
 static bool remove_legacy(unsigned id,unsigned slot)
 {
  /* Only a semantically valid, owned record may be removed, after two verified copies. */
@@ -351,6 +366,110 @@ static bool migrate(NgSession *workspace)
  options.migration_complete=1;
  return ng_settings_save_io(&options,&compact);
 }
+static bool old_settings_marker_present(void)
+{
+ bool created=false;
+ for(unsigned slot=0;slot<2;slot++)for(unsigned kind=0;kind<3;kind++){
+  char name[24];
+  if(kind==0)compact_name(name,sizeof name,0,slot);
+  else name_for(name,sizeof name,0,slot,kind==1);
+  int fd=raw_open(name,false,kind==1,&created);
+  if(fd>=0){(void)file_close(NULL,fd);return true;}
+  if(fd!=-2)return true;
+ }
+ return false;
+}
+static bool retire_state_sources(void)
+{
+ bool ok=remove_old_archives();
+ /* NG2xxA/B is an exact private namespace; a corrupt old slot still belongs
+  * to us and must not linger once both version-5 copies are verified. */
+ for(unsigned id=1;id<=NG_ID_MAX;id++)if(!compact_delete(id))ok=false;
+ for(unsigned id=1;id<=30;id++)for(unsigned slot=0;slot<2;slot++)
+  if(ng_slot_valid(&legacy,id,slot) && !remove_legacy(id,slot))ok=false;
+ if(ok)for(unsigned slot=0;slot<2;slot++){
+  if(ng_slot_valid(&legacy,0,slot) && !remove_legacy(0,slot))ok=false;
+ }
+ if(ok && !compact_delete(0))ok=false;
+ return ok;
+}
+static bool migrate_state(NgSession *workspace)
+{
+ NgSettings options;bool active=false;
+ int current=ng_state_load_io(&options,workspace,&active,&state);
+ if(load_ok(current)){
+  /* A verified first copy may have survived an interrupted initial migration. */
+  if(!ng_state_slot_valid(&state,0) || !ng_state_slot_valid(&state,1))
+   if(!ng_state_save_io(&options,workspace,active,&state))return false;
+  return old_settings_marker_present()?retire_state_sources():true;
+ }
+ if(current==NG_LOAD_IO_ERROR)return false;
+ memset(&options,0,sizeof options);memset(options.difficulty,1,sizeof options.difficulty);
+ options.mode[25]=1;options.show_time=1;options.target=24;
+ if(current==NG_LOAD_ABSENT && !old_settings_marker_present()){
+  options.migration_complete=1;
+  return ng_state_save_io(&options,workspace,false,&state) &&
+   ng_state_save_io(&options,workspace,false,&state);
+ }
+ NgSettings old;int prior=ng_settings_load_io(&old,&compact);
+ if(!load_ok(prior)){
+  int arch=ng_settings_load_io(&old,&archive);
+  if(load_ok(arch))prior=arch;
+  else {int legacy_rc=ng_settings_load_io(&old,&legacy);if(load_ok(legacy_rc))prior=legacy_rc;}
+ }
+ if(load_ok(prior))options=old;
+ bool found=false;
+ if(load_ok(prior) && options.recent_count){
+  for(unsigned i=0;i<options.recent_count;i++){
+   unsigned id=options.recent[i];
+   int rc=ng_load_io(workspace,id,&compact);
+   if(!load_ok(rc))rc=old_game_load(workspace,id);
+   if(load_ok(rc) && workspace->game.status==NG_PLAYING &&
+    !(id>=21 && id<=25 && workspace->game.mode==2)){
+    options.last_game=(uint8_t)id;found=true;break;
+   }
+  }
+ }
+ if(!found && load_ok(prior) && !options.recent_count &&
+  ng_catalog_index(options.last_game)>=0){
+  unsigned id=options.last_game;
+  int rc=ng_load_io(workspace,id,&compact);
+  if(!load_ok(rc))rc=old_game_load(workspace,id);
+  found=load_ok(rc) && workspace->game.status==NG_PLAYING &&
+   !(id>=21 && id<=25 && workspace->game.mode==2);
+ }
+ /* Old archives had no recency list. Use the last game, then save generations. */
+ if(!found && (!load_ok(prior) || !options.recent_count)){
+  typedef struct {uint8_t id;uint32_t generation;} Candidate;
+  Candidate choices[NG_GAME_COUNT];unsigned count=0;
+  for(unsigned i=0;i<NG_GAME_COUNT;i++){
+   unsigned id=ng_visible_id(i);
+   int rc=ng_load_io(workspace,id,&compact);
+   if(!load_ok(rc))rc=old_game_load(workspace,id);
+   if(load_ok(rc) && workspace->game.status==NG_PLAYING &&
+    !(id>=21 && id<=25 && workspace->game.mode==2))
+    choices[count++]=(Candidate){(uint8_t)id,workspace->generation};
+  }
+  for(unsigned i=0;i<count;i++)for(unsigned j=i+1;j<count;j++){
+   bool swap=(choices[j].id==options.last_game && choices[i].id!=options.last_game) ||
+    (choices[i].id!=options.last_game && choices[j].id!=options.last_game &&
+     choices[j].generation>choices[i].generation);
+   if(swap){Candidate tmp=choices[i];choices[i]=choices[j];choices[j]=tmp;}
+  }
+  if(count){unsigned id=choices[0].id;int rc=ng_load_io(workspace,id,&compact);
+   if(!load_ok(rc))rc=old_game_load(workspace,id);
+   if(load_ok(rc)){options.last_game=(uint8_t)id;found=true;}
+  }
+ }
+ options.recent_count=0;memset(options.recent,0,sizeof options.recent);
+ options.pending_delete=0;options.migration_complete=1;
+ if(!ng_state_save_io(&options,workspace,found,&state) ||
+  !ng_state_save_io(&options,workspace,found,&state))return false;
+ NgSettings verified;bool valid_run=false;
+ if(!load_ok(ng_state_load_io(&verified,workspace,&valid_run,&state)) ||
+  valid_run!=found)return false;
+ return retire_state_sources();
+}
 static bool diagnostic_line(int fd,const char *format,...)
 {
  char line[384];va_list args;va_start(args,format);int n=vsnprintf(line,sizeof line,format,args);va_end(args);
@@ -389,7 +508,7 @@ static bool export_diagnostics(void)
  if(file_close(NULL,fd)<0)ok=false;
  d->frozen=false;return ok;
 }
-typedef struct {void *data;unsigned id;int operation;} Request;
+typedef struct {void *data;unsigned id;int operation;void *extra;bool *flag;} Request;
 static int dispatch(void *opaque)
 {
  Request *r=opaque;
@@ -401,12 +520,15 @@ static int dispatch(void *opaque)
  case 4:return cleanup();
  case 6:return migrate(r->data);
  case 7:return compact_delete(r->id);
+ case 8:return ng_state_load_io(r->data,r->extra,r->flag,&state);
+ case 9:return ng_state_save_io(r->data,r->extra,r->flag && *r->flag,&state);
+ case 10:return migrate_state(r->data);
  default:return export_diagnostics();
  }
 }
 static int transaction(Request *r)
 {
- NgDiagScope scope=ng_diag_begin(r->operation==0 || r->operation==2 || r->operation==6?NGOP_LOAD:r->operation==1 || r->operation==3?NGOP_SAVE:NGOP_IDLE,r->id);
+ NgDiagScope scope=ng_diag_begin(r->operation==0 || r->operation==2 || r->operation==6 || r->operation==8 || r->operation==10?NGOP_LOAD:r->operation==1 || r->operation==3 || r->operation==9?NGOP_SAVE:NGOP_IDLE,r->id);
 #ifdef FXCG50
  int result=gint_world_switch(GINT_CALL(dispatch,(void *)r));
 #else
@@ -414,12 +536,17 @@ static int transaction(Request *r)
 #endif
  ng_diag_end(scope);return result;
 }
-int ng_storage_load(NgSession *s,unsigned id){Request r={s,id,0};return transaction(&r);}
-bool ng_storage_save(NgSession *s){Request r={s,s->game.id,1};return transaction(&r)!=0;}
-int ng_settings_load(NgSettings *s){Request r={s,0,2};return transaction(&r);}
-bool ng_settings_save(NgSettings *s){Request r={s,0,3};return transaction(&r)!=0;}
-bool ng_storage_cleanup(void){Request r={NULL,0,4};return transaction(&r)!=0;}
-bool ng_diag_export(void){Request r={NULL,0,5};return transaction(&r)!=0;}
+int ng_storage_load(NgSession *s,unsigned id){Request r={.data=s,.id=id,.operation=0};return transaction(&r);}
+bool ng_storage_save(NgSession *s){Request r={.data=s,.id=s->game.id,.operation=1};return transaction(&r)!=0;}
+int ng_settings_load(NgSettings *s){Request r={.data=s,.operation=2};return transaction(&r);}
+bool ng_settings_save(NgSettings *s){Request r={.data=s,.operation=3};return transaction(&r)!=0;}
+bool ng_storage_cleanup(void){Request r={.operation=4};return transaction(&r)!=0;}
+bool ng_diag_export(void){Request r={.operation=5};return transaction(&r)!=0;}
 
-bool ng_storage_migrate(NgSession *workspace){Request r={workspace,0,6};return transaction(&r)!=0;}
-bool ng_storage_delete(unsigned id){if(!id || id>NG_ID_MAX)return false;Request r={NULL,id,7};return transaction(&r)!=0;}
+bool ng_storage_migrate(NgSession *workspace){Request r={.data=workspace,.operation=6};return transaction(&r)!=0;}
+bool ng_state_migrate(NgSession *workspace){Request r={.data=workspace,.operation=10};return transaction(&r)!=0;}
+int ng_state_load(NgSettings *settings,NgSession *session,bool *active)
+{Request r={.data=settings,.extra=session,.flag=active,.operation=8};return transaction(&r);}
+bool ng_state_save(NgSettings *settings,const NgSession *session,bool active)
+{Request r={.data=settings,.extra=(void *)session,.flag=&active,.operation=9};return transaction(&r)!=0;}
+bool ng_storage_delete(unsigned id){if(!id || id>NG_ID_MAX)return false;Request r={.id=id,.operation=7};return transaction(&r)!=0;}

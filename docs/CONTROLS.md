@@ -5,14 +5,15 @@ are stored/decoded as legacy, never offered by the normal selector.
 
 | Screen/state | Arrows | Digits/operators | EXE / F6 | DEL | EXIT | F1 / F2 / F3 / F4 / F5 |
 |---|---|---|---|---|---|---|
-| Main/category | Wrapped 2×3 selector | 1–6 opens tile; operators unused | OPEN tile | Unused | Category→Main | — / Main SET / Main valid visible RESUME / — / — |
-| Game entry | UP/DOWN rows; LEFT/RIGHT clamp settings | Digits focus row only; operators unused | RESUME row resumes; all other rows request NEW | Unused | Category | — / — / HELL for LOGIC / — / RULES |
+| Main/category | Wrapped 2×3 selector | 1–6 opens tile; operators unused | OPEN tile | Unused | Category→Main | Main F1 RESUME if active / Main SET / — / — / — |
+| Game entry | UP/DOWN rows; LEFT/RIGHT clamp settings | Digits focus row only; operators unused | RESUME row resumes; other rows START GAME directly | Unused | Category | — / — / HELL for LOGIC / — / RULES |
 | Rules | UP/DOWN scroll | Unused | Close, preserving result state | Unused | Close | Only F6 OK |
 | Settings | Unused | 1 toggles first help; 2 toggles time display | Unused | Unused | Save preferences→Main | HELP / TIME / DIAG / — / — |
 | NUM DIAG diagnostics | Unused | Unused | Close/cancel stress | Unused | Close/cancel stress | RESET / EXPORT / PAGE / STRESS or STOP / — |
-| NEW or INIT confirmation | Unused | Unused | Confirm once after release | Unused | Cancel | Only F6 YES |
+| INIT confirmation | Unused | Unused | Confirm same-puzzle restart | Unused | Cancel | Only F6 YES |
 | Save error | Unused | Unused | Bounded retry | Unused | Keep RAM/play | Only F6 RETRY |
-| Result | Unused | Unused | NEW game | Unused | Game entry, NEW focused | NEW / — / — / — / RULES |
+| Completion dialog | Unused | Unused | NEW game | Unused | VIEW RESULT | — / — / — / — / RULES |
+| Frozen result | Unused | Unused | F6 NEW | Unused | Game entry | — / — / — / — / RULES |
 | Legacy pause (not publicly selectable) | Unused | Unused | Continue | Unused | Continue | F4 RESUME |
 
 MENU and SHIFT+AC/ON reach the common dispatcher from every row above. They
@@ -70,11 +71,11 @@ Grid fixed clues cannot be edited. Numbrix/Magic retain an invalid draft after
 range errors; movement cancels it. Partial Magic has fixed clues; FREE does not.
 MASTER retains the same input controls. LOGIC HELL is selected only by F3
 on the difficulty row; F3 again restores the prior general level, LEFT goes to
-MASTER, RIGHT stays. Difficulty and inline settings changes apply only to NEW, not RESUME.
+MASTER, RIGHT stays. Difficulty and inline settings changes apply only to START GAME, not RESUME.
 2048 TARGET uses goals512/1024/2048/8192; CLASSIC retains the original endless rules.
 Magic MASTER is a4×4 panmagic challenge; RULES lists the extra wrap-diagonal sums.
 
-Strategy21–25 and Reversi37 show a FIRST row with YOU or CPU; new local-two-player games are unavailable. CPU pending hides F6 and rejects game input; MENU/OFF remain common actions. CPU undo restores the whole human+CPU round. MASTER introduces verified tactical starts for21–25.
+Strategy21–25 and Reversi37 show a FIRST row with YOU or CPU; new local-two-player games are unavailable. CPU pending hides F6; Reversi also hides HINT/MOVES during CPU work. Game input is rejected; MENU/OFF remain common actions. CPU undo restores the whole human+CPU round. MASTER introduces verified tactical starts for21–25.
 HARD and MASTER use the same exact CPU; MASTER does not claim a stronger AI.
 
 Shikaku EXIT cancels an unfinished corner selection without leaving play;

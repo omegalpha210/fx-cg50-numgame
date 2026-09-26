@@ -1,7 +1,7 @@
 # Game catalog and acceptance matrix
 
 Stable IDs1–28,31–38; legacy IDs29/30 are archived, never reused. All 36 have an engine, playable UI,
-verified content, per-game save/resume, host verification and a linked SH
+verified content, one shared active-run save/resume policy, host verification and a linked SH
 target. Every row remains **HARDWARE PENDING**. Counts below never include
 difficulty, size, or CPU-turn variants as extra games.
 
@@ -44,14 +44,16 @@ difficulty, size, or CPU-turn variants as extra games.
 | 32 | SLITHERLINK | STANDARD | — | Yes | — | HOST VERIFIED · TARGET BUILT · HARDWARE PENDING |
 | 38 | NET | STANDARD | — | Yes | REVEAL | HOST VERIFIED · TARGET BUILT · HARDWARE PENDING |
 
-All rows passed a real app-key/renderer workflow through terminal result,
-checkpoint and cold-load result. Storage separately covers 198 visible
+The retained 30 games passed real app-key/renderer workflows through terminal
+result, frozen result view and cold-load **no-resume**; the six new games have
+focused family audits for the same transitions. Storage separately covers 198 visible
 game × mode × difficulty configurations (including the identical classic
 2048 difficulty slots for compatibility). Engine family suites exercise
 additional seeds, illegal inputs, alternate answers and failure outcomes.
 The CSV [status matrix](acceptance-matrix.csv) records each stage.
 
 Assistance includes undo, hint/reveal/answer and same-seed INIT. No hidden
-guess undo is offered. Only five recent games retain resumable saves.
+guess undo is offered. Only the app's last unfinished run is resumable.
+See [RESUME_POLICY.md](RESUME_POLICY.md) and [RECENT_SIX_AUDIT.md](RECENT_SIX_AUDIT.md).
 The earlier 30-game content quantities and transformation caveats are in
 [CONTENT_INVENTORY.md](CONTENT_INVENTORY.md).

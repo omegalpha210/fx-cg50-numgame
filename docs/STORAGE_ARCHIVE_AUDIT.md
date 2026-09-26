@@ -1,5 +1,10 @@
 # Compact storage and old-archive migration
 
+This is the historical v4 five-game storage audit for the previous prerelease.
+The current v5 release keeps one unfinished run in two `NGSTATEA/B.dat` copies;
+see [the current storage format](STORAGE_FORMAT.md). The remainder of this page
+describes the older v4 design and its migration from the large archives.
+
 The prior release stored all game progress in `NGARCA.dat` and `NGARCB.dat`, **462,032 bytes each**, or 924,064 logical bytes before filesystem overhead. Older releases also used `NG00A/B.dat` through `NG30A/B.dat`. These formats are now read-only migration sources. New writes go to exact-length `NG2xxA/B.dat` files; diagnostic builds use the separate ND prefix. There is no whole-archive allocation at first run.
 
 The new settings record tracks at most five recent visible game IDs. Starting a sixth different game asks for confirmation and evicts the least recent save. The implementation persists a pending-delete marker before removing the victim, so an interrupted deletion is retried on startup. Each retained record has two validated A/B copies. The normal logical upper bound for five maximum-size saves and settings is **102,712 bytes**, though on-device flash block allocation is unmeasured.

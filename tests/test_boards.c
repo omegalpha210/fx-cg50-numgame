@@ -149,6 +149,7 @@ static void captures(void){
  * the persistence mechanism. Archive/native I/O is covered by the root suites. */
 typedef struct {
  uint8_t bytes[3][NG_RECORD_MAX];size_t lengths[3];
+ uint8_t state[NG_RECORD_MAX];size_t state_length;bool state_active;
  NgSettings settings;bool has_settings;unsigned saves,menus,offs;
 } BoardAppDisk;
 static BoardAppDisk app_disk;
@@ -165,9 +166,21 @@ static bool app_save(void *ctx,NgSession *s){
 }
 static int app_settings_load(void *ctx,NgSettings *s){BoardAppDisk *d=ctx;if(!d->has_settings)return NG_LOAD_ABSENT;*s=d->settings;return NG_LOAD_OK;}
 static bool app_settings_save(void *ctx,NgSettings *s){BoardAppDisk *d=ctx;d->settings=*s;d->has_settings=true;return true;}
+static int app_state_load(void *ctx,NgSettings *settings,NgSession *session,bool *active){
+ BoardAppDisk *d=ctx;if(!d->has_settings)return NG_LOAD_ABSENT;
+ *settings=d->settings;*active=d->state_active;
+ if(*active){if(!ng_single_decode(session,d->state,d->state_length,settings->last_game))return NG_LOAD_INVALID;}
+ else memset(session,0,sizeof *session);
+ return NG_LOAD_OK;
+}
+static bool app_state_save(void *ctx,NgSettings *settings,const NgSession *session,bool active){
+ BoardAppDisk *d=ctx;size_t n=active?ng_single_encode(session,d->state,sizeof d->state):0;
+ if(active&&!n)return false;
+ d->state_length=n;d->state_active=active;d->settings=*settings;d->has_settings=true;d->saves++;return true;
+}
 static void app_menu(void *ctx){((BoardAppDisk *)ctx)->menus++;}
 static void app_off(void *ctx){((BoardAppDisk *)ctx)->offs++;}
-static NgHooks app_hooks(void){return (NgHooks){&app_disk,app_load,app_save,app_settings_load,app_settings_save,app_menu,app_off,NULL};}
+static NgHooks app_hooks(void){return (NgHooks){.context=&app_disk,.load=app_load,.save=app_save,.load_settings=app_settings_load,.save_settings=app_settings_save,.os_menu=app_menu,.power_off=app_off,.load_state=app_state_load,.save_state=app_state_save};}
 static void app_paint(void *ctx,int x,int y,int w,int h,uint16_t color){
  (void)ctx;CHECK(x>=0&&y>=0&&w>0&&h>0&&x+w<=396&&y+h<=224);for(int r=y;r<y+h;r++)for(int c=x;c<x+w;c++)pixels[r*396+c]=color;
 }
@@ -180,7 +193,8 @@ static void app_focus(NgApp *a,int choice){
 static void app_entry(NgApp *a,unsigned id){
  for(unsigned k=0;(a->modal||a->screen!=NG_MAIN)&&k<16;k++)app_press(a,NGK_EXIT);CHECK(!a->modal&&a->screen==NG_MAIN);
  int index=ng_catalog_index(id);CHECK(index>=0&&ng_visible_id((unsigned)index)==id);app_press(a,'1'+index/6);app_press(a,'1'+index%6);
- CHECK(a->screen==NG_ENTRY&&a->selected_id==id);CHECK(ng_entry_action(a,a->entry_selection)==NG_ENTRY_NEW);
+ CHECK(a->screen==NG_ENTRY&&a->selected_id==id);
+ CHECK(ng_entry_action(a,a->entry_selection)==(a->resumable&&a->session.game.id==id?NG_ENTRY_RESUME:NG_ENTRY_NEW));
 }
 static void app_resume(NgApp *a){app_focus(a,NG_ENTRY_RESUME);app_press(a,NGK_EXE);CHECK(a->screen==NG_PLAY);}
 static void app_cell(NgApp *a,unsigned target){
@@ -221,19 +235,27 @@ static void app_workflows(void){
    NgGame before=selected;CHECK(a->session.undo_count==1);before=a->session.undo[0];app_undo_equal(a,before);before=a->session.game;
    ng_app_event(a,NGK_EXE,NG_DOWN);CHECK(a->session.game.moves==before.moves+1);CHECK(!ng_app_event(a,NGK_EXE,NG_HOLD));ng_app_event(a,NGK_EXE,NG_UP);CHECK(ng_app_tick(a,1234));app_undo_equal(a,before);before=a->session.game;app_press(a,NGK_DEL);CHECK(nb_edge_get(&a->session.game,a->session.game.cursor)==2);app_undo_equal(a,before);
   }
-  NgGame saved=a->session.game;app_press(a,NGK_EXIT);CHECK(a->screen==NG_ENTRY&&ng_entry_action(a,a->entry_selection)==NG_ENTRY_NEW);
+  NgGame saved=a->session.game;app_press(a,NGK_EXIT);CHECK(a->screen==NG_ENTRY&&ng_entry_action(a,a->entry_selection)==NG_ENTRY_RESUME);
   unsigned writes=app_disk.saves;app_press(a,NGK_F4);CHECK(!a->modal&&a->screen==NG_ENTRY);CHECK(app_disk.saves==writes&&!memcmp(&a->session.game,&saved,sizeof saved));
-  app_press(a,NGK_F6);CHECK(a->modal==NG_MODAL_NEW&&!memcmp(&a->session.game,&saved,sizeof saved));app_press(a,NGK_EXIT);app_resume(a);CHECK(!memcmp(&a->session.game,&saved,sizeof saved));
-  app_press(a,NGK_EXIT);app_focus(a,NG_ENTRY_LEVEL);unsigned new_level=(difficulty+1)%4;for(unsigned k=0;a->settings.difficulty[id-1]!=new_level&&k<3;k++)app_press(a,a->settings.difficulty[id-1]>new_level?NGK_LEFT:NGK_RIGHT);CHECK(a->settings.difficulty[id-1]==new_level);app_press(a,NGK_F6);CHECK(a->modal==NG_MODAL_NEW&&!memcmp(&a->session.game,&saved,sizeof saved));app_press(a,NGK_EXIT);app_resume(a);CHECK(!memcmp(&a->session.game,&saved,sizeof saved));
-  app_press(a,NGK_EXIT);app_focus(a,NG_ENTRY_NEW);app_press(a,NGK_EXE);CHECK(a->modal==NG_MODAL_NEW);app_press(a,NGK_EXE);CHECK(a->screen==NG_PLAY&&!a->modal&&a->session.game.run_id==saved.run_id+1&&a->session.game.seed!=saved.seed&&a->session.game.difficulty==new_level&&!a->session.game.moves&&!a->session.game.assisted&&!a->session.undo_count);
+  app_press(a,NGK_F6);CHECK(a->screen==NG_PLAY&&!memcmp(&a->session.game,&saved,sizeof saved));
+  app_press(a,NGK_EXIT);app_focus(a,NG_ENTRY_LEVEL);unsigned new_level=(difficulty+1)%4;
+  for(unsigned k=0;a->settings.difficulty[id-1]!=new_level&&k<3;k++)app_press(a,a->settings.difficulty[id-1]>new_level?NGK_LEFT:NGK_RIGHT);
+  CHECK(a->settings.difficulty[id-1]==new_level);app_press(a,NGK_F6);
+  CHECK(a->screen==NG_PLAY&&!a->modal&&a->session.game.run_id==saved.run_id+1&&a->session.game.seed!=saved.seed&&a->session.game.difficulty==new_level&&!a->session.game.moves&&!a->session.game.assisted&&!a->session.undo_count);
   if(id==31)(void)app_rectangle(a,boards_test_rects[a->session.game.puzzle_id][1]);else{app_edge(a,nb_edge_count(a->session.game.rows)-1);app_press(a,NGK_DEL);}
-  saved=a->session.game;app_press(a,NGK_EXIT);app_entry(a,26);app_press(a,NGK_F6);CHECK(a->session.game.id==26);app_entry(a,id);app_resume(a);CHECK(!memcmp(&a->session.game,&saved,sizeof saved));
+  saved=a->session.game;app_press(a,NGK_EXIT);app_entry(a,26);app_press(a,NGK_F6);CHECK(a->session.game.id==26);
+  app_entry(a,id);CHECK(ng_entry_action(a,0)==NG_ENTRY_NEW);
+  app_press(a,NGK_F6);CHECK(a->screen==NG_PLAY && a->session.game.id==id && !a->session.game.moves);
   app_finish(a);unsigned level=a->session.game.difficulty,assisted=a->session.game.assisted;uint32_t completed=a->session.stats.best[0][level][assisted].completed;CHECK(completed==1);NgGame terminal=a->session.game;
   app_press(a,NGK_F5);CHECK(a->modal==NG_MODAL_RULES);app_press(a,NGK_EXIT);CHECK(a->modal==NG_MODAL_RESULT);CHECK(!ng_app_tick(a,5000));CHECK(!memcmp(&terminal,&a->session.game,sizeof terminal));CHECK(ng_checkpoint(a)&&ng_checkpoint(a));app_press(a,NGK_MENU);app_press(a,NGK_SHIFT);app_press(a,NGK_ACON);CHECK(app_disk.menus==2&&app_disk.offs==1);
-  app_press(a,NGK_EXIT);CHECK(ng_entry_action(a,a->entry_selection)==NG_ENTRY_NEW);app_resume(a);CHECK(a->modal==NG_MODAL_RESULT&&a->session.stats.best[0][level][assisted].completed==completed);
-  ng_app_init(&board_app,app_hooks(),9900);a=&board_app;app_entry(a,id);app_resume(a);CHECK(a->modal==NG_MODAL_RESULT&&!memcmp(&a->session.game,&terminal,sizeof terminal));CHECK(!a->session.stats.best[0][level][assisted].completed);cases++;
+  app_press(a,NGK_EXIT);CHECK(a->screen==NG_PLAY && a->result_view && !a->modal);
+  app_press(a,NGK_EXE);CHECK(!memcmp(&a->session.game,&terminal,sizeof terminal));
+  app_press(a,NGK_EXIT);CHECK(a->screen==NG_ENTRY && ng_entry_action(a,a->entry_selection)==NG_ENTRY_NEW);
+  ng_app_init(&board_app,app_hooks(),9900);a=&board_app;CHECK(!a->resumable);
+  app_entry(a,id);CHECK(ng_entry_action(a,0)==NG_ENTRY_NEW);app_press(a,NGK_F6);
+  CHECK(a->screen==NG_PLAY && a->session.game.status==NG_PLAYING);cases++;
  }
- printf("Boards actual NgApp: %u level workflows, real renderer %u frames; phase-cancel/HOLD, edge144, undo, MENU codec reload, NEW/RESUME and cold result PASS\n",cases,app_frames);
+ printf("Boards actual NgApp: %u level workflows, real renderer %u frames; phase-cancel/HOLD, edge144, undo, MENU reload, START/RESUME, frozen result and cold no-resume PASS\n",cases,app_frames);
 }
 #endif
 int test_boards(void){setvbuf(stdout,NULL,_IONBF,0);all_packs();shikaku_invalid();slither_invalid();exhaustive_small();shikaku_exhaustive();mutations();captures();

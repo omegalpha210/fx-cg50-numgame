@@ -15,6 +15,8 @@ typedef struct {
  void (*os_menu)(void *);
  void (*power_off)(void *);
  bool (*remove_game)(void *,unsigned);
+ int (*load_state)(void *,NgSettings *,NgSession *,bool *);
+ bool (*save_state)(void *,NgSettings *,const NgSession *,bool);
 } NgHooks;
 typedef struct {
  NgSession session;
@@ -28,8 +30,8 @@ typedef struct {
  uint8_t stats_category,stats_page,rules_scroll;
  uint8_t record_mode,record_difficulty,record_assisted;
  uint8_t previous_level[NG_ID_MAX],mode_choice,diag_page;
- bool shift_pending,alpha_pending,dirty,settings_dirty,active,save_failed;
- bool evict_confirmed;
+ bool shift_pending,alpha_pending,dirty,settings_dirty,active,resumable,result_view,save_failed;
+ bool start_failed,start_failed_result;
  char target_draft[5];
  uint32_t backlight_ms,apo_ms;
  bool power_os_settings,power_available;

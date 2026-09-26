@@ -76,6 +76,7 @@ static void ray_message(NgGame *g,unsigned port){
  else snprintf(g->message,sizeof(g->message),"Port %u is untested. EXE fires a beam.",port+1);
 }
 static bool action_blackbox(NgGame *g,int key){
+ if(g->status!=NG_PLAYING)return false;
  if(auxiliary_key(key)){g->phase^=1;ng_message(g,g->phase?"RAYS: arrows choose a port; EXE fires.":"CELLS: arrows move; 1 atom, 2 exclude, 0 clear.");return true;}
  if(key==NGK_UP||key==NGK_DOWN||key==NGK_LEFT||key==NGK_RIGHT){
   if(!g->phase)return ng_grid_nav(g,key);
@@ -189,6 +190,7 @@ static void init_cryptarithm(NgGame *g){
  ng_message(g,"Assign a different digit to each letter; F6 checks.");
 }
 static bool action_cryptarithm(NgGame *g,int key){
+ if(g->status!=NG_PLAYING)return false;
  unsigned count=crypt_pack(g)->letters;
  if(key==NGK_UP||key==NGK_DOWN||key==NGK_LEFT||key==NGK_RIGHT){
   int delta=key==NGK_LEFT?-1:key==NGK_RIGHT?1:key==NGK_UP?-(int)g->cols:g->cols;
@@ -219,25 +221,43 @@ static bool valid_cryptarithm(const NgGame *g){
  for(unsigned i=0;i<NG_DATA;i++)if(i!=0&&i!=1&&i!=3&&g->data[i])return false;
  return g->status!=NG_WON||(g->data[3]&&gc_cryptarithm_complete(g));
 }
+/* Six integer-pitch columns share the same units position in every row.
+ * Center each individual glyph by its measured advance; space padding cannot
+ * align this proportional font. Unassigned digit cells contain no glyph. */
+static void crypt_glyph(NgCanvas *c,int x,int y,char value,int color){
+ char text[2]={value,0};ng_center(c,x,y,12,text,color,1);
+}
 static void render_cryptarithm(const NgGame *g,NgCanvas *c){
- const GcCryptPack *p=crypt_pack(g);char line[40],numbers[8];
+ const GcCryptPack *p=crypt_pack(g);char line[40];unsigned max_length=0;
+ for(unsigned w=0;w<=p->count;w++){unsigned length=(unsigned)strlen(p->words[w]);if(length>max_length)max_length=length;}
+ int operator_x=12+(int)(6-max_length)*12;
  ng_text(c,15,30,"LETTER ADDITION",NG_BLUE,1);
  for(unsigned w=0;w<=p->count;w++){
-  int y=50+(int)w*22;snprintf(line,sizeof(line),"%c %6s",w==p->count?'=':w?'+':' ',p->words[w]);ng_expression(c,17,y,line,NG_INK,1);
-  unsigned j;for(j=0;p->words[w][j];j++){int value=g->board[(unsigned)(p->words[w][j]-'A')];numbers[j]=value<0?'_':(char)('0'+value);}numbers[j]=0;
-  ng_text(c,115,y,numbers,NG_BLUE,1);
+  int y=50+(int)w*22;unsigned length=(unsigned)strlen(p->words[w]);
+  if(w&&w<p->count){crypt_glyph(c,operator_x,y,'+',ng_operator_color('+',NG_INK));crypt_glyph(c,operator_x+96,y,'+',ng_operator_color('+',NG_INK));}
+  for(unsigned j=0;j<length;j++){
+   unsigned letter=(unsigned)(p->words[w][j]-'A');int x=24+(int)(6-length+j)*12;
+   if(letter==g->cursor){ng_rect(c,x,y-2,12,15,NG_PALE);ng_border(c,x,y-2,12,15,NG_BLUE,1);}
+   crypt_glyph(c,x,y,p->words[w][j],letter==g->cursor?NG_BLUE:NG_INK);
+   if(g->board[letter]>=0)crypt_glyph(c,x+96,y,(char)('0'+g->board[letter]),NG_BLUE);
+  }
  }
- ng_line(c,17,89,174,89,NG_LINE);
- ng_small(c,205,34,"Letters use DIFFERENT digits",NG_MUTED);ng_small(c,205,48,"First letter cannot be zero",NG_MUTED);ng_small(c,211,70,"Arrows: choose a letter",NG_MUTED);ng_small(c,211,84,"0..9: set   DEL: clear",NG_MUTED);ng_small(c,211,98,"NEXT: next empty letter",NG_MUTED);
+ ng_line(c,operator_x,89,95,89,NG_LINE);ng_line(c,operator_x+96,89,191,89,NG_LINE);
+ ng_small(c,205,34,"Letters use DIFFERENT digits",NG_MUTED);ng_small(c,205,48,"First letter cannot be zero",NG_MUTED);
+ if(g->board[g->cursor]<0)snprintf(line,sizeof(line),"Selected %c: unset",(int)('A'+g->cursor));
+ else snprintf(line,sizeof(line),"Selected %c = %d",(int)('A'+g->cursor),g->board[g->cursor]);
+ ng_text(c,205,65,line,NG_BLUE,1);
+ ng_small(c,211,83,"Arrows: choose a letter",NG_MUTED);ng_small(c,211,95,"0..9: set   DEL: clear",NG_MUTED);ng_small(c,211,107,"NEXT: next empty letter",NG_MUTED);
  unsigned columns=g->cols;
  for(unsigned i=0;i<p->letters;i++){
   int x=13+(int)(i%columns)*74,y=119+(int)(i/columns)*31;
-  snprintf(line,sizeof(line),"%c = %c",(int)('A'+i),g->board[i]<0?'_':(int)('0'+g->board[i]));
-  ng_card(c,x,y,68,27,"",i==g->cursor,false);ng_expression(c,x+9,y+8,line,NG_INK,1);
+  if(g->board[i]<0)snprintf(line,sizeof(line),"%c",(int)('A'+i));
+  else snprintf(line,sizeof(line),"%c = %d",(int)('A'+i),g->board[i]);
+  ng_card(c,x,y,68,27,"",i==g->cursor,false);ng_center(c,x,y+8,68,line,i==g->cursor?NG_BLUE:NG_INK,1);
  }
 }
 
 const NgModule ng_guesscalc_extra[2]={
  {33,"BLACK BOX","BLACK BOX","Find hidden atoms by firing beams from edges.\nE/N/H/MASTER: 5/6/7/8 square; 3/4/5/6 atoms.\nA beam hitting an atom is absorbed (H).\nAn atom diagonally ahead bends it away.\nTwo diagonally ahead reverse the beam.\nA side atom at entry reflects immediately (R).\nDirect hits take precedence over diagonals.\nExit numbers pair the entry and exit ports.\nAny layout with the correct atom count and\nALL the same ray outcomes wins; equivalent\nlayouts are accepted, not just the hidden one.\nCELLS: arrows move; EXE cycles blank/atom/X.\n1 atom, 2 excluded, 0/DEL clear. F4: RAYS.\nRAYS: arrows select port; EXE fires. F4: CELLS.\nF6 CHECK costs 5 penalty points if wrong.\nScore = new probes + penalties; lower is best.\nHINT reveals one atom and marks assisted.",NGF_UNDO|NGF_HINT,"RAY/CELL","CHECK",1,standard,init_blackbox,action_blackbox,NULL,valid_blackbox,render_blackbox},
- {34,"CRYPTARITHM","CRYPTARITHM","Replace letters with decimal digits so the\nvertical addition is true. Each letter keeps\none digit; different letters use different\ndigits. Leading letters cannot be zero.\nE/N/H/MASTER: two 2/3/4/5-digit addends.\nLonger carries and more letters are involved;\nthis is a structural level, not a human rating.\n30 original, unique-solution puzzles per level.\nArrows select a letter. Digits set it.\nDEL clears it. NEXT selects the next blank.\nEXE or F6 checks all public arithmetic rules.\nAny valid assignment is accepted. UNDO works\non digit edits and checks. No stored answer\nis consulted by the native checker.",NGF_UNDO,"NEXT","CHECK",1,standard,init_cryptarithm,action_cryptarithm,NULL,valid_cryptarithm,render_cryptarithm}
+ {34,"CRYPTARITHM","CRYPTARITHM","Replace letters with decimal digits so the\nvertical addition is true. Each letter keeps\none digit; different letters use different\ndigits. Leading letters cannot be zero.\nE/N/H/MASTER: two 2/3/4/5-digit addends.\nLonger carries and more letters are involved;\nthis is a structural level, not a human rating.\n30 original, unique-solution puzzles per level.\nArrows select a letter. Digits set it.\nSelected letters are boxed in the sum.\nBlank mappings show only their letter.\nDEL clears it. NEXT selects the next blank.\nEXE or F6 checks all public arithmetic rules.\nAny valid assignment is accepted. UNDO works\non digit edits and checks. No stored answer\nis consulted by the native checker.",NGF_UNDO,"NEXT","CHECK",1,standard,init_cryptarithm,action_cryptarithm,NULL,valid_cryptarithm,render_cryptarithm}
 };

@@ -18,14 +18,15 @@
 #define MOCK_DAY 11059200u
 #define MOCK_FDS 8
 #define MOCK_COMPACT_BASE 65u
-#define MOCK_FILE_COUNT (MOCK_COMPACT_BASE+2u*(NG_ID_MAX+1u))
+#define MOCK_STATE_BASE (MOCK_COMPACT_BASE+2u*(NG_ID_MAX+1u))
+#define MOCK_FILE_COUNT (MOCK_STATE_BASE+2u)
 static uint16_t mock_vram_pixel;
 uint16_t *gint_vram=&mock_vram_pixel;
 static unsigned world_depth,world_calls,write_calls,close_calls,open_calls,read_calls;
 static unsigned os_calls,off_calls,render_calls,clear_calls,timer_starts,timer_pauses;
 static unsigned checkpoint_write_marker;
 static int fail_after_create,created_open_failure;
-static int close_failures,write_budget=-1,read_failure,zero_write,corrupt_on_close;
+static int close_failures,close_fail_write_once,write_budget=-1,read_failure,zero_write,corrupt_on_close;
 static uint32_t mock_ticks;
 static bool timer_unavailable,rtc_unavailable,expect_save_failure;
 static unsigned rtc_starts,rtc_stops;
@@ -47,6 +48,8 @@ static unsigned path_index(const uint16_t *path){
  if(!strcmp(name,"\\\\fls0\\" MOCK_PREFIX "ARCA.dat"))return 62;
  if(!strcmp(name,"\\\\fls0\\" MOCK_PREFIX "ARCB.dat"))return 63;
  if(!strcmp(name,"\\\\fls0\\" MOCK_PREFIX "DIAG.txt"))return 64;
+ if(!strcmp(name,"\\\\fls0\\" MOCK_PREFIX "STATEA.dat"))return MOCK_STATE_BASE;
+ if(!strcmp(name,"\\\\fls0\\" MOCK_PREFIX "STATEB.dat"))return MOCK_STATE_BASE+1;
  if(strlen(name)==17 && name[9]=='2'){
   assert(!memcmp(name,"\\\\fls0\\" MOCK_PREFIX,9));
   assert(name[10]>='0'&&name[10]<='3'&&name[11]>='0'&&name[11]<='9');
@@ -61,14 +64,14 @@ static MockFD *fd(int handle){assert(world_depth==1);assert(handle>=1&&handle<=M
 int BFile_Remove(const uint16_t *path){assert(world_depth==1);MockFile *f=&files[path_index(path)];if(!f->exists)return BFile_EntryNotFound;f->exists=false;f->size=0;return 0;}
 int BFile_Create(const uint16_t *path,int type,int *size){assert(world_depth==1);assert(type==BFile_File&&size&&(*size==0||*size==(int)NG_ARCHIVE_BYTES||(*size>=32&&*size<=NG_RECORD_MAX)));MockFile *f=&files[path_index(path)];assert(!f->exists);f->exists=true;f->size=(size_t)*size;memset(f->bytes,0xa5,f->size);created_open_failure=fail_after_create;return 0;}
 int BFile_Open(const uint16_t *path,int mode){assert(world_depth==1);open_calls++;unsigned index=path_index(path);if(!files[index].exists)return BFile_EntryNotFound;if(created_open_failure){created_open_failure=0;return -5;}for(unsigned i=0;i<MOCK_FDS;i++)if(!descriptors[i].open){descriptors[i]=(MockFD){true,mode!=BFile_ReadOnly,index,0};return (int)i+1;}return -5;}
-int BFile_Close(int handle){MockFD *d=fd(handle);close_calls++;if(close_failures){if(close_failures>0)close_failures--;return -5;}if(d->writing&&corrupt_on_close&&files[d->index].size){files[d->index].bytes[d->position-1]^=1;corrupt_on_close=0;}d->open=false;return 0;}
+int BFile_Close(int handle){MockFD *d=fd(handle);close_calls++;if(close_failures){if(close_failures>0)close_failures--;return -5;}if(d->writing&&close_fail_write_once){close_fail_write_once--;return -5;}if(d->writing&&corrupt_on_close&&files[d->index].size){files[d->index].bytes[d->position-1]^=1;corrupt_on_close=0;}d->open=false;return 0;}
 int BFile_Seek(int handle,int offset){MockFD *d=fd(handle);assert(offset>=0);d->position=(size_t)offset;return offset;}
 int BFile_Size(int handle){MockFD *d=fd(handle);return (int)files[d->index].size;}
 int BFile_Write(int handle,const void *data,int size){MockFD *d=fd(handle);assert(d->writing);write_calls++;if(zero_write)return 0;if(write_budget==0)return -5;if(write_budget>0&&size>write_budget)size=write_budget;assert(size>=0&&d->position+(size_t)size<=NG_ARCHIVE_BYTES);if(d->index>=MOCK_COMPACT_BASE)assert(d->position+(size_t)size<=files[d->index].size);memcpy(files[d->index].bytes+d->position,data,(size_t)size);d->position+=(size_t)size;if(d->position>files[d->index].size)files[d->index].size=d->position;if(write_budget>0)write_budget-=size;return size;}
 int BFile_Read(int handle,void *data,int size,int offset){MockFD *d=fd(handle);read_calls++;if(read_failure)return -5;assert(offset>=0&&size>=0);/* Fugue would return requested length even past EOF. Adapter MUST clamp. */assert((size_t)offset+(size_t)size<=files[d->index].size);memcpy(data,files[d->index].bytes+offset,(size_t)size);return size;}
 int gint_world_switch(gint_call_t call){assert(!world_depth);assert(call.argfn);world_calls++;world_depth++;int result=call.argfn(call.arg);world_depth--;return result;}
-void gint_osmenu(void){assert(!world_depth && !timer_active && !rtc_active && !brightness_saved);if(expect_save_failure){assert(app.dirty);os_calls++;return;}assert(!app.dirty&&!app.settings_dirty);checkpoint_write_marker=write_calls;NgSession loaded;int rc=ng_storage_load(&loaded,app.session.game.id);assert(rc==NG_LOAD_OK||rc==NG_LOAD_RECOVERED);assert(!memcmp(&loaded.game,&app.session.game,sizeof(NgGame)));os_calls++;mock_ticks=(mock_ticks+128u*36000u)%MOCK_DAY;}
-void gint_poweroff(bool show_message){assert(show_message&&!world_depth && !timer_active && !rtc_active && !brightness_saved);if(expect_save_failure){assert(app.dirty);off_calls++;return;}assert(!app.dirty&&!app.settings_dirty);off_calls++;mock_ticks=(mock_ticks+128u*3600u)%MOCK_DAY;}
+void gint_osmenu(void){assert(!world_depth && !timer_active && !rtc_active && !brightness_saved);if(expect_save_failure || ng_catalog_index(app.session.game.id)<0){os_calls++;return;}assert(!app.dirty&&!app.settings_dirty);checkpoint_write_marker=write_calls;NgSession loaded;NgSettings options;bool active=false;int rc=ng_state_load(&options,&loaded,&active);assert(rc==NG_LOAD_OK||rc==NG_LOAD_RECOVERED);assert(active==app.resumable);if(active)assert(!memcmp(&loaded.game,&app.session.game,sizeof(NgGame)));os_calls++;mock_ticks=(mock_ticks+128u*36000u)%MOCK_DAY;}
+void gint_poweroff(bool show_message){assert(show_message&&!world_depth && !timer_active && !rtc_active && !brightness_saved);if(expect_save_failure || ng_catalog_index(app.session.game.id)<0){off_calls++;return;}assert(!app.dirty&&!app.settings_dirty);off_calls++;mock_ticks=(mock_ticks+128u*3600u)%MOCK_DAY;}
 static uint16_t brightness=120;
 static unsigned dim_calls,restore_calls,hud_calls;
 int ng_os_backlight_duration(void){return 2;}
@@ -103,7 +106,7 @@ key_event_t keydev_read(keydev_t *device,bool wait,volatile int *timeout){
 static void add(unsigned key,unsigned type,uint32_t ticks,void (*check)(void)){assert(script_count<65536);script[script_count++]=(Step){key,type,ticks,check};}
 static void tap(unsigned key){add(key,KEYEV_DOWN,0,NULL);add(key,KEYEV_UP,0,NULL);}
 static void begin(unsigned category,unsigned game){tap(category);tap(game);tap(KEY_F6);}
-static void reset(void){memset(files,0,sizeof files);memset(descriptors,0,sizeof descriptors);memset(physical,0,sizeof physical);close_failures=read_failure=zero_write=corrupt_on_close=fail_after_create=created_open_failure=0;write_budget=-1;script_count=script_at=0;os_calls=off_calls=timer_starts=timer_pauses=0;checkpoint_write_marker=write_calls;mock_ticks=1000;timer_unavailable=rtc_unavailable=expect_save_failure=false;rtc_starts=rtc_stops=0;dim_calls=restore_calls=hud_calls=0;brightness=120;}
+static void reset(void){memset(files,0,sizeof files);memset(descriptors,0,sizeof descriptors);memset(physical,0,sizeof physical);close_failures=close_fail_write_once=read_failure=zero_write=corrupt_on_close=fail_after_create=created_open_failure=0;write_budget=-1;script_count=script_at=0;os_calls=off_calls=timer_starts=timer_pauses=0;checkpoint_write_marker=write_calls;mock_ticks=1000;timer_unavailable=rtc_unavailable=expect_save_failure=false;rtc_starts=rtc_stops=0;dim_calls=restore_calls=hud_calls=0;brightness=120;}
 static void run_script(void){if(!setjmp(exit_loop))(void)numgame_native_main();assert(script_at==script_count);assert(!world_depth);}
 static void check_nim_play(void){assert(app.screen==NG_PLAY&&app.session.game.id==21&&!app.modal);}
 static void check_cpu_done(void){assert(app.session.game.moves==2&&!app.session.game.cpu_pending);}
@@ -111,7 +114,7 @@ static void check_plain_acon(void){assert(off_calls==0);}
 static void fail_writes(void){zero_write=1;expect_save_failure=true;}
 static void check_failed_menu(void){assert(os_calls==1&&app.modal==NG_MODAL_SAVE_ERROR&&app.active&&app.dirty&&ng_valid(&app.session.game));}
 static void test_failed_power_checkpoint(void){
- reset();begin(KEY_5,KEY_1);add(KEY_MENU,KEYEV_DOWN,0,fail_writes);add(KEY_MENU,KEYEV_UP,0,NULL);add(0,KEYEV_NONE,0,check_failed_menu);tap(KEY_SHIFT);tap(KEY_ACON);run_script();assert(off_calls==1&&app.modal==NG_MODAL_SAVE_ERROR&&app.dirty);assert(ng_valid(&app.session.game));
+ reset();begin(KEY_5,KEY_1);add(0,KEYEV_NONE,128,NULL);add(KEY_MENU,KEYEV_DOWN,0,fail_writes);add(KEY_MENU,KEYEV_UP,0,NULL);add(0,KEYEV_NONE,0,check_failed_menu);tap(KEY_SHIFT);tap(KEY_ACON);run_script();assert(off_calls==1&&app.modal==NG_MODAL_SAVE_ERROR&&app.dirty);assert(ng_valid(&app.session.game));
  zero_write=0;expect_save_failure=false;assert(ng_storage_save(&app.session));
  puts("Native main: failed checkpoint still reaches MENU/OFF once, preserves RAM and reports error PASS");
 }
@@ -124,8 +127,8 @@ static void test_native_keys(void){
  tap(KEY_ACON);add(0,KEYEV_NONE,0,check_plain_acon);tap(KEY_SHIFT);tap(KEY_2);tap(KEY_ACON);add(0,KEYEV_NONE,0,check_plain_acon);tap(KEY_ALPHA);tap(KEY_SHIFT);tap(KEY_ACON);add(0,KEYEV_NONE,0,check_plain_acon);tap(KEY_SHIFT);tap(KEY_ACON);run_script();assert(os_calls==1&&off_calls==1);assert(clear_calls&&render_calls);
  puts("Native main: real key mapping, CPU event, checkpoint-before-MENU/OFF, plain AC/ON ignored, OS elapsed exclusion PASS");
 }
-static void legacy_memory(void){ng_new(&app.session.game,30,1,0,123,1);app.selected_id=30;app.session.undo_count=0;}
-static void legacy_rush(void){ng_new(&app.session.game,29,1,0,123,1);app.selected_id=29;app.session.undo_count=0;}
+static void legacy_memory(void){ng_new(&app.session.game,30,1,0,123,1);app.selected_id=30;app.session.undo_count=0;app.resumable=app.dirty=true;}
+static void legacy_rush(void){ng_new(&app.session.game,29,1,0,123,1);app.selected_id=app.settings.last_game=29;app.session.undo_count=0;app.resumable=app.dirty=true;}
 static void begin_legacy(unsigned id){begin(KEY_5,KEY_1);add(0,KEYEV_NONE,0,id==30?legacy_memory:legacy_rush);}
 static int32_t exposure_left;static uint32_t exposure_elapsed;
 static void remember_exposure(void){assert(app.session.game.id==30&&app.session.game.phase==0);exposure_left=app.session.game.data[2];exposure_elapsed=app.session.game.elapsed_ms;}
@@ -176,13 +179,12 @@ static void test_switch_stress(void){
  reset();
  for(unsigned i=0;i<1000;i++){
   unsigned index=i%NG_GAME_COUNT;begin(native_keys[index/6+1],native_keys[index%6+1]);
-  if(i>=NG_RECENT_LIMIT)tap(KEY_EXE);
   add(0,KEYEV_NONE,32,NULL);tap(KEY_F5);tap(KEY_EXIT);tap(KEY_EXIT);
   tap(KEY_F4);tap(KEY_EXIT);tap(KEY_EXIT);tap(KEY_EXIT);tap(KEY_MENU);
  }
  run_script();assert(os_calls==1000 && ng_diagnostics.menu_requests==1000 && ng_diagnostics.menu_entries==1000 && ng_diagnostics.menu_returns==1000);
  assert(ng_diagnostics.peak_timers==1 && ng_diagnostics.timers==1 && !ng_diagnostics.handles && ng_diagnostics.peak_handles==1);
- unsigned count=0;for(unsigned i=0;i<MOCK_FILE_COUNT;i++)if(files[i].exists)count++;assert(count<=2+2*NG_RECENT_LIMIT);
+ unsigned count=0;for(unsigned i=0;i<MOCK_FILE_COUNT;i++)if(files[i].exists)count++;assert(count==2);
  for(unsigned i=0;i<MOCK_FDS;i++)assert(!descriptors[i].open);
  unsigned sequence=ng_diagnostics.sequence;assert(ng_diag_export()&&files[64].exists&&files[64].size<NG_RECORD_MAX);assert(ng_diagnostics.sequence==sequence&&!ng_diagnostics.handles);size_t exported=files[64].size;assert(ng_diag_export()&&files[64].size==exported);
  printf("Native stress:1000 switches/menus, zero residual handles, one timer, %u bounded exact-size files PASS\n",count);
@@ -289,8 +291,8 @@ static void check_no_equal(void){assert(!strchr(app.session.game.input,'=')&&!ap
 static unsigned global_stage;
 static void check_global_stage(void)
 {
- static const unsigned screens[]={NG_PLAY,NG_PLAY,NG_PLAY,NG_ENTRY,NG_ENTRY,NG_CATEGORY,NG_SETTINGS,NG_SETTINGS,NG_MAIN};
- static const unsigned modals[]={0,NG_MODAL_RULES,NG_MODAL_INIT,0,NG_MODAL_NEW,0,0,NG_MODAL_DIAGNOSTICS,0};
+ static const unsigned screens[]={NG_PLAY,NG_PLAY,NG_PLAY,NG_ENTRY,NG_PLAY,NG_CATEGORY,NG_SETTINGS,NG_SETTINGS,NG_MAIN};
+ static const unsigned modals[]={0,NG_MODAL_RULES,NG_MODAL_INIT,0,0,0,0,NG_MODAL_DIAGNOSTICS,0};
  assert(global_stage<9);assert(app.screen==screens[global_stage]&&app.modal==modals[global_stage]);global_stage++;
 }
 static void checked_menu(void){add(KEY_MENU,KEYEV_DOWN,0,check_global_stage);add(KEY_MENU,KEYEV_UP,0,NULL);}
@@ -300,12 +302,12 @@ static void test_global_screens(void)
  tap(KEY_F5);checked_menu();tap(KEY_EXIT); /* rules */
  add(0,KEYEV_NONE,32,NULL);tap(KEY_F1);checked_menu();tap(KEY_EXIT); /* init confirmation */
  tap(KEY_EXIT);checked_menu(); /* entry */
- tap(KEY_F6);checked_menu();tap(KEY_EXIT); /* new confirmation */
+ tap(KEY_F6);checked_menu();tap(KEY_EXIT); /* direct START GAME */
  tap(KEY_EXIT);checked_menu(); /* category */
  tap(KEY_EXIT);tap(KEY_F2);checked_menu();tap(KEY_F3);checked_menu(); /* settings + diagnostics */
  tap(KEY_SHIFT);tap(KEY_ACON);tap(KEY_EXIT);tap(KEY_EXIT);checked_menu(); /* main */
  run_script();assert(os_calls==9&&off_calls==1&&!ng_diagnostics.handles&&ng_diagnostics.peak_timers==1);
- puts("Native global dispatch: PLAY/RULES/INIT/ENTRY/NEW/CATEGORY/SETTINGS/DIAGNOSTICS/MAIN MENU and modal OFF PASS");
+ puts("Native global dispatch: PLAY/RULES/INIT/ENTRY/START/CATEGORY/SETTINGS/DIAGNOSTICS/MAIN MENU and modal OFF PASS");
 }
 static void test_physical_equals(void)
 {
@@ -323,9 +325,11 @@ static void direct_press(NgApp *state,int key){ng_app_event(state,key,NG_DOWN);n
 static void test_review_transitions(void){
  NgApp state;ng_app_init(&state,(NgHooks){0},9);state.session=session_new(25);ng_new(&state.session.game,25,0,2,123,1);state.session.game.board[0]=20;state.screen=NG_PLAY;state.selected_id=25;state.active=true;
  direct_press(&state,'1');direct_press(&state,NGK_EXE);assert(state.modal==NG_MODAL_RESULT);direct_press(&state,NGK_F5);assert(state.modal==NG_MODAL_RULES);direct_press(&state,NGK_EXIT);assert(state.modal==NG_MODAL_RESULT);
- ng_app_init(&state,(NgHooks){.save_settings=fail_settings_save},9);state.session=session_new(21);state.screen=NG_MAIN;state.selected_id=21;state.active=true;state.settings.last_game=26;state.summary[25].exists=1;state.settings_dirty=true;
- NgGame preserved=state.session.game;direct_press(&state,NGK_F3);assert(state.modal==NG_MODAL_SAVE_ERROR&&state.screen==NG_MAIN&&state.selected_id==21);assert(!memcmp(&preserved,&state.session.game,sizeof preserved));
- puts("Review regressions: RESULT/RULES return and failed-checkpoint Main RESUME preserve state/error PASS");
+ ng_app_init(&state,(NgHooks){0},9);state.session=session_new(21);state.active=state.resumable=true;state.settings.last_game=21;
+ direct_press(&state,NGK_F1);assert(state.screen==NG_PLAY&&state.session.game.id==21);
+ ng_app_init(&state,(NgHooks){.save_settings=fail_settings_save},9);state.session=session_new(21);state.screen=NG_CATEGORY;state.selected_id=21;state.active=state.resumable=true;state.settings.last_game=21;state.settings_dirty=true;
+ NgGame preserved=state.session.game;direct_press(&state,'2');assert(state.modal==NG_MODAL_SAVE_ERROR&&state.screen==NG_CATEGORY&&state.selected_id==21);assert(!memcmp(&preserved,&state.session.game,sizeof preserved));
+ puts("Review regressions: RESULT/RULES return, Main F1 global RESUME and failed entry checkpoint preserve state/error PASS");
 }
 
 
@@ -345,4 +349,60 @@ static void test_malformed_compact(void){
  puts("Compact saves: old cumulative statistics omitted; valid-CRC wrong-game and mismatched undo rejected PASS");
 }
 
-int main(void){setvbuf(stdout,NULL,_IONBF,0);test_native_storage();test_global_screens();test_physical_equals();test_archive_migration();test_migration_five_choice();test_global_phase_boundary();test_native_keys();test_failed_power_checkpoint();test_native_memory();test_native_hold();test_native_clock();test_timer_fallback();test_common_idle();test_switch_stress();test_review_transitions();test_malformed_compact();return 0;}
+static void v4_options(const unsigned *ids,unsigned count)
+{
+ NgSettings options={.show_time=1,.target=24,.migration_complete=1};
+ memset(options.difficulty,1,sizeof options.difficulty);options.mode[25]=1;
+ options.recent_count=(uint8_t)count;options.last_game=(uint8_t)ids[0];
+ for(unsigned i=0;i<count;i++)options.recent[i]=(uint8_t)ids[i];
+ assert(ng_settings_save(&options));
+}
+static void migrated(unsigned expected,bool active)
+{
+ NgSession workspace,loaded;NgSettings settings;bool has_run=!active;
+ assert(ng_state_migrate(&workspace));
+ int rc=ng_state_load(&settings,&loaded,&has_run);
+ assert((rc==NG_LOAD_OK||rc==NG_LOAD_RECOVERED) && has_run==active);
+ if(active)assert(loaded.game.id==expected && loaded.game.status==NG_PLAYING);
+ assert(files[MOCK_STATE_BASE].exists && files[MOCK_STATE_BASE+1].exists);
+ assert(files[MOCK_STATE_BASE].size<NG_RECORD_MAX && files[MOCK_STATE_BASE+1].size<NG_RECORD_MAX);
+ unsigned count=0;for(unsigned i=0;i<MOCK_FILE_COUNT;i++)if(files[i].exists)count++;
+ assert(count==2);
+ unsigned writes=write_calls;assert(ng_state_migrate(&workspace));assert(write_calls==writes);
+}
+static void test_v5_migration(void)
+{
+ NgSession source,workspace;const unsigned five[]={5,4,3,2,1},one[]={1};
+ reset();for(unsigned id=1;id<=5;id++){source=session_new(id);assert(ng_storage_save(&source));}
+ v4_options(five,5);
+ /* The second settings copy must be the same valid recent-five snapshot. */
+ NgSettings options;assert(ng_settings_load(&options)==NG_LOAD_OK);assert(ng_settings_save(&options));
+ migrated(5,true);
+ reset();source=session_new(1);assert(ng_storage_save(&source));v4_options(one,1);migrated(1,true);
+ reset();source=session_new(1);assert(ng_storage_save(&source));source.game.elapsed_ms=77;assert(ng_storage_save(&source));
+ files[MOCK_COMPACT_BASE+3].bytes[40]^=1;v4_options(one,1);migrated(1,true);
+ reset();source=session_new(1);assert(ng_storage_save(&source));v4_options(one,1);
+ assert(ng_settings_load(&options)==NG_LOAD_OK && ng_settings_save(&options));
+ files[MOCK_COMPACT_BASE+1].bytes[40]^=1;migrated(1,true);
+ reset();source=session_new(1);assert(ng_storage_save(&source));v4_options(one,1);migrated(1,true);
+ reset();source=session_new(1);assert(ng_storage_save(&source));assert(ng_storage_save(&source));v4_options(one,1);
+ assert(ng_settings_load(&options)==NG_LOAD_OK && ng_settings_save(&options));
+ files[MOCK_COMPACT_BASE+2].exists=false;files[MOCK_COMPACT_BASE].exists=false;migrated(1,true);
+ reset();source=session_new(1);
+ for(unsigned i=0;i<(unsigned)source.game.data[0];i++)assert(ng_module(1)->action(&source.game,source.game.board[i]));
+ assert(ng_module(1)->action(&source.game,NGK_EXE) && source.game.status==NG_WON && ng_valid(&source.game));
+ assert(ng_storage_save(&source));v4_options(one,1);migrated(0,false);
+ reset();source=session_new(1);assert(ng_storage_save(&source));v4_options(one,1);
+ write_budget=0;assert(!ng_state_migrate(&workspace));write_budget=-1;
+ assert(files[MOCK_COMPACT_BASE].exists && files[MOCK_COMPACT_BASE+2].exists);
+ migrated(1,true);
+ reset();source=session_new(1);NgSettings stable={.last_game=1,.target=24,.show_time=1};
+ memset(stable.difficulty,1,sizeof stable.difficulty);stable.mode[25]=1;
+ close_fail_write_once=1;assert(ng_state_save(&stable,&source,true));
+ NgSession checked;NgSettings read_settings;bool read_active=false;
+ assert(ng_state_load(&read_settings,&checked,&read_active)==NG_LOAD_OK && read_active && checked.game.id==1);
+ for(unsigned i=0;i<MOCK_FDS;i++)assert(!descriptors[i].open);
+ puts("V4 recent-five -> V5 single-resume migration: 5/1 records, corrupt newest/slot, A-only/B-only, completed-only and failed-write retry PASS");
+}
+
+int main(void){setvbuf(stdout,NULL,_IONBF,0);test_native_storage();test_global_screens();test_physical_equals();test_archive_migration();test_migration_five_choice();test_v5_migration();test_global_phase_boundary();test_native_keys();test_failed_power_checkpoint();test_native_memory();test_native_hold();test_native_clock();test_timer_fallback();test_common_idle();test_switch_stress();test_review_transitions();test_malformed_compact();return 0;}

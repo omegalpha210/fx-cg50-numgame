@@ -1,0 +1,23 @@
+{
+  "date": "2026-09-26",
+  "game_ids": [
+    35,
+    36
+  ],
+  "public_clue_unique_records": 270,
+  "hashi_native_reference_assignments": 59049,
+  "hashi_valid_connected_noncrossing": 10496,
+  "hashi_crossing": 26244,
+  "hashi_disconnected": 33193,
+  "hashi_counts_note": "Crossing and disconnected categories may overlap.",
+  "python_tests": 5,
+  "completion_state_frozen_records": 270,
+  "c11_ubsan": "PASS",
+  "strict_sh": "PASS",
+  "hardware_lcd_key_latency": "HARDWARE TEST REQUIRED",
+  "native_pack_sha256": "34618eb0935bc99dfda055a5d72bb342c0d6c20b1e98d66ecf58fc6b56211163",
+  "new_save_fields": 0,
+  "pack_changes": false,
+  "capture_note": "Module content renderer. Crossings and NONOGRAM marks are intentional invalid/partial test states, not asserted solutions.",
+  "asan": "NOT VERIFIED: runtime timeout without test output after 15 seconds"
+}
