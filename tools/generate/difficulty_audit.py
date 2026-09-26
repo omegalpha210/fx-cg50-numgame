@@ -20,7 +20,7 @@ HELL = {11, 12, 13, 14, 15, 35}
 
 def source_rows():
     files = (
-        "assets/guesscalc_difficulty_rows_beta4.json",
+        "assets/guesscalc_difficulty_rows_beta5.json",
         "assets/grids/extra/difficulty-beta3.json",
         "assets/strategyquick/difficulty-beta4.csv",
         "assets/boards/difficulty-beta3.json",

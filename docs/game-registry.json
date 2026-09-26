@@ -178,7 +178,7 @@
       "flags": 2,
       "aux": "ANSWER",
       "primary": "CHECK",
-      "rules": "Choose a target 1..1000 on the entry screen.\nUse EVERY card exactly once to reach it.\nEASY/NORMAL/HARD/MASTER: 4/4/5/6 cards.\nUse + - * / and parentheses.\nExact rational intermediate values allowed.\nNo concatenation, powers or extra constants.\nEqual values are separate usable cards.\nRevision4: two exact-graded decks per target.\nE: no division needed. N/H: division needed.\nMASTER: every solution needs fractions.\nType expression; DEL erases; EXE checks.\nHINT gives one first step; ANSWER copies one\nexample. Both mark assisted. All legal answers\nare accepted, not just that example.\n96 chars, nesting12, reduced values <= 1e9.\nOlder saved target10/24 decks remain playable.",
+      "rules": "Choose a target 1..1000 on the entry screen.\nUse EVERY card exactly once to reach it.\nEASY/NORMAL/HARD/MASTER: 4/4/5/6 cards.\nUse + - * / and parentheses.\nExact rational intermediate values allowed.\nNo concatenation, powers or extra constants.\nEqual values are separate usable cards.\nNew games: two exact-graded decks per target.\nEvery input card is 1..999 (at most 3 digits).\nE: no division needed. N/H: division needed.\nMASTER: every solution needs fractions.\nType expression; DEL erases; EXE checks.\nHINT gives one first step; ANSWER copies one\nexample. Both mark assisted. All legal answers\nare accepted, not just that example.\n96 chars, nesting12, reduced values <= 1e9.\nEarlier saved decks and targets stay playable.",
       "modes": [
         "STANDARD"
       ],

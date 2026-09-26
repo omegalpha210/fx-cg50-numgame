@@ -37,6 +37,9 @@ void ng_game_icon(NgCanvas *c,int x,int y,unsigned id,int accent);
 void ng_number(NgCanvas *c,int x,int y,int value,int color,int scale);
 void ng_input(NgCanvas *c,int x,int y,int w,const char *value);
 void ng_card(NgCanvas *c,int x,int y,int w,int h,const char *label,bool selected,bool used);
+/* Wrapped RULES layout uses the same font metrics for drawing and key bounds. */
+unsigned ng_rules_line_count(unsigned id);
+unsigned ng_rules_max_scroll(unsigned id);
 /* Cell x/y/size returned for module-specific clues/inequalities. */
 typedef struct {int x,y,size;} NgGridLayout;
 NgGridLayout ng_grid_layout(unsigned rows,unsigned cols,bool outside_clues);

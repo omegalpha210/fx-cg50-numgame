@@ -16,7 +16,9 @@ rules=['# In-app game rules','',
        'Exported from the same `NgModule.rules` strings compiled into NUMGAME.g3a.',
        'See README for physical key mapping (`SHIFT+DOT` = `=`; DOT alone = `.`, power key = `^`).',
        'All games use F1 INIT, F5 RULES, EXIT checkpoint, MENU checkpoint and',
-       'SHIFT+AC/ON checkpoint. NEW is separate from INIT.','']
+       'SHIFT+AC/ON checkpoint. NEW is separate from INIT.',
+       'Long RULES scroll one wrapped line per UP/DOWN event; the right rail',
+       'shows position and disables the arrow at each end. Short RULES have no rail.','']
 matrix=['game_id,game,engine,ui,content,save,host,target,hardware,modes,difficulties']
 capabilities=['# Implemented difficulty, mode and supply capability','',
               'Rows are exported from the linked C registry. Bank entries are actual',

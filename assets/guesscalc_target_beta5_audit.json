@@ -1,0 +1,286 @@
+{
+  "revision": 5,
+  "baseline": "assets/guesscalc_target_beta4.json",
+  "source": "assets/guesscalc_target_beta5.json",
+  "source_sha256": "19a76651ea8377d71cc1e2b06e439a825d72a9fe571712a564d669a99dec5595",
+  "before": [
+    {
+      "difficulty": "EASY",
+      "problem_count": 2000,
+      "card_count": 8000,
+      "card_value": {
+        "min": 1,
+        "median": 9.0,
+        "p90": 86,
+        "p95": 138,
+        "max": 491
+      },
+      "decimal_digit_distribution": {
+        "1": 4215,
+        "2": 3131,
+        "3": 654,
+        "4": 0
+      },
+      "complexity_score": {
+        "min": 69,
+        "median": 8296.0,
+        "p90": 8296,
+        "p95": 8296,
+        "max": 8296
+      },
+      "canonical_solution_count": {
+        "min": 324,
+        "median": 432.0,
+        "p90": 576,
+        "p95": 816,
+        "max": 10512
+      },
+      "fractional_required": 0,
+      "division_required": 0
+    },
+    {
+      "difficulty": "NORMAL",
+      "problem_count": 2000,
+      "card_count": 8000,
+      "card_value": {
+        "min": 2,
+        "median": 119.5,
+        "p90": 13882,
+        "p95": 18878,
+        "max": 31765
+      },
+      "decimal_digit_distribution": {
+        "1": 1501,
+        "2": 2433,
+        "3": 576,
+        "4": 3490
+      },
+      "complexity_score": {
+        "min": 270404,
+        "median": 270409.0,
+        "p90": 270409,
+        "p95": 270409,
+        "max": 270410
+      },
+      "canonical_solution_count": {
+        "min": 96,
+        "median": 144.0,
+        "p90": 144,
+        "p95": 144,
+        "max": 4320
+      },
+      "fractional_required": 0,
+      "division_required": 2000
+    },
+    {
+      "difficulty": "HARD",
+      "problem_count": 2000,
+      "card_count": 10000,
+      "card_value": {
+        "min": 1,
+        "median": 694.5,
+        "p90": 11077,
+        "p95": 16667,
+        "max": 32424
+      },
+      "decimal_digit_distribution": {
+        "1": 14,
+        "2": 4090,
+        "3": 1367,
+        "4": 4529
+      },
+      "complexity_score": {
+        "min": 270434,
+        "median": 278631.0,
+        "p90": 278631,
+        "p95": 278631,
+        "max": 278632
+      },
+      "canonical_solution_count": {
+        "min": 432,
+        "median": 576.0,
+        "p90": 576,
+        "p95": 1152,
+        "max": 27648
+      },
+      "fractional_required": 0,
+      "division_required": 2000
+    },
+    {
+      "difficulty": "MASTER",
+      "problem_count": 2000,
+      "card_count": 12000,
+      "card_value": {
+        "min": 9,
+        "median": 498.0,
+        "p90": 14340,
+        "p95": 19551,
+        "max": 32748
+      },
+      "decimal_digit_distribution": {
+        "1": 1,
+        "2": 1700,
+        "3": 4819,
+        "4": 5480
+      },
+      "complexity_score": {
+        "min": 4472963,
+        "median": 5014693.0,
+        "p90": 5014693,
+        "p95": 5014693,
+        "max": 5014693
+      },
+      "canonical_solution_count": {
+        "min": 2304,
+        "median": 2304.0,
+        "p90": 2304,
+        "p95": 2304,
+        "max": 52992
+      },
+      "fractional_required": 2000,
+      "division_required": 2000
+    }
+  ],
+  "after": [
+    {
+      "difficulty": "EASY",
+      "problem_count": 2000,
+      "card_count": 8000,
+      "card_value": {
+        "min": 1,
+        "median": 9.0,
+        "p90": 88,
+        "p95": 140,
+        "max": 498
+      },
+      "decimal_digit_distribution": {
+        "1": 4217,
+        "2": 3104,
+        "3": 679,
+        "4": 0
+      },
+      "complexity_score": {
+        "min": 69,
+        "median": 8296.0,
+        "p90": 8296,
+        "p95": 8296,
+        "max": 8296
+      },
+      "canonical_solution_count": {
+        "min": 324,
+        "median": 432.0,
+        "p90": 576,
+        "p95": 720,
+        "max": 12000
+      },
+      "fractional_required": 0,
+      "division_required": 0
+    },
+    {
+      "difficulty": "NORMAL",
+      "problem_count": 2000,
+      "card_count": 8000,
+      "card_value": {
+        "min": 1,
+        "median": 13.0,
+        "p90": 736,
+        "p95": 900,
+        "max": 999
+      },
+      "decimal_digit_distribution": {
+        "1": 3326,
+        "2": 2181,
+        "3": 2493,
+        "4": 0
+      },
+      "complexity_score": {
+        "min": 270404,
+        "median": 270408.0,
+        "p90": 270410,
+        "p95": 270410,
+        "max": 270410
+      },
+      "canonical_solution_count": {
+        "min": 96,
+        "median": 480.0,
+        "p90": 2208,
+        "p95": 4224,
+        "max": 5168
+      },
+      "fractional_required": 0,
+      "division_required": 2000
+    },
+    {
+      "difficulty": "HARD",
+      "problem_count": 2000,
+      "card_count": 10000,
+      "card_value": {
+        "min": 1,
+        "median": 21.0,
+        "p90": 695,
+        "p95": 873,
+        "max": 999
+      },
+      "decimal_digit_distribution": {
+        "1": 3295,
+        "2": 3744,
+        "3": 2961,
+        "4": 0
+      },
+      "complexity_score": {
+        "min": 270432,
+        "median": 278631.0,
+        "p90": 278631,
+        "p95": 278632,
+        "max": 278632
+      },
+      "canonical_solution_count": {
+        "min": 288,
+        "median": 576.0,
+        "p90": 3264,
+        "p95": 6912,
+        "max": 92736
+      },
+      "fractional_required": 0,
+      "division_required": 2000
+    },
+    {
+      "difficulty": "MASTER",
+      "problem_count": 2000,
+      "card_count": 12000,
+      "card_value": {
+        "min": 1,
+        "median": 115.0,
+        "p90": 792,
+        "p95": 904,
+        "max": 999
+      },
+      "decimal_digit_distribution": {
+        "1": 177,
+        "2": 5525,
+        "3": 6298,
+        "4": 0
+      },
+      "complexity_score": {
+        "min": 4472963,
+        "median": 4744356.0,
+        "p90": 4744356,
+        "p95": 4744356,
+        "max": 9208997
+      },
+      "canonical_solution_count": {
+        "min": 2304,
+        "median": 4608.0,
+        "p90": 8064,
+        "p95": 18432,
+        "max": 419712
+      },
+      "fractional_required": 2000,
+      "division_required": 2000
+    }
+  ],
+  "native": {
+    "native_records": 8000,
+    "native_parser_expressions": 24000
+  }
+}

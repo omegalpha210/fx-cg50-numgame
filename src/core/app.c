@@ -344,7 +344,7 @@ static bool dispatch(NgApp *a,int key)
    return true;
   }
   if(a->modal==NG_MODAL_RULES) {
-   if(key==NGK_DOWN && a->rules_scroll<100)a->rules_scroll++;
+   if(key==NGK_DOWN && a->rules_scroll<ng_rules_max_scroll(a->selected_id))a->rules_scroll++;
    else if(key==NGK_UP && a->rules_scroll)a->rules_scroll--;
    else if(key==NGK_EXIT || key==NGK_EXE || key==NGK_F6)modal(a,a->screen==NG_PLAY && a->session.game.status && !a->result_view?NG_MODAL_RESULT:NG_MODAL_NONE);
    return true;

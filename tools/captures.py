@@ -49,7 +49,7 @@ for group in range(6):
     items=[category]+games[group*6:group*6+6]
     sheet(items,f'category-{group+1}-2x.png',2,2)
 sheet([p for p in paths if p.stem.endswith('-hard')],'hard-grids-native.png',1,2)
-sheet([p for p in paths if p not in games and p.stem[:2].isdigit() and int(p.stem[:2])>=31],'states-native.png',1,2)
+sheet([p for p in paths if p not in games and p.stem[:2].isdigit() and 31<=int(p.stem[:2])<69],'states-native.png',1,2)
 entry_frames=[p for p in paths if p.stem[:2].isdigit() and (42<=int(p.stem[:2])<=47 or 64<=int(p.stem[:2])<=68)]
 overflow_frames=[p for p in paths if p.stem[:2].isdigit() and 48<=int(p.stem[:2])<=53]
 master_frames=[p for p in paths if '-master' in p.stem]
@@ -60,6 +60,13 @@ board_complete=[p for p in paths if p.stem.startswith(('31-level','32-level')) a
 if board_complete:sheet(board_complete,'boards-complete-native.png',1,2)
 if entry_frames:sheet(entry_frames,'entry-layout-native.png',1,2)
 if overflow_frames:sheet(overflow_frames,'overflow-native.png',1,2)
+rules_preview=[capture_root/f'69-rules-{id:02d}-{position}.ppm'
+               for id in (6,8,10,11,31) for position in ('top','middle','bottom')]
+assert all(p in paths for p in rules_preview)
+sheet(rules_preview,'rules-scroll-native.png',1,3)
+sheet([p for p in paths if p.stem.startswith('70-card-')],'cards-three-digit-native.png',2,2)
+sheet([p for p in paths if p.stem.startswith('71-factor-')],'factor-centering-native.png',2,2)
+sheet([p for p in paths if p.stem.startswith('72-sequence-')],'sequence-flow-native.png',2,2)
 grid_review=ROOT/'assets/grids/extra/beta3'
 grid_frames={
     'nonogram-mixed-before-last':'36-nonogram-mixed-before-last',

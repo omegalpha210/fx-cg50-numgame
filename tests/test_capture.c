@@ -116,7 +116,7 @@ int main(void)
  tap(&app,'2');tap(&app,'4');tap(&app,'7');tap(&app,NGK_EXE);
  assert(app.screen==NG_ENTRY && !app.target_editing && app.settings.target==247);
  capture("68-target-committed");
- /* Revision-4 content at every level, including the 1000-target card widths.
+ /* Current content at every level, including the 1000-target card widths.
     These frames come from the real entry and game renderer. */
  static const unsigned revised[]={5,6,7,10};
  for(size_t j=0;j<sizeof revised/sizeof revised[0];j++)for(unsigned d=0;d<4;d++){
@@ -127,9 +127,38 @@ int main(void)
   tap(&app,'1'+(int)(ng_catalog_index(id)%6));
   assert(app.screen==NG_ENTRY);
   app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_LEVEL);
-  char name[40];snprintf(name,sizeof name,"%02u-beta4-%u-entry",id,d);capture(name);
+  char name[40];snprintf(name,sizeof name,"%02u-beta%u-%u-entry",id,id==6?5:4,d);capture(name);
   open_game(&app,id);
-  snprintf(name,sizeof name,"%02u-beta4-%u-game",id,d);capture(name);
+  snprintf(name,sizeof name,"%02u-beta%u-%u-game",id,id==6?5:4,d);capture(name);
+ }
+ /* Every game's wrapped RULES at the top, middle, and clamped bottom. */
+ for(unsigned index=0;index<NG_GAME_COUNT;index++){
+  unsigned id=ng_visible_id(index);open_game(&app,id);tap(&app,NGK_F5);
+  assert(app.modal==NG_MODAL_RULES);
+  unsigned max=ng_rules_max_scroll(id);char name[48];
+  snprintf(name,sizeof name,"69-rules-%02u-top",id);capture(name);
+  app.rules_scroll=(uint8_t)(max/2);snprintf(name,sizeof name,"69-rules-%02u-middle",id);capture(name);
+  app.rules_scroll=(uint8_t)max;snprintf(name,sizeof name,"69-rules-%02u-bottom",id);capture(name);
+  tap(&app,NGK_EXIT);
+ }
+ open_game(&app,6);fixture=app;
+ static const int card_values[]={1,9,10,99,100,999};
+ for(unsigned j=0;j<6;j++){
+  app.session.game.data[1]=6;
+  for(unsigned i=0;i<6;i++)app.session.game.board[i]=(int16_t)card_values[j];
+  char name[40];snprintf(name,sizeof name,"70-card-%d-fixture",card_values[j]);capture(name);
+ }
+ app=fixture;
+ open_game(&app,10);fixture=app;
+ static const int factor_values[]={9,360,43956,157626,488808};
+ for(unsigned j=0;j<5;j++){
+  app.session.game.data[0]=factor_values[j];
+  char name[40];snprintf(name,sizeof name,"71-factor-%d-fixture",factor_values[j]);capture(name);
+ }
+ app=fixture;
+ for(unsigned d=0;d<4;d++){
+  app.settings.difficulty[4]=(uint8_t)d;open_game(&app,5);
+  char name[40];snprintf(name,sizeof name,"72-sequence-%u",d);capture(name);
  }
  assert(!fclose(manifest));
  puts("Renderer capture: main +6 categories +36 games +inline options +edge states PASS");return 0;

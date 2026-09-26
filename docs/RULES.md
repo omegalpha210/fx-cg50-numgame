@@ -4,6 +4,8 @@ Exported from the same `NgModule.rules` strings compiled into NUMGAME.g3a.
 See README for physical key mapping (`SHIFT+DOT` = `=`; DOT alone = `.`, power key = `^`).
 All games use F1 INIT, F5 RULES, EXIT checkpoint, MENU checkpoint and
 SHIFT+AC/ON checkpoint. NEW is separate from INIT.
+Long RULES scroll one wrapped line per UP/DOWN event; the right rail
+shows position and disables the arrow at each end. Short RULES have no rail.
 
 ## 01 — NUMBER BASEBALL
 
@@ -140,7 +142,8 @@ Use + - * / and parentheses.
 Exact rational intermediate values allowed.
 No concatenation, powers or extra constants.
 Equal values are separate usable cards.
-Revision4: two exact-graded decks per target.
+New games: two exact-graded decks per target.
+Every input card is 1..999 (at most 3 digits).
 E: no division needed. N/H: division needed.
 MASTER: every solution needs fractions.
 Type expression; DEL erases; EXE checks.
@@ -148,7 +151,7 @@ HINT gives one first step; ANSWER copies one
 example. Both mark assisted. All legal answers
 are accepted, not just that example.
 96 chars, nesting12, reduced values <= 1e9.
-Older saved target10/24 decks remain playable.
+Earlier saved decks and targets stay playable.
 ```
 
 Modes: STANDARD.

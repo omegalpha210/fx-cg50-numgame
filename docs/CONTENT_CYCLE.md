@@ -25,11 +25,13 @@ three more seeds; a small content space may still repeat. This is a bounded
 best-effort policy, not permanent puzzle tracking. Make Target keeps the chosen
 1–1000 target when NEW follows a completed run.
 
-From content revision 4, Make Target has two independently verified decks for
-each target (1–1000) and difficulty, selected through the same two-item
-shuffle bag. Committing a different target resets the active bag because its
-two ordinals refer to different decks. Earlier revision-3 target-generated
-runs retain their original seed and target on RESUME and INIT.
+Content revisions 4 and 5 of Make Target each have two independently verified
+decks for every target (1–1000) and difficulty, selected through the same
+two-item shuffle bag. Fresh revision-5 decks use cards 1–999 only; revision-4
+decks are retained solely for old unfinished runs. Committing a different
+target resets the active bag because its two ordinals refer to different
+decks. Earlier revision-3 target-generated runs retain their original seed
+and target on RESUME and INIT.
 
 MAGIC SQUARE FREE is rules-only on new revision-3 runs, so it has no bank
 ordinal and starts with a blank 3×3/4×4/5×5/6×6 board by selected difficulty.

@@ -5,6 +5,8 @@
 
 static NgApp app;
 static unsigned rectangles;
+static uint16_t rule_pixels[396*224];
+static int card_x[6],card_w[6];static unsigned card_count;
 static void paint(void *ctx,int x,int y,int w,int h,uint16_t color)
 {
  (void)ctx;(void)color;
@@ -12,6 +14,12 @@ static void paint(void *ctx,int x,int y,int w,int h,uint16_t color)
  rectangles++;
 }
 static void draw(void){NgCanvas canvas={NULL,paint};ng_render(&app,&canvas);}
+static void rule_paint(void *ctx,int x,int y,int w,int h,uint16_t color)
+{(void)ctx;for(int row=y;row<y+h;row++)for(int col=x;col<x+w;col++)rule_pixels[row*396+col]=color;}
+static void draw_rules(void)
+{memset(rule_pixels,0,sizeof rule_pixels);NgCanvas canvas={NULL,rule_paint};ng_render(&app,&canvas);}
+static void card_paint(void *ctx,int x,int y,int w,int h,uint16_t color)
+{(void)ctx;if(y==63 && h==37 && color==NG_WHITE){assert(card_count<6);card_x[card_count]=x;card_w[card_count++]=w;}}
 static void press(int key){ng_app_event(&app,key,NG_DOWN);ng_app_event(&app,key,NG_UP);draw();}
 static void enter(unsigned id,unsigned difficulty,unsigned mode)
 {
@@ -94,4 +102,71 @@ static void extreme_text(void)
  assert(rectangles);
  puts("UI: all screens draw within 396x224 with extreme result text PASS");
 }
-int main(void){catalog();settings_rows();extreme_text();return 0;}
+static void rules_scroll(void)
+{
+ unsigned short_id=0,long_id=0,scrolling=0,one_more=0;
+ for(unsigned index=0;index<NG_GAME_COUNT;index++){
+  unsigned id=ng_visible_id(index),lines=ng_rules_line_count(id),max=ng_rules_max_scroll(id);
+  assert(lines && max==(lines>10?lines-10:0) && max<100);
+  if(!max && !short_id)short_id=id;
+  if(max==1)one_more++;
+  if(max){scrolling++;if(max>=4 && !long_id)long_id=id;}
+  enter(id,NG_EASY,0);press(NGK_F5);
+  assert(app.modal==NG_MODAL_RULES && app.rules_scroll==0);
+  ng_app_event(&app,NGK_UP,NG_DOWN);ng_app_event(&app,NGK_UP,NG_UP);
+  assert(app.rules_scroll==0);
+  for(unsigned step=0;step<max+3;step++){
+   ng_app_event(&app,NGK_DOWN,NG_DOWN);ng_app_event(&app,NGK_DOWN,NG_UP);
+  }
+  assert(app.rules_scroll==max);
+  for(unsigned step=0;step<max+3;step++){
+   ng_app_event(&app,NGK_UP,NG_DOWN);ng_app_event(&app,NGK_UP,NG_UP);
+  }
+  assert(app.rules_scroll==0);
+  press(NGK_EXIT);assert(app.modal==NG_MODAL_NONE);
+ }
+ assert(short_id && long_id && one_more && scrolling);
+ enter(short_id,NG_EASY,0);press(NGK_F5);draw_rules();
+ assert(rule_pixels[70*396+375]==NG_WHITE);
+ press(NGK_EXIT);
+ enter(long_id,NG_EASY,0);press(NGK_F5);draw_rules();
+ assert(rule_pixels[34*396+377]==NG_LINE);
+ assert(rule_pixels[190*396+377]==NG_BLUE);
+ assert(rule_pixels[49*396+375]==NG_BLUE);
+ unsigned max=ng_rules_max_scroll(long_id);
+ ng_app_event(&app,NGK_DOWN,NG_DOWN);assert(app.rules_scroll==1);
+ ng_app_event(&app,NGK_DOWN,NG_HOLD);assert(app.rules_scroll==2);
+ ng_app_event(&app,NGK_DOWN,NG_UP);
+ for(unsigned i=2;i<max/2;i++){ng_app_event(&app,NGK_DOWN,NG_DOWN);ng_app_event(&app,NGK_DOWN,NG_UP);}
+ draw_rules();assert(rule_pixels[34*396+377]==NG_BLUE && rule_pixels[190*396+377]==NG_BLUE);
+ for(unsigned i=max/2;i<max;i++){ng_app_event(&app,NGK_DOWN,NG_DOWN);ng_app_event(&app,NGK_DOWN,NG_UP);}
+ draw_rules();assert(rule_pixels[34*396+377]==NG_BLUE && rule_pixels[190*396+377]==NG_LINE);
+ assert(rule_pixels[178*396+375]==NG_BLUE);
+ printf("UI: RULES wrap/scroll for 36 games; %u need rail; arrows and bounds PASS\n",scrolling);
+}
+static void card_and_factor_alignment(void)
+{
+ enter(6,NG_MASTER,0);press(NGK_F6);
+ assert(app.session.game.data[1]==6);
+ for(unsigned i=0;i<6;i++)app.session.game.board[i]=999;
+ card_count=0;NgCanvas card_canvas={NULL,card_paint};ng_render(&app,&card_canvas);
+ assert(card_count==6 && card_x[0]==15 && card_x[5]+card_w[5]==380);
+ for(unsigned i=1;i<6;i++)assert(card_w[i]==55 && card_x[i]-card_x[i-1]-card_w[i-1]==7);
+ assert(ng_text_width("999",2)<card_w[0]-8);
+ enter(10,NG_MASTER,0);press(NGK_F6);
+ static const int values[]={9,360,43956,157626,488808};
+ for(unsigned i=0;i<sizeof values/sizeof values[0];i++){
+  app.session.game.data[0]=values[i];draw_rules();
+  int minx=396,maxx=0,miny=224,maxy=0;
+  for(int y=55;y<103;y++)for(int x=88;x<308;x++)if(rule_pixels[y*396+x]==NG_INK){
+   if(x<minx)minx=x;
+   if(x>maxx)maxx=x;
+   if(y<miny)miny=y;
+   if(y>maxy)maxy=y;
+  }
+  assert(minx<=maxx && miny<=maxy && maxx<308 && maxy<103);
+  assert(minx+maxx>=392 && minx+maxx<=400);
+ }
+ puts("UI: equal centered six-card row and measured Prime target centering PASS");
+}
+int main(void){catalog();settings_rows();extreme_text();rules_scroll();card_and_factor_alignment();return 0;}

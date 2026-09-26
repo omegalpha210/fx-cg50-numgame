@@ -139,6 +139,87 @@ def target_deck_v4(index, difficulty, target):
     return cards, witness, state
 
 
+def target_deck_v5(index, difficulty, target):
+    """Bounded-card candidate construction mirrored in native guesscalc.c.
+
+    A rejected construction returns an empty deck; accepted candidate indices
+    are selected only after the unchanged exact solver grades their solutions.
+    """
+    state = (0xb5a61e37 ^ target*0x9e3779b9 ^ difficulty*0x85ebca6b ^ index*0xc2b2ae35) & 0xffffffff
+    state = state or 1
+
+    def rand(limit):
+        nonlocal state
+        state ^= state << 13 & 0xffffffff
+        state ^= state >> 17
+        state ^= state << 5 & 0xffffffff
+        return state % limit if limit else 0
+
+    cards = []
+    witness = ''
+    if difficulty == 0:
+        return target_deck(state, 0, target)
+    if difficulty == 1:
+        variant = index % 3
+        if variant == 0 and target <= 999:
+            maximum = min(48, 1998 // target)
+            if maximum >= 2:
+                total = 2 + rand(maximum - 1)
+                c = 1 + rand(total - 1);d = total - c
+                lower = max(1, target*total - 999)
+                upper = min(999, target*total - 1)
+                a = lower + rand(upper - lower + 1);b = target*total - a
+                cards = [a,b,c,d];witness = f'({a}+{b})/({c}+{d})'
+        if not cards:
+            if variant == 2:
+                c = 1 + rand(12);d = 1 + rand(12);total = c*d
+                denominator = f'{c}*{d}'
+            else:
+                total = 2 + rand(31);c = 1 + rand(total-1);d = total-c
+                denominator = f'{c}+{d}'
+            product = target*total
+            factors = [a for a in range(2, min(999, product)+1)
+                       if product%a == 0 and product//a <= 999]
+            if factors:
+                a = factors[rand(len(factors))];b = product//a
+                cards = [a,b,c,d];witness = f'({a}*{b})/({denominator})'
+    elif difficulty == 2:
+        if index % 2:
+            cards,witness,state = target_deck(state, 2, target)
+            return (cards,witness,state) if max(cards) <= 999 else ([], '', state)
+        denominator = 2 + rand(min(48, max(2, 1998//target))-1)
+        c = 12 + rand(52);d = 12 + rand(52);e = c*d-denominator
+        total = target*denominator
+        lower = max(1, total-999);upper = min(999,total-1)
+        if lower <= upper and 1 <= e <= 999:
+            a = lower+rand(upper-lower+1);b = total-a
+            cards=[a,b,c,d,e];witness=f'({a}+{b})/({c}*{d}-{e})'
+    else:
+        half = target == 1000
+        gap = 7 + rand(30);d = 7 + rand(40);k = 2 + rand(5)
+        if half:
+            b = 1 + gap;factor = 2*b-1
+            low = max(1, (d*factor-999//k+1)//2)
+            high = min(999, (d*factor-1)//2)
+            if low <= high:
+                c = low + rand(high-low+1);e = k*(d*factor-2*c);f = k*factor
+                cards=[500,b,c,d,e,f]
+        else:
+            low = max(1,d*gap-999//k);high = min(999,d*gap-1)
+            if low <= high:
+                c = low + rand(high-low+1);e = k*(d*gap-c);f = k*gap
+                cards=[target,1+gap,c,d,e,f]
+        if cards:
+            a,b,c,d,e,f = cards
+            witness=f'{a}/({b}-{c}/({d}-{e}/{f}))'
+    if cards and not all(1 <= card <= 999 for card in cards):
+        cards=[];witness=''
+    if cards:
+        for i in range(len(cards)-1, 0, -1):
+            j=rand(i+1);cards[i],cards[j]=cards[j],cards[i]
+    return cards,witness,state
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('cards', type=int, nargs='+')

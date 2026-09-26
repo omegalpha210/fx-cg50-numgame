@@ -30,12 +30,13 @@ progress. Newly started Magic Square FREE and 4×4 Lights Out use supply revisio
 3. Existing revision-1/2 active runs keep their original board and rule
 semantics through cold RESUME and INIT; NEW starts the current revision.
 
-New Countdown, Sequence, Prime Factor, Sliding Puzzle and Make Target runs use
-content revision 4. An unfinished earlier-revision run retains its saved
+New Countdown, Sequence, Prime Factor and Sliding Puzzle runs use content
+revision 4; new Make Target runs use revision 5 with cards 1–999. An unfinished
+earlier-revision run, including Make Target revision 4, retains its saved
 puzzle, settings and progress on RESUME; INIT reconstructs that revision's
-original puzzle. NEW starts revision 4. Changing Make Target's committed target
-starts a fresh shuffle cycle for that target. The v5 wire layout and the
-one-unfinished-run policy are unchanged.
+original puzzle. NEW starts the current revision. Changing Make Target's
+committed target starts a fresh shuffle cycle for that target. The v5 wire
+layout and one-unfinished-run policy are unchanged.
 
 Validated v4 recent-five saves migrate the first valid unfinished run in the
 saved recency list. If that entry is corrupt or completed, the next valid

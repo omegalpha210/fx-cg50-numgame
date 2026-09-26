@@ -1,10 +1,13 @@
-# Difficulty audit — 36 visible games, beta.4
+# Difficulty audit — 36 visible games, beta.5
 
 The [current 150-row CSV](DIFFICULTY_AUDIT.csv) covers every visible game and
 EASY/NORMAL/HARD/MASTER level, plus HELL in the six LOGIC games. Its 19 columns
 include the measured metric, `before`, `after`, finding ID and decision. The
-[preserved beta.3 CSV](DIFFICULTY_AUDIT_BETA3.csv) and Git history retain the
-baseline. Source reports are [GUESS/CALC](GUESS_CALC_AUDIT.md),
+[preserved beta.3 CSV](DIFFICULTY_AUDIT_BETA3.csv),
+[preserved beta.4 CSV](DIFFICULTY_AUDIT_BETA4.csv) and Git history retain the
+baselines. The beta.5 Make Target card and exact-score comparison is in the
+[readability audit](MAKE_TARGET_READABILITY_AUDIT.md). Source reports are
+[GUESS/CALC](GUESS_CALC_AUDIT.md),
 [LOGIC/PUZZLE](GRID_AUDIT.md), [STRATEGY/quick](STRATEGY_QUICK_AUDIT.md) and
 [SHIKAKU/SLITHERLINK](BOARD_AUDIT.md). The integrated generator checks exactly
 36 game IDs, 150 rows and the expected level set for each game.
@@ -68,7 +71,9 @@ lexicographically easiest raw tuple, a separate unary-aware graded expression
 and the canonical exact-solution count. There is no arbitrary magnitude cutoff,
 random pruning or production-device search table. The calculator stores only
 8,000 `uint16` candidate indices (16,000 bytes); the large expression report
-is host-only [CSV](MAKE_TARGET_COMPLEXITY.csv).
+is host-only. The [beta.4 CSV](MAKE_TARGET_COMPLEXITY.csv) and
+[current beta.5 CSV](MAKE_TARGET_COMPLEXITY_BETA5.csv) retain all per-record
+expressions and scores.
 
 The raw easiest tuple is `(fractional steps, division steps,
 noncommutative steps, tree depth, maximum denominator)`. For selection, the
@@ -81,14 +86,19 @@ break nearby ties but cannot override a structural grade. Both objectives and
 expressions remain in host JSON; CSV retains the raw tuple and graded
 expression/features.
 
-| Level | Acceptance on the exact minimum | New score min–max | Records |
+| Level | Acceptance on the exact minimum | Beta.4 score min–max | Records |
 |---|---|---:|---:|
 | EASY | No division or fractional intermediate; graded score ≤259 | 69–8,296 | 2,000 |
 | NORMAL | Graded score exactly 8,450; exact integer division | 270,404–270,410 | 2,000 |
 | HARD | Five cards, no fractional intermediate, one division; graded score 8,451–8,715 | 270,434–278,632 | 2,000 |
 | MASTER | Six cards; every legal exact solution needs at least one fractional intermediate | 4,472,963–5,014,693 | 2,000 |
 
-For example, target 24's new graded answers include EASY
+The table and target-24 examples below describe the retained beta.4 bank,
+which remains playable through saved games. Beta.5 regenerates only new Make
+Target games, keeps two decks per target/level and enforces every card in
+1..999. It does not change the exact solver, parser or save format.
+
+For example, target 24's beta.4 graded answers include EASY
 `((3*4)*(9-7))` from cards 3,9,7,4; NORMAL
 `((1431+777)/(6+86))`; HARD `(((22*886)+644)/(43+796))`; and MASTER
 `(240/((828/((30024/387)-84))+139))`. The old MASTER sample had a
@@ -96,7 +106,7 @@ construction witness `(28*8-14)/9+2/3` but its easiest graded alternative
 `(((14*3)+(2*9))-(28+8))` uses no fractional intermediate. This is why the
 new bank is selected by exhaustive minimum rather than construction witness.
 
-The solver was cross-checked with an independent full expression-tree
+For beta.4, the solver was cross-checked with an independent full expression-tree
 enumerator on eight fixed four-card sets, including repeated cards and
 `3,3,8,8 → 24`: 2,614 exact rational values and 1,698,872 canonical trees
 agreed on reachability, count, raw and graded minima. An additional 20
@@ -118,7 +128,8 @@ for larger search spaces and more operators, not selector no-ops. GC-D06 is
 node ranges overlap, but level medians and puzzle structure rise; all bank
 records retain unique verified solutions. Its bank is unchanged.
 
-New games use content revision 4 for IDs 5, 6, 7, 10 and 27. Old unfinished
+New Make Target games use content revision 5; IDs 5, 7, 10 and 27 remain at
+revision 4. Old unfinished
 runs preserve their puzzle IDs, board/progress, rule revision and INIT behavior;
 NEW uses the revised bank. The active single-resume v5 wire format did not
 change. MAKE TARGET's two-record-per-target shuffle cycle avoids immediate

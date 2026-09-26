@@ -2,7 +2,7 @@
   "tool": "tools/public_snapshot.py",
   "policy_version": 1,
   "include_dist": true,
-  "tree_sha256": "bda705c73ce4091072e67457636490e7a04acd3f702441a8e6297fe113ab5dad",
+  "tree_sha256": "7eec87c37ce707a2995c963d92096fae0b2f191c1ff59017a4c040916051be3d",
   "files": [
     {
       "file": ".gitignore",
@@ -24,14 +24,14 @@
     },
     {
       "file": "README.md",
-      "bytes": 5244,
-      "sha256": "7740f8534a7bac34571a0068e8ffa358b1927402b006ba3c333e5fadd0364643",
+      "bytes": 5604,
+      "sha256": "52cc2c125cfb62c4876a8ecf19917c77fe9647d907312734a6238c15364310c1",
       "mode": "0644"
     },
     {
       "file": "README_KO.md",
-      "bytes": 6174,
-      "sha256": "0033a45e541a7015c369e86eac8f948f696975441348744655cfab7b4ffd8724",
+      "bytes": 6580,
+      "sha256": "452a69d4b68138b3a75c925de60921597be69ca07b5b9e3765ec665f385cd7b9",
       "mode": "0644"
     },
     {
@@ -1271,6 +1271,12 @@
       "mode": "0644"
     },
     {
+      "file": "assets/guesscalc_difficulty_rows_beta5.json",
+      "bytes": 84000,
+      "sha256": "272e04d5bd96dac6e6787e270ee9fe7e05ff0de504b53eaf4a148818f094d0ad",
+      "mode": "0644"
+    },
+    {
       "file": "assets/guesscalc_make_target_complexity.csv",
       "bytes": 1499632,
       "sha256": "cd0984a758c493923a54c3d1025b6b7ca7fc72c15800ee99000022576a4a9906",
@@ -1316,6 +1322,30 @@
       "file": "assets/guesscalc_target_beta4.json",
       "bytes": 11068620,
       "sha256": "38ce7e283015250b658eecf026d366a19d2911d7bd4f42c718c81824a3af2b70",
+      "mode": "0644"
+    },
+    {
+      "file": "assets/guesscalc_target_beta5.h",
+      "bytes": 16694,
+      "sha256": "e2025a62f2288f681483e0aa6248e2a49507fff1ae62d4ee82c42507e19c5ef9",
+      "mode": "0644"
+    },
+    {
+      "file": "assets/guesscalc_target_beta5.json",
+      "bytes": 10934785,
+      "sha256": "19a76651ea8377d71cc1e2b06e439a825d72a9fe571712a564d669a99dec5595",
+      "mode": "0644"
+    },
+    {
+      "file": "assets/guesscalc_target_beta5_audit.json",
+      "bytes": 6101,
+      "sha256": "9881d7cae0ea9c081f62a218b56dad160bc3782ce8947fe8589a956e6fe977fc",
+      "mode": "0644"
+    },
+    {
+      "file": "assets/guesscalc_target_beta5_complexity.csv",
+      "bytes": 1404175,
+      "sha256": "8c8f11761a0a04fc94624fb9cb0d31bc472beeb9f5b1cc739f52f3032ef21b4e",
       "mode": "0644"
     },
     {
@@ -1584,26 +1614,26 @@
     },
     {
       "file": "dist/NUMGAME.g3a",
-      "bytes": 440024,
-      "sha256": "597fdb46a871cd5c0f605ddcc562d023baa84f319e80c753dd6459ff3c3748fd",
+      "bytes": 458392,
+      "sha256": "cc05127a0f7aab71f87d3e07e70db04e50b9f04814d97df0aa585172ebdac4e5",
       "mode": "0644"
     },
     {
       "file": "dist/NUMGDIAG.g3a",
-      "bytes": 466616,
-      "sha256": "fe0db2f68e757ba7a8e56b393d7be52bf8ceb45aa2cddeeb061ae536459e2966",
+      "bytes": 485336,
+      "sha256": "177918ab548c09c3c7be9303b35132770b8cbd1cd8a798d3afe1d2fa764aeb85",
       "mode": "0644"
     },
     {
       "file": "dist/SHA256SUMS.txt",
       "bytes": 161,
-      "sha256": "ef5af65d9ae1869e5c64ce17f73a31cc39e2a927e072d00a065f75fa86cfb68b",
+      "sha256": "fee107c475302f31c33c81ce84789d5797200796c2df46aec7637e55d4094df4",
       "mode": "0644"
     },
     {
       "file": "docs/ACCEPTANCE.md",
-      "bytes": 4158,
-      "sha256": "9eb9e02813ca369343146a2b5746214625ca6b16cea4a1d49b895ae6cb6704f5",
+      "bytes": 4267,
+      "sha256": "fcd2b2c347354f60fcf1c054a7ee7e049eec9cea50ae623f3f1695548db5eff3",
       "mode": "0644"
     },
     {
@@ -1632,8 +1662,8 @@
     },
     {
       "file": "docs/CONTENT_CYCLE.md",
-      "bytes": 2662,
-      "sha256": "9a9fdf58c67d2dc6566cb2f59bab3f6cb74dcda8a841c3e2e359cffa68f2f0dc",
+      "bytes": 2782,
+      "sha256": "fbd54cdcf92b5caab06f8155f261bf63a9d22136f3387cc49d4a320d57f697fd",
       "mode": "0644"
     },
     {
@@ -1662,20 +1692,26 @@
     },
     {
       "file": "docs/DIFFICULTY_AUDIT.csv",
-      "bytes": 299536,
-      "sha256": "aff574ad29605082d553cce995e95b814d48fc5912e64ca75744b14d51d06ff4",
+      "bytes": 304719,
+      "sha256": "c854b14204c7b8bd550181aeccd453c267dabb615e97f998d257e42277716e60",
       "mode": "0644"
     },
     {
       "file": "docs/DIFFICULTY_AUDIT.md",
-      "bytes": 9502,
-      "sha256": "d3577920e7ceacc876229e34d05016788b97137eac987b463da4fb3f3c8d5423",
+      "bytes": 10130,
+      "sha256": "61fded6c554eee6b470f6919221482898a38198abb019d1dd8cafad703a3e88c",
       "mode": "0644"
     },
     {
       "file": "docs/DIFFICULTY_AUDIT_BETA3.csv",
       "bytes": 157278,
       "sha256": "4ef93c6f073ed15be74a50dc76e1d6e0ad3dbb1341bd2dbeca123d0584532f18",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/DIFFICULTY_AUDIT_BETA4.csv",
+      "bytes": 299536,
+      "sha256": "aff574ad29605082d553cce995e95b814d48fc5912e64ca75744b14d51d06ff4",
       "mode": "0644"
     },
     {
@@ -1716,8 +1752,8 @@
     },
     {
       "file": "docs/HARDWARE_RETEST.md",
-      "bytes": 6565,
-      "sha256": "584447594b2def1693434854a1aaac16c347a41ed297604efb9c523a54c4ad59",
+      "bytes": 7852,
+      "sha256": "6d96932d2cb1b8c7d84d1f9c1402d41e5b5b6b0804b712a086334dea093638b4",
       "mode": "0644"
     },
     {
@@ -1727,9 +1763,21 @@
       "mode": "0644"
     },
     {
+      "file": "docs/MAKE_TARGET_COMPLEXITY_BETA5.csv",
+      "bytes": 1404175,
+      "sha256": "8c8f11761a0a04fc94624fb9cb0d31bc472beeb9f5b1cc739f52f3032ef21b4e",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/MAKE_TARGET_READABILITY_AUDIT.md",
+      "bytes": 4431,
+      "sha256": "26fe7907f04cb976604c9da47898f8e8ba54be70870337df81e99259d7355d3a",
+      "mode": "0644"
+    },
+    {
       "file": "docs/MEMORY_AUDIT.md",
-      "bytes": 9135,
-      "sha256": "0572e875c78cc39bf71d5c8b9aa9eee7a0224654402c652250e7bc0d4c76296d",
+      "bytes": 9185,
+      "sha256": "3ca3afdc2672941ac1887e7f403fb858cfe98dec9fb4cddf9f500c12e64a55c9",
       "mode": "0644"
     },
     {
@@ -1758,8 +1806,8 @@
     },
     {
       "file": "docs/PUBLIC_SOURCE_AUDIT.md",
-      "bytes": 7476,
-      "sha256": "dc9be6c0e9a170b4c654e5a81e01626f63dd6f8f2b58e8840969db927861867f",
+      "bytes": 7535,
+      "sha256": "22cae152b5c6e2161c9ad997d0ed253ede82337f190761f1829ce86e250a5daf",
       "mode": "0644"
     },
     {
@@ -1770,14 +1818,14 @@
     },
     {
       "file": "docs/RESUME_POLICY.md",
-      "bytes": 2940,
-      "sha256": "e6d44e6fafce45dbc8172276ca87275461f91146a23a4a8d091ca89c04dbc26c",
+      "bytes": 3024,
+      "sha256": "7930b419f1642e95d7f4f1ecd12373c4257e343c8ece8a8f112184df6fe17771",
       "mode": "0644"
     },
     {
       "file": "docs/RULES.md",
-      "bytes": 18961,
-      "sha256": "97af7cdbe27d3dffa43ffa586ad2d3b8b4949767061018fa90942d35b0eb8118",
+      "bytes": 19154,
+      "sha256": "e7a541d3506563b3fcb7428c0b4e04708f0c6942c537fd61bc97f3291ea0ed1a",
       "mode": "0644"
     },
     {
@@ -1794,14 +1842,20 @@
     },
     {
       "file": "docs/STORAGE_FORMAT.md",
-      "bytes": 4584,
-      "sha256": "d9f9d207247a49e68677f4307da49b350cfa7d242c6f1f1b5523e90186448c04",
+      "bytes": 4592,
+      "sha256": "c20cac67ebd89f1f55bdf14579f60f0e7bce8513bcef57ad23ca5182b10439d2",
       "mode": "0644"
     },
     {
       "file": "docs/STRATEGY_QUICK_AUDIT.md",
       "bytes": 37561,
       "sha256": "6a0fbf0d9fac2d82ef9ef8d34306897adb8a1bcf5481b388e56d0b5ca9786b16",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/UI_ALIGNMENT_AUDIT.md",
+      "bytes": 13484,
+      "sha256": "34a0b66e0f424b82a514032f2a482c700241d12123703ab00acbe7c53f98d9c2",
       "mode": "0644"
     },
     {
@@ -1836,8 +1890,8 @@
     },
     {
       "file": "docs/build-metrics.json",
-      "bytes": 158960,
-      "sha256": "befe00377a2de5d564f6bb8892d69818cc4ef6649c1e508729d613f65b1d6152",
+      "bytes": 159575,
+      "sha256": "7fb0da1c05389b3896661d0f008f441e167a99d0cd986d26455f0dcc140d9a0d",
       "mode": "0644"
     },
     {
@@ -1968,8 +2022,8 @@
     },
     {
       "file": "docs/captures/05-beta4-0-game.png",
-      "bytes": 2955,
-      "sha256": "9ae2c7267c3937097ab19fa2723a8f5d202da7e6c98aa18cf544a4bd2ac1308c",
+      "bytes": 3116,
+      "sha256": "741bb933040a8da56151fd95a92a52c41caedfdfafa93b9be94e4b5d5810ae15",
       "mode": "0644"
     },
     {
@@ -1980,8 +2034,8 @@
     },
     {
       "file": "docs/captures/05-beta4-1-game.png",
-      "bytes": 2922,
-      "sha256": "31a473bdc97f0a599f7053e932715c900e164e5cce6f99cbd4ea9ca5f5920fec",
+      "bytes": 3072,
+      "sha256": "0210d5990c33b0709470a39c79770195b93623de7752856c27713f095dc16f03",
       "mode": "0644"
     },
     {
@@ -1992,8 +2046,8 @@
     },
     {
       "file": "docs/captures/05-beta4-2-game.png",
-      "bytes": 2882,
-      "sha256": "ec0478770f5f459e4f27d005b11922efcfc289c07574b08c806b20691e6d1791",
+      "bytes": 3059,
+      "sha256": "28104189e4acf603555017e9a8dfec563b89b537825a37965d70c5a19dcbb5b3",
       "mode": "0644"
     },
     {
@@ -2004,8 +2058,8 @@
     },
     {
       "file": "docs/captures/05-beta4-3-game.png",
-      "bytes": 2917,
-      "sha256": "1043097af41760ed96d6dd8c1797ce802208d6c432838302f7623ac525ff504e",
+      "bytes": 3057,
+      "sha256": "d8ff3f28a6ccdfd17eed66c3e62fea22ac81032aa65ce05603ca973b63c3308d",
       "mode": "0644"
     },
     {
@@ -2016,14 +2070,14 @@
     },
     {
       "file": "docs/captures/05-master.png",
-      "bytes": 2977,
-      "sha256": "25bf4a93849a117e19d624932a13c46b57930e3ef3bcd8e4a249f8f548f27a66",
+      "bytes": 3118,
+      "sha256": "49f88b27770a95e48ee2e85f55b25fb2375030edf77019e0cd3e44f541944a27",
       "mode": "0644"
     },
     {
       "file": "docs/captures/05-play.png",
-      "bytes": 2880,
-      "sha256": "0feacd9439b44c87176f652ab7e85763a07ebb6891983508d723384602259d42",
+      "bytes": 3049,
+      "sha256": "55916f5fd3674d9f1af0fd6f0256bc2bf6c65ed9158131f9c083dcc2e4d17415",
       "mode": "0644"
     },
     {
@@ -2075,6 +2129,54 @@
       "mode": "0644"
     },
     {
+      "file": "docs/captures/06-beta5-0-entry.png",
+      "bytes": 3221,
+      "sha256": "2e0ec4266bf2790f6b7451d3ab8df5a6d439217e5c3679cbda4b2af3bb817c8d",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/06-beta5-0-game.png",
+      "bytes": 2919,
+      "sha256": "5c92a46cc39eb9627916546eedf1c228bd4a03bf9be0d4bda010307b09cf4d0d",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/06-beta5-1-entry.png",
+      "bytes": 3554,
+      "sha256": "dccf5fa53d7a180de6424eb9a4ddf168a82ff762ad5113420f5b9a5bf2bb2894",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/06-beta5-1-game.png",
+      "bytes": 2895,
+      "sha256": "54c3a3e1f18a814cf8fcde52798ed7c1fcee17e5a43b3f27c7f2f50b6f0828ec",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/06-beta5-2-entry.png",
+      "bytes": 3559,
+      "sha256": "578236823381e192dfe7bc9a324439093ee34bf118bbbd84ea475e52b9e90e25",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/06-beta5-2-game.png",
+      "bytes": 2961,
+      "sha256": "4a88477592e2be01b7638e45a3878a4b08556365ff8246ebfcde4e90eb3f4f1f",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/06-beta5-3-entry.png",
+      "bytes": 3538,
+      "sha256": "7269250ae40f91c664d93d46dce543303ced3d9177b478e82e521c18f477a3d3",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/06-beta5-3-game.png",
+      "bytes": 3041,
+      "sha256": "15297f5f96a40748747b12c1d4deaa7414f3d3685f05cb6ba18b7faea19c13de",
+      "mode": "0644"
+    },
+    {
       "file": "docs/captures/06-master-entry.png",
       "bytes": 3590,
       "sha256": "1dbcd6b1a277f64bcbaa592b424eb20c2261a64ecb63fe77b4d907c8420e06fc",
@@ -2082,14 +2184,14 @@
     },
     {
       "file": "docs/captures/06-master.png",
-      "bytes": 3130,
-      "sha256": "e289d3734e7daf9ffec51fd1cc4b73aae37c65b04a4d86125ff29f035e2622d3",
+      "bytes": 3073,
+      "sha256": "714fede7717595ff408e3a0269b43e188d70a26b0ac26b7cd9c12d31debb1493",
       "mode": "0644"
     },
     {
       "file": "docs/captures/06-play.png",
-      "bytes": 2759,
-      "sha256": "fc0b393b949cf9bd10cda24ed7972fe8d912ebd53c11bdc8bb6acf9b4b9b8411",
+      "bytes": 2699,
+      "sha256": "3b9b539ffe61cc951f4295356a807bdc3d6d3b8c2af78160bf444855c1ddd7f6",
       "mode": "0644"
     },
     {
@@ -2100,8 +2202,8 @@
     },
     {
       "file": "docs/captures/07-beta4-0-game.png",
-      "bytes": 3316,
-      "sha256": "fa5ce512494ffaaa5aaca69064620e4ef69836c84e7f1c217bee05be5ff84e1a",
+      "bytes": 3317,
+      "sha256": "20b60bd228405d64d4a8e35a38ccb9f2444ff0a17771cb8d7ed7d10b8cb2834f",
       "mode": "0644"
     },
     {
@@ -2112,8 +2214,8 @@
     },
     {
       "file": "docs/captures/07-beta4-1-game.png",
-      "bytes": 3304,
-      "sha256": "eaa764ea6f2cb2334d25c59f595ecf45789370332696e84d08ea4ed5f1227790",
+      "bytes": 3303,
+      "sha256": "a289d3eaeac6ff7a1086341c6c3a2e55eb35e02145d51a40ceb87edb8deb3be4",
       "mode": "0644"
     },
     {
@@ -2124,8 +2226,8 @@
     },
     {
       "file": "docs/captures/07-beta4-2-game.png",
-      "bytes": 3353,
-      "sha256": "422e7d76bf790c479ca2d509cc762681a4442ff4e040cd429ab41668b6a45966",
+      "bytes": 3321,
+      "sha256": "3d2b2a39b3c0da29cbb2e70a2bc8c74db4666bf89df6758aef69d1437a728db2",
       "mode": "0644"
     },
     {
@@ -2136,8 +2238,8 @@
     },
     {
       "file": "docs/captures/07-beta4-3-game.png",
-      "bytes": 3361,
-      "sha256": "5ee10e6d0fbf69b4ea20009465edd05d7af09a7d90c823a1c6120d1a2e0446db",
+      "bytes": 3328,
+      "sha256": "7137cdf9559fe293e09634f83a118a2095e48b36a408dd02c9f0f40aa8441b16",
       "mode": "0644"
     },
     {
@@ -2148,14 +2250,14 @@
     },
     {
       "file": "docs/captures/07-master.png",
-      "bytes": 3313,
-      "sha256": "438df4d92a1725b4d5bb73a7bbcc5e6c8d88a1680cbdbc37539cb54e23ac6066",
+      "bytes": 3312,
+      "sha256": "b755f2d85dda4ef89169fd36aeb38484b4f8c803ad93b42cd9be896a41d5aa03",
       "mode": "0644"
     },
     {
       "file": "docs/captures/07-play.png",
-      "bytes": 3323,
-      "sha256": "4c218049a708fd910455e45aab7c375552acfb4286488d6eab14b455a8a9f5b1",
+      "bytes": 3303,
+      "sha256": "84f12f64a31384ce4901a0df2d274360dca9cec11151e782b822c644f43ba287",
       "mode": "0644"
     },
     {
@@ -2202,8 +2304,8 @@
     },
     {
       "file": "docs/captures/10-beta4-0-game.png",
-      "bytes": 3499,
-      "sha256": "e991d76ca18115c272bd303b46a87b2abd1de689020265efe840c0e0e2ef1548",
+      "bytes": 3503,
+      "sha256": "f59c12ad06af2c4e1c69777b225efd65b33c1a03ef23b839fb18b8afc3d08c9f",
       "mode": "0644"
     },
     {
@@ -2214,8 +2316,8 @@
     },
     {
       "file": "docs/captures/10-beta4-1-game.png",
-      "bytes": 3514,
-      "sha256": "89d05c67e00bc584f5dc543940bf28e309c73375b2d1bdca9e0fc1208e203af3",
+      "bytes": 3522,
+      "sha256": "5654f85d1ba965c7ec03906f17f8fe64eb0804b03f4aa0cde135f2f83f7d7114",
       "mode": "0644"
     },
     {
@@ -2226,8 +2328,8 @@
     },
     {
       "file": "docs/captures/10-beta4-2-game.png",
-      "bytes": 3540,
-      "sha256": "48b14e4229a50d40540de22c957ec0f692ee2d16f26e52716770dc8856d9a229",
+      "bytes": 3550,
+      "sha256": "76f115bd847d09faf442b11370946f1c5c25599b08f6ec083acf71436dcb78c2",
       "mode": "0644"
     },
     {
@@ -2238,8 +2340,8 @@
     },
     {
       "file": "docs/captures/10-beta4-3-game.png",
-      "bytes": 3475,
-      "sha256": "745bd63d4e1d7ac475c99d50be466c6aa5e3453db4b3dff4c0ea8a3f50bb6ab4",
+      "bytes": 3491,
+      "sha256": "64df164499e6c5a85060f18e156e4e66ce9dfff176a0b7dfc1b4b79ca05c686b",
       "mode": "0644"
     },
     {
@@ -2250,14 +2352,14 @@
     },
     {
       "file": "docs/captures/10-master.png",
-      "bytes": 3457,
-      "sha256": "184e5e601876c73ed55edfb9a3ecc6d81ae4147c17b0c95ff5efbb16f19c4cee",
+      "bytes": 3469,
+      "sha256": "5668deb6e93284b9764c7e84f5feeff1a8c72288331456537d6809c061cce1b8",
       "mode": "0644"
     },
     {
       "file": "docs/captures/10-play.png",
-      "bytes": 3501,
-      "sha256": "c6b15f7c72ae4661c18f7f754564f4d0102772d5da784279ac98203253aa147a",
+      "bytes": 3507,
+      "sha256": "79211a8075a931e36b056b0e77c8ae7953d110664ccb47e8c6389b76f6c4e07c",
       "mode": "0644"
     },
     {
@@ -3000,8 +3102,8 @@
     },
     {
       "file": "docs/captures/35-rules.png",
-      "bytes": 5794,
-      "sha256": "839593a33a94ce82a3cf503129dc117c7b6e1e92316dc6083cc772e09af340cb",
+      "bytes": 5534,
+      "sha256": "2ab930770fc9893b87f52b1868379d4d38812aaee2562390e51e11f0ccec637f",
       "mode": "0644"
     },
     {
@@ -3174,8 +3276,8 @@
     },
     {
       "file": "docs/captures/53-long-input.png",
-      "bytes": 3048,
-      "sha256": "61b9331dbb2cd90f22a86044d3c764f1cacdf6ff253287d357cb3a5d88d66337",
+      "bytes": 2971,
+      "sha256": "242eeffa8b29edde84778fb3e689662362aa6e8dccdda8d5547c935e8dd0873e",
       "mode": "0644"
     },
     {
@@ -3210,14 +3312,14 @@
     },
     {
       "file": "docs/captures/57-operator-footer-fixture.png",
-      "bytes": 2941,
-      "sha256": "23c473f84de1633ec65885fa4c5f258994fc956242da1ed583be9b3a9a8b326f",
+      "bytes": 2857,
+      "sha256": "de77acf599a9fdb620660940a1142d27c50f6656df00e27e381051a4c73a0a7c",
       "mode": "0644"
     },
     {
       "file": "docs/captures/58-operator-result-fixture.png",
-      "bytes": 3199,
-      "sha256": "fac9791436c2d200a016791a71491fcaa87eb597e41646ab908c4791c4138584",
+      "bytes": 3221,
+      "sha256": "c8f58a6539a8e940952c5c2b48043ecb9e65122f0e8d56633b7fff483a8af27d",
       "mode": "0644"
     },
     {
@@ -3287,9 +3389,747 @@
       "mode": "0644"
     },
     {
+      "file": "docs/captures/69-rules-01-bottom.png",
+      "bytes": 5744,
+      "sha256": "b1303a682b521572662f0165d62ae9b17c7e083525cdf9e41cb2307fa96ede9c",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-01-middle.png",
+      "bytes": 5744,
+      "sha256": "b1303a682b521572662f0165d62ae9b17c7e083525cdf9e41cb2307fa96ede9c",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-01-top.png",
+      "bytes": 5744,
+      "sha256": "b1303a682b521572662f0165d62ae9b17c7e083525cdf9e41cb2307fa96ede9c",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-02-bottom.png",
+      "bytes": 5525,
+      "sha256": "ad0c3ab0cdd103b24d1d737351718cfbeed9cb1a10363b6a047ff6f011afa7fa",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-02-middle.png",
+      "bytes": 5560,
+      "sha256": "9e1cc6e6e67decae5b0afbf8442bf44a2c21dea65c872fcdca98484d057e5ccb",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-02-top.png",
+      "bytes": 5534,
+      "sha256": "2ab930770fc9893b87f52b1868379d4d38812aaee2562390e51e11f0ccec637f",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-03-bottom.png",
+      "bytes": 5414,
+      "sha256": "02574a35916d804820b686b609ac227f8496c18452d5724a48a8264da8240f4b",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-03-middle.png",
+      "bytes": 5414,
+      "sha256": "02574a35916d804820b686b609ac227f8496c18452d5724a48a8264da8240f4b",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-03-top.png",
+      "bytes": 5414,
+      "sha256": "02574a35916d804820b686b609ac227f8496c18452d5724a48a8264da8240f4b",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-04-bottom.png",
+      "bytes": 6146,
+      "sha256": "49aa539e045334f6a15fafcc163fe593d2551e3857caa5e722dc2dbf5f9d84ea",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-04-middle.png",
+      "bytes": 6146,
+      "sha256": "49aa539e045334f6a15fafcc163fe593d2551e3857caa5e722dc2dbf5f9d84ea",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-04-top.png",
+      "bytes": 6146,
+      "sha256": "49aa539e045334f6a15fafcc163fe593d2551e3857caa5e722dc2dbf5f9d84ea",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-05-bottom.png",
+      "bytes": 6024,
+      "sha256": "12ddf06a9abd753cafb4fedaebd3823adc2c41c067ff8d893a981eca52b0e4a1",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-05-middle.png",
+      "bytes": 6110,
+      "sha256": "c289629ec27114fb70ffe1245d8e4b089beb5ed4387fbfeb02c20f91391261ff",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-05-top.png",
+      "bytes": 5404,
+      "sha256": "abec0ba34bfd5b3bc959064a52ef679620b81ee82e4d86e512dd091bf75e696f",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-06-bottom.png",
+      "bytes": 5947,
+      "sha256": "02e11ff37058fa4f7e94dc3ec74d8cfd946606bc58331584d4f472ca73f5313e",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-06-middle.png",
+      "bytes": 5919,
+      "sha256": "e4ba9e8de2c692fe54489481c31a29bad99d8f66ad7b7809e048d0c6c011a398",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-06-top.png",
+      "bytes": 5791,
+      "sha256": "7b0d423605a0de4f648933002facc9fa2501af7e2ef8aab9aa347c9b02f4716f",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-07-bottom.png",
+      "bytes": 6405,
+      "sha256": "c9cda6d91251dad7ef4d372442a02776b406bd09fb5d0e0046baf4126c57ff60",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-07-middle.png",
+      "bytes": 6341,
+      "sha256": "4c61a751f5c6d25f1c64ff4ba1361758bd20dbc7bfb743982e632e4f7dc83356",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-07-top.png",
+      "bytes": 6312,
+      "sha256": "b59bd8c44d49725534a7590712eab5d630c4f809122101e069213a621ef8c80c",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-08-bottom.png",
+      "bytes": 6204,
+      "sha256": "0fcf6ede1621f6cf637cf6342b929de442f011198db4061af54342ff60f7302e",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-08-middle.png",
+      "bytes": 6116,
+      "sha256": "8c51ed11b50f34a7cf0a9f24dbf21b2def5cbdda0ce6903e6bd9bb28befa9d33",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-08-top.png",
+      "bytes": 6116,
+      "sha256": "8c51ed11b50f34a7cf0a9f24dbf21b2def5cbdda0ce6903e6bd9bb28befa9d33",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-09-bottom.png",
+      "bytes": 6163,
+      "sha256": "d034c6869c707fe2b130039de323e3bac6256df199f4af8b498e7b5aaa3fc47b",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-09-middle.png",
+      "bytes": 6366,
+      "sha256": "b1eb6075553b53b5f7ba80605635d57b139e91367663a5c882685d1e24c0dd89",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-09-top.png",
+      "bytes": 6326,
+      "sha256": "4e2c7c1689278c10e2e39316704a6f431e95a22b8d7ce9ac8c0033e37426e5c7",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-10-bottom.png",
+      "bytes": 6378,
+      "sha256": "35465c0b25203c566cff7d3b8527d3547f854e965a1387afffd35d67a6456bd2",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-10-middle.png",
+      "bytes": 6480,
+      "sha256": "80d0e80f1c4104ee3a2bc357ffdf7d74f4781ac8ca8df17f882d7432cca5a620",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-10-top.png",
+      "bytes": 6341,
+      "sha256": "3cc4824cbcd25c23351d71982eeb6512ee563596d4d4d64b23e3ac85e2b11e42",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-11-bottom.png",
+      "bytes": 6018,
+      "sha256": "e9edf9c5b1b3dd38363a85932259e2189383cc47c7866d7f4a69eaeea09a2288",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-11-middle.png",
+      "bytes": 6018,
+      "sha256": "e9edf9c5b1b3dd38363a85932259e2189383cc47c7866d7f4a69eaeea09a2288",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-11-top.png",
+      "bytes": 6018,
+      "sha256": "e9edf9c5b1b3dd38363a85932259e2189383cc47c7866d7f4a69eaeea09a2288",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-12-bottom.png",
+      "bytes": 6176,
+      "sha256": "5f4fae365fee9979102757cc6842b0af86a4c40490853bc4aff49d012a489421",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-12-middle.png",
+      "bytes": 6035,
+      "sha256": "dd64a67ddf99e177643bc0d48e7f64d98d1ee0a57d3b935a5dea8946c4de9466",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-12-top.png",
+      "bytes": 6035,
+      "sha256": "dd64a67ddf99e177643bc0d48e7f64d98d1ee0a57d3b935a5dea8946c4de9466",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-13-bottom.png",
+      "bytes": 5659,
+      "sha256": "e1e09ec6eeccb378fef76275661ab7ccc191410ecc1ba77f2c498ba644acc66b",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-13-middle.png",
+      "bytes": 5659,
+      "sha256": "e1e09ec6eeccb378fef76275661ab7ccc191410ecc1ba77f2c498ba644acc66b",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-13-top.png",
+      "bytes": 5659,
+      "sha256": "e1e09ec6eeccb378fef76275661ab7ccc191410ecc1ba77f2c498ba644acc66b",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-14-bottom.png",
+      "bytes": 5378,
+      "sha256": "b2158276e1068d8a04c08a08da137233dbc47e1a53f804ea5b5d35d40b3cd5aa",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-14-middle.png",
+      "bytes": 5378,
+      "sha256": "b2158276e1068d8a04c08a08da137233dbc47e1a53f804ea5b5d35d40b3cd5aa",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-14-top.png",
+      "bytes": 5378,
+      "sha256": "b2158276e1068d8a04c08a08da137233dbc47e1a53f804ea5b5d35d40b3cd5aa",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-15-bottom.png",
+      "bytes": 5697,
+      "sha256": "20cbf63daaf7b508b46b96a096881445ef45b5d0f0d6bb204c71fc5561430d37",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-15-middle.png",
+      "bytes": 5697,
+      "sha256": "20cbf63daaf7b508b46b96a096881445ef45b5d0f0d6bb204c71fc5561430d37",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-15-top.png",
+      "bytes": 5697,
+      "sha256": "20cbf63daaf7b508b46b96a096881445ef45b5d0f0d6bb204c71fc5561430d37",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-16-bottom.png",
+      "bytes": 4440,
+      "sha256": "567c9caa919814185f909a90e4494497c33c06eb446b225019a988b6a78d1830",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-16-middle.png",
+      "bytes": 4440,
+      "sha256": "567c9caa919814185f909a90e4494497c33c06eb446b225019a988b6a78d1830",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-16-top.png",
+      "bytes": 4440,
+      "sha256": "567c9caa919814185f909a90e4494497c33c06eb446b225019a988b6a78d1830",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-17-bottom.png",
+      "bytes": 4118,
+      "sha256": "c155fbad5eeb299b6414992483d8334ba9c851514ae7af0c2a518817f7b004bc",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-17-middle.png",
+      "bytes": 4118,
+      "sha256": "c155fbad5eeb299b6414992483d8334ba9c851514ae7af0c2a518817f7b004bc",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-17-top.png",
+      "bytes": 4118,
+      "sha256": "c155fbad5eeb299b6414992483d8334ba9c851514ae7af0c2a518817f7b004bc",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-18-bottom.png",
+      "bytes": 4608,
+      "sha256": "9d073c0ae2d24a0be42de069837271ff3d143b996507d001c6ef8c54f5df11b6",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-18-middle.png",
+      "bytes": 4608,
+      "sha256": "9d073c0ae2d24a0be42de069837271ff3d143b996507d001c6ef8c54f5df11b6",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-18-top.png",
+      "bytes": 4608,
+      "sha256": "9d073c0ae2d24a0be42de069837271ff3d143b996507d001c6ef8c54f5df11b6",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-19-bottom.png",
+      "bytes": 5756,
+      "sha256": "f0c7b27aedb27dadb1c4f271bc9915c7d3a44f1404a0d5476740e4bfcfae7eaa",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-19-middle.png",
+      "bytes": 5756,
+      "sha256": "f0c7b27aedb27dadb1c4f271bc9915c7d3a44f1404a0d5476740e4bfcfae7eaa",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-19-top.png",
+      "bytes": 5756,
+      "sha256": "f0c7b27aedb27dadb1c4f271bc9915c7d3a44f1404a0d5476740e4bfcfae7eaa",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-20-bottom.png",
+      "bytes": 4409,
+      "sha256": "98c1f3916a339d2812becb8b0ea34cb1dade3196e91aa719dc0a27ff249be33c",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-20-middle.png",
+      "bytes": 4409,
+      "sha256": "98c1f3916a339d2812becb8b0ea34cb1dade3196e91aa719dc0a27ff249be33c",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-20-top.png",
+      "bytes": 4409,
+      "sha256": "98c1f3916a339d2812becb8b0ea34cb1dade3196e91aa719dc0a27ff249be33c",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-21-bottom.png",
+      "bytes": 5526,
+      "sha256": "3e6b8f02338c4a6c5021dd61f92c364b9f902d0dd35a3ad58918e993802288f6",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-21-middle.png",
+      "bytes": 5609,
+      "sha256": "033de756753cdf762280ac310ed987de94aec751d8431731bae3d9bdef307280",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-21-top.png",
+      "bytes": 5602,
+      "sha256": "2844a9030c4f58280574db393dbadf9a647aba52bea1f2b1a167bcd3cde2d54f",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-22-bottom.png",
+      "bytes": 5545,
+      "sha256": "b73218e85ba0c92b642313d1f0b6f2a5db3d084a32c68378d3da384974da79c7",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-22-middle.png",
+      "bytes": 5413,
+      "sha256": "040e4b6e6721ba6c8ca536afc512e31624eb1205c428871c0b6cbd10af42a296",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-22-top.png",
+      "bytes": 5324,
+      "sha256": "b2a312fae751f10291cafcb3a5ceabdd6458246217756b2ce9508977dd9bf7dc",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-23-bottom.png",
+      "bytes": 5805,
+      "sha256": "7f5429ef6668ff17ee71d15608965c1d4b5950f6ce047153defede978917d998",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-23-middle.png",
+      "bytes": 5906,
+      "sha256": "82c869ff98575821ab68928f95b1c1dec5350b87aacbd4852abb93c9bafaacb5",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-23-top.png",
+      "bytes": 5826,
+      "sha256": "84454f22f33ed202334b7c8fde2fddc881999e1bb703501b4c9ab1b7a4f3ce2f",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-24-bottom.png",
+      "bytes": 5785,
+      "sha256": "0a5353e28e593f3df65e863ac8ca6a7559ab78a14b6642608536c99bb6d0416f",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-24-middle.png",
+      "bytes": 5870,
+      "sha256": "efb01e89bcbd0001aace5c6147164fedef89f7f6643db5cfab0ad63c50eb75e7",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-24-top.png",
+      "bytes": 5746,
+      "sha256": "972f1a6ee34fa5456e8115f9fa2af720dd82d0da42df00cbaee087ce63cce675",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-25-bottom.png",
+      "bytes": 5669,
+      "sha256": "ced0ddc9364ca54f2281b7b22c9fb1bc3fa2c5b639117bdc76f1a54ffeb09563",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-25-middle.png",
+      "bytes": 5650,
+      "sha256": "e2c7cba3659d6358c9e01cd1620905dccc97bfcc6d0cbc2bbd2a93b6cce26bfc",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-25-top.png",
+      "bytes": 5608,
+      "sha256": "aa5fcfe418f5dbc54a72730ffe338159cf0991339750d462beac8e43fb00b09a",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-26-bottom.png",
+      "bytes": 5806,
+      "sha256": "a39e6ddaddbd445079c3bafe3de879191aaaf49cbe89a0535d8f20ba563e159b",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-26-middle.png",
+      "bytes": 5855,
+      "sha256": "e7ec62e8b0004325258eab79ce2f5e8dab88e06fa8335c8bba3faba9ee778355",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-26-top.png",
+      "bytes": 5781,
+      "sha256": "d6b91d490bd499bc916682989d5ebf35a8fffa847e9c667c395d896cedc20fe3",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-27-bottom.png",
+      "bytes": 6039,
+      "sha256": "dfd268b745b166411c6e09242f09ffc80d1de9acc6d23dee8a9ccba6b1a453b6",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-27-middle.png",
+      "bytes": 5983,
+      "sha256": "f1e97646f73838ccee4ae55fe7bc1c23f7fabc15697573ff34a8382826ef8683",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-27-top.png",
+      "bytes": 5883,
+      "sha256": "67257550c4aac71061404aefdf79fcdd21dcda9e80ba685991b79e5494682e8f",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-28-bottom.png",
+      "bytes": 5912,
+      "sha256": "9d07f090e7ee6b4d2766dfda51fbef27452d3f53f47a60de7d7564685325c23c",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-28-middle.png",
+      "bytes": 6121,
+      "sha256": "ab3273976d3e45b4bce6ea4aed8bf409027bcca48d6c4d0e2cb913e498a3a52f",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-28-top.png",
+      "bytes": 6103,
+      "sha256": "2c0900d51d86208a6e185cebaf971402bb6874296c5e2bebf440e8bb9afa0ebf",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-31-bottom.png",
+      "bytes": 5552,
+      "sha256": "b8be73992a6fff05ac08e31c0aa36ae0bf6c84c44ced49b1c7edda1cc8e92ef0",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-31-middle.png",
+      "bytes": 5580,
+      "sha256": "77e3a9a74cac707b44c8647bc50d6527d49d461fba898a0daa635a55e3b84135",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-31-top.png",
+      "bytes": 5572,
+      "sha256": "fc8e88b4e57c32e54c0c4e6cb1cb8250734daeb0776124177d8fa1e4bd8af423",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-32-bottom.png",
+      "bytes": 5662,
+      "sha256": "92efc865944390415e03dd7483faf26712ef5aa6c6ba40347f6b30a7b3e899fa",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-32-middle.png",
+      "bytes": 5545,
+      "sha256": "4588332b624c07cbcc35f5767c8c596129ebd726d33892d2e14b1eca04d982a7",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-32-top.png",
+      "bytes": 5580,
+      "sha256": "96821201b8b81e8d1814bafa11aec75f61b21a2f0cde8647b006f619d080dc42",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-33-bottom.png",
+      "bytes": 5901,
+      "sha256": "93632226a39856a8507eae0e530dc6edcf20f62518c2ecf1c0bed0e097077294",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-33-middle.png",
+      "bytes": 5928,
+      "sha256": "430ca4761e5cf9542da7002a8d6af815aa2dddc4b8e3a99ea6a4122214b11f10",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-33-top.png",
+      "bytes": 6206,
+      "sha256": "77b0ab24580453934e5fa68f912ecd7265abdbd7d74f795e06eef2e4c217a8bd",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-34-bottom.png",
+      "bytes": 6255,
+      "sha256": "6b928f6f078055dd0702e35ac2fed3acb1cf1d43d919a025b1042b0af3276086",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-34-middle.png",
+      "bytes": 5820,
+      "sha256": "7a851b5d5905d49b92ceb0a5882bb15d8e7448a391240e0a0dec6471009ef772",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-34-top.png",
+      "bytes": 5851,
+      "sha256": "8962501e498ebd07bd07d907a91294ff42c663e8c70cdde821e349848b07722c",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-35-bottom.png",
+      "bytes": 5823,
+      "sha256": "8630371c5983b821828e3b8163370bbc2b33933cc9e3380b1b36a6235364216d",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-35-middle.png",
+      "bytes": 5841,
+      "sha256": "3e2ea4e32616ef05ce77e714001997609dec7eadb284921d20ed2bec0456704b",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-35-top.png",
+      "bytes": 6318,
+      "sha256": "7255f6fe6942bf235b228140dab98f9a483af4038da27c32ea78f0fcc51a760b",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-36-bottom.png",
+      "bytes": 5150,
+      "sha256": "001c0d916eae01510c0ff07b4da9723da3d813709de7e39145ab4cf9362324c6",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-36-middle.png",
+      "bytes": 5150,
+      "sha256": "001c0d916eae01510c0ff07b4da9723da3d813709de7e39145ab4cf9362324c6",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-36-top.png",
+      "bytes": 5150,
+      "sha256": "001c0d916eae01510c0ff07b4da9723da3d813709de7e39145ab4cf9362324c6",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-37-bottom.png",
+      "bytes": 5973,
+      "sha256": "18e561fb8cc3a17cf5f684df09b357d82e480a793709e1e2c5633a789d4f7276",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-37-middle.png",
+      "bytes": 6033,
+      "sha256": "ec64c0220164b9d737cf3f09519e01b1b2248ac1dd290727cd320601d0bae2ff",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-37-top.png",
+      "bytes": 6062,
+      "sha256": "1c61c2bbb9475f6e0a47de80d3926d9683e8d40f8103bfaa9676a418804f1b7c",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-38-bottom.png",
+      "bytes": 5863,
+      "sha256": "0cb4f854b6ecc6cbf9ff6c2c13300d97959d79ece9f4362afb192595e1630bef",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-38-middle.png",
+      "bytes": 5758,
+      "sha256": "478b59916db0ab92c567bd12dfd3b0bedc1bd036d3f8e0967973203dfb413db0",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/69-rules-38-top.png",
+      "bytes": 5820,
+      "sha256": "9dbf15b85b0e9021ccada864b43ff1b046de1fc61bf06692245d3a34d816ce56",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/70-card-1-fixture.png",
+      "bytes": 2831,
+      "sha256": "53b18486eaf21589903d94dc6127f649967f84fa2d3a2e009e61d108e65548ee",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/70-card-10-fixture.png",
+      "bytes": 2859,
+      "sha256": "6002831ee5bfc5695d35e855ae43628092e3b210eedea23d978449048d4ab65c",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/70-card-100-fixture.png",
+      "bytes": 2886,
+      "sha256": "d2319711b8dcf48965066df372d594b8a366e9fbeb15308ca8e8a791db6024ed",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/70-card-9-fixture.png",
+      "bytes": 2828,
+      "sha256": "f5ad9597548f9d6b95d889d1aaa6a20d034800f512422d2c40d94366838d8295",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/70-card-99-fixture.png",
+      "bytes": 2849,
+      "sha256": "e1794e79c12968c0b04f3b0ff6288438e55ae173b6f264325d343aa55ae3777e",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/70-card-999-fixture.png",
+      "bytes": 2854,
+      "sha256": "44d77671e3f12e65d910acca88449d1c18032d7ac519f3ccd1f212370ae924b0",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/71-factor-157626-fixture.png",
+      "bytes": 3469,
+      "sha256": "31dda3d80338ae706c6def04af59f955459885f931cd53726c972aa4d2f9f5df",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/71-factor-360-fixture.png",
+      "bytes": 3395,
+      "sha256": "2fc17d245fc09375606b893662678848d054e03ca8aaef81e52aaa718ecc4e91",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/71-factor-43956-fixture.png",
+      "bytes": 3457,
+      "sha256": "8a1ba5db2dc7c4e9f52f34899b1f38ea4bc759ecccaad81cef1836c10db37ef0",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/71-factor-488808-fixture.png",
+      "bytes": 3415,
+      "sha256": "705b240b2c0802863e2d87fdeed9dee8445c5b851da5aa45ed5a741960ab1ba3",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/71-factor-9-fixture.png",
+      "bytes": 3365,
+      "sha256": "824c7eb5be7a4d23b5e44de42afc1342c06c77ecede5d8f3f3f90517feadb1cf",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/72-sequence-0.png",
+      "bytes": 3063,
+      "sha256": "695e789483ad76e18f95a19209b656b264deca0d1a2f9e376b7a31c02614ca6d",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/72-sequence-1.png",
+      "bytes": 3156,
+      "sha256": "9d15d7bd04ab74bd6ac2a9864cb9c8ad3372eb7bf4cd4b4cb579ddb0eb233c89",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/72-sequence-2.png",
+      "bytes": 3106,
+      "sha256": "e6ed4f0e1ff8c8fab7e763301c4ea65faf3ff18f81cc3b9d6396386df99fdcd2",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/72-sequence-3.png",
+      "bytes": 3077,
+      "sha256": "26e8239f14a59fbfbb4080a5407af5ad1d7ccbcdacd17d2470e8d0853385f038",
+      "mode": "0644"
+    },
+    {
       "file": "docs/captures/README.md",
-      "bytes": 9700,
-      "sha256": "05c6e135dc4a1ebbb844161ae597ebd85408e37fdbe2a6b108300af0f003b175",
+      "bytes": 15267,
+      "sha256": "79722929858662b33179dc2a439449424b3455ae7ec35373e358e7e64c40c18d",
       "mode": "0644"
     },
     {
@@ -3305,15 +4145,21 @@
       "mode": "0644"
     },
     {
+      "file": "docs/captures/cards-three-digit-native.png",
+      "bytes": 21394,
+      "sha256": "077a9214fdab0f27dfe570d3e81b96ece055a5ff55565f76e2d6d35150d37f32",
+      "mode": "0644"
+    },
+    {
       "file": "docs/captures/category-1-2x.png",
-      "bytes": 35102,
-      "sha256": "1f8aae1d3851dabdc532d677ff7f99a4c62c186b639b3e98a3f7e8315971750b",
+      "bytes": 35257,
+      "sha256": "f32190cb6a0fcf53aae7181b904410639acd06863b96bc27276e2139419116e3",
       "mode": "0644"
     },
     {
       "file": "docs/captures/category-2-2x.png",
-      "bytes": 36509,
-      "sha256": "fe89d2ceac9afd82400240e7d69b54224796740cc5654345f02a1fa29bd37856",
+      "bytes": 36457,
+      "sha256": "27a96fe9c19b25cabbc5120b9332842f0b974955da5cb99a058d268348f770dc",
       "mode": "0644"
     },
     {
@@ -3342,14 +4188,20 @@
     },
     {
       "file": "docs/captures/contact-native.png",
-      "bytes": 102158,
-      "sha256": "174cda678333880a642e5a33a61bd711d0cc4474e79800f68b0d2f8042283afb",
+      "bytes": 102185,
+      "sha256": "3bf69b40ab9e59494901253b79ae89ceca4cdefd32fa4b37ac693a42ab9823f1",
       "mode": "0644"
     },
     {
       "file": "docs/captures/entry-layout-native.png",
       "bytes": 30324,
       "sha256": "ec09c353b6421104322da8bddb4d29b957c997ed1dadce02ec3e46eb7ddb69f3",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/factor-centering-native.png",
+      "bytes": 23251,
+      "sha256": "ba9753aa69c0829b0850f06b370ffe652017b145b3eefc35809588f9fe6c72bc",
       "mode": "0644"
     },
     {
@@ -3360,8 +4212,8 @@
     },
     {
       "file": "docs/captures/master-native.png",
-      "bytes": 250960,
-      "sha256": "b2d2592285f810e5d28b776e3cfd3d4558ce0b8da6ceca8c25c12964eba8b24e",
+      "bytes": 251118,
+      "sha256": "96ae2caa0deea7ef0c1d5fdf267368f6fdd1c906637baa643d65876fc5a51134",
       "mode": "0644"
     },
     {
@@ -3378,26 +4230,38 @@
     },
     {
       "file": "docs/captures/overflow-native.png",
-      "bytes": 21306,
-      "sha256": "b083ce114a38d61c12cedf4da57b55003ad4057dd4db2b984e415e0ee3b0103e",
+      "bytes": 21223,
+      "sha256": "6ebc3996415cd73406ec4586028eee72649944473e95935cde98bf8eb82bde69",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/rules-scroll-native.png",
+      "bytes": 71936,
+      "sha256": "2afe05544a305cb753de2d63cabbf5616d4f89b915f72f55f9f35ef056b35872",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/sequence-flow-native.png",
+      "bytes": 15081,
+      "sha256": "fe1b6019d125a5956b70a1b779a32a303cbe8ceaa7620729dc3c9a0ee0e9e11a",
       "mode": "0644"
     },
     {
       "file": "docs/captures/states-native.png",
-      "bytes": 254623,
-      "sha256": "a0da545065a114f9c29ae2093b4d54ac95fd7fd5ca1753f9b013aa790b9efe73",
+      "bytes": 254162,
+      "sha256": "6f18ec9eb78c3b6ee0cdc9ffa62d8419871e528e1a1070f47f0129a47d0aad86",
       "mode": "0644"
     },
     {
       "file": "docs/diagnostic-build-metrics.json",
-      "bytes": 203792,
-      "sha256": "8a8563e13c542f47bfd30f4aef171596284d7b654b08615e18e77a1aa88d95d1",
+      "bytes": 204405,
+      "sha256": "342607e1aa47cca2f7bef08497d81bcd67e806d9139f48ec9cab3c8f798079e1",
       "mode": "0644"
     },
     {
       "file": "docs/game-registry.json",
-      "bytes": 34345,
-      "sha256": "ff277ae75602a276da8ab9e51541d819fdc282a5e3dd15c7de7e2ab934fd429f",
+      "bytes": 34393,
+      "sha256": "93970b6f9037adca760822cd0207cf26655a87e341f24ba9c39716ffd17f6a30",
       "mode": "0644"
     },
     {
@@ -3528,14 +4392,14 @@
     },
     {
       "file": "include/ui.h",
-      "bytes": 2772,
-      "sha256": "0469dcecbbe4648a2def170982456e3d1181cbe494ff26d1f41be06862a0bc35",
+      "bytes": 2940,
+      "sha256": "6a265b276dd24fa7e3812eb9adff8aa7fe7e29f000c4b20a3fc7ffe72e6e648c",
       "mode": "0644"
     },
     {
       "file": "src/core/app.c",
-      "bytes": 25028,
-      "sha256": "edf293df61d47c1798749d3fc770fdd72f849fcf2ab9a1b191feb2296aad86c5",
+      "bytes": 25060,
+      "sha256": "13737628acfae43b6673aa8f1cea8ecd9e0c466106c604682fcd0b4f4303b296",
       "mode": "0644"
     },
     {
@@ -3552,8 +4416,8 @@
     },
     {
       "file": "src/core/registry.c",
-      "bytes": 6717,
-      "sha256": "6eacc921a848527b6ee61bf3fe2cea0be8c01678f94c2c74db7557126e05dfcd",
+      "bytes": 6752,
+      "sha256": "d177da35a165f78f3d6319ffe047bc6a67b37d9dae3719ea865f18f0bb222b9f",
       "mode": "0644"
     },
     {
@@ -3630,8 +4494,8 @@
     },
     {
       "file": "src/games/guesscalc.c",
-      "bytes": 51407,
-      "sha256": "58a9ed3938c0b6d213d2a6b43eec55c4469e7a6c85fa0aeadc5a3a5191252bbf",
+      "bytes": 56199,
+      "sha256": "cab286bc9ec8d71c1cb516b790e15f8d41e972e4daf571b44e57d4a70088087a",
       "mode": "0644"
     },
     {
@@ -3744,8 +4608,8 @@
     },
     {
       "file": "src/ui/render.c",
-      "bytes": 22336,
-      "sha256": "6888c3336829e912c9acb72d483fa124d925491476eccd639d4dff0c18b02547",
+      "bytes": 23863,
+      "sha256": "d8a9e58fbc6a8dd50e8099f79170a8c67bf4523332a86e031c1d16b0b4c58b9b",
       "mode": "0644"
     },
     {
@@ -3840,8 +4704,8 @@
     },
     {
       "file": "tests/test_beta4_revision.c",
-      "bytes": 5315,
-      "sha256": "9f7d99285fc8994b9c4b4fbb2f860983f5716335209d34c6aefaf270bf8bdeda",
+      "bytes": 5545,
+      "sha256": "bb91f1f58c33ade4b54a12fa985b48587ea6b69b19b7c18e8fc97987ab54b8b0",
       "mode": "0644"
     },
     {
@@ -3870,8 +4734,8 @@
     },
     {
       "file": "tests/test_capture.c",
-      "bytes": 10346,
-      "sha256": "15390cbf4c80b809970a5063c8c76c0c1ebcd9425067724d550ef8bcf7c80358",
+      "bytes": 11733,
+      "sha256": "93db543dfa769ca1031ab14572eee646c86f5d42db14ebc2b9e739599fd4e814",
       "mode": "0644"
     },
     {
@@ -3948,8 +4812,8 @@
     },
     {
       "file": "tests/test_guesscalc_exact.py",
-      "bytes": 3098,
-      "sha256": "5f984f5462279ce3e52a428442e473117ea29e08df4ff55771e63e2d6dad488b",
+      "bytes": 3321,
+      "sha256": "4fe60d3056b0a60b348ce31b906e8caf8f120d5d845cceadafe67ea8f76ae2ce",
       "mode": "0644"
     },
     {
@@ -3978,8 +4842,8 @@
     },
     {
       "file": "tests/test_make_target_reference.py",
-      "bytes": 20711,
-      "sha256": "1d7fd4f75b69474ec221568b14e9b7b4aaa9da67837786c49d9f30f546908dbb",
+      "bytes": 20959,
+      "sha256": "84eb1e8efea86f246a557eb01f54e62eb1139dba68ff166641c82119dbe2c826",
       "mode": "0644"
     },
     {
@@ -4050,8 +4914,8 @@
     },
     {
       "file": "tests/test_ui_layout.c",
-      "bytes": 4292,
-      "sha256": "65f62c7bfd6bb61c86e90aa7a52629028bda1bfb9232dd5b0e62138ff24ff6c0",
+      "bytes": 8059,
+      "sha256": "d8bfcf784b47142fa9dae2a68364d0aba12801007c384c06a4cabf28c7cdc0c8",
       "mode": "0644"
     },
     {
@@ -4074,8 +4938,8 @@
     },
     {
       "file": "tools/captures.py",
-      "bytes": 5314,
-      "sha256": "8856a820d3c1b799e3c12127c9acd675d5de0dde4208957895d25694c56a4d7e",
+      "bytes": 5844,
+      "sha256": "47d215b461213462073005fac4b8e87cb5e737b180b6d696a1a3f90a9df98fcb",
       "mode": "0644"
     },
     {
@@ -4129,7 +4993,7 @@
     {
       "file": "tools/generate/difficulty_audit.py",
       "bytes": 6112,
-      "sha256": "79a832ee5c586d16dbd1e3aae536fb472b3541ca685b956c99771e1bc662405f",
+      "sha256": "8fe433d3ffcd79a0353f3352b7ad6e46bf4ebeb60d6d83a77cec808dba234554",
       "mode": "0644"
     },
     {
@@ -4241,6 +5105,30 @@
       "mode": "0644"
     },
     {
+      "file": "tools/generate/guesscalc_beta5_audit.py",
+      "bytes": 4442,
+      "sha256": "116b488d5addb32c07ab72b78a75bf73436f21f40eb1591fff0079d867ec7fbf",
+      "mode": "0644"
+    },
+    {
+      "file": "tools/generate/guesscalc_beta5_rows.py",
+      "bytes": 2433,
+      "sha256": "bdf7f289988f85abbfc3f8e83c6a6876f6a8129e61115dc5314ad0c191ed255c",
+      "mode": "0644"
+    },
+    {
+      "file": "tools/generate/guesscalc_beta5_sample.c",
+      "bytes": 1428,
+      "sha256": "6a10af4156b68ec41411a6594a5a85772fdc4ca5122585398823e807c9920f91",
+      "mode": "0644"
+    },
+    {
+      "file": "tools/generate/guesscalc_beta5_target.py",
+      "bytes": 10282,
+      "sha256": "d7c3c5ec7a5e7caf2f91686c57c4a0789d15516f22b1cf173337e9cca5a98675",
+      "mode": "0644"
+    },
+    {
       "file": "tools/generate/guesscalc_capture.c",
       "bytes": 3257,
       "sha256": "0ff995f7b68f0c139da27f3436f7449eb8713fc36f8fc8b7ae203193179f4cb3",
@@ -4266,8 +5154,8 @@
     },
     {
       "file": "tools/generate/guesscalc_exact.py",
-      "bytes": 5844,
-      "sha256": "ad1a2844e8355b93a17db8d1b9215d0ae9b04d1c78c3b702dd669dd86d1d0461",
+      "bytes": 9214,
+      "sha256": "c2abe928d990b1b7a1c4f25836fdb738e75686a7b53deb61851dc2834c6f8c16",
       "mode": "0644"
     },
     {
@@ -4338,8 +5226,8 @@
     },
     {
       "file": "tools/make_docs.py",
-      "bytes": 4811,
-      "sha256": "d0c7050bab0bb1b0249e8017983d42403931f9d54a9e8d3f1906703207ec6f76",
+      "bytes": 4977,
+      "sha256": "6951e833b0bf2426d24263c4bd170413a97b7c71b7a6d511b324c2edde113ff0",
       "mode": "0644"
     },
     {
@@ -4350,8 +5238,8 @@
     },
     {
       "file": "tools/public_snapshot.py",
-      "bytes": 31661,
-      "sha256": "f6892248a6e839449274ae646dcb7f5b1c80415ba60c5399591240f377e30c97",
+      "bytes": 32634,
+      "sha256": "2570ffc186b1fc5e37e73561f669f9372a737930967a735855cc7058f8809054",
       "mode": "0644"
     },
     {
@@ -4374,8 +5262,8 @@
     },
     {
       "file": "tools/verify_content.sh",
-      "bytes": 2744,
-      "sha256": "a645a495f883b8dbdfb7f711b058486d58374293b1ce88f7df73f0bd33acd030",
+      "bytes": 3272,
+      "sha256": "7ac96367b30ef376e6eafd0f4b0d358ec139dcd759c3adb149610fc134fe6284",
       "mode": "0644"
     },
     {

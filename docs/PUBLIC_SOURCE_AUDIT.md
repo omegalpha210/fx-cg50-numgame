@@ -14,9 +14,10 @@ C/header packs, generators and independent verifiers. It also includes the
 documented public audits, native-renderer captures, runtime icons and attributed
 font atlases. Generated data and compiled pack sources are both retained so that
 their correspondence can be checked independently.
-The beta.4 Make Target exact-rational C++ tool is host-only source under
-`tools/generate`; it is not linked into either calculator package. Its verified
-target-indexed native bank is a separate compact header.
+The Make Target exact-rational C++ tool is host-only source under
+`tools/generate`; it is not linked into either calculator package. Retained
+beta.4 and new 1–999-card beta.5 target-indexed banks each have their own
+compact native header and auditable host JSON/CSV.
 Seven small, path-checked host benchmark JSON files retain the baseline,
 36-game and v5 normal/diagnostic summaries and adjacent build-flag evidence; their report
 can be regenerated without the original workstation build directories.

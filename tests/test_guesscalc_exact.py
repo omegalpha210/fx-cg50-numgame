@@ -7,7 +7,7 @@ import sys
 import unittest
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT/'tools/generate'))
-from guesscalc_exact import Solver, solve, target_deck_v4
+from guesscalc_exact import Solver, solve, target_deck_v4, target_deck_v5
 from guesscalc_beta4_target import accepted, magnitude
 
 
@@ -52,15 +52,17 @@ class ExactTests(unittest.TestCase):
             self.assertEqual(set(values),{Fraction(1),Fraction(5),Fraction(6)})
 
     def test_all_bank_records_keep_their_acceptance(self):
-        records = json.loads((ROOT/'assets/guesscalc_target_beta4.json').read_text())['records']
-        self.assertEqual(len(records),8000)
-        seen = set()
-        for r in records:
-            self.assertTrue(accepted(r['difficulty'],r['exact']))
-            cards,witness,_ = target_deck_v4(r['candidate_index'],r['difficulty'],r['target'])
-            self.assertEqual((cards,witness),(r['cards'],r['generator_witness']))
-            self.assertEqual(magnitude(witness)[1],r['target'])
-            key = (r['target'],tuple(sorted(cards)));self.assertNotIn(key,seen);seen.add(key)
+        for revision, constructor in ((4,target_deck_v4),(5,target_deck_v5)):
+            records = json.loads((ROOT/f'assets/guesscalc_target_beta{revision}.json').read_text())['records']
+            self.assertEqual(len(records),8000)
+            seen = set()
+            for r in records:
+                self.assertTrue(accepted(r['difficulty'],r['exact']))
+                cards,witness,_ = constructor(r['candidate_index'],r['difficulty'],r['target'])
+                self.assertEqual((cards,witness),(r['cards'],r['generator_witness']))
+                self.assertEqual(magnitude(witness)[1],r['target'])
+                if revision == 5:self.assertTrue(all(1<=card<=999 for card in cards))
+                key = (r['target'],tuple(sorted(cards)));self.assertNotIn(key,seen);seen.add(key)
 
 
 if __name__=='__main__':unittest.main()

@@ -311,8 +311,8 @@ def expression_metrics(text):
     return result
 
 
-def bank_sample20():
-    """Replay the beta.4 independent EASY/NORMAL bank audit without writes.
+def bank_sample20(revision=5):
+    """Independently audit EASY/NORMAL samples from a saved bank without writes.
 
     At each level choose targets 1,2,10,24,99,250,500,777,999,1000. Sort the
     two records for each target by puzzle_id, then select zero-based ordinal
@@ -322,12 +322,14 @@ def bank_sample20():
     """
     started = time.monotonic()
     root = Path(__file__).resolve().parents[1]
-    paths = (root/'assets/guesscalc_target_beta4.json',
-             root/'assets/guesscalc_make_target_complexity.csv')
+    assert revision in (4, 5)
+    paths = ((root/f'assets/guesscalc_target_beta{revision}.json'),
+             root/('assets/guesscalc_make_target_complexity.csv' if revision == 4
+                   else 'assets/guesscalc_target_beta5_complexity.csv'))
     contents = tuple(path.read_bytes() for path in paths)
     bank = json.loads(contents[0])['records']
     rows = list(csv.DictReader(contents[1].decode().splitlines()))
-    assert len(bank) == len(rows) == 8000, 'Expected revision-4 bank size'
+    assert len(bank) == len(rows) == 8000, f'Expected revision-{revision} bank size'
     index = {int(row['puzzle_id']): row for row in rows}
     assert len(index) == len(rows) and len({row['puzzle_id'] for row in bank}) == len(bank)
     targets = (1, 2, 10, 24, 99, 250, 500, 777, 999, 1000)
@@ -400,7 +402,8 @@ if __name__ == '__main__':
     parser.add_argument('--candidate-json', type=Path)
     parser.add_argument('--all-fixed', action='store_true')
     parser.add_argument('--bank-sample20', action='store_true',
-                        help='independently check 20 fixed beta.4 JSON/CSV bank records')
+                        help='independently check 20 fixed JSON/CSV bank records')
+    parser.add_argument('--bank-revision', type=int, choices=(4, 5), default=5)
     args = parser.parse_args()
     if args.candidate_json:
         candidates = json.loads(args.candidate_json.read_text())
@@ -410,6 +413,6 @@ if __name__ == '__main__':
     elif args.all_fixed:
         print(json.dumps(fixed_report(), indent=2))
     elif args.bank_sample20:
-        print(json.dumps(bank_sample20()))
+        print(json.dumps(bank_sample20(args.bank_revision)))
     else:
         self_test()

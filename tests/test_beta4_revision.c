@@ -43,9 +43,11 @@ static void legacy_run(unsigned id,unsigned difficulty,unsigned mode,unsigned re
  tap(&cold,NGK_F6);
  if(cold.modal==NG_MODAL_NEW)tap(&cold,NGK_EXE);
  assert(cold.screen==NG_PLAY && !cold.modal);
- assert(cold.session.game.pack_revision==4);
+ assert(cold.session.game.pack_revision==ng_pack_revision(id,mode));
  assert(ng_valid(&cold.session.game));
  if(id==6)assert(cold.session.game.data[0]==(int32_t)target);
+ if(id==6)for(unsigned i=0;i<(unsigned)cold.session.game.data[1];i++)
+  assert(cold.session.game.board[i]>=1 && cold.session.game.board[i]<=999);
 }
 
 static void target_cycle_reset(void)
@@ -53,7 +55,7 @@ static void target_cycle_reset(void)
  memset(&disk,0,sizeof disk);disk.write_budget=-1;
  ng_app_init(&app,test_hooks(&disk),UINT32_C(42));
  open_game(&app,6);
- assert(app.session.game.pack_revision==4 && app.session.game.data[0]==24);
+ assert(app.session.game.pack_revision==5 && app.session.game.data[0]==24);
  assert(app.session.supply[0][NG_NORMAL].count==2 &&
         app.session.supply[0][NG_NORMAL].next==1);
  tap(&app,NGK_EXIT);
@@ -102,7 +104,7 @@ static void legacy_target_mode_result(void)
  cold.resumable=false;cold.dirty=true;
  tap(&cold,NGK_F6);
  assert(cold.screen==NG_PLAY && cold.modal==NG_MODAL_NONE);
- assert(cold.session.game.pack_revision==4 && cold.session.game.mode==0 &&
+ assert(cold.session.game.pack_revision==5 && cold.session.game.mode==0 &&
         cold.session.game.data[0]==10 && ng_valid(&cold.session.game));
  assert(cold.settings.mode[5]==0);
  assert(cold.session.supply[0][NG_NORMAL].count==2 &&
@@ -115,12 +117,13 @@ int main(void)
 {
  for(unsigned d=0;d<2;d++)legacy_run(5,d,0,2,24);
  for(unsigned d=0;d<4;d++)legacy_run(6,d,0,3,247);
+ for(unsigned d=0;d<4;d++)legacy_run(6,d,0,4,247);
  legacy_run(7,NG_HARD,0,2,24);
  legacy_run(10,NG_MASTER,0,2,24);
  for(unsigned mode=0;mode<2;mode++)for(unsigned d=0;d<4;d++)
   legacy_run(27,d,mode,2,24);
  target_cycle_reset();
  legacy_target_mode_result();
- puts("beta.4 revisions: old active puzzles, cold RESUME, INIT and NEW migration PASS");
+ puts("beta.5 target: old beta.3/beta.4 active puzzles, cold RESUME, INIT and bounded NEW PASS");
  return 0;
 }

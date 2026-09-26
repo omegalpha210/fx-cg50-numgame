@@ -12,7 +12,8 @@ unsigned ng_regular_difficulty_count(unsigned id){return id==29 || id==30?3:4;}
 unsigned ng_difficulty_count(unsigned id){return ng_has_hell(id)?5:ng_regular_difficulty_count(id);}
 unsigned ng_pack_revision(unsigned id,unsigned mode)
 {
- if(id==5 || id==6 || id==7 || id==10 || id==27)return 4;
+ if(id==6)return 5;
+ if(id==5 || id==7 || id==10 || id==27)return 4;
  return id==1 || id==28 || (id==19 && mode==1)?3:2;
 }
 const char *ng_level_name(unsigned difficulty)
@@ -38,7 +39,7 @@ unsigned ng_level_generation_policy_version(unsigned id,unsigned difficulty,unsi
 }
 unsigned ng_bank_count_version(unsigned id,unsigned difficulty,unsigned mode,unsigned revision)
 {
- if(revision<1 || revision>4 || difficulty>=ng_difficulty_count(id))return 0;
+ if(revision<1 || revision>ng_pack_revision(id,mode) || difficulty>=ng_difficulty_count(id))return 0;
  if(id==6){
   if(revision<=2)return mode<2?30:0;
   if(revision==3)return 0;

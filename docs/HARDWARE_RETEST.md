@@ -7,6 +7,26 @@ device symptom resolved. Use the exact `dist/SHA256SUMS.txt` before testing.
 Back up existing NG saves. NUM DIAG is a separate `NDSTATEA/B.dat` namespace
 and must be tested with disposable ND progress.
 
+For beta.5, check the UI and bounded Make Target decks on the actual LCD:
+
+1. At targets 1, 24, 247, 997 and 1000, open all four Make Target levels.
+   Every NEW card must be 1–999 and fit its equal-width box, including six
+   three-digit MASTER cards. Cold RESUME and INIT of a beta.4 unfinished run
+   must retain its original possibly four/five-digit cards and puzzle ID.
+2. Open short and long RULES from different games. Short documents must have
+   no scroll rail. Long documents must show a disabled UP arrow at the top,
+   both active in the middle and a disabled DOWN arrow at the bottom; holding
+   UP/DOWN must scroll gradually and stop at the ends. EXIT and MENU/OFF must
+   preserve existing navigation and save behavior.
+3. Read each Sequence level across the two card rows: 1→2→3, then the routed
+   outer connector to 4→5→6. Check large or signed terms for overlap.
+4. Check Prime Factor targets 9, 360, 43,956, 157,626 and 488,808 for large,
+   centered glyphs and enough separation from the label, instructions and
+   factor input.
+5. Inspect the [36-game renderer contact sheet](captures/contact-native.png)
+   against the physical LCD. Check board edges, row spacing, cards, controls,
+   header and F-key strip; host PNGs do not establish LCD readability.
+
 For beta.4, check these revised difficulty starts on the physical LCD:
 
 1. Start several new Countdown HARD puzzles and check that reaching the target

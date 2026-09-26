@@ -176,17 +176,56 @@ static void settings(NgCanvas *c,const NgApp *a)
  ng_small(c,16,174,"EXIT saves settings. F3: runtime diagnostics.",NG_MUTED);
  const char *keys[6]={"HELP","TIME","DIAG","","",""};soft(c,keys,false);
 }
+enum { RULES_LINES=10,RULES_WIDE=376,RULES_NARROW=350,RULES_TRACK_Y=49,RULES_TRACK_H=130 };
+static const char *rules_hell(unsigned id)
+{return ng_has_hell(id)?"Entry: focus DIFFICULTY, F3 selects HELL.\nF3 again restores the prior normal level.\nHELL + LEFT returns to MASTER. RIGHT stays.\nOPEN starts HELL; RESUME keeps its own level.":"";}
+static unsigned rules_count(unsigned id,int width)
+{
+ const NgModule *m=ng_module(id);if(!m)return 0;
+ const char *texts[2]={m->rules,rules_hell(id)};unsigned count=0;
+ for(unsigned part=0;part<2;part++){
+  const char *p=texts[part];char line[128];
+  while(ng_text_line(line,sizeof line,&p,width,false))count++;
+ }
+ return count;
+}
+unsigned ng_rules_line_count(unsigned id)
+{
+ unsigned wide=rules_count(id,RULES_WIDE);
+ return wide>RULES_LINES?rules_count(id,RULES_NARROW):wide;
+}
+unsigned ng_rules_max_scroll(unsigned id)
+{unsigned lines=ng_rules_line_count(id);return lines>RULES_LINES?lines-RULES_LINES:0;}
+static void rules_arrow(NgCanvas *c,int center,int top,bool down,int color)
+{
+ for(int row=0;row<4;row++){
+  int spread=down?3-row:row;
+  ng_line(c,center-spread,top+row,center+spread,top+row,color);
+ }
+}
 static void rules(NgCanvas *c,const NgApp *a)
 {
  unsigned id=a->selected_id;const NgModule *m=ng_module(id);header(c,"RULES",m->short_name);
  ng_rect(c,0,25,396,179,NG_WHITE);
- const char *texts[2]={m->rules,ng_has_hell(id)?"Entry: focus DIFFICULTY, F3 selects HELL.\nF3 again restores the prior normal level.\nHELL + LEFT returns to MASTER. RIGHT stays.\nOPEN starts HELL; RESUME keeps its own level.":""};
+ unsigned max=ng_rules_max_scroll(id),offset=a->rules_scroll<max?a->rules_scroll:max;
+ int width=max?RULES_NARROW:RULES_WIDE;
+ const char *texts[2]={m->rules,rules_hell(id)};
  unsigned line=0,drawn=0;
  for(unsigned part=0;part<2;part++){const char *p=texts[part];while(*p && drawn<10) {
-  char b[128];if(!ng_text_line(b,sizeof b,&p,376,false))break;
-  if(line++<a->rules_scroll)continue;
+  char b[128];if(!ng_text_line(b,sizeof b,&p,width,false))break;
+  if(line++<offset)continue;
   ng_text(c,10,32+(int)drawn*16,b,NG_INK,1);drawn++;
  }}
+ if(max){
+  int total=(int)ng_rules_line_count(id),thumb=RULES_LINES*RULES_TRACK_H/total;
+  if(thumb<16)thumb=16;
+  if(thumb>RULES_TRACK_H)thumb=RULES_TRACK_H;
+  int y=RULES_TRACK_Y+(int)offset*(RULES_TRACK_H-thumb)/(int)max;
+  ng_rect(c,375,RULES_TRACK_Y,5,RULES_TRACK_H,NG_LINE);
+  ng_rect(c,375,y,5,thumb,NG_BLUE);
+  rules_arrow(c,377,34,false,offset?NG_BLUE:NG_LINE);
+  rules_arrow(c,377,187,true,offset<max?NG_BLUE:NG_LINE);
+ }
  const char *keys[6]={"","","","","","OK"};soft(c,keys,false);
 }
 static void dialog(NgCanvas *c,const NgApp *a)
