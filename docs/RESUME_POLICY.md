@@ -19,8 +19,10 @@ device latency claim.
 On win, loss or draw, the resume flag is cleared in the same settings/run
 transaction. The terminal board remains in RAM. The completion dialog offers
 EXE NEW and EXIT VIEW RESULT. VIEW RESULT freezes gameplay input; F6 NEW starts
-another run at the completed run's difficulty/mode (including its Make Target
-target), while EXIT returns to that game's entry. A cold launch after completion
+another run at the completed run's difficulty/mode (including fixed or RANDOM
+Make Target selection), while EXIT returns to that game's entry. For an older
+arbitrary-target Make Target result, NEW returns to the TARGET entry for an
+explicit choice. A cold launch after completion
 has no F1 RESUME and no completed board. Keyboard barriers prevent one held
 EXIT from closing both the dialog and the result view.
 
@@ -30,13 +32,17 @@ progress. Newly started Magic Square FREE and 4×4 Lights Out use supply revisio
 3. Existing revision-1/2 active runs keep their original board and rule
 semantics through cold RESUME and INIT; NEW starts the current revision.
 
-New Countdown, Sequence, Prime Factor and Sliding Puzzle runs use content
-revision 4; new Make Target runs use revision 5 with cards 1–999. An unfinished
-earlier-revision run, including Make Target revision 4, retains its saved
-puzzle, settings and progress on RESUME; INIT reconstructs that revision's
-original puzzle. NEW starts the current revision. Changing Make Target's
-committed target starts a fresh shuffle cycle for that target. The v5 wire
-layout and one-unfinished-run policy are unchanged.
+Fresh Make Target uses revision 6 with targets 10/24/50/100/200/RANDOM and
+cards 1–999; Countdown and Prime Factor use revision 5; Baseball, Sequence
+and Sliding use revision 4. An unfinished older-revision run retains its
+saved puzzle, settings, guess history and progress on RESUME. INIT
+reconstructs that revision's original puzzle. NEW starts the current
+revision. Fixed Make Target has a 200-record cycle per selected target and
+level; RANDOM has a 1,000-record union cycle at the selected level. The
+requested target kind, fixed target if any, resolved target and cursor are
+restored without consuming another ordinal. Changing TARGET starts a fresh
+cycle. Baseball's ONE LAST TRY state and all guesses survive cold RESUME.
+The v5 wire layout and one-unfinished-run policy are unchanged.
 
 Validated v4 recent-five saves migrate the first valid unfinished run in the
 saved recency list. If that entry is corrupt or completed, the next valid

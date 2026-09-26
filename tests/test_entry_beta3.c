@@ -26,35 +26,28 @@ static void make_target_entry(void)
  assert(app.screen==NG_ENTRY && app.selected_id==6);
  target_row(&app);
 }
-static void test_target_editor(void)
+static void test_target_selection(void)
 {
- make_target_entry();assert(app.settings.target==24 && !app.target_editing);
- tap(&app,NGK_LEFT);assert(app.target_editing && app.target_cursor==0 && !strcmp(app.target_draft,"24"));
- tap(&app,'1');assert(app.target_cursor==1 && !strcmp(app.target_draft,"124"));
- tap(&app,NGK_RIGHT);assert(app.target_cursor==2);
- tap(&app,NGK_DEL);assert(app.target_cursor==1 && !strcmp(app.target_draft,"14"));
- tap(&app,NGK_EXE);assert(!app.target_editing && app.settings.target==14 && app.screen==NG_ENTRY);
- tap(&app,NGK_RIGHT);assert(app.target_editing && app.target_cursor==2 && !strcmp(app.target_draft,"14"));
- tap(&app,NGK_EXIT);assert(!app.target_editing && app.screen==NG_ENTRY && app.settings.target==14);
- tap(&app,'0');assert(app.target_editing && !strcmp(app.target_draft,"0"));
- tap(&app,NGK_EXE);assert(app.target_editing && app.notice[0] && app.settings.target==14);
- tap(&app,NGK_F6);assert(app.screen==NG_ENTRY && app.target_editing && app.settings.target==14);
- tap(&app,NGK_EXIT);assert(!app.target_editing && !app.notice[0] && app.settings.target==14);
- tap(&app,NGK_RIGHT);tap(&app,NGK_DEL);tap(&app,NGK_DEL);
- assert(app.target_editing && !app.target_draft[0] && app.target_cursor==0);
- tap(&app,NGK_EXE);assert(app.target_editing && app.notice[0] && app.settings.target==14);
- tap(&app,NGK_EXIT);assert(!app.target_editing && app.settings.target==14);
- tap(&app,'1');tap(&app,NGK_EXE);assert(!app.target_editing && app.settings.target==1);
- tap(&app,'1');tap(&app,'0');tap(&app,'0');tap(&app,'1');tap(&app,NGK_EXE);
- assert(app.target_editing && app.settings.target==1 && !strcmp(app.target_draft,"1001"));
- tap(&app,NGK_DEL);tap(&app,'0');tap(&app,NGK_EXE);
- assert(!app.target_editing && app.settings.target==1000 && app.screen==NG_ENTRY);
- assert(ng_checkpoint(&app));ng_app_init(&cold,test_hooks(&disk),22);assert(cold.settings.target==1000);
+ make_target_entry();assert(app.settings.target==24);
+ tap(&app,NGK_LEFT);assert(app.settings.target==10);
+ tap(&app,NGK_LEFT);assert(app.settings.target==10);
+ static const unsigned choices[]={24,50,100,200,NG_TARGET_RANDOM};
+ for(unsigned i=0;i<5;i++){tap(&app,NGK_RIGHT);assert(app.settings.target==choices[i]);}
+ tap(&app,NGK_RIGHT);assert(app.settings.target==NG_TARGET_RANDOM);
+ tap(&app,'0');tap(&app,'2');tap(&app,NGK_DEL);
+ assert(app.settings.target==NG_TARGET_RANDOM && app.screen==NG_ENTRY);
+ assert(ng_checkpoint(&app));ng_app_init(&cold,test_hooks(&disk),22);
+ assert(cold.settings.target==NG_TARGET_RANDOM);
  tap(&app,NGK_EXE);
- assert(app.screen==NG_PLAY && app.session.game.id==6 && app.session.game.data[0]==1000);
+ assert(app.screen==NG_PLAY && app.session.game.id==6 && app.session.game.data[2]==1 &&
+        app.session.game.data[4]==0);
+ bool found=false;for(unsigned i=0;i<5;i++)if(app.session.game.data[0]==(int32_t)(unsigned[]){10,24,50,100,200}[i])found=true;
+ assert(found);
  tap(&app,NGK_EXIT);assert(app.screen==NG_ENTRY);target_row(&app);
- tap(&app,NGK_F6);assert(app.screen==NG_PLAY && app.session.game.data[0]==1000);
- puts("Make Target: DIFF EQ-style insert/backspace cursor, invalid retain, EXIT cancel, F6 edit guard, EXE commit then EXE start, 1..1000 persistence PASS");
+ tap(&app,NGK_LEFT);assert(app.settings.target==200);
+ tap(&app,NGK_F6);
+ assert(app.screen==NG_PLAY && app.session.game.data[0]==200 && app.session.game.data[2]==0 && app.session.game.data[4]==200);
+ puts("Make Target: six clamped choices, numeric keys ignored, RANDOM persisted, TARGET EXE/F6 opens PASS");
 }
 static void test_badge(void)
 {
@@ -79,4 +72,4 @@ static void test_badge(void)
  tap(&cold,'1');assert(!badges(&cold).count);
  puts("Game tile: exactly one secondary RESUME badge; cold load, replacement, completion and corrupt-save removal PASS");
 }
-int main(void){test_target_editor();test_badge();return 0;}
+int main(void){test_target_selection();test_badge();return 0;}

@@ -110,15 +110,15 @@ static void master_bank_cycles(void)
   unsigned id=ids[family];app.settings.difficulty[id-1]=NG_MASTER;app.settings.mode[id-1]=0;app.settings_dirty=true;
   open_game(&app,id);NgSupply *bag=&app.session.supply[0][NG_MASTER];
   memset(bag,0,sizeof(*bag));app.dirty=true;assert(ng_checkpoint(&app));
-  unsigned seen[30]={0};uint32_t previous=UINT32_MAX;
-  for(unsigned i=0;i<65;i++){
-   open_game(&app,id);unsigned base=id==2?270:id==8?0:90,index=app.session.game.puzzle_id-base;
-   assert(index<30&&app.session.game.puzzle_id!=previous);
-   if(i%30==0)memset(seen,0,sizeof(seen));
+  unsigned count=id==7?200u:30u,seen[200]={0};uint32_t previous=UINT32_MAX;
+  for(unsigned i=0;i<2*count+5;i++){
+   open_game(&app,id);unsigned base=id==7?800u:id==2?270u:id==8?0u:90u,index=app.session.game.puzzle_id-base;
+   assert(index<count&&app.session.game.puzzle_id!=previous);
+   if(i%count==0)memset(seen,0,sizeof(seen));
    assert(!seen[index]++);
-   if(i%30==29)for(unsigned n=0;n<30;n++)assert(seen[n]==1);
+   if(i%count==count-1)for(unsigned n=0;n<count;n++)assert(seen[n]==1);
    previous=app.session.game.puzzle_id;
-   if(i==12||i==42){NgSupply expected=app.session.supply[0][NG_MASTER];ng_app_init(&cold,combined_hooks(),4000+i);tap(&cold,NGK_F1);assert(cold.screen==NG_PLAY);assert(!memcmp(&cold.session.supply[0][NG_MASTER],&expected,sizeof(expected)));app=cold;}
+   if(i==12||i==count+12){NgSupply expected=app.session.supply[0][NG_MASTER];ng_app_init(&cold,combined_hooks(),4000+i);tap(&cold,NGK_F1);assert(cold.screen==NG_PLAY);assert(!memcmp(&cold.session.supply[0][NG_MASTER],&expected,sizeof(expected)));app=cold;}
   }
  }
 }
@@ -161,15 +161,15 @@ static void completed_run_preferences(void)
 }
 static void target_entry(void)
 {
- app.settings.difficulty[5]=NG_MASTER;app.settings_dirty=true;open_game(&app,6);tap(&app,NGK_EXIT);
- tap(&app,'1'+(int)ng_entry_row(&app,NG_ENTRY_TARGET));assert(ng_entry_action(&app,app.entry_selection)==NG_ENTRY_TARGET&&!app.target_draft[0]);
- tap(&app,'1');tap(&app,'0');tap(&app,'0');tap(&app,'0');tap(&app,NGK_EXE);assert(app.screen==NG_ENTRY&&app.settings.target==1000&&!app.target_draft[0]);
- tap(&app,NGK_F6);assert(app.screen==NG_PLAY&&!app.modal&&app.session.game.data[0]==1000&&app.session.game.data[1]==6);
+ app.settings.target=24;app.settings.difficulty[5]=NG_MASTER;app.settings_dirty=true;open_game(&app,6);tap(&app,NGK_EXIT);
+ tap(&app,'1'+(int)ng_entry_row(&app,NG_ENTRY_TARGET));assert(ng_entry_action(&app,app.entry_selection)==NG_ENTRY_TARGET);
+ tap(&app,NGK_RIGHT);tap(&app,NGK_RIGHT);tap(&app,NGK_RIGHT);assert(app.settings.target==200);
+ tap(&app,NGK_F6);assert(app.screen==NG_PLAY&&!app.modal&&app.session.game.data[0]==200&&app.session.game.data[1]==6);
  NgGame expected=app.session.game;tap(&app,'1');tap(&app,NGK_F1);assert(app.modal==NG_MODAL_INIT);tap(&app,NGK_EXE);
- assert(app.session.game.data[0]==1000&&!memcmp(app.session.game.board,expected.board,sizeof(expected.board)));
- tap(&app,NGK_EXIT);tap(&app,'1'+(int)ng_entry_row(&app,NG_ENTRY_TARGET));tap(&app,'0');tap(&app,NGK_EXE);
- assert(app.screen==NG_ENTRY&&app.settings.target==1000&&!strcmp(app.target_draft,"0"));tap(&app,NGK_F6);assert(!app.modal&&app.screen==NG_ENTRY);
- tap(&app,NGK_DEL);tap(&app,'1');tap(&app,NGK_EXE);tap(&app,NGK_F6);assert(app.screen==NG_PLAY&&app.session.game.data[0]==1&&ng_valid(&app.session.game));
+ assert(app.session.game.data[0]==200&&!memcmp(app.session.game.board,expected.board,sizeof(expected.board)));
+ tap(&app,NGK_EXIT);tap(&app,'1'+(int)ng_entry_row(&app,NG_ENTRY_TARGET));tap(&app,NGK_RIGHT);
+ assert(app.settings.target==NG_TARGET_RANDOM);tap(&app,NGK_F6);
+ assert(app.screen==NG_PLAY&&app.session.game.data[2]==1&&app.session.game.data[4]==0&&ng_valid(&app.session.game));
 }
 static void completed_mode_target(void)
 {
@@ -178,17 +178,17 @@ static void completed_mode_target(void)
  tap(&app,'1'+(int)ng_entry_row(&app,NG_ENTRY_RESUME));tap(&app,NGK_EXE);assert(app.session.game.mode==0);
  gc_test_solve(&app.session.game,&app,app_key);assert(app.modal==NG_MODAL_RESULT);tap(&app,NGK_EXE);
  assert(app.screen==NG_PLAY&&app.session.game.id==2&&app.session.game.mode==0&&app.session.game.difficulty==NG_MASTER);
- app.settings.target=1;app.settings.difficulty[5]=NG_MASTER;app.settings_dirty=true;open_game(&app,6);
+ app.settings.target=10;app.settings.difficulty[5]=NG_MASTER;app.settings_dirty=true;open_game(&app,6);
  tap(&app,NGK_EXIT);tap(&app,'1'+(int)ng_entry_row(&app,NG_ENTRY_TARGET));
- tap(&app,'1');tap(&app,'0');tap(&app,'0');tap(&app,'0');tap(&app,NGK_EXE);assert(app.settings.target==1000);
+ for(unsigned i=0;i<4;i++)tap(&app,NGK_RIGHT);assert(app.settings.target==200);
  while(ng_entry_action(&app,app.entry_selection)!=NG_ENTRY_RESUME)tap(&app,NGK_UP);
- tap(&app,NGK_EXE);assert(app.session.game.data[0]==1);gc_test_solve(&app.session.game,&app,app_key);
+ tap(&app,NGK_EXE);assert(app.session.game.data[0]==10);gc_test_solve(&app.session.game,&app,app_key);
  assert(app.modal==NG_MODAL_RESULT);tap(&app,NGK_EXIT);assert(app.result_view);tap(&app,NGK_F6);
- assert(app.screen==NG_PLAY&&app.session.game.id==6&&app.session.game.difficulty==NG_MASTER&&app.session.game.data[0]==1);
+ assert(app.screen==NG_PLAY&&app.session.game.id==6&&app.session.game.difficulty==NG_MASTER&&app.session.game.data[0]==10);
 }
 int main(void)
 {
  disk.write_budget=-1;ng_app_init(&app,combined_hooks(),539);app.settings.mode[25]=0;
  lifecycle_drafts();master_lifecycles();master_bank_cycles();undo_and_extra_flows();completed_run_preferences();target_entry();completed_mode_target();
- puts("GUESS/CALC app: single-resume browsing/start, MAIN F1, cold restore, INIT, frozen results, eight65-run bank cycles, extra-game undo/save and target1/1000 PASS");return 0;
+ puts("GUESS/CALC app: single-resume browsing/start, MAIN F1, cold restore, INIT, frozen results, bank cycles, extra-game undo/save and target choices PASS");return 0;
 }

@@ -41,9 +41,15 @@ static void test_one_resume(void)
   entry(&cold,selected);tap(&cold,NGK_F6);
   assert(cold.screen==NG_PLAY && cold.session.game.id==selected);
  }
+ for(unsigned switch_index=0;switch_index<1000;switch_index++){
+  unsigned selected=ng_visible_id(switch_index%NG_GAME_COUNT);
+  entry(&cold,selected);tap(&cold,NGK_F6);
+  assert(cold.screen==NG_PLAY && cold.session.game.id==selected &&
+         ng_valid(&cold.session.game));
+ }
  assert(disk.lengths[0][0] && disk.lengths[0][1]);
  for(unsigned id=1;id<=NG_ID_MAX;id++)assert(!disk.lengths[id][0] && !disk.lengths[id][1]);
- puts("Single RESUME: Main F1, same-game row, different-game START, cold load, two files after 36 switches PASS");
+ puts("Single RESUME: Main F1, same-game row, different-game START, cold load, two files after 1,036 switches PASS");
 }
 static void test_failed_replacement(void)
 {

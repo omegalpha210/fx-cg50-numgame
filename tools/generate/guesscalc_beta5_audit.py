@@ -43,7 +43,7 @@ def native_parity(records):
     executable = folder/'audit-native'
     subprocess.run(['clang','-std=c11','-Wall','-Wextra','-Werror','-g','-fsanitize=undefined',
                     '-fno-sanitize-recover=all','-Iinclude','-Isrc/games',
-                    'tools/generate/guesscalc_beta5_sample.c','src/games/guesscalc.c',
+                    'tools/generate/guesscalc_beta5_sample.c','src/games/guesscalc.c','src/games/prime_beta6.c',
                     'src/games/guesscalc_math.c','src/core/common.c','src/ui/draw.c',
                     '-o',str(executable)],cwd=ROOT,check=True)
     result = subprocess.run([str(executable)],capture_output=True,text=True,check=True)

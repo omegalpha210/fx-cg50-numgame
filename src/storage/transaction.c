@@ -58,7 +58,7 @@ bool ng_settings_decode(NgSettings *s,const uint8_t *p,size_t n)
  for(unsigned i=0;i<s->recent_count;i++)if(s->recent[i]==s->pending_delete)return false;
  s->migration_complete=p[pos++];if(s->migration_complete>1)return false;
  s->target=(uint16_t)p[pos]|((uint16_t)p[pos+1]<<8);
- return s->target>=1 && s->target<=1000;
+ return s->target>=1 && s->target<=NG_TARGET_RANDOM;
 }
 size_t ng_settings_encode(const NgSettings *s,uint8_t *p,size_t capacity)
 {

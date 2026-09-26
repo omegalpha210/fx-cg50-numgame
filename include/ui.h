@@ -37,6 +37,9 @@ void ng_game_icon(NgCanvas *c,int x,int y,unsigned id,int accent);
 void ng_number(NgCanvas *c,int x,int y,int value,int color,int scale);
 void ng_input(NgCanvas *c,int x,int y,int w,const char *value);
 void ng_card(NgCanvas *c,int x,int y,int w,int h,const char *label,bool selected,bool used);
+/* A shared rail for lists longer than their visible rows. */
+void ng_list_scrollbar(NgCanvas *c,unsigned total,unsigned visible,unsigned offset,
+ int track_x,int up_y,int track_y,int track_h,int down_y);
 /* Wrapped RULES layout uses the same font metrics for drawing and key bounds. */
 unsigned ng_rules_line_count(unsigned id);
 unsigned ng_rules_max_scroll(unsigned id);

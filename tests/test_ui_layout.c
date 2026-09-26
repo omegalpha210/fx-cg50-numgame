@@ -67,8 +67,8 @@ static void settings_rows(void)
    }
    if(id==6){
     app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_TARGET);
-    for(const char *p="1000";*p;p++)press(*p);
-    press(NGK_EXE);assert(app.settings.target==1000);
+    for(unsigned step=0;step<4;step++)press(NGK_RIGHT);
+    assert(app.settings.target==NG_TARGET_RANDOM);
    }
    app.entry_selection=(uint8_t)ng_entry_row(&app,ng_entry_level(&app)?NG_ENTRY_LEVEL:NG_ENTRY_NEW);
    press(NGK_F6);assert(app.screen==NG_PLAY && ng_valid(&app.session.game));

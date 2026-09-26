@@ -1,4 +1,4 @@
-# Public source snapshot audit
+# Public source snapshot audit — beta.6
 
 Public source is assembled with `tools/public_snapshot.py` into a separate
 allowlisted directory. The working repository and its original Git history stay
@@ -14,13 +14,27 @@ C/header packs, generators and independent verifiers. It also includes the
 documented public audits, native-renderer captures, runtime icons and attributed
 font atlases. Generated data and compiled pack sources are both retained so that
 their correspondence can be checked independently.
-The Make Target exact-rational C++ tool is host-only source under
-`tools/generate`; it is not linked into either calculator package. Retained
-beta.4 and new 1–999-card beta.5 target-indexed banks each have their own
-compact native header and auditable host JSON/CSV.
-Seven small, path-checked host benchmark JSON files retain the baseline,
-36-game and v5 normal/diagnostic summaries and adjacent build-flag evidence; their report
-can be regenerated without the original workstation build directories.
+
+The current beta.6 content is the [4,000-record Make Target bank and 800-record
+Countdown bank](MAKE_TARGET_COUNTDOWN_BETA6_AUDIT.md), plus the [896-target Prime
+Factor table](PRIME_FACTOR_BETA6_AUDIT.md). Their JSON audit records and compact
+native headers are selected together. The Make Target exact-rational C++ tool is
+host-only source under `tools/generate`; it is not linked into either calculator
+package. The beta.6 target generator, deterministic MASTER refinement, Countdown
+generator, native C/JSON parity check and independent content tests are selected
+with the new packs. Retained beta.4 and beta.5 Make Target banks, reports and
+verifiers document historical revisions and support legacy saves; beta.5 is not
+the new-game content count. The [content inventory](CONTENT_INVENTORY.md),
+[setting-level CSV](CONTENT_INVENTORY_SETTINGS.csv), [cycle policy](CONTENT_CYCLE.md)
+and [Korean user guide](USER_GUIDE.md) are included.
+
+The [beta.6 capture guide](captures/BETA6_README.md), its 396×224 renderer frames
+and contact sheets, and the source harness that produced them are selected.
+These are host-renderer evidence, not physical LCD photographs. Nine small,
+path-checked host benchmark JSON files retain historical baseline, 36-game,
+v5 and [beta.6](PERFORMANCE_BETA6.md) normal/diagnostic summaries with
+build-flag evidence; their reports can be regenerated without the original
+workstation build directories.
 
 `LICENSE`, `THIRD_PARTY_NOTICES.md` and every listed notice in `docs/third_party`
 are required and copied byte-for-byte. The original font atlas bytes are also
@@ -90,6 +104,10 @@ The tool's self-test passed for allowlist exclusions, token/path reporting,
 local links, plain/compressed PNG metadata, decompression limits, symlink
 rejection, two-copy deterministic manifests, protected replacement, checksum
 lists, changed contents and unexpected private files. These are host checks.
+The beta.6 target, Countdown and Prime validators, native parity check, supply
+and Baseball host regressions, and renderer capture harness are source material
+for separate execution; inclusion in the snapshot does not itself certify a
+passing build or content audit.
 ASan remains unverified until a complete successful run is recorded; compiler
 success alone is not an ASan pass. Physical calculator checks remain
 **HARDWARE TEST REQUIRED**.
@@ -109,8 +127,11 @@ python3 tools/public_snapshot.py --verify .local/public/source
 ```
 
 Resolve project link errors and review warnings first. Check the public source
-with a fresh host/native build and the independent content verifiers using a
-disposable test copy, or direct build outputs outside the clean snapshot.
+with a fresh host/native build and `bash tools/verify_content.sh` using a
+disposable test copy, or direct build outputs outside the clean snapshot. That
+script includes the beta.6 exact Make Target/Countdown checks, native JSON/header
+parity, Prime Factor checks and retained revision checks; run the host test
+suite separately.
 Some existing test scripts create local caches; such outputs are correctly
 rejected by a later clean-snapshot verification. For the JSON-to-native byte
 check, avoid Python cache writes:

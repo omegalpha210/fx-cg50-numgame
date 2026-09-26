@@ -7,20 +7,22 @@ unsigned grids_bank_count(unsigned id,unsigned difficulty,unsigned mode);
 unsigned grids_extra_bank_count(unsigned id,unsigned difficulty,unsigned mode);
 unsigned nb_bank_count(unsigned id,unsigned difficulty,unsigned mode);
 unsigned sq_bank_count(unsigned id,unsigned difficulty,unsigned mode);
+unsigned ng_prime_beta6_count(unsigned difficulty);
 bool ng_has_hell(unsigned id){return (id>=11 && id<=15) || id==35;}
 unsigned ng_regular_difficulty_count(unsigned id){return id==29 || id==30?3:4;}
 unsigned ng_difficulty_count(unsigned id){return ng_has_hell(id)?5:ng_regular_difficulty_count(id);}
 unsigned ng_pack_revision(unsigned id,unsigned mode)
 {
- if(id==6)return 5;
- if(id==5 || id==7 || id==10 || id==27)return 4;
- return id==1 || id==28 || (id==19 && mode==1)?3:2;
+ if(id==6)return 6;
+ if(id==7 || id==10)return 5;
+ if(id==1 || id==5 || id==27)return 4;
+ return id==28 || (id==19 && mode==1)?3:2;
 }
 const char *ng_level_name(unsigned difficulty)
 {static const char *const names[NG_LEVEL_COUNT]={"EASY","NORMAL","HARD","MASTER","HELL"};return difficulty<NG_LEVEL_COUNT?names[difficulty]:"UNKNOWN";}
 unsigned ng_generation_policy(unsigned id)
 {
- if(id==1 || id==10 || id==29 || id==30 || id==33 || id==38)return NG_SUPPLY_RUNTIME;
+ if(id==1 || id==29 || id==30 || id==33 || id==38)return NG_SUPPLY_RUNTIME;
  if(id==37)return NG_SUPPLY_RULES;
  if(id==8 || (id>=21 && id<=25) || id==27 || id==28)return NG_SUPPLY_HYBRID;
  if(id==26)return NG_SUPPLY_RULES;
@@ -43,8 +45,10 @@ unsigned ng_bank_count_version(unsigned id,unsigned difficulty,unsigned mode,uns
  if(id==6){
   if(revision<=2)return mode<2?30:0;
   if(revision==3)return 0;
+  if(revision<=5)return 2;
  }
- if(id==10 && revision<=3)return 0;
+ if(id==7 && revision<=4)return 30;
+ if(id==10 && revision<=4)return 0;
  if(id==19 && mode==1 && revision<=2)return grids_bank_count(id,difficulty,0);
  if(id==27 && revision<=3 && difficulty<NG_MASTER)return 0;
  return ng_bank_count(id,difficulty,mode);
@@ -52,7 +56,9 @@ unsigned ng_bank_count_version(unsigned id,unsigned difficulty,unsigned mode,uns
 unsigned ng_bank_count(unsigned id,unsigned difficulty,unsigned mode)
 {
  const NgModule *m=ng_module(id);if(!m || difficulty>=ng_difficulty_count(id) || mode>=m->modes)return 0;
- if(id==6)return 2;
+ if(id==6)return 1000;
+ if(id==7)return 200;
+ if(id==10)return ng_prime_beta6_count(difficulty);
  if(id<=10)return gc_bank_count(id,difficulty,mode);
  if(id<=20)return grids_bank_count(id,difficulty,mode);
  if(id==34)return gc_extra_bank_count(id,difficulty,mode);
@@ -115,7 +121,8 @@ static bool valid(const NgGame *g)
  if(!m || !m->valid || g->difficulty>=ng_difficulty_count(g->id) || (g->mode>=m->modes && !old_mode) ||
  g->status>NG_DRAW || g->assisted>1 || g->recorded>1 || g->turn>1 ||
  g->rows>9 || g->cols>9 || g->history_count>NG_HISTORY ||
- g->cursor>=(g->id==32?144:NG_CELLS) || g->scroll>NG_HISTORY || g->notes_mode>1 ||
+ g->cursor>=(g->id==32?144:NG_CELLS) ||
+ g->scroll>(g->id==1 && g->pack_revision>=4?50u:NG_HISTORY) || g->notes_mode>1 ||
  g->cpu_pending>1 || g->reserved || !g->seed || !g->rng || !g->run_id ||
   g->pack_revision<1 || g->pack_revision>ng_pack_revision(g->id,g->mode) ||
   g->generation_policy!=policy)return false;

@@ -110,19 +110,19 @@ int main(void)
  app.notice[0]=0;
  capture("63-target-inline-entry");
  capture("64-target-select");
- tap(&app,NGK_LEFT);capture("65-target-edit-left");tap(&app,NGK_EXIT);
- tap(&app,NGK_RIGHT);capture("66-target-edit-right");tap(&app,NGK_EXIT);
- tap(&app,'0');tap(&app,NGK_EXE);capture("67-target-invalid");tap(&app,NGK_EXIT);
- tap(&app,'2');tap(&app,'4');tap(&app,'7');tap(&app,NGK_EXE);
- assert(app.screen==NG_ENTRY && !app.target_editing && app.settings.target==247);
- capture("68-target-committed");
- /* Current content at every level, including the 1000-target card widths.
+ tap(&app,NGK_LEFT);capture("65-target-10");assert(app.settings.target==10);
+ tap(&app,NGK_RIGHT);tap(&app,NGK_RIGHT);capture("66-target-50");
+ tap(&app,NGK_RIGHT);tap(&app,NGK_RIGHT);capture("67-target-200");
+ tap(&app,NGK_RIGHT);assert(app.settings.target==NG_TARGET_RANDOM);
+ tap(&app,'2');tap(&app,'4');tap(&app,'7');assert(app.settings.target==NG_TARGET_RANDOM);
+ capture("68-target-random");
+ /* Current content at every level, including 200-target card widths.
     These frames come from the real entry and game renderer. */
  static const unsigned revised[]={5,6,7,10};
  for(size_t j=0;j<sizeof revised/sizeof revised[0];j++)for(unsigned d=0;d<4;d++){
   unsigned id=revised[j];main_screen();
   app.settings.difficulty[id-1]=(uint8_t)d;
-  if(id==6)app.settings.target=1000;
+  if(id==6)app.settings.target=200;
   tap(&app,'1'+(int)(ng_catalog_index(id)/6));
   tap(&app,'1'+(int)(ng_catalog_index(id)%6));
   assert(app.screen==NG_ENTRY);

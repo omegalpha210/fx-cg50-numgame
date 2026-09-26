@@ -2,7 +2,7 @@
   "tool": "tools/public_snapshot.py",
   "policy_version": 1,
   "include_dist": true,
-  "tree_sha256": "7eec87c37ce707a2995c963d92096fae0b2f191c1ff59017a4c040916051be3d",
+  "tree_sha256": "024508b4afef9c5b2c1689dbd13e2cc4bed0c9feba2436bcbbc557b88cc05a47",
   "files": [
     {
       "file": ".gitignore",
@@ -24,14 +24,14 @@
     },
     {
       "file": "README.md",
-      "bytes": 5604,
-      "sha256": "52cc2c125cfb62c4876a8ecf19917c77fe9647d907312734a6238c15364310c1",
+      "bytes": 5737,
+      "sha256": "882780f7e650a2fc9d514acc93b3ffa59b29380838004c72789f680b6465b87f",
       "mode": "0644"
     },
     {
       "file": "README_KO.md",
-      "bytes": 6580,
-      "sha256": "452a69d4b68138b3a75c925de60921597be69ca07b5b9e3765ec665f385cd7b9",
+      "bytes": 6647,
+      "sha256": "1c327ddc2a42bc6bedee09e9d3a51f756fb0a2b14fdd8668fcd8cb72a7098a76",
       "mode": "0644"
     },
     {
@@ -1235,6 +1235,30 @@
       "mode": "0644"
     },
     {
+      "file": "assets/guesscalc_beta6_content_audit.json",
+      "bytes": 32338,
+      "sha256": "4912cc350bc363ce7008e53916d1816ad0b613ea9ce689cdc0c1080b9cab6acb",
+      "mode": "0644"
+    },
+    {
+      "file": "assets/guesscalc_beta6_native_audit.json",
+      "bytes": 514,
+      "sha256": "32a481212914df9f5a09277871584d536210a262537f4537717878c0ce5d24f0",
+      "mode": "0644"
+    },
+    {
+      "file": "assets/guesscalc_countdown_beta6.h",
+      "bytes": 47879,
+      "sha256": "0b3d86878b78b8adbde047d4075e994af7f9a8a9d7ebf3df72c2b3cc032c4aec",
+      "mode": "0644"
+    },
+    {
+      "file": "assets/guesscalc_countdown_beta6.json",
+      "bytes": 287236,
+      "sha256": "ed838bcb960364d8f32dc4246945e386faa1de0e363d380f34776356c489de3e",
+      "mode": "0644"
+    },
+    {
       "file": "assets/guesscalc_cryptarithm.h",
       "bytes": 3808,
       "sha256": "22b109847d9e876245e4a9c33543f2122a15daa2e81eaf077d27a469f65db14b",
@@ -1307,6 +1331,18 @@
       "mode": "0644"
     },
     {
+      "file": "assets/guesscalc_prime_beta6.h",
+      "bytes": 6261,
+      "sha256": "911a6d7590695362a208a704040a98497463af9a20ba793cf1c7dac311306a9f",
+      "mode": "0644"
+    },
+    {
+      "file": "assets/guesscalc_prime_beta6.json",
+      "bytes": 490965,
+      "sha256": "c1bd456400f3def64969c54835d1fbe36346bdc30197e02277300bab990a92e6",
+      "mode": "0644"
+    },
+    {
       "file": "assets/guesscalc_target_beta3_sample.json",
       "bytes": 419951,
       "sha256": "ee3f0747fb9f91658286e0d8dafe1618ce8bfd7086bc88bf240cd581fa798ab6",
@@ -1346,6 +1382,18 @@
       "file": "assets/guesscalc_target_beta5_complexity.csv",
       "bytes": 1404175,
       "sha256": "8c8f11761a0a04fc94624fb9cb0d31bc472beeb9f5b1cc739f52f3032ef21b4e",
+      "mode": "0644"
+    },
+    {
+      "file": "assets/guesscalc_target_beta6.h",
+      "bytes": 263408,
+      "sha256": "1cf90de41a990f1d881cd2bb86027729975808b0ffb98347b91577b963c29401",
+      "mode": "0644"
+    },
+    {
+      "file": "assets/guesscalc_target_beta6.json",
+      "bytes": 5593807,
+      "sha256": "ce87eafaecdd3fe48e183cccf926cb10fa204b9830688c498aa8184b8111f70e",
       "mode": "0644"
     },
     {
@@ -1614,26 +1662,26 @@
     },
     {
       "file": "dist/NUMGAME.g3a",
-      "bytes": 458392,
-      "sha256": "cc05127a0f7aab71f87d3e07e70db04e50b9f04814d97df0aa585172ebdac4e5",
+      "bytes": 664788,
+      "sha256": "af46892f48be8ff4ca9099f6ef0deef0dde858c36c85dbb7a65fd83142586e4b",
       "mode": "0644"
     },
     {
       "file": "dist/NUMGDIAG.g3a",
-      "bytes": 485336,
-      "sha256": "177918ab548c09c3c7be9303b35132770b8cbd1cd8a798d3afe1d2fa764aeb85",
+      "bytes": 692116,
+      "sha256": "0a4fc021e3e5acd6973922e0d9cc9b6782e43c4f6264acc720eef3a56711ede3",
       "mode": "0644"
     },
     {
       "file": "dist/SHA256SUMS.txt",
       "bytes": 161,
-      "sha256": "fee107c475302f31c33c81ce84789d5797200796c2df46aec7637e55d4094df4",
+      "sha256": "ad533f756443dc1150ab4e64d34833419cfc62f40c8c3260b42ee30ab814aa9f",
       "mode": "0644"
     },
     {
       "file": "docs/ACCEPTANCE.md",
-      "bytes": 4267,
-      "sha256": "fcd2b2c347354f60fcf1c054a7ee7e049eec9cea50ae623f3f1695548db5eff3",
+      "bytes": 4666,
+      "sha256": "f019cdde8a2d071e9455874769bfb701b42f5df5911c31e73ae738d549b3d378",
       "mode": "0644"
     },
     {
@@ -1649,6 +1697,12 @@
       "mode": "0644"
     },
     {
+      "file": "docs/BASEBALL_BETA6_AUDIT.md",
+      "bytes": 2305,
+      "sha256": "cf3551edda42c1ff3a573a3cdc50a80672dd1c72574ba1526e42d5fcab488c9e",
+      "mode": "0644"
+    },
+    {
       "file": "docs/BOARD_AUDIT.md",
       "bytes": 9987,
       "sha256": "da223e826869b42e26dbbf3159f1b94e5bdf11cfaa2256f75a8707575149d661",
@@ -1656,32 +1710,38 @@
     },
     {
       "file": "docs/CAPABILITIES.md",
-      "bytes": 3960,
-      "sha256": "de581eff9e8abfd47383526cd68d00aa4977bdf7b23fbc1c018f07fe8431eaa6",
+      "bytes": 4069,
+      "sha256": "fbd7baf3f41f30c2c35c18d105b95afbc18c6b8c0d171b462dcce36b04cd5158",
       "mode": "0644"
     },
     {
       "file": "docs/CONTENT_CYCLE.md",
-      "bytes": 2782,
-      "sha256": "fbd54cdcf92b5caab06f8155f261bf63a9d22136f3387cc49d4a320d57f697fd",
+      "bytes": 3304,
+      "sha256": "bfdfc01c7c90c8a1f4fb3de46286fdc56ed62108551cd2d36141ca9b72f10b4a",
       "mode": "0644"
     },
     {
       "file": "docs/CONTENT_INVENTORY.csv",
-      "bytes": 54212,
-      "sha256": "3bf391b20f106736e5d0aeceffe7246340e786c0f0485f25b53600d2cc0f3df3",
+      "bytes": 9828,
+      "sha256": "42647ee62c70df328467df2a67e8eac1329036c2b9d55241905d63771c8382ee",
       "mode": "0644"
     },
     {
       "file": "docs/CONTENT_INVENTORY.md",
-      "bytes": 41946,
-      "sha256": "2438c313202d4c17e370391066b59d0646ffc2f853f0813c273d073a0b49c1dc",
+      "bytes": 36165,
+      "sha256": "d7834c3e23ad2db39de44fcad62d07c5144486fd3a3ff7bfb88d765a914b051b",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/CONTENT_INVENTORY_SETTINGS.csv",
+      "bytes": 13770,
+      "sha256": "69f6c7ecb807548ea6ea857433b9e34c7d97dab7629b1e933a84aedba029b8d7",
       "mode": "0644"
     },
     {
       "file": "docs/CONTROLS.md",
-      "bytes": 9279,
-      "sha256": "f2984789bd2467516f5bacf23ec119a6014d35b4de2a2d57f80e6df1ef0f2747",
+      "bytes": 9882,
+      "sha256": "a479a40b80442a7c36afbe801ed7b71fa7f77228525e09166d8b0187272d3c6b",
       "mode": "0644"
     },
     {
@@ -1692,14 +1752,14 @@
     },
     {
       "file": "docs/DIFFICULTY_AUDIT.csv",
-      "bytes": 304719,
-      "sha256": "c854b14204c7b8bd550181aeccd453c267dabb615e97f998d257e42277716e60",
+      "bytes": 300040,
+      "sha256": "7323b8aeb8d2956e3eb5e88c6ce09d184475e7d7faa2f92d7ba2e01b33579c0f",
       "mode": "0644"
     },
     {
       "file": "docs/DIFFICULTY_AUDIT.md",
-      "bytes": 10130,
-      "sha256": "61fded6c554eee6b470f6919221482898a38198abb019d1dd8cafad703a3e88c",
+      "bytes": 12661,
+      "sha256": "9421cee13fa1c7b9513ef4c589be2e3cf73238214be3250ec57ba7ed0a4b8421",
       "mode": "0644"
     },
     {
@@ -1716,8 +1776,8 @@
     },
     {
       "file": "docs/GAME_CATALOG.md",
-      "bytes": 5148,
-      "sha256": "d1245e5ac89840d7a351c02e54c9ab5d06ffc73eb3c591e721dc315fb37dc9ef",
+      "bytes": 5046,
+      "sha256": "49e71d0e05dc29f07fe0a4499903bde71553f2a6e2fccf4e4d22d84a2fe6abb2",
       "mode": "0644"
     },
     {
@@ -1746,14 +1806,14 @@
     },
     {
       "file": "docs/GUESS_CALC_AUDIT.md",
-      "bytes": 83541,
-      "sha256": "125a3392f7dba50f64327ceabaa0c7dade9632a5f6f4cf819b05d7b34765725f",
+      "bytes": 84221,
+      "sha256": "47ff48d80dc6da402cf74d3e86444c30e7b2fbbdf29095a401d3e9a7d99683d3",
       "mode": "0644"
     },
     {
       "file": "docs/HARDWARE_RETEST.md",
-      "bytes": 7852,
-      "sha256": "6d96932d2cb1b8c7d84d1f9c1402d41e5b5b6b0804b712a086334dea093638b4",
+      "bytes": 9932,
+      "sha256": "cb15a704d1f2f5e6946c90fd3652daf1528d4e595a0192de0f22e677fbdfa11e",
       "mode": "0644"
     },
     {
@@ -1769,15 +1829,21 @@
       "mode": "0644"
     },
     {
+      "file": "docs/MAKE_TARGET_COUNTDOWN_BETA6_AUDIT.md",
+      "bytes": 8009,
+      "sha256": "996a2dfba4b76533332163fb056411a8749014f522bf015dd4bb9109e78d4dc9",
+      "mode": "0644"
+    },
+    {
       "file": "docs/MAKE_TARGET_READABILITY_AUDIT.md",
-      "bytes": 4431,
-      "sha256": "26fe7907f04cb976604c9da47898f8e8ba54be70870337df81e99259d7355d3a",
+      "bytes": 4757,
+      "sha256": "9a023601c73ceb28542601a95a34fbad5e919de010df7cf416099647b6cb50e5",
       "mode": "0644"
     },
     {
       "file": "docs/MEMORY_AUDIT.md",
-      "bytes": 9185,
-      "sha256": "3ca3afdc2672941ac1887e7f403fb858cfe98dec9fb4cddf9f500c12e64a55c9",
+      "bytes": 9615,
+      "sha256": "7951564ec1fdda816a8ef2396035bbea2ba10a2ca4ff8c910d7755f87272bd09",
       "mode": "0644"
     },
     {
@@ -1788,8 +1854,8 @@
     },
     {
       "file": "docs/PERFORMANCE_36.md",
-      "bytes": 1764,
-      "sha256": "ebfe0f0e83190e0ff4e865b6f0ac498fc1d02d29a081791ceab07310d48a9c87",
+      "bytes": 1772,
+      "sha256": "a038fbbe6950987097b24d2bb2d222d6d3d9e389baf5ee4be88a15579c501978",
       "mode": "0644"
     },
     {
@@ -1799,15 +1865,27 @@
       "mode": "0644"
     },
     {
+      "file": "docs/PERFORMANCE_BETA6.md",
+      "bytes": 2615,
+      "sha256": "3ca04784779868e3d1f1b3f876c29e2d6b6942d32a39590ee658ba5a34aa0d02",
+      "mode": "0644"
+    },
+    {
       "file": "docs/POWER_TIMER_AUDIT.md",
       "bytes": 3543,
       "sha256": "375df07a3e540578b07bc26a0bf2e362b5eb98ba944049b178430e902ccffdf9",
       "mode": "0644"
     },
     {
+      "file": "docs/PRIME_FACTOR_BETA6_AUDIT.md",
+      "bytes": 6489,
+      "sha256": "f3362eac137dd5b792bdcbbe998c5ad3f0d5c90fca9d98568491558f45d72a1f",
+      "mode": "0644"
+    },
+    {
       "file": "docs/PUBLIC_SOURCE_AUDIT.md",
-      "bytes": 7535,
-      "sha256": "22cae152b5c6e2161c9ad997d0ed253ede82337f190761f1829ce86e250a5daf",
+      "bytes": 8917,
+      "sha256": "db5c76d5c15eb9a73957e122e28dda62fd6624a81e425bb1677a2ed5532560b3",
       "mode": "0644"
     },
     {
@@ -1818,14 +1896,14 @@
     },
     {
       "file": "docs/RESUME_POLICY.md",
-      "bytes": 3024,
-      "sha256": "7930b419f1642e95d7f4f1ecd12373c4257e343c8ece8a8f112184df6fe17771",
+      "bytes": 3436,
+      "sha256": "83958c7b286cea7639c6bb46d77eefb385cbad834ced0b14c763d675659f3e5e",
       "mode": "0644"
     },
     {
       "file": "docs/RULES.md",
-      "bytes": 19154,
-      "sha256": "e7a541d3506563b3fcb7428c0b4e04708f0c6942c537fd61bc97f3291ea0ed1a",
+      "bytes": 19336,
+      "sha256": "e301fb3dc3a28899ad15b38225f20423df8674e902b57ab21f02035ddbb881da",
       "mode": "0644"
     },
     {
@@ -1842,8 +1920,8 @@
     },
     {
       "file": "docs/STORAGE_FORMAT.md",
-      "bytes": 4592,
-      "sha256": "c20cac67ebd89f1f55bdf14579f60f0e7bce8513bcef57ad23ca5182b10439d2",
+      "bytes": 4939,
+      "sha256": "150f0bb1af9bfb6f4ca928109b06784cf372fc98cc5dc554592d54f57bce4d50",
       "mode": "0644"
     },
     {
@@ -1860,8 +1938,8 @@
     },
     {
       "file": "docs/UI_CONVENTIONS.md",
-      "bytes": 4323,
-      "sha256": "a04c43a1729e363c647194f21fa4e0c2997e09cc91eccf7d36a70f11b147c5b5",
+      "bytes": 5061,
+      "sha256": "2584ffe0dd07d285d2d46e8d7ca4024cd4ee567e5e2b016ed2b2a13c33e6a519",
       "mode": "0644"
     },
     {
@@ -1874,6 +1952,12 @@
       "file": "docs/UI_REFRESH_KO.md",
       "bytes": 2018,
       "sha256": "04472aa530af15ce977059d8f0cabf5663c0d97dcaafd508cc49b96d26db2e86",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/USER_GUIDE.md",
+      "bytes": 4271,
+      "sha256": "f5f36f0400f70394d2399a888fb1d6ec7eeba7dec73ed9c750b47acb555bcc76",
       "mode": "0644"
     },
     {
@@ -1890,8 +1974,8 @@
     },
     {
       "file": "docs/build-metrics.json",
-      "bytes": 159575,
-      "sha256": "7fb0da1c05389b3896661d0f008f441e167a99d0cd986d26455f0dcc140d9a0d",
+      "bytes": 160522,
+      "sha256": "78a3a898fa39a3b12c0fcfacf5e1e3075e51e6f05471134af23175c9b9855193",
       "mode": "0644"
     },
     {
@@ -4127,9 +4211,381 @@
       "mode": "0644"
     },
     {
+      "file": "docs/captures/BETA6_README.md",
+      "bytes": 5204,
+      "sha256": "a3fdc8f9dee675d989e69671c55409ff9fdf9d9a4edf6206af16e968149e4d0d",
+      "mode": "0644"
+    },
+    {
       "file": "docs/captures/README.md",
       "bytes": 15267,
       "sha256": "79722929858662b33179dc2a439449424b3455ae7ec35373e358e7e64c40c18d",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-19-of-20-last-try.png",
+      "bytes": 3260,
+      "sha256": "991d57d1405d07f4b2cbbb72c3eaed3613d73b8b5b79fae00492d52540f4ce74",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-19-of-20-play.png",
+      "bytes": 2941,
+      "sha256": "a96a298921c78446e55119027031a1d37061a85415ad51298bd6d7c494e413b5",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-20-of-20-fail-history.png",
+      "bytes": 2588,
+      "sha256": "ff57743b3ae580bb1a98e4153ad6bedee82152bd95780a34d4a008dfcb1d4899",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-20-of-20-fail-result.png",
+      "bytes": 3318,
+      "sha256": "3467f4df5ab5c3ec706ff90eff5ef38bbcc49f9918690da7b7eebfb72ca3a3e4",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-20-of-20-win-result.png",
+      "bytes": 3301,
+      "sha256": "b20f7aea2726eb6133fe0c5d669148a638bfc55c11d21a106522966e867ec4d5",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-20-short-no-scroll.png",
+      "bytes": 2510,
+      "sha256": "784a5c73b7b6778bb42c0a89ee613ebfe4148502aae26b50ba62c6c21130c934",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-29-of-30-last-try.png",
+      "bytes": 3258,
+      "sha256": "966363a0b2153a3a264c350363648ee54dd9c109d773a512c1da0c4aca9d3aaa",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-29-of-30-play.png",
+      "bytes": 2982,
+      "sha256": "cd5fa9048da56e0a9adb6b9394e377d85a299a4aa9e819be048124ace61bb4f4",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-30-of-30-fail-history.png",
+      "bytes": 2611,
+      "sha256": "a20d7bf29db02dc8a622c010ee30b86c4fc88c56aec4a4f4ac439eb0d636fd58",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-30-of-30-fail-result.png",
+      "bytes": 3346,
+      "sha256": "2471afe2d706942640de1ef86b6f86bbfd1d8e6b13074f801c8b2b85e01c8294",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-30-short-no-scroll.png",
+      "bytes": 2512,
+      "sha256": "69984053eaa8472314c90f5e065ee48cc1cac9b0918aa3564ff6270dcd10e885",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-39-of-40-last-try.png",
+      "bytes": 3250,
+      "sha256": "ba204f80faf74dbf29c138b934b06f03d69c3cc2f6343b22c2fd5de22561f56d",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-39-of-40-play.png",
+      "bytes": 2935,
+      "sha256": "096317d8624990f4684e48d118acd5982623da61936faca0e5c6739d7e7df153",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-40-of-40-fail-history.png",
+      "bytes": 2625,
+      "sha256": "d26e0b8e08840a7161c6833500e506db851cc18cce015019aab4a13284f06912",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-40-of-40-fail-result.png",
+      "bytes": 3388,
+      "sha256": "76b68b94fdd4f22c488bbd1b17b29a85f49feb1c5bcbf5a3ac10909565e18c46",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-40-short-no-scroll.png",
+      "bytes": 2515,
+      "sha256": "bc73304ba9c9ebea881e9f95a06d45da59fab6a13346e5e7de728bc06eb8713f",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-49-history-bottom-draft.png",
+      "bytes": 2603,
+      "sha256": "07b2f728168dcc0dfc51fb8f935278a2a641262be894e070569a70c4a3cde15a",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-49-history-middle-draft.png",
+      "bytes": 2689,
+      "sha256": "f2b3f6263349df3e1ba9c111112b4c707f3d0f363a6809c67ef31190880099a8",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-49-history-top-draft.png",
+      "bytes": 2580,
+      "sha256": "5832728e0a8c96ba5ac3cb6d9fe9c6cf85aaba56be090bd42b9a55c5eef5dbfd",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-49-of-50-last-try.png",
+      "bytes": 3271,
+      "sha256": "0ae4819df206f3a81e1b8e7a1205a85168bc2a7a6c9e77ebe5a8fa5c556cb11b",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-49-of-50-play.png",
+      "bytes": 2971,
+      "sha256": "eed6a72045cb2f7293489b24a88be9be812e3cc782918806738032f15878266e",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-50-of-50-fail-history.png",
+      "bytes": 2648,
+      "sha256": "0812d9259897821ac598c28c3da88896c55486e9383c577283cfcdea383c1bd8",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-50-of-50-fail-result.png",
+      "bytes": 3367,
+      "sha256": "591f90e534e15c244bda6cfa734d1a34098ad9adc944c39297d50abd3347b6e3",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-50-short-no-scroll.png",
+      "bytes": 2518,
+      "sha256": "843b1772777c4c61e2ed9746f6e33b517605520a409279d029cfff6f2ba4a733",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/baseball-contact.png",
+      "bytes": 58227,
+      "sha256": "1b0a5a8ed2ec0cb0b85e2fc57db7797555d84f83c5179d733e98ef1118ef9eee",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/countdown-easy.png",
+      "bytes": 3301,
+      "sha256": "6ff2c762fca0bd5b2195361558ec8604dc0078bacca1272a81799758348265f6",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/countdown-hard.png",
+      "bytes": 3324,
+      "sha256": "c47037a95991edffb50c6a057d4f826156e2df2739c337537d9961cb050176c4",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/countdown-master.png",
+      "bytes": 3313,
+      "sha256": "9b913addb9589b53b654710ec1ff924cbdaf0648ce6ce5a40b0e8d249746aea3",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/countdown-normal.png",
+      "bytes": 3311,
+      "sha256": "e57002e962eaa0ef0912af9543a6b4778be6ce51438edef6fdd1df81f519c9cf",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/countdown-prime-contact.png",
+      "bytes": 25894,
+      "sha256": "aeeca455a9b3642ceded222049c893a995805f04ef92fd3818370afe0e25ac84",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/equation-long-bottom-draft.png",
+      "bytes": 2447,
+      "sha256": "b52ee5c48e844e2a440f7155f93de3f1402514b2cddb5d99fa29ee306f2fd036",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/equation-long-top.png",
+      "bytes": 2799,
+      "sha256": "3c8ba279e128660614a9b42d792bdf31a5d6f1547ac984d952e329467ec0d4ae",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/equation-short-no-scroll.png",
+      "bytes": 3097,
+      "sha256": "3378e155cf253db0255c0305bf22dee07aef4b752f959347bc89faa2229180fb",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/make-target-4-card-999-layout-fixture.png",
+      "bytes": 2849,
+      "sha256": "c7f768ac4617ad0a26f06370ee82e68c004bb4a24646d5007e638bc142118cf0",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/make-target-5-card-999-layout-fixture.png",
+      "bytes": 2857,
+      "sha256": "d0adec8dd8c6e8742b1c225dd7c700097a258313ca809785324f6f98c957bfd9",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/make-target-6-card-999-layout-fixture.png",
+      "bytes": 2864,
+      "sha256": "017a33015f2d849f9f97496d8835d8e25cee368f346d51b0a9c1f551592f06f7",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/make-target-contact.png",
+      "bytes": 37137,
+      "sha256": "20e4ae95e983a538794b9d4157d5e136ff524026a7a31f66e3a55c0f8e3a4664",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/make-target-entry-010.png",
+      "bytes": 3286,
+      "sha256": "a626cacc2dc471f2752a94a011d714bf2cba52af65d52f8f75463f1474637573",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/make-target-entry-024.png",
+      "bytes": 3636,
+      "sha256": "2a8ea48ce1fe25ccedcfe7a2f448d925d4229ef269c65fad0691192d7b2e9b9c",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/make-target-entry-050.png",
+      "bytes": 3619,
+      "sha256": "1cae1bb7c20acc41cc7046d025358923acdd73b8de32479b58d33f29c616ecfd",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/make-target-entry-100.png",
+      "bytes": 3625,
+      "sha256": "d38749e24d93e3407b71a930d9fcf6046bd718df52e9892a65f2c7a90d53d42b",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/make-target-entry-200.png",
+      "bytes": 3621,
+      "sha256": "31d493cd01226bec0cb8d9dfaaf949096b94b18b49eefc917560f8f31413555d",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/make-target-entry-random.png",
+      "bytes": 3703,
+      "sha256": "f2cb12fa8c0457f2fa5ae76cbaeb7573410844644066588c0113c70d88c0f86a",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/make-target-play-010.png",
+      "bytes": 2963,
+      "sha256": "f991446186a0fba147c4449d566e703d6ab1bec433d6a790e5240f38a57af193",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/make-target-play-024.png",
+      "bytes": 2904,
+      "sha256": "a17ffa64679891d6607a022265a0807a0c27a454a82b267b7f8a645a3dd5f5e5",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/make-target-play-050.png",
+      "bytes": 2947,
+      "sha256": "bee6adb5e1feed7e1f73972d09859665e92134181d890399b03ad08f9638793b",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/make-target-play-100.png",
+      "bytes": 2936,
+      "sha256": "cd5bd17a511d23675d088baba6af3e8d0cc5686fa82c83e3729ed5e7e8a8b5f5",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/make-target-play-200.png",
+      "bytes": 2921,
+      "sha256": "879010be743ec3ec9e377138c95df8addcf336f10cf53e5c9b0da1f8c253bea2",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/make-target-play-random.png",
+      "bytes": 2935,
+      "sha256": "0b9d63e8faef6236b5c28f0266300be28c97a055f67030385da87d7c1f995208",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/mind-long-bottom-draft.png",
+      "bytes": 3182,
+      "sha256": "15476732d5bd160e1780279356a2979b0694e9d1c5fbff663d0d4b211b3df6df",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/mind-long-middle-draft.png",
+      "bytes": 3261,
+      "sha256": "969e5d867f3fab8f55b6ce90b91e8309dcb9557fbc95825ec919ff8e1ded3099",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/mind-long-top.png",
+      "bytes": 3568,
+      "sha256": "a93d1aeecaee53d4064d7b21ca48f3fcbe45c488b16c02ed4de257b868ea2b98",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/prime-easy-max-digits.png",
+      "bytes": 3440,
+      "sha256": "2e015d5207a85ea937027d79160c6169da8dd2fa962d1e37c881cd0d381022f1",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/prime-easy-min-digits.png",
+      "bytes": 3433,
+      "sha256": "202f727089f2a8d99fbc33e8167585179ef4f9a69c012246e44e967a9a510473",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/prime-hard-max-digits.png",
+      "bytes": 3496,
+      "sha256": "bdd14a50b398c610ca045193f9011425a73062d17f3287f10ff7348c0edaa3ca",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/prime-hard-min-digits.png",
+      "bytes": 3448,
+      "sha256": "e6ddc3d4b38a3340de412631224aa4b7b52e5bc55d6e59f5918d20333e3dcae0",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/prime-master-max-digits.png",
+      "bytes": 3485,
+      "sha256": "639a2adde286a71e4f43c1a925335103223050c03679a51f392506c22f70fd21",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/prime-master-min-digits.png",
+      "bytes": 3485,
+      "sha256": "8b2869555a781d877f149ec3cb9f973e0a8d0f27b2e9233b3cf7f153f46976ce",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/prime-normal-max-digits.png",
+      "bytes": 3429,
+      "sha256": "0e61e37ae27b58a71b746bdfc493cd684c6809e20bb6125a7631fcb103c1cffb",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/prime-normal-min-digits.png",
+      "bytes": 3453,
+      "sha256": "0813078c3210d70506b60298ce086f7a11caeb9feafbf3dbb80f45d12f3f67f8",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/beta6/scroll-contact.png",
+      "bytes": 15229,
+      "sha256": "b33c257468daa2514f97233152c398ba8eabbba58aec34df35e518988abbbe9b",
       "mode": "0644"
     },
     {
@@ -4254,14 +4710,14 @@
     },
     {
       "file": "docs/diagnostic-build-metrics.json",
-      "bytes": 204405,
-      "sha256": "342607e1aa47cca2f7bef08497d81bcd67e806d9139f48ec9cab3c8f798079e1",
+      "bytes": 204574,
+      "sha256": "25217330a62bbf921ae2f8987c258eff7f11faca18dc04d5084995fb017dd70c",
       "mode": "0644"
     },
     {
       "file": "docs/game-registry.json",
-      "bytes": 34393,
-      "sha256": "93970b6f9037adca760822cd0207cf26655a87e341f24ba9c39716ffd17f6a30",
+      "bytes": 34603,
+      "sha256": "b220803e310845e240958940797c130d418253b22fb3b64cf2e81c58ffcf83f5",
       "mode": "0644"
     },
     {
@@ -4274,6 +4730,18 @@
       "file": "docs/host-benchmark-36-normal.json",
       "bytes": 5726,
       "sha256": "ce7f4201deabe3b1a7f6f60700f97bc5cc798f2f4322c12e9ecdca9f5956898e",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/host-benchmark-beta6-diagnostic.json",
+      "bytes": 6211,
+      "sha256": "91076f958747411ac17e2c25edb41f9a85238a6e200ea718fdaaee4a9f441b5a",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/host-benchmark-beta6-normal.json",
+      "bytes": 6000,
+      "sha256": "219f76329f72ff1caa05ce11589a6b10a0948a0f18fde6a516837dedccce3a46",
       "mode": "0644"
     },
     {
@@ -4362,8 +4830,8 @@
     },
     {
       "file": "include/app.h",
-      "bytes": 2280,
-      "sha256": "9fc022d039bb4b70aeef10cde6d0db74bab3308f974b4fc35e85e98684caf529",
+      "bytes": 2298,
+      "sha256": "f33cd486bc994288fe0faf69674ab50a919476b99cbdccd7b06ce4bcc008e4ba",
       "mode": "0644"
     },
     {
@@ -4374,8 +4842,8 @@
     },
     {
       "file": "include/ng.h",
-      "bytes": 4063,
-      "sha256": "d9fa7ea33aee1b10359ccac4422ccfe50d9984cc682c1b6fce3657615aa0c0ad",
+      "bytes": 4172,
+      "sha256": "4a2120114d971ace7c6102732a36cc19e8b11f92753345d9a46145243ebe5405",
       "mode": "0644"
     },
     {
@@ -4392,14 +4860,14 @@
     },
     {
       "file": "include/ui.h",
-      "bytes": 2940,
-      "sha256": "6a265b276dd24fa7e3812eb9adff8aa7fe7e29f000c4b20a3fc7ffe72e6e648c",
+      "bytes": 3145,
+      "sha256": "c8e438d91f99786748bd9a8b86967bb13e70ed2ea7f196fc7f4f0aa6ff78a652",
       "mode": "0644"
     },
     {
       "file": "src/core/app.c",
-      "bytes": 25060,
-      "sha256": "13737628acfae43b6673aa8f1cea8ecd9e0c466106c604682fcd0b4f4303b296",
+      "bytes": 25209,
+      "sha256": "c166ef6f8efbb38179c9e86953e0a4f58ec6cd05f47426d14d412b95fb6ceffd",
       "mode": "0644"
     },
     {
@@ -4416,8 +4884,8 @@
     },
     {
       "file": "src/core/registry.c",
-      "bytes": 6752,
-      "sha256": "d177da35a165f78f3d6319ffe047bc6a67b37d9dae3719ea865f18f0bb222b9f",
+      "bytes": 6984,
+      "sha256": "25a7a9af7d45ce232a60785c7cf336875ebaeba1ccb04f410806ec6e4d9eaf9a",
       "mode": "0644"
     },
     {
@@ -4494,14 +4962,14 @@
     },
     {
       "file": "src/games/guesscalc.c",
-      "bytes": 56199,
-      "sha256": "cab286bc9ec8d71c1cb516b790e15f8d41e972e4daf571b44e57d4a70088087a",
+      "bytes": 63029,
+      "sha256": "7ecc4087c6f1a1d8927b0c824c4e3adb561023ad0e3ca4629ddfde143ea6aa95",
       "mode": "0644"
     },
     {
       "file": "src/games/guesscalc.h",
-      "bytes": 868,
-      "sha256": "9059b327baaddf35bf91c52bb04fe93fefa1cb3f792837e702d3885c30f49cbe",
+      "bytes": 751,
+      "sha256": "ceb995ce16595d4da0f555cf2666fe966cfb073658011208e76b9b7e932cbe1c",
       "mode": "0644"
     },
     {
@@ -4520,6 +4988,18 @@
       "file": "src/games/guesscalc_math.h",
       "bytes": 1089,
       "sha256": "3ccbbf91a5a8b8496f04ada3c530bf9288992fdab99b8a827011b1a491f3d78d",
+      "mode": "0644"
+    },
+    {
+      "file": "src/games/prime_beta6.c",
+      "bytes": 1544,
+      "sha256": "0f71d224401ed8308aabbed74f204476bf702c5371c2075fd54a5a6df9c25d32",
+      "mode": "0644"
+    },
+    {
+      "file": "src/games/prime_beta6.h",
+      "bytes": 525,
+      "sha256": "1e20029bb89b4b9470bce82cd5d67cf31efc722208b9aadef04ed6ceb86cf0fd",
       "mode": "0644"
     },
     {
@@ -4578,14 +5058,14 @@
     },
     {
       "file": "src/storage/transaction.c",
-      "bytes": 14055,
-      "sha256": "925b45d85aa596ad2629cd7e883326d028a4c881d6ddbc8d6a203bcbbb5eafa8",
+      "bytes": 14067,
+      "sha256": "583c3ca9bf7b2817b3431dd7ec27c17e594ff36ff7fb1417a7ba8a444c4a6687",
       "mode": "0644"
     },
     {
       "file": "src/ui/draw.c",
-      "bytes": 9378,
-      "sha256": "b57b33c61435ffdeb3389911f8674f8ef7b0cc17045b86c9c4c215d98420e6a6",
+      "bytes": 10206,
+      "sha256": "2dca7b1f9685a24b0116cfe57cb34a18448dcc3419d2e363cbafc9138da4f6cd",
       "mode": "0644"
     },
     {
@@ -4608,8 +5088,8 @@
     },
     {
       "file": "src/ui/render.c",
-      "bytes": 23863,
-      "sha256": "d8a9e58fbc6a8dd50e8099f79170a8c67bf4523332a86e031c1d16b0b4c58b9b",
+      "bytes": 23438,
+      "sha256": "baca06403faf20502b399daeaf90990db2b2ee91ded8cb929ad38f636325d2db",
       "mode": "0644"
     },
     {
@@ -4620,8 +5100,8 @@
     },
     {
       "file": "tests/CMakeLists.txt",
-      "bytes": 3264,
-      "sha256": "1fded880ca927f527471f4d43a10c63d204f46a773914962cebda2e5942006f8",
+      "bytes": 3306,
+      "sha256": "81592484df4fca6090a9715fb7a3e4c8060529dcbcdf8239243fbfe2ab0b9298",
       "mode": "0644"
     },
     {
@@ -4703,9 +5183,27 @@
       "mode": "0644"
     },
     {
+      "file": "tests/test_baseball_beta6.c",
+      "bytes": 10175,
+      "sha256": "60809072937767f2183ea217e6b0ad230568c808edfc8f1c4ad5ecb8fdbdc818",
+      "mode": "0644"
+    },
+    {
       "file": "tests/test_beta4_revision.c",
-      "bytes": 5545,
-      "sha256": "bb91f1f58c33ade4b54a12fa985b48587ea6b69b19b7c18e8fc97987ab54b8b0",
+      "bytes": 6717,
+      "sha256": "132c49c46b205f170c13e0ee11dc38c47bd5b161730be68977ea73c9e36d7874",
+      "mode": "0644"
+    },
+    {
+      "file": "tests/test_beta6_capture.c",
+      "bytes": 9893,
+      "sha256": "17b270bb31a4d2376517cdcad5a56062e004ddc2a36d25632826cbb043ecec90",
+      "mode": "0644"
+    },
+    {
+      "file": "tests/test_beta6_supply.c",
+      "bytes": 6230,
+      "sha256": "b28eb47cf6b379c5b00c33d48a43ca4dea04f11d7a2dbf16aa711e70ad47dabc",
       "mode": "0644"
     },
     {
@@ -4734,8 +5232,8 @@
     },
     {
       "file": "tests/test_capture.c",
-      "bytes": 11733,
-      "sha256": "93db543dfa769ca1031ab14572eee646c86f5d42db14ebc2b9e739599fd4e814",
+      "bytes": 11722,
+      "sha256": "2667a7642c464eefaa63cba6be66e0a1c576b23bb0e7ef19e0bddedc8521379f",
       "mode": "0644"
     },
     {
@@ -4746,8 +5244,8 @@
     },
     {
       "file": "tests/test_entry_beta3.c",
-      "bytes": 4664,
-      "sha256": "34a30c38e90d34816f9b18665a5e2439cb7796dc354a06ec3aef3c93a82ed971",
+      "bytes": 3684,
+      "sha256": "5b90af1266cdcf4f1c5a8bc15ace316c8260ae79c6769850e919e747e8868f5e",
       "mode": "0644"
     },
     {
@@ -4800,8 +5298,14 @@
     },
     {
       "file": "tests/test_guesscalc_app.c",
-      "bytes": 14290,
-      "sha256": "dd9e3d20dc3e783c398af1a17f0217507d3f71d7cc733e665714e38d3d57bfaa",
+      "bytes": 14127,
+      "sha256": "cebc65c1eeddfbad6443e62962a11c7cd3575be5752d45947b862aea7a40bceb",
+      "mode": "0644"
+    },
+    {
+      "file": "tests/test_guesscalc_beta6_content.py",
+      "bytes": 1653,
+      "sha256": "0aceb3285eb01b83175fae46fa6854c6ab55c7fa5a19dd1981d70ed199487ec6",
       "mode": "0644"
     },
     {
@@ -4829,9 +5333,15 @@
       "mode": "0644"
     },
     {
+      "file": "tests/test_guesscalc_prime_beta6.py",
+      "bytes": 6576,
+      "sha256": "cbb14ac8c13825a5779d182b84f6df82c11085bfbdb9c5fcaa92a1c602af32c7",
+      "mode": "0644"
+    },
+    {
       "file": "tests/test_guesscalc_workflow.h",
-      "bytes": 2582,
-      "sha256": "a6b7bba03ec7719b02d8f024318aa1c87b2a1a73cc45f04dad10d35b1562907e",
+      "bytes": 2721,
+      "sha256": "bebf9384509ee19cb8f07e770491673b3ea8dd17d226c8732ba7ba2d9737aad0",
       "mode": "0644"
     },
     {
@@ -4854,8 +5364,8 @@
     },
     {
       "file": "tests/test_mastery.c",
-      "bytes": 7921,
-      "sha256": "081aa18ff343de7e639de38901e9dcfac01d2f42075dd7cd2e89ec3e74874995",
+      "bytes": 7932,
+      "sha256": "81908c6575e6b6495f948fc865edcb76221aa99a63991ea871dbcf5fa72ca779",
       "mode": "0644"
     },
     {
@@ -4866,8 +5376,8 @@
     },
     {
       "file": "tests/test_recent.c",
-      "bytes": 4083,
-      "sha256": "e223f2f5ceac5344ddbe46d46ed4240a237b9b30092752ffac48826f7a696d7e",
+      "bytes": 4366,
+      "sha256": "d22bc1f0ba1568cf9e7f3b6047d279341cf7f12dcef0925b9e6737f9baf088c5",
       "mode": "0644"
     },
     {
@@ -4914,8 +5424,8 @@
     },
     {
       "file": "tests/test_ui_layout.c",
-      "bytes": 8059,
-      "sha256": "d8bfcf784b47142fa9dae2a68364d0aba12801007c384c06a4cabf28c7cdc0c8",
+      "bytes": 8065,
+      "sha256": "f69b83c5b63c7b5bb4a5768645505efeca6456e924b7d87410c93146e319dbbf",
       "mode": "0644"
     },
     {
@@ -4943,6 +5453,12 @@
       "mode": "0644"
     },
     {
+      "file": "tools/captures_beta6.py",
+      "bytes": 4169,
+      "sha256": "8882af11ae1552d1360850fa7687798ceedc98e35576d7122426e36efdffbe9a",
+      "mode": "0644"
+    },
+    {
       "file": "tools/check_embedded.py",
       "bytes": 3038,
       "sha256": "766ea3dc2f442a139b94faa9d61cc84f71052cd3e2fbf2fdfc6eaa0eb718803d",
@@ -4956,8 +5472,8 @@
     },
     {
       "file": "tools/content_inventory.py",
-      "bytes": 44445,
-      "sha256": "5e936f766a60a3448a58bbe70234f094918ca068bc7f967dbbf1f358a56ea714",
+      "bytes": 25262,
+      "sha256": "cff7f049a0982896309530a69cba7b83d614b7808f47a123b827b1c98ae54f20",
       "mode": "0644"
     },
     {
@@ -4992,8 +5508,8 @@
     },
     {
       "file": "tools/generate/difficulty_audit.py",
-      "bytes": 6112,
-      "sha256": "8fe433d3ffcd79a0353f3352b7ad6e46bf4ebeb60d6d83a77cec808dba234554",
+      "bytes": 13853,
+      "sha256": "7caaa836feaea9f88f7a5413aa13de08f21fb652378a31dba73c22afdc5104ea",
       "mode": "0644"
     },
     {
@@ -5088,8 +5604,8 @@
     },
     {
       "file": "tools/generate/guesscalc_beta4_audit.py",
-      "bytes": 11240,
-      "sha256": "c91c6655c77fd862376a01def45a3d9708788701735cc656d6fcfeca489f889e",
+      "bytes": 11267,
+      "sha256": "266a8eefd54cfeeb1621836274f8d77c4ea8aebebc909814e1e2a764118ea28c",
       "mode": "0644"
     },
     {
@@ -5106,8 +5622,8 @@
     },
     {
       "file": "tools/generate/guesscalc_beta5_audit.py",
-      "bytes": 4442,
-      "sha256": "116b488d5addb32c07ab72b78a75bf73436f21f40eb1591fff0079d867ec7fbf",
+      "bytes": 4468,
+      "sha256": "437bd887d645a843f623a558e692dedbc0ae146b3f54ac6249ed5ac33203109b",
       "mode": "0644"
     },
     {
@@ -5129,6 +5645,42 @@
       "mode": "0644"
     },
     {
+      "file": "tools/generate/guesscalc_beta6_audit.py",
+      "bytes": 15019,
+      "sha256": "09888c587d43c231797be5484a96c45149f3ca9d9b52dfd93c9e613abe75343e",
+      "mode": "0644"
+    },
+    {
+      "file": "tools/generate/guesscalc_beta6_countdown.py",
+      "bytes": 13291,
+      "sha256": "bf89aa96ab647e63533be213fbb97a2251646434ecae591f3f256be09b79ea55",
+      "mode": "0644"
+    },
+    {
+      "file": "tools/generate/guesscalc_beta6_native.c",
+      "bytes": 1854,
+      "sha256": "02a3d3107c00ab1c5d3e33926ebe1668b6febb3aa5741e62d7266ba64169820a",
+      "mode": "0644"
+    },
+    {
+      "file": "tools/generate/guesscalc_beta6_native_audit.py",
+      "bytes": 2948,
+      "sha256": "ecc2993059e0f9c33673e426b04b7e36dd34df9cf87d256e9804424c91c734f8",
+      "mode": "0644"
+    },
+    {
+      "file": "tools/generate/guesscalc_beta6_refine.py",
+      "bytes": 7337,
+      "sha256": "605b851d6cd4d705b1818a233e836c5fc477b95eda9d7a1b3ddd40f32bb7e0d3",
+      "mode": "0644"
+    },
+    {
+      "file": "tools/generate/guesscalc_beta6_target.py",
+      "bytes": 14040,
+      "sha256": "fe9105af5a8bb9d3679c4724957138b4f0907b089ab71c00ea77b4bcb2de34b4",
+      "mode": "0644"
+    },
+    {
       "file": "tools/generate/guesscalc_capture.c",
       "bytes": 3257,
       "sha256": "0ff995f7b68f0c139da27f3436f7449eb8713fc36f8fc8b7ae203193179f4cb3",
@@ -5136,8 +5688,8 @@
     },
     {
       "file": "tools/generate/guesscalc_difficulty_audit.py",
-      "bytes": 29773,
-      "sha256": "0d24f21c6300d02ad0ad1004420a209d72dfa7fba1bde16126c11f74464d17ae",
+      "bytes": 29800,
+      "sha256": "2191832764705074172649bdcc88bdf1a1b1876538a198e57ea8a9fdc2115f7f",
       "mode": "0644"
     },
     {
@@ -5168,6 +5720,12 @@
       "file": "tools/generate/guesscalc_master.py",
       "bytes": 17623,
       "sha256": "3eed3a0674a0d963e54e9cc00ab41176ee326a156c3929020e8211cff0b799f8",
+      "mode": "0644"
+    },
+    {
+      "file": "tools/generate/guesscalc_prime_beta6.py",
+      "bytes": 8931,
+      "sha256": "9520733cd08382a1d39e99fc36c29d3f7a0e4fa594fd356e556e372ae27874c2",
       "mode": "0644"
     },
     {
@@ -5226,8 +5784,8 @@
     },
     {
       "file": "tools/make_docs.py",
-      "bytes": 4977,
-      "sha256": "6951e833b0bf2426d24263c4bd170413a97b7c71b7a6d511b324c2edde113ff0",
+      "bytes": 4980,
+      "sha256": "7f234d4e929f092e1b001fb4697318aa3c803f8382749bf1567fe1048f4e6435",
       "mode": "0644"
     },
     {
@@ -5238,8 +5796,8 @@
     },
     {
       "file": "tools/public_snapshot.py",
-      "bytes": 32634,
-      "sha256": "2570ffc186b1fc5e37e73561f669f9372a737930967a735855cc7058f8809054",
+      "bytes": 34498,
+      "sha256": "c22de401885506f5d5f3f7c8ee3c35f7a222e451a1f45e9c4677931ce6484993",
       "mode": "0644"
     },
     {
@@ -5262,8 +5820,8 @@
     },
     {
       "file": "tools/verify_content.sh",
-      "bytes": 3272,
-      "sha256": "7ac96367b30ef376e6eafd0f4b0d358ec139dcd759c3adb149610fc134fe6284",
+      "bytes": 3861,
+      "sha256": "e83a322c8bc62d6caddfa882577b8c66ca66f7bed8cb2bbeda7571a47212d086",
       "mode": "0644"
     },
     {

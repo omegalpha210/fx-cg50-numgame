@@ -6,12 +6,13 @@ are stored/decoded as legacy, never offered by the normal selector.
 | Screen/state | Arrows | Digits/operators | EXE / F6 | DEL | EXIT | F1 / F2 / F3 / F4 / F5 |
 |---|---|---|---|---|---|---|
 | Main/category | Wrapped 2×3 selector | 1–6 opens tile; operators unused | OPEN tile | Unused | Category→Main | Main F1 RESUME if active / Main SET / — / — / — |
-| Game entry | UP/DOWN rows; LEFT/RIGHT clamp settings or enter TARGET edit | Digits focus a row; on TARGET, first digit replaces value | RESUME row resumes; otherwise NEW GAME; TARGET EDIT EXE only commits | TARGET EDIT backspace | TARGET EDIT cancels; otherwise Category | — / — / HELL for LOGIC / — / RULES |
+| Game entry | UP/DOWN rows; LEFT/RIGHT clamp settings, including Make Target's six choices | Digits focus a row | RESUME row resumes; otherwise NEW GAME with shown settings | Unused | Category | — / — / HELL for LOGIC / — / RULES |
 | Rules | UP/DOWN scroll | Unused | Close, preserving result state | Unused | Close | Only F6 OK |
 | Settings | Unused | 1 toggles first help; 2 toggles time display | Unused | Unused | Save preferences→Main | HELP / TIME / DIAG / — / — |
 | NUM DIAG diagnostics | Unused | Unused | Close/cancel stress | Unused | Close/cancel stress | RESET / EXPORT / PAGE / STRESS or STOP / — |
 | INIT confirmation | Unused | Unused | Confirm same-puzzle restart | Unused | Cancel | Only F6 YES |
 | Save error | Unused | Unused | Bounded retry | Unused | Keep RAM/play | Only F6 RETRY |
+| Baseball ONE LAST TRY | Unused | Unused | Dismiss warning; final included guess remains available | Unused | Dismiss warning | — |
 | Completion dialog | Unused | Unused | NEW game | Unused | VIEW RESULT | — / — / — / — / RULES |
 | Frozen result | Unused | Unused | F6 NEW | Unused | Game entry | — / — / — / — / RULES |
 | Legacy pause (not publicly selectable) | Unused | Unused | Continue | Unused | Continue | F4 RESUME |
@@ -26,7 +27,8 @@ F2 UNDO appears only with supported history, F3 HINT/REVEAL only for modules
 that supply it, F4 is listed below, F5 RULES, F6 mirrors the displayed primary
 EXE action. F1/F2/F3 assistance is marked on the current run. INIT,
 reveal and answer do not silently become NEW. Unsupported softkeys are blank.
-All turn/edit actions ignore HOLD; only menu selectors and rules scroll repeat.
+Turn/edit actions ignore HOLD. Menu selectors, RULES scrolling and UP/DOWN
+on long Baseball, Equation Guess and Number Mind lists can repeat while held.
 
 | ID / Game | Arrows | Digits/operators | EXE / F6 | DEL | F4 |
 |---|---|---|---|---|---|
@@ -79,12 +81,20 @@ For new FREE runs the normal-square orders E/N/H/M are 3/4/5/6 and sums are
 still cycles blank→filled→X→blank; completion requires the exact filled set,
 so X is optional on empty cells but preserved by save/resume.
 
-Make Target's entry TARGET editor accepts 1–1000. LEFT enters with the cursor
-at the beginning, RIGHT at the end. Digits insert, LEFT/RIGHT move and DEL
-backspaces. EXE validates and commits without starting; a second EXE starts.
-EXIT cancels the draft, and F6 OPEN is hidden during edit. Other entry settings
-retain ordinary LEFT/RIGHT option selection. The game tile RESUME badge marks
-only the one validated unfinished game; Main F1 opens the same run.
+Make Target's entry TARGET row selects 10, 24, 50, 100, 200 or RANDOM.
+LEFT/RIGHT changes one adjacent choice and stops at each end. EXE or F6 OPEN
+starts the shown setting; the old 1–1000 draft editor is no longer shown for
+new games. A saved old arbitrary-target run still RESUMEs with its original
+target and progress. Its result NEW returns to TARGET selection for an
+explicit new choice. The game tile RESUME badge marks only the one validated
+unfinished game; Main F1 opens the same run.
+
+Baseball allows 20/30/40/50 total guesses by EASY/NORMAL/HARD/MASTER. After
+an unsuccessful penultimate guess, ONE LAST TRY appears once before the
+final included attempt; dismissing it does not submit or spend a guess.
+UP/DOWN scrolls all retained guesses. A gray rail on longer Baseball,
+Equation Guess and Number Mind lists shows available movement, disabling
+an arrow at the corresponding end. An unsubmitted draft remains intact.
 
 Strategy21–25 and Reversi37 show a FIRST row with YOU or CPU; new local-two-player games are unavailable. CPU pending hides F6; Reversi also hides HINT/MOVES during CPU work. Game input is rejected; MENU/OFF remain common actions. CPU undo restores the whole human+CPU round. MASTER introduces verified tactical starts for21–25.
 HARD and MASTER use the same exact CPU; MASTER does not claim a stronger AI.

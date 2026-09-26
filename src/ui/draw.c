@@ -26,6 +26,27 @@ void ng_line(NgCanvas *c,int x1,int y1,int x2,int y2,int color)
  for(;;){ng_rect(c,x1,y1,1,1,color);if(x1==x2 && y1==y2)break;
   int e=2*err;if(e>-dy){err-=dy;x1+=sx;}if(e<dx){err+=dx;y1+=sy;}}
 }
+static void list_arrow(NgCanvas *c,int center,int top,bool down,int color)
+{
+ for(int row=0;row<4;row++){
+  int spread=down?3-row:row;
+  ng_line(c,center-spread,top+row,center+spread,top+row,color);
+ }
+}
+void ng_list_scrollbar(NgCanvas *c,unsigned total,unsigned visible,unsigned offset,
+ int track_x,int up_y,int track_y,int track_h,int down_y)
+{
+ if(!visible || total<=visible || track_h<=0)return;
+ unsigned max=total-visible;if(offset>max)offset=max;
+ int thumb=(int)(visible*(unsigned)track_h/total);
+ if(thumb<16)thumb=16;
+ if(thumb>track_h)thumb=track_h;
+ int y=track_y+(int)offset*(track_h-thumb)/(int)max;
+ ng_rect(c,track_x,track_y,5,track_h,NG_LINE);
+ ng_rect(c,track_x,y,5,thumb,NG_BLUE);
+ list_arrow(c,track_x+2,up_y,false,offset?NG_BLUE:NG_LINE);
+ list_arrow(c,track_x+2,down_y,true,offset<max?NG_BLUE:NG_LINE);
+}
 static unsigned glyph(unsigned char c){return c>=32 && c<=126?c-32:'?'-32;}
 int ng_text_width(const char *s,int scale)
 {int w=0;for(;*s;s++)w+=normal_width[glyph((unsigned char)*s)]+1;return w?(w-1)*scale:0;}

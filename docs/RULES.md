@@ -13,10 +13,11 @@ shows position and disables the arrow at each end. Short RULES have no rail.
 Find the hidden digit sequence.
 EASY/NORMAL/HARD/MASTER: 4/5/6/7 digits.
 Repeated digits and leading zero are allowed.
-S = exact digit and position.
-B = right digit, wrong position.
+S = correct digit and position.
+B = correct digit, wrong position.
 Exact matches are consumed before counting B.
-Attempts by level: 16/12/10/16.
+Total attempts by level: 20/30/40/50.
+The last try is included in that total.
 Digits enter; DEL erases; EXE submits.
 UP/DOWN scroll attempts. No guess undo.
 Older saved games retain their original rules.
@@ -135,14 +136,16 @@ Modes: STANDARD.
 ## 06 — MAKE TARGET
 
 ```text
-Choose a target 1..1000 on the entry screen.
-Use EVERY card exactly once to reach it.
+Choose 10/24/50/100/200/RANDOM at entry.
+RANDOM mixes the five targets in your level.
+Use EVERY card exactly once to reach target.
 EASY/NORMAL/HARD/MASTER: 4/4/5/6 cards.
 Use + - * / and parentheses.
 Exact rational intermediate values allowed.
 No concatenation, powers or extra constants.
 Equal values are separate usable cards.
-New games: two exact-graded decks per target.
+New: 200 verified decks per target and level;
+RANDOM shares those 1,000 decks per level.
 Every input card is 1..999 (at most 3 digits).
 E: no division needed. N/H: division needed.
 MASTER: every solution needs fractions.
@@ -166,7 +169,8 @@ integer; division must be exact. + - * / ( ).
 Small deck: two copies each of 1..10.
 Large: 25,50,75,100, without repeats.
 Easy/Normal/Hard: 1/2/3 large cards.
-New HARD: every exact answer needs >=4 cards.
+New: 200 verified decks in each difficulty.
+HARD: every exact answer needs >=4 cards.
 MASTER: 3 large cards; exact target requires
 all six cards and at least one division.
 Untimed practice. EXE checks each expression.
@@ -218,15 +222,15 @@ Modes: STANDARD.
 ## 10 — PRIME FACTOR
 
 ```text
-Factor the composite target (4..1000000).
+Factor the composite target into primes.
 Use prime bases with optional positive powers.
 Example 360: 2^3*3^2*5, or repeat factors.
 Any factor order is accepted. 1 is not prime
 or composite; composite bases are rejected.
 Exponents 1..20; at most 16 written factors.
-New MASTER: four distinct primes, Omega7..8;
-two repeated primes, two primes >=11,
-and largest prime >=37. Target <=488808.
+New targets: EASY 3 digits; NORMAL 3/4;
+HARD 4/5; MASTER 5/6. Largest prime <=97.
+Structure, not digit count alone, sets levels.
 Older saves retain their original factors.
 Type digits, * and ^. DEL erases, EXE checks.
 HINT proves one prime divisor. ANSWER reveals

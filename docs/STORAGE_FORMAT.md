@@ -58,12 +58,17 @@ legacy names are removed only when their record or archive ownership validates.
 Checkpoint triggers include NEW GAME, EXIT, MENU, SHIFT+AC/ON, APO, settings
 changes and completion. Game keys are not individually written. Native BFile
 transactions run synchronously on the main thread inside `gint_world_switch`.
-The v5 wire layout is unchanged in beta.3, beta.4 and beta.5. A run already stores its supply
+The v5 wire layout is unchanged in beta.3 through beta.6. A run already stores its supply
 revision, actual board dimensions and per-cell progress. This allows old Magic
 Square FREE and Lights Out revision-1/2 runs to resume and INIT with their old
 order/puzzle while NEW uses revision 3. Nonogram blank and X remain separate
-stored cell states. The TARGET editor draft is transient; only the committed
-1–1000 setting is saved. The tile RESUME badge reflects only a validated active
+stored cell states. Beta.6 saves fixed Make Target choices as their target
+values and RANDOM as the settings sentinel 1001; old arbitrary 1–1000
+settings remain decodable. A revision-6 run separately stores its requested
+FIXED/RANDOM kind, fixed target (when applicable), resolved puzzle target,
+content revision and supply cursor. Baseball revision-4 keeps up to 50 guesses
+in its existing bounded game-state payload, so the v5 wire size is unchanged.
+The tile RESUME badge reflects only a validated active
 unfinished record, and consumes no new save bytes.
 Host tests cover partial writes, a corrupt latest copy, migration variants and
 1,000 game switches with exactly two v5 files, zero final handles and one peak

@@ -1,0 +1,1366 @@
+{
+  "make_target": {
+    "revision": 6,
+    "fixed_targets": [
+      10,
+      24,
+      50,
+      100,
+      200
+    ],
+    "records": 4000,
+    "random_copy_records": 0,
+    "cells": [
+      {
+        "difficulty": "EASY",
+        "target": 10,
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "distinct_easiest_templates": 11,
+        "top_template": "(((n+n)+n)-n)",
+        "top_template_count": 66,
+        "operator_multisets": {
+          "**-": 7,
+          "*++": 1,
+          "*+-": 121,
+          "++-": 71
+        },
+        "simple_pair_product_or_quotient": 6,
+        "card_digits": {
+          "1": 217,
+          "2": 445,
+          "3": 138
+        },
+        "card_values": {
+          "min": 1,
+          "median": 34.0,
+          "p90": 146,
+          "p95": 246,
+          "max": 999
+        },
+        "score": {
+          "min": 103,
+          "median": 8293.0,
+          "p90": 8296,
+          "p95": 8296,
+          "max": 8296
+        },
+        "canonical_solution_count": {
+          "min": 96,
+          "median": 576.0,
+          "p90": 3240,
+          "p95": 3240,
+          "max": 9360
+        },
+        "answer_length": {
+          "min": 13,
+          "median": 17.0,
+          "p90": 19,
+          "p95": 19,
+          "max": 20
+        }
+      },
+      {
+        "difficulty": "EASY",
+        "target": 24,
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "distinct_easiest_templates": 13,
+        "top_template": "(((n+n)+n)-n)",
+        "top_template_count": 58,
+        "operator_multisets": {
+          "**+": 2,
+          "**-": 11,
+          "*+-": 121,
+          "++-": 66
+        },
+        "simple_pair_product_or_quotient": 6,
+        "card_digits": {
+          "1": 206,
+          "2": 457,
+          "3": 137
+        },
+        "card_values": {
+          "min": 1,
+          "median": 33.0,
+          "p90": 141,
+          "p95": 209,
+          "max": 971
+        },
+        "score": {
+          "min": 70,
+          "median": 8293.0,
+          "p90": 8296,
+          "p95": 8296,
+          "max": 8297
+        },
+        "canonical_solution_count": {
+          "min": 96,
+          "median": 576.0,
+          "p90": 3240,
+          "p95": 3240,
+          "max": 9648
+        },
+        "answer_length": {
+          "min": 13,
+          "median": 17.0,
+          "p90": 19,
+          "p95": 19,
+          "max": 20
+        }
+      },
+      {
+        "difficulty": "EASY",
+        "target": 50,
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "distinct_easiest_templates": 16,
+        "top_template": "((n+n)*(n-n))",
+        "top_template_count": 59,
+        "operator_multisets": {
+          "**-": 3,
+          "*++": 3,
+          "*+-": 127,
+          "++-": 67
+        },
+        "simple_pair_product_or_quotient": 2,
+        "card_digits": {
+          "1": 164,
+          "2": 506,
+          "3": 130
+        },
+        "card_values": {
+          "min": 1,
+          "median": 32.5,
+          "p90": 134,
+          "p95": 236,
+          "max": 961
+        },
+        "score": {
+          "min": 68,
+          "median": 8293.0,
+          "p90": 8296,
+          "p95": 8296,
+          "max": 8297
+        },
+        "canonical_solution_count": {
+          "min": 96,
+          "median": 432.0,
+          "p90": 3240,
+          "p95": 3240,
+          "max": 9360
+        },
+        "answer_length": {
+          "min": 14,
+          "median": 17.0,
+          "p90": 19,
+          "p95": 19,
+          "max": 20
+        }
+      },
+      {
+        "difficulty": "EASY",
+        "target": 100,
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "distinct_easiest_templates": 16,
+        "top_template": "(((n*n)+n)-n)",
+        "top_template_count": 54,
+        "operator_multisets": {
+          "**+": 3,
+          "**-": 8,
+          "*++": 2,
+          "*+-": 128,
+          "+++": 1,
+          "++-": 58
+        },
+        "simple_pair_product_or_quotient": 3,
+        "card_digits": {
+          "1": 147,
+          "2": 553,
+          "3": 100
+        },
+        "card_values": {
+          "min": 1,
+          "median": 33.0,
+          "p90": 106,
+          "p95": 186,
+          "max": 999
+        },
+        "score": {
+          "min": 68,
+          "median": 8265.5,
+          "p90": 8296,
+          "p95": 8297,
+          "max": 8297
+        },
+        "canonical_solution_count": {
+          "min": 96,
+          "median": 432.0,
+          "p90": 3240,
+          "p95": 3240,
+          "max": 9360
+        },
+        "answer_length": {
+          "min": 14,
+          "median": 17.0,
+          "p90": 18,
+          "p95": 19,
+          "max": 20
+        }
+      },
+      {
+        "difficulty": "EASY",
+        "target": 200,
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "distinct_easiest_templates": 13,
+        "top_template": "((n+n)*(n-n))",
+        "top_template_count": 62,
+        "operator_multisets": {
+          "**+": 2,
+          "**-": 7,
+          "*++": 1,
+          "*+-": 152,
+          "++-": 38
+        },
+        "simple_pair_product_or_quotient": 1,
+        "card_digits": {
+          "1": 166,
+          "2": 527,
+          "3": 107
+        },
+        "card_values": {
+          "min": 1,
+          "median": 33.0,
+          "p90": 110,
+          "p95": 155,
+          "max": 978
+        },
+        "score": {
+          "min": 71,
+          "median": 8265.0,
+          "p90": 8297,
+          "p95": 8297,
+          "max": 8297
+        },
+        "canonical_solution_count": {
+          "min": 96,
+          "median": 240.0,
+          "p90": 3240,
+          "p95": 3240,
+          "max": 4680
+        },
+        "answer_length": {
+          "min": 14,
+          "median": 17.0,
+          "p90": 18,
+          "p95": 18,
+          "max": 21
+        }
+      },
+      {
+        "difficulty": "NORMAL",
+        "target": 10,
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "distinct_easiest_templates": 4,
+        "top_template": "((n+n)/(n+n))",
+        "top_template_count": 81,
+        "operator_multisets": {
+          "**/": 59,
+          "*+/": 60,
+          "++/": 81
+        },
+        "simple_pair_product_or_quotient": 31,
+        "card_digits": {
+          "1": 340,
+          "2": 324,
+          "3": 136
+        },
+        "card_values": {
+          "min": 1,
+          "median": 12.0,
+          "p90": 180,
+          "p95": 266,
+          "max": 480
+        },
+        "score": {
+          "min": 270404,
+          "median": 270407.0,
+          "p90": 270409,
+          "p95": 270409,
+          "max": 270410
+        },
+        "canonical_solution_count": {
+          "min": 96,
+          "median": 576.0,
+          "p90": 2784,
+          "p95": 3408,
+          "max": 5168
+        },
+        "answer_length": {
+          "min": 14,
+          "median": 16.0,
+          "p90": 18,
+          "p95": 18,
+          "max": 19
+        }
+      },
+      {
+        "difficulty": "NORMAL",
+        "target": 24,
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "distinct_easiest_templates": 5,
+        "top_template": "((n+n)/(n+n))",
+        "top_template_count": 77,
+        "operator_multisets": {
+          "**/": 61,
+          "*+/": 62,
+          "++/": 77
+        },
+        "simple_pair_product_or_quotient": 29,
+        "card_digits": {
+          "1": 329,
+          "2": 300,
+          "3": 171
+        },
+        "card_values": {
+          "min": 1,
+          "median": 12.0,
+          "p90": 301,
+          "p95": 480,
+          "max": 984
+        },
+        "score": {
+          "min": 270404,
+          "median": 270408.0,
+          "p90": 270409,
+          "p95": 270409,
+          "max": 270410
+        },
+        "canonical_solution_count": {
+          "min": 96,
+          "median": 480.0,
+          "p90": 2632,
+          "p95": 3552,
+          "max": 5072
+        },
+        "answer_length": {
+          "min": 13,
+          "median": 16.0,
+          "p90": 18,
+          "p95": 19,
+          "max": 19
+        }
+      },
+      {
+        "difficulty": "NORMAL",
+        "target": 50,
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "distinct_easiest_templates": 5,
+        "top_template": "((n+n)/(n+n))",
+        "top_template_count": 80,
+        "operator_multisets": {
+          "**/": 63,
+          "*+/": 57,
+          "++/": 80
+        },
+        "simple_pair_product_or_quotient": 26,
+        "card_digits": {
+          "1": 316,
+          "2": 250,
+          "3": 234
+        },
+        "card_values": {
+          "min": 1,
+          "median": 12.0,
+          "p90": 546,
+          "p95": 790,
+          "max": 996
+        },
+        "score": {
+          "min": 270404,
+          "median": 270408.0,
+          "p90": 270409,
+          "p95": 270409,
+          "max": 270410
+        },
+        "canonical_solution_count": {
+          "min": 96,
+          "median": 480.0,
+          "p90": 3408,
+          "p95": 3408,
+          "max": 5072
+        },
+        "answer_length": {
+          "min": 14,
+          "median": 16.5,
+          "p90": 18,
+          "p95": 19,
+          "max": 19
+        }
+      },
+      {
+        "difficulty": "NORMAL",
+        "target": 100,
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "distinct_easiest_templates": 6,
+        "top_template": "((n+n)/(n+n))",
+        "top_template_count": 75,
+        "operator_multisets": {
+          "**/": 59,
+          "*+/": 66,
+          "++/": 75
+        },
+        "simple_pair_product_or_quotient": 18,
+        "card_digits": {
+          "1": 354,
+          "2": 229,
+          "3": 217
+        },
+        "card_values": {
+          "min": 1,
+          "median": 11.0,
+          "p90": 609,
+          "p95": 779,
+          "max": 998
+        },
+        "score": {
+          "min": 270404,
+          "median": 270408.0,
+          "p90": 270409,
+          "p95": 270409,
+          "max": 270410
+        },
+        "canonical_solution_count": {
+          "min": 96,
+          "median": 480.0,
+          "p90": 2208,
+          "p95": 3408,
+          "max": 4320
+        },
+        "answer_length": {
+          "min": 14,
+          "median": 16.0,
+          "p90": 18,
+          "p95": 18,
+          "max": 18
+        }
+      },
+      {
+        "difficulty": "NORMAL",
+        "target": 200,
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "distinct_easiest_templates": 5,
+        "top_template": "((n+n)/(n+n))",
+        "top_template_count": 72,
+        "operator_multisets": {
+          "**/": 63,
+          "*+/": 65,
+          "++/": 72
+        },
+        "simple_pair_product_or_quotient": 15,
+        "card_digits": {
+          "1": 356,
+          "2": 202,
+          "3": 242
+        },
+        "card_values": {
+          "min": 1,
+          "median": 12.0,
+          "p90": 651,
+          "p95": 821,
+          "max": 993
+        },
+        "score": {
+          "min": 270404,
+          "median": 270408.0,
+          "p90": 270409,
+          "p95": 270410,
+          "max": 270410
+        },
+        "canonical_solution_count": {
+          "min": 96,
+          "median": 480.0,
+          "p90": 2112,
+          "p95": 3408,
+          "max": 5168
+        },
+        "answer_length": {
+          "min": 14,
+          "median": 17.0,
+          "p90": 17,
+          "p95": 17,
+          "max": 18
+        }
+      },
+      {
+        "difficulty": "HARD",
+        "target": 10,
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "distinct_easiest_templates": 27,
+        "top_template": "((n+n)/((n*n)-n))",
+        "top_template_count": 150,
+        "operator_multisets": {
+          "**+/": 7,
+          "**-/": 3,
+          "*++/": 18,
+          "*+-/": 164,
+          "+++/": 5,
+          "++-/": 3
+        },
+        "simple_pair_product_or_quotient": 1,
+        "card_digits": {
+          "1": 127,
+          "2": 539,
+          "3": 334
+        },
+        "card_values": {
+          "min": 1,
+          "median": 38.5,
+          "p90": 566,
+          "p95": 763,
+          "max": 986
+        },
+        "score": {
+          "min": 270432,
+          "median": 278631.0,
+          "p90": 278631,
+          "p95": 278631,
+          "max": 278632
+        },
+        "canonical_solution_count": {
+          "min": 432,
+          "median": 576.0,
+          "p90": 16128,
+          "p95": 41760,
+          "max": 91200
+        },
+        "answer_length": {
+          "min": 18,
+          "median": 24.0,
+          "p90": 25,
+          "p95": 25,
+          "max": 25
+        }
+      },
+      {
+        "difficulty": "HARD",
+        "target": 24,
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "distinct_easiest_templates": 24,
+        "top_template": "((n+n)/((n*n)-n))",
+        "top_template_count": 154,
+        "operator_multisets": {
+          "***/": 1,
+          "**+/": 5,
+          "*++/": 12,
+          "*+-/": 176,
+          "+++/": 5,
+          "++-/": 1
+        },
+        "simple_pair_product_or_quotient": 4,
+        "card_digits": {
+          "1": 66,
+          "2": 490,
+          "3": 444
+        },
+        "card_values": {
+          "min": 1,
+          "median": 53.5,
+          "p90": 700,
+          "p95": 812,
+          "max": 989
+        },
+        "score": {
+          "min": 270432,
+          "median": 278631.0,
+          "p90": 278631,
+          "p95": 278631,
+          "max": 278632
+        },
+        "canonical_solution_count": {
+          "min": 432,
+          "median": 576.0,
+          "p90": 8640,
+          "p95": 19344,
+          "max": 66432
+        },
+        "answer_length": {
+          "min": 18,
+          "median": 25.0,
+          "p90": 25,
+          "p95": 25,
+          "max": 25
+        }
+      },
+      {
+        "difficulty": "HARD",
+        "target": 50,
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "distinct_easiest_templates": 25,
+        "top_template": "((n+n)/((n*n)-n))",
+        "top_template_count": 142,
+        "operator_multisets": {
+          "**+/": 3,
+          "**-/": 3,
+          "*++/": 12,
+          "*+-/": 172,
+          "+++/": 8,
+          "++-/": 2
+        },
+        "simple_pair_product_or_quotient": 2,
+        "card_digits": {
+          "1": 108,
+          "2": 484,
+          "3": 408
+        },
+        "card_values": {
+          "min": 2,
+          "median": 40.0,
+          "p90": 783,
+          "p95": 898,
+          "max": 998
+        },
+        "score": {
+          "min": 270433,
+          "median": 278631.0,
+          "p90": 278631,
+          "p95": 278631,
+          "max": 278632
+        },
+        "canonical_solution_count": {
+          "min": 384,
+          "median": 576.0,
+          "p90": 7200,
+          "p95": 16416,
+          "max": 51936
+        },
+        "answer_length": {
+          "min": 19,
+          "median": 25.0,
+          "p90": 25,
+          "p95": 25,
+          "max": 25
+        }
+      },
+      {
+        "difficulty": "HARD",
+        "target": 100,
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "distinct_easiest_templates": 18,
+        "top_template": "((n+n)/((n*n)-n))",
+        "top_template_count": 106,
+        "operator_multisets": {
+          "***/": 1,
+          "**+/": 3,
+          "**-/": 3,
+          "*++/": 19,
+          "*+-/": 173,
+          "+++/": 1
+        },
+        "simple_pair_product_or_quotient": 6,
+        "card_digits": {
+          "1": 194,
+          "2": 492,
+          "3": 314
+        },
+        "card_values": {
+          "min": 1,
+          "median": 30.0,
+          "p90": 762,
+          "p95": 890,
+          "max": 998
+        },
+        "score": {
+          "min": 270434,
+          "median": 278631.0,
+          "p90": 278631,
+          "p95": 278631,
+          "max": 278632
+        },
+        "canonical_solution_count": {
+          "min": 384,
+          "median": 576.0,
+          "p90": 6144,
+          "p95": 10560,
+          "max": 22464
+        },
+        "answer_length": {
+          "min": 19,
+          "median": 24.0,
+          "p90": 25,
+          "p95": 25,
+          "max": 25
+        }
+      },
+      {
+        "difficulty": "HARD",
+        "target": 200,
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "distinct_easiest_templates": 14,
+        "top_template": "((n+n)/((n*n)-n))",
+        "top_template_count": 92,
+        "operator_multisets": {
+          "**+/": 2,
+          "**-/": 1,
+          "*++/": 11,
+          "*+-/": 185,
+          "+++/": 1
+        },
+        "simple_pair_product_or_quotient": 2,
+        "card_digits": {
+          "1": 247,
+          "2": 421,
+          "3": 332
+        },
+        "card_values": {
+          "min": 1,
+          "median": 25.0,
+          "p90": 691,
+          "p95": 854,
+          "max": 993
+        },
+        "score": {
+          "min": 270434,
+          "median": 278631.0,
+          "p90": 278631,
+          "p95": 278632,
+          "max": 278632
+        },
+        "canonical_solution_count": {
+          "min": 384,
+          "median": 576.0,
+          "p90": 2496,
+          "p95": 4032,
+          "max": 21504
+        },
+        "answer_length": {
+          "min": 19,
+          "median": 21.0,
+          "p90": 25,
+          "p95": 25,
+          "max": 25
+        }
+      },
+      {
+        "difficulty": "MASTER",
+        "target": 10,
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "distinct_easiest_templates": 42,
+        "top_template": "(((n/((n/n)-n))+n)*n)",
+        "top_template_count": 133,
+        "operator_multisets": {
+          "**+-/": 1,
+          "**--/": 1,
+          "**-//": 1,
+          "*++-/": 4,
+          "*++//": 2,
+          "*+--/": 5,
+          "*+-//": 172,
+          "+++//": 1,
+          "++-//": 13
+        },
+        "simple_pair_product_or_quotient": 10,
+        "card_digits": {
+          "1": 11,
+          "2": 739,
+          "3": 450
+        },
+        "card_values": {
+          "min": 3,
+          "median": 45.0,
+          "p90": 712,
+          "p95": 887,
+          "max": 997
+        },
+        "score": {
+          "min": 4472993,
+          "median": 4744356.0,
+          "p90": 4744356,
+          "p95": 4744356,
+          "max": 4744356
+        },
+        "canonical_solution_count": {
+          "min": 4608,
+          "median": 4608.0,
+          "p90": 27648,
+          "p95": 38016,
+          "max": 149760
+        },
+        "answer_length": {
+          "min": 27,
+          "median": 29.0,
+          "p90": 30,
+          "p95": 30,
+          "max": 30
+        }
+      },
+      {
+        "difficulty": "MASTER",
+        "target": 24,
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "distinct_easiest_templates": 46,
+        "top_template": "(((n/((n/n)-n))+n)*n)",
+        "top_template_count": 123,
+        "operator_multisets": {
+          "**+-/": 1,
+          "**+//": 1,
+          "**-//": 1,
+          "*++-/": 10,
+          "*++//": 3,
+          "*+--/": 7,
+          "*+-//": 163,
+          "+++//": 1,
+          "++-//": 13
+        },
+        "simple_pair_product_or_quotient": 1,
+        "card_digits": {
+          "1": 20,
+          "2": 742,
+          "3": 438
+        },
+        "card_values": {
+          "min": 3,
+          "median": 45.0,
+          "p90": 740,
+          "p95": 870,
+          "max": 999
+        },
+        "score": {
+          "min": 4472992,
+          "median": 4744356.0,
+          "p90": 4744356,
+          "p95": 4744356,
+          "max": 4744356
+        },
+        "canonical_solution_count": {
+          "min": 4608,
+          "median": 6912.0,
+          "p90": 33408,
+          "p95": 87552,
+          "max": 147456
+        },
+        "answer_length": {
+          "min": 27,
+          "median": 29.0,
+          "p90": 30,
+          "p95": 30,
+          "max": 30
+        }
+      },
+      {
+        "difficulty": "MASTER",
+        "target": 50,
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "distinct_easiest_templates": 36,
+        "top_template": "(((n/((n/n)-n))+n)*n)",
+        "top_template_count": 131,
+        "operator_multisets": {
+          "**+-/": 3,
+          "**--/": 1,
+          "**-//": 1,
+          "*++-/": 4,
+          "*++//": 1,
+          "*+--/": 5,
+          "*+-//": 173,
+          "*---/": 2,
+          "+++//": 1,
+          "++-//": 9
+        },
+        "simple_pair_product_or_quotient": 0,
+        "card_digits": {
+          "1": 12,
+          "2": 738,
+          "3": 450
+        },
+        "card_values": {
+          "min": 5,
+          "median": 50.0,
+          "p90": 717,
+          "p95": 867,
+          "max": 999
+        },
+        "score": {
+          "min": 4472963,
+          "median": 4744356.0,
+          "p90": 4744356,
+          "p95": 4744356,
+          "max": 4744356
+        },
+        "canonical_solution_count": {
+          "min": 4608,
+          "median": 4608.0,
+          "p90": 25344,
+          "p95": 27648,
+          "max": 502272
+        },
+        "answer_length": {
+          "min": 27,
+          "median": 29.0,
+          "p90": 30,
+          "p95": 30,
+          "max": 30
+        }
+      },
+      {
+        "difficulty": "MASTER",
+        "target": 100,
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "distinct_easiest_templates": 27,
+        "top_template": "(((n/((n/n)-n))+n)*n)",
+        "top_template_count": 144,
+        "operator_multisets": {
+          "**+-/": 2,
+          "**+//": 1,
+          "**--/": 1,
+          "*++-/": 4,
+          "*++//": 3,
+          "*+--/": 6,
+          "*+-//": 181,
+          "*---/": 1,
+          "+++//": 1
+        },
+        "simple_pair_product_or_quotient": 0,
+        "card_digits": {
+          "1": 24,
+          "2": 565,
+          "3": 611
+        },
+        "card_values": {
+          "min": 2,
+          "median": 100.0,
+          "p90": 678,
+          "p95": 857,
+          "max": 998
+        },
+        "score": {
+          "min": 4472993,
+          "median": 4744356.0,
+          "p90": 4744356,
+          "p95": 4744356,
+          "max": 4744356
+        },
+        "canonical_solution_count": {
+          "min": 4608,
+          "median": 4608.0,
+          "p90": 19584,
+          "p95": 25344,
+          "max": 62208
+        },
+        "answer_length": {
+          "min": 27,
+          "median": 30.0,
+          "p90": 31,
+          "p95": 31,
+          "max": 31
+        }
+      },
+      {
+        "difficulty": "MASTER",
+        "target": 200,
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "distinct_easiest_templates": 15,
+        "top_template": "(((n/((n/n)-n))+n)*n)",
+        "top_template_count": 147,
+        "operator_multisets": {
+          "**--/": 1,
+          "*++-/": 2,
+          "*++//": 1,
+          "*+--/": 4,
+          "*+-//": 192
+        },
+        "simple_pair_product_or_quotient": 1,
+        "card_digits": {
+          "1": 23,
+          "2": 563,
+          "3": 614
+        },
+        "card_values": {
+          "min": 2,
+          "median": 108.5,
+          "p90": 689,
+          "p95": 871,
+          "max": 997
+        },
+        "score": {
+          "min": 4474019,
+          "median": 4744356.0,
+          "p90": 4744356,
+          "p95": 4744356,
+          "max": 4744356
+        },
+        "canonical_solution_count": {
+          "min": 4608,
+          "median": 4608.0,
+          "p90": 18432,
+          "p95": 23040,
+          "max": 73728
+        },
+        "answer_length": {
+          "min": 27,
+          "median": 30.0,
+          "p90": 31,
+          "p95": 31,
+          "max": 31
+        }
+      }
+    ],
+    "levels": [
+      {
+        "difficulty": "EASY",
+        "records": 1000,
+        "random_pool_records": 1000,
+        "distinct_easiest_templates": 22,
+        "top_template": "((n+n)*(n-n))",
+        "top_template_count": 284,
+        "card_digits": {
+          "1": 900,
+          "2": 2488,
+          "3": 612
+        },
+        "card_values": {
+          "min": 1,
+          "median": 33.0,
+          "p90": 119,
+          "p95": 209,
+          "max": 999
+        },
+        "score": {
+          "min": 68,
+          "median": 8293.0,
+          "p90": 8296,
+          "p95": 8296,
+          "max": 8297
+        },
+        "canonical_solution_count": {
+          "min": 96,
+          "median": 432.0,
+          "p90": 3240,
+          "p95": 3240,
+          "max": 9648
+        },
+        "division_required": 0,
+        "fraction_required": 0,
+        "simple_pair_product_or_quotient": 18
+      },
+      {
+        "difficulty": "NORMAL",
+        "records": 1000,
+        "random_pool_records": 1000,
+        "distinct_easiest_templates": 6,
+        "top_template": "((n+n)/(n+n))",
+        "top_template_count": 385,
+        "card_digits": {
+          "1": 1695,
+          "2": 1305,
+          "3": 1000
+        },
+        "card_values": {
+          "min": 1,
+          "median": 12.0,
+          "p90": 440,
+          "p95": 700,
+          "max": 998
+        },
+        "score": {
+          "min": 270404,
+          "median": 270408.0,
+          "p90": 270409,
+          "p95": 270409,
+          "max": 270410
+        },
+        "canonical_solution_count": {
+          "min": 96,
+          "median": 480.0,
+          "p90": 2592,
+          "p95": 3408,
+          "max": 5168
+        },
+        "division_required": 1000,
+        "fraction_required": 0,
+        "simple_pair_product_or_quotient": 119
+      },
+      {
+        "difficulty": "HARD",
+        "records": 1000,
+        "random_pool_records": 1000,
+        "distinct_easiest_templates": 60,
+        "top_template": "((n+n)/((n*n)-n))",
+        "top_template_count": 644,
+        "card_digits": {
+          "1": 742,
+          "2": 2426,
+          "3": 1832
+        },
+        "card_values": {
+          "min": 1,
+          "median": 36.0,
+          "p90": 721,
+          "p95": 850,
+          "max": 998
+        },
+        "score": {
+          "min": 270432,
+          "median": 278631.0,
+          "p90": 278631,
+          "p95": 278631,
+          "max": 278632
+        },
+        "canonical_solution_count": {
+          "min": 384,
+          "median": 576.0,
+          "p90": 6624,
+          "p95": 14688,
+          "max": 91200
+        },
+        "division_required": 1000,
+        "fraction_required": 0,
+        "simple_pair_product_or_quotient": 15
+      },
+      {
+        "difficulty": "MASTER",
+        "records": 1000,
+        "random_pool_records": 1000,
+        "distinct_easiest_templates": 127,
+        "top_template": "(((n/((n/n)-n))+n)*n)",
+        "top_template_count": 678,
+        "card_digits": {
+          "1": 90,
+          "2": 3347,
+          "3": 2563
+        },
+        "card_values": {
+          "min": 2,
+          "median": 64.0,
+          "p90": 708,
+          "p95": 871,
+          "max": 999
+        },
+        "score": {
+          "min": 4472963,
+          "median": 4744356.0,
+          "p90": 4744356,
+          "p95": 4744356,
+          "max": 4744356
+        },
+        "canonical_solution_count": {
+          "min": 4608,
+          "median": 4608.0,
+          "p90": 25344,
+          "p95": 33408,
+          "max": 502272
+        },
+        "division_required": 1000,
+        "fraction_required": 1000,
+        "simple_pair_product_or_quotient": 12
+      }
+    ],
+    "master_refinement": {
+      "construction": "bilateral-fractions-v1",
+      "replacements_per_target": 40,
+      "cells": [
+        {
+          "target": 10,
+          "replaced": 40,
+          "before_top_template": "(((n/((n/n)-n))+n)*n)",
+          "before_top_count": 173,
+          "after_top_template": "(((n/((n/n)-n))+n)*n)",
+          "after_top_count": 133,
+          "last_index": 6446,
+          "invalid": 5040,
+          "duplicate": 0,
+          "rejected_by_exact_grade": 1366,
+          "same_original_template": 0,
+          "seconds": 450.826
+        },
+        {
+          "target": 24,
+          "replaced": 40,
+          "before_top_template": "(((n/((n/n)-n))+n)*n)",
+          "before_top_count": 163,
+          "after_top_template": "(((n/((n/n)-n))+n)*n)",
+          "after_top_count": 123,
+          "last_index": 4664,
+          "invalid": 3683,
+          "duplicate": 0,
+          "rejected_by_exact_grade": 941,
+          "same_original_template": 0,
+          "seconds": 336.984
+        },
+        {
+          "target": 50,
+          "replaced": 40,
+          "before_top_template": "(((n/((n/n)-n))+n)*n)",
+          "before_top_count": 171,
+          "after_top_template": "(((n/((n/n)-n))+n)*n)",
+          "after_top_count": 131,
+          "last_index": 2115,
+          "invalid": 1680,
+          "duplicate": 0,
+          "rejected_by_exact_grade": 395,
+          "same_original_template": 0,
+          "seconds": 163.913
+        },
+        {
+          "target": 100,
+          "replaced": 40,
+          "before_top_template": "(((n/((n/n)-n))+n)*n)",
+          "before_top_count": 184,
+          "after_top_template": "(((n/((n/n)-n))+n)*n)",
+          "after_top_count": 144,
+          "last_index": 1522,
+          "invalid": 1209,
+          "duplicate": 0,
+          "rejected_by_exact_grade": 273,
+          "same_original_template": 0,
+          "seconds": 125.782
+        },
+        {
+          "target": 200,
+          "replaced": 40,
+          "before_top_template": "(((n/((n/n)-n))+n)*n)",
+          "before_top_count": 187,
+          "after_top_template": "(((n/((n/n)-n))+n)*n)",
+          "after_top_count": 147,
+          "last_index": 1222,
+          "invalid": 945,
+          "duplicate": 0,
+          "rejected_by_exact_grade": 237,
+          "same_original_template": 0,
+          "seconds": 112.51
+        }
+      ]
+    },
+    "source_sha256": "ce87eafaecdd3fe48e183cccf926cb10fa204b9830688c498aa8184b8111f70e"
+  },
+  "countdown": {
+    "revision": 5,
+    "records": 800,
+    "levels": [
+      {
+        "difficulty": "EASY",
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "unique_card_decks": 189,
+        "minimum_card_distribution": {
+          "2": 13,
+          "3": 80,
+          "4": 87,
+          "5": 20
+        },
+        "division_required": 0,
+        "inherited_in_new_bank": 30,
+        "target_values": {
+          "min": 100,
+          "median": 326.0,
+          "p90": 741,
+          "p95": 906,
+          "max": 996
+        },
+        "answer_length": {
+          "min": 6,
+          "median": 14.0,
+          "p90": 16,
+          "p95": 18,
+          "max": 20
+        }
+      },
+      {
+        "difficulty": "NORMAL",
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "unique_card_decks": 189,
+        "minimum_card_distribution": {
+          "2": 7,
+          "3": 67,
+          "4": 120,
+          "5": 6
+        },
+        "division_required": 0,
+        "inherited_in_new_bank": 30,
+        "target_values": {
+          "min": 100,
+          "median": 315.0,
+          "p90": 798,
+          "p95": 875,
+          "max": 996
+        },
+        "answer_length": {
+          "min": 6,
+          "median": 14.0,
+          "p90": 16,
+          "p95": 16,
+          "max": 20
+        }
+      },
+      {
+        "difficulty": "HARD",
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "unique_card_decks": 175,
+        "minimum_card_distribution": {
+          "4": 127,
+          "5": 73
+        },
+        "division_required": 10,
+        "inherited_in_new_bank": 30,
+        "target_values": {
+          "min": 120,
+          "median": 533.5,
+          "p90": 871,
+          "p95": 923,
+          "max": 997
+        },
+        "answer_length": {
+          "min": 14,
+          "median": 16.0,
+          "p90": 20,
+          "p95": 21,
+          "max": 22
+        }
+      },
+      {
+        "difficulty": "MASTER",
+        "records": 200,
+        "unique_base_puzzles": 200,
+        "unique_card_decks": 168,
+        "minimum_card_distribution": {
+          "6": 200
+        },
+        "division_required": 200,
+        "inherited_in_new_bank": 30,
+        "target_values": {
+          "min": 137,
+          "median": 708.0,
+          "p90": 948,
+          "p95": 978,
+          "max": 999
+        },
+        "answer_length": {
+          "min": 24,
+          "median": 25.0,
+          "p90": 26,
+          "p95": 26,
+          "max": 27
+        }
+      }
+    ],
+    "source_sha256": "ed838bcb960364d8f32dc4246945e386faa1de0e363d380f34776356c489de3e"
+  }
+}

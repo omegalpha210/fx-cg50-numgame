@@ -7,6 +7,38 @@ device symptom resolved. Use the exact `dist/SHA256SUMS.txt` before testing.
 Back up existing NG saves. NUM DIAG is a separate `NDSTATEA/B.dat` namespace
 and must be tested with disposable ND progress.
 
+For beta.6, check the following on a physical fx-CG50. Host captures and mock
+BFile timings cannot certify the LCD, flash latency or MENU behavior:
+
+1. Select each new MAKE TARGET value (10/24/50/100/200/RANDOM), including
+   clamped LEFT/RIGHT endpoints. Confirm that RANDOM shows the selected
+   puzzle's actual target and that result-screen NEW continues to draw from
+   the chosen policy. Check card readability with four, five and six 3-digit
+   cards, then cold RESUME without consuming another puzzle.
+2. Play COUNTDOWN in all four levels; inspect all six cards, target, input and
+   result. On both games, advance through several NEW puzzles and cold RESUME
+   an interrupted one. Long automated 200/1,000-cycle coverage is documented
+   in the host tests; it does not establish flash performance.
+3. Inspect PRIME FACTOR's 3/4/5/6-digit targets in each applicable level,
+   including maximum-width values and factor entry. Check that the target,
+   labels, draft and softkeys remain readable without overlap.
+4. In NUMBER BASEBALL, inspect the 19th/20th, 29th/30th, 39th/40th and
+   49th/50th attempts, the one-time ONE LAST TRY dialog and a cold RESUME
+   around it. Scroll a full 50-attempt history from top to bottom, including
+   during a draft, then inspect both final loss/answer and win paths.
+5. Scroll long EQUATION GUESS and NUMBER MIND lists. The rail must disappear
+   when the list fits and show muted arrows at its ends. Compare all focused
+   [beta.6 renderer captures](captures/BETA6_README.md) with the physical
+   display, especially digits, card boxes and list columns.
+6. Measure first/repeated save, cold load and game-switch latency and the
+   sizes of NGSTATEA/B.dat. Exercise MENU/OFF, dim/APO, SHIFT+AC/ON and
+   repeated navigation while recording the OS version and an exact route for
+   any persistent flashing MENU. The earlier report remains unresolved.
+
+The following beta.5 and earlier checklists are historical regression cases;
+their former free-number MAKE TARGET editor applies only to legacy behavior,
+not the beta.6 NEW GAME entry.
+
 For beta.5, check the UI and bounded Make Target decks on the actual LCD:
 
 1. At targets 1, 24, 247, 997 and 1000, open all four Make Target levels.

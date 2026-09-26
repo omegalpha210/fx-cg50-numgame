@@ -99,16 +99,17 @@ static void entry(NgCanvas *c,const NgApp *a)
   if(action==NG_ENTRY_LEVEL)difficulty_options(c,a,y);
   else if(action==NG_ENTRY_MODE)mode_options(c,a,y);
   else if(action==NG_ENTRY_TARGET){
-   if(a->target_editing){
-    char prefix[5];unsigned cursor=a->target_cursor;if(cursor>strlen(a->target_draft))cursor=(unsigned)strlen(a->target_draft);
-    memcpy(prefix,a->target_draft,cursor);prefix[cursor]=0;
-    ng_text(c,151,y+9,a->target_draft,NG_BLUE,1);
-    ng_rect(c,151+(cursor?ng_text_width(prefix,1)+1:-3),y+6,1,19,NG_BLUE);
-   }else{char value[16];snprintf(value,sizeof value,"%u",a->settings.target);ng_text(c,151,y+9,value,NG_BLUE,1);}
+   static const unsigned choices[]={10,24,50,100,200,NG_TARGET_RANDOM};
+   unsigned index=1;for(unsigned j=0;j<6;j++)if(a->settings.target==choices[j])index=j;
+   char value[16];if(index==5)snprintf(value,sizeof value,"RANDOM");
+   else snprintf(value,sizeof value,"%u",choices[index]);
+   ng_text(c,151,y+9,"<",index?NG_BLUE:NG_LINE,1);
+   ng_center(c,166,y+9,183,value,NG_BLUE,1);
+   ng_text(c,357,y+9,">",index<5?NG_BLUE:NG_LINE,1);
   }
  }
  int selected=ng_entry_action(a,a->entry_selection);
-  const char *hint=selected==NG_ENTRY_RESUME?"Continue the saved game with its original settings.":selected==NG_ENTRY_NEW?"New game with these settings; replaces old resume.":selected==NG_ENTRY_LEVEL?"LEFT/RIGHT: difficulty for the next NEW GAME.":selected==NG_ENTRY_TARGET?(a->target_editing?"EXE: COMMIT   EXIT: CANCEL":"LEFT/RIGHT: edit target 1..1000."):"LEFT/RIGHT: mode for the next NEW GAME.";
+  const char *hint=selected==NG_ENTRY_RESUME?"Continue the saved game with its original settings.":selected==NG_ENTRY_NEW?"New game with these settings; replaces old resume.":selected==NG_ENTRY_LEVEL?"LEFT/RIGHT: difficulty for the next NEW GAME.":selected==NG_ENTRY_TARGET?"LEFT/RIGHT: choose target. RANDOM mixes five decks.":"LEFT/RIGHT: mode for the next NEW GAME.";
  if(selected==NG_ENTRY_LEVEL && a->selected_id==27)hint="LEFT/RIGHT: distance-based level for NEW GAME.";
  if(selected==NG_ENTRY_MODE && (a->selected_id==27 || a->selected_id==28))hint="LEFT/RIGHT: board size for the next NEW GAME.";
  if(selected==NG_ENTRY_MODE && ((a->selected_id>=21 && a->selected_id<=25) || a->selected_id==37))hint="LEFT/RIGHT: YOU or CPU starts.";
@@ -117,7 +118,7 @@ static void entry(NgCanvas *c,const NgApp *a)
  else if(a->resumable && a->session.game.id==a->selected_id){char b[96];bool classic=a->selected_id==26 && !a->session.game.mode;snprintf(b,sizeof(b),"Saved: %s%s%s%s",classic?"CLASSIC":levels[a->session.game.difficulty],m->modes>1 && !classic?" / ":"",m->modes>1 && !classic?m->mode_name(a->session.game.mode):"",a->session.game.assisted?" / ASSISTED":"");ng_small_fit(c,12,174,372,b,NG_MUTED);}
  ng_wrap(c,12,187,372,9,2,hint,NG_MUTED,true);
  const char *context=selected==NG_ENTRY_LEVEL && ng_has_hell(a->selected_id)?a->settings.difficulty[a->selected_id-1]==NG_HELL?"ENHM":"HELL":"";
- const char *keys[6]={"","",context,"","RULES",a->target_editing?"":"OPEN"};soft(c,keys,false);
+ const char *keys[6]={"","",context,"","RULES","OPEN"};soft(c,keys,false);
 }
 static bool arithmetic_message(unsigned id){return id==2 || (id>=5 && id<=10);}
 static void message(NgCanvas *c,const char *s,int color,bool arithmetic)
@@ -196,13 +197,6 @@ unsigned ng_rules_line_count(unsigned id)
 }
 unsigned ng_rules_max_scroll(unsigned id)
 {unsigned lines=ng_rules_line_count(id);return lines>RULES_LINES?lines-RULES_LINES:0;}
-static void rules_arrow(NgCanvas *c,int center,int top,bool down,int color)
-{
- for(int row=0;row<4;row++){
-  int spread=down?3-row:row;
-  ng_line(c,center-spread,top+row,center+spread,top+row,color);
- }
-}
 static void rules(NgCanvas *c,const NgApp *a)
 {
  unsigned id=a->selected_id;const NgModule *m=ng_module(id);header(c,"RULES",m->short_name);
@@ -216,16 +210,7 @@ static void rules(NgCanvas *c,const NgApp *a)
   if(line++<offset)continue;
   ng_text(c,10,32+(int)drawn*16,b,NG_INK,1);drawn++;
  }}
- if(max){
-  int total=(int)ng_rules_line_count(id),thumb=RULES_LINES*RULES_TRACK_H/total;
-  if(thumb<16)thumb=16;
-  if(thumb>RULES_TRACK_H)thumb=RULES_TRACK_H;
-  int y=RULES_TRACK_Y+(int)offset*(RULES_TRACK_H-thumb)/(int)max;
-  ng_rect(c,375,RULES_TRACK_Y,5,RULES_TRACK_H,NG_LINE);
-  ng_rect(c,375,y,5,thumb,NG_BLUE);
-  rules_arrow(c,377,34,false,offset?NG_BLUE:NG_LINE);
-  rules_arrow(c,377,187,true,offset<max?NG_BLUE:NG_LINE);
- }
+ if(max)ng_list_scrollbar(c,ng_rules_line_count(id),RULES_LINES,offset,375,34,RULES_TRACK_Y,RULES_TRACK_H,187);
  const char *keys[6]={"","","","","","OK"};soft(c,keys,false);
 }
 static void dialog(NgCanvas *c,const NgApp *a)
@@ -319,6 +304,10 @@ static void dialog(NgCanvas *c,const NgApp *a)
  case NG_MODAL_PAUSE:{
   const char *keys[6]={"","","","RESUME","",""};soft(c,keys,false);
   title="PAUSED";line="EXE: CONTINUE";sub="Active timer stopped";break;
+ }
+ case NG_MODAL_LAST_TRY:{
+  const char *keys[6]={"","","","","","OK"};soft(c,keys,false);
+  title="ONE LAST TRY";line="One guess remains.";sub="EXE: CONTINUE";break;
  }
  case NG_MODAL_SAVE_ERROR:{
   const char *keys[6]={"","","","","","RETRY"};soft(c,keys,false);

@@ -1,16 +1,48 @@
-# Difficulty audit — 36 visible games, beta.5
+# Difficulty audit — 36 visible games, beta.6
 
 The [current 150-row CSV](DIFFICULTY_AUDIT.csv) covers every visible game and
 EASY/NORMAL/HARD/MASTER level, plus HELL in the six LOGIC games. Its 19 columns
-include the measured metric, `before`, `after`, finding ID and decision. The
-[preserved beta.3 CSV](DIFFICULTY_AUDIT_BETA3.csv),
-[preserved beta.4 CSV](DIFFICULTY_AUDIT_BETA4.csv) and Git history retain the
-baselines. The beta.5 Make Target card and exact-score comparison is in the
-[readability audit](MAKE_TARGET_READABILITY_AUDIT.md). Source reports are
-[GUESS/CALC](GUESS_CALC_AUDIT.md),
-[LOGIC/PUZZLE](GRID_AUDIT.md), [STRATEGY/quick](STRATEGY_QUICK_AUDIT.md) and
-[SHIKAKU/SLITHERLINK](BOARD_AUDIT.md). The integrated generator checks exactly
-36 game IDs, 150 rows and the expected level set for each game.
+include measured metrics, `before`, `after`, finding ID and decision.
+`before` for the four beta.6 changes is the beta.5 state; other unchanged
+rows retain their earlier audit baseline. The [beta.3](DIFFICULTY_AUDIT_BETA3.csv)
+and [beta.4](DIFFICULTY_AUDIT_BETA4.csv) CSVs and Git history preserve earlier
+snapshots. The beta.6 measures below come from the published
+[Make Target](../assets/guesscalc_target_beta6.json),
+[Countdown](../assets/guesscalc_countdown_beta6.json), and
+[Prime Factor](../assets/guesscalc_prime_beta6.json) records; the family
+audits ([cards](MAKE_TARGET_COUNTDOWN_BETA6_AUDIT.md),
+[factors](PRIME_FACTOR_BETA6_AUDIT.md),
+[Baseball](BASEBALL_BETA6_AUDIT.md)) supply independent rule verification.
+The integrated generator
+checks exactly 36 game IDs, 150 rows and each game's expected level set.
+
+## Beta.6 content and rule measurements
+
+| Game | Current per level | Measured selection/difficulty fact |
+|---|---:|---|
+| Number Baseball | runtime secret | Total attempts 20/30/40/50, including the warned final chance. 4/5/6/7 digits and repeat/leading-zero rules are unchanged. |
+| Make Target | 1,000 | Five target pools of 200 each; RANDOM reuses their union. Each level has 1,000 distinct target/card multisets, so 4,000 active bases overall. Cards remain 1–999 and counts are 4/4/5/6. The exact-minimum source reports zero fraction-required EASY/NORMAL/HARD and 1,000 of 1,000 MASTER. |
+| Countdown | 200 | Distinct target/card multisets in every level. Minimum exact card-use histograms are EASY 2:13, 3:80, 4:87, 5:20; NORMAL 2:7, 3:67, 4:120, 5:6; HARD 4:127, 5:73; MASTER 6:200. All 200 MASTER records require division; ten HARD records do. The beta.6 source does not report canonical solution counts, so that measure is explicitly unremeasured in the CSV. |
+| Prime Factor | 128 / 256 / 256 / 256 | EASY is 128 three-digit composites. The other levels have exactly 128 targets in each neighboring digit band: NORMAL 3/4, HARD 4/5, MASTER 5/6. All are composite, with maximum prime at most 97 and disjoint target identities across levels. |
+
+Make Target's public bases are not all different *reasoning templates*. Among
+the 1,000 records per level, distinct easiest-expression templates are
+22/6/60/127; the most common template occurs 284/385/644/678 times.
+Especially in MASTER, numeric/card diversity exceeds structural diversity.
+These counts are reported so the larger bank is not mistaken for 4,000
+unrelated solution ideas. The exact score, card-digit distributions and
+canonical solution-count ranges are in the CSV. The beta.6 generator and
+independent verifier reports describe how those minima were checked; the
+CSV itself does not rerun an exhaustive solver.
+
+Prime Factor's maximum-prime and trial-division-proxy distributions overlap
+between some neighboring groups; the level definition deliberately combines
+digit length with factor structure. The proxy is not measured human solving
+time. Earlier saved runs retain the prior revision and are separate from
+the current bank figures. The [36-game inventory](CONTENT_INVENTORY.md)
+shows current-setting reachability versus archived records.
+
+## Historical beta.4/beta.5 findings
 
 ## Resolved content findings
 
@@ -69,9 +101,11 @@ directions, rejects division by zero and canonicalizes commutative reversal,
 equal-card relabeling and redundant double unary negation. It preserves a
 lexicographically easiest raw tuple, a separate unary-aware graded expression
 and the canonical exact-solution count. There is no arbitrary magnitude cutoff,
-random pruning or production-device search table. The calculator stores only
-8,000 `uint16` candidate indices (16,000 bytes); the large expression report
-is host-only. The [beta.4 CSV](MAKE_TARGET_COMPLEXITY.csv) and
+random pruning or production-device search table. Each retained beta.4 and
+beta.5 bank stores 8,000 `uint16` candidate indices (16,000 bytes per
+revision). Beta.6 instead stores its 4,000 compact card records and bounded
+answer strings in flash; all large exact-search reports remain host-only.
+The [beta.4 CSV](MAKE_TARGET_COMPLEXITY.csv) and
 [current beta.5 CSV](MAKE_TARGET_COMPLEXITY_BETA5.csv) retain all per-record
 expressions and scores.
 
@@ -119,23 +153,21 @@ These are exact arithmetic and structural checks, not measured human effort.
 
 ## Accepted findings and compatibility
 
-GC-D04 is **ACCEPTED AS DESIGNED**: NUMBER BASEBALL MASTER keeps 16 guesses
-for its seven-digit repeated-digit secret space, versus EASY/NORMAL/HARD
-16/12/10 guesses for four/five/six digits. EQUATION GUESS MASTER keeps 12
-attempts versus 12/10/8 at lower levels. These are intentional allowances
-for larger search spaces and more operators, not selector no-ops. GC-D06 is
-**ACCEPTED / OVERLAP DOCUMENTED**: CRYPTARITHM's independent column-search
-node ranges overlap, but level medians and puzzle structure rise; all bank
-records retain unique verified solutions. Its bank is unchanged.
+GC-D04's beta.4/beta.5 Baseball allowances have been superseded by the
+20/30/40/50 total-attempt rule. EQUATION GUESS MASTER still has 12 attempts
+versus 12/10/8 at lower levels; its attempt rules did not change here.
+GC-D06 remains **ACCEPTED / OVERLAP DOCUMENTED**: CRYPTARITHM's independent
+column-search node ranges overlap, but level medians and structure rise; its
+unique-solution bank is unchanged.
 
-New Make Target games use content revision 5; IDs 5, 7, 10 and 27 remain at
-revision 4. Old unfinished
-runs preserve their puzzle IDs, board/progress, rule revision and INIT behavior;
-NEW uses the revised bank. The active single-resume v5 wire format did not
-change. MAKE TARGET's two-record-per-target shuffle cycle avoids immediate
-repeats at boundaries and resets when TARGET changes. The other 31 games'
-content was not regraded. The fixed 2048 CLASSIC level remains hidden; LOGIC
-HELL remains its own source bank. No human solving-time calibration was made.
+Fresh Make Target uses revision 6; Countdown and Prime Factor use revision 5;
+Number Baseball uses revision 4. Sequence and Sliding remain revision 4.
+Old unfinished runs preserve their puzzle IDs, board/progress, rule revision
+and INIT behavior. The active single-resume v5 wire layout did not change.
+Fixed Make Target uses a 200-record no-repeat cycle; RANDOM uses the shared
+1,000-record union. The other games' content was not regraded for beta.6.
+The fixed 2048 CLASSIC level remains hidden; LOGIC HELL remains its own
+source bank. No human solving-time calibration was made.
 
 Reproduce the independent content checks with `bash tools/verify_content.sh`;
 host regression and package checks are listed in [ACCEPTANCE.md](ACCEPTANCE.md).

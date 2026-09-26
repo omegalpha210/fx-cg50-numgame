@@ -45,7 +45,7 @@ static void legacy_run(unsigned id,unsigned difficulty,unsigned mode,unsigned re
  assert(cold.screen==NG_PLAY && !cold.modal);
  assert(cold.session.game.pack_revision==ng_pack_revision(id,mode));
  assert(ng_valid(&cold.session.game));
- if(id==6)assert(cold.session.game.data[0]==(int32_t)target);
+ if(id==6)assert(cold.session.game.data[0]==(target==247?24:(int32_t)target));
  if(id==6)for(unsigned i=0;i<(unsigned)cold.session.game.data[1];i++)
   assert(cold.session.game.board[i]>=1 && cold.session.game.board[i]<=999);
 }
@@ -55,22 +55,22 @@ static void target_cycle_reset(void)
  memset(&disk,0,sizeof disk);disk.write_budget=-1;
  ng_app_init(&app,test_hooks(&disk),UINT32_C(42));
  open_game(&app,6);
- assert(app.session.game.pack_revision==5 && app.session.game.data[0]==24);
- assert(app.session.supply[0][NG_NORMAL].count==2 &&
+ assert(app.session.game.pack_revision==6 && app.session.game.data[0]==24);
+ assert(app.session.supply[0][NG_NORMAL].count==200 &&
         app.session.supply[0][NG_NORMAL].next==1);
  tap(&app,NGK_EXIT);
- app.settings.target=247;app.settings_dirty=true;
+ app.settings.target=50;app.settings_dirty=true;
  app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_NEW);
  tap(&app,NGK_F6);
- assert(app.screen==NG_PLAY && app.session.game.data[0]==247);
- assert(app.session.supply[0][NG_NORMAL].count==2 &&
+ assert(app.screen==NG_PLAY && app.session.game.data[0]==50);
+ assert(app.session.supply[0][NG_NORMAL].count==200 &&
         app.session.supply[0][NG_NORMAL].next==1);
  uint32_t first=app.session.game.puzzle_id;
  assert(app.session.supply[0][NG_NORMAL].recent[0]==first);
  tap(&app,NGK_EXIT);
  app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_NEW);
  tap(&app,NGK_F6);
- assert(app.screen==NG_PLAY && app.session.game.data[0]==247);
+ assert(app.screen==NG_PLAY && app.session.game.data[0]==50);
  assert(app.session.game.puzzle_id!=first);
  assert(app.session.supply[0][NG_NORMAL].next==2);
  for(unsigned i=0;i<32;i++){
@@ -78,7 +78,7 @@ static void target_cycle_reset(void)
   tap(&app,NGK_EXIT);
   app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_NEW);
   tap(&app,NGK_F6);
-  assert(app.screen==NG_PLAY && app.session.game.data[0]==247);
+  assert(app.screen==NG_PLAY && app.session.game.data[0]==50);
   assert(app.session.game.puzzle_id!=previous);
   assert(app.session.supply[0][NG_NORMAL].recent[0]==app.session.game.puzzle_id);
  }
@@ -104,13 +104,33 @@ static void legacy_target_mode_result(void)
  cold.resumable=false;cold.dirty=true;
  tap(&cold,NGK_F6);
  assert(cold.screen==NG_PLAY && cold.modal==NG_MODAL_NONE);
- assert(cold.session.game.pack_revision==5 && cold.session.game.mode==0 &&
+ assert(cold.session.game.pack_revision==6 && cold.session.game.mode==0 &&
         cold.session.game.data[0]==10 && ng_valid(&cold.session.game));
  assert(cold.settings.mode[5]==0);
- assert(cold.session.supply[0][NG_NORMAL].count==2 &&
+ assert(cold.session.supply[0][NG_NORMAL].count==200 &&
         cold.session.supply[0][NG_NORMAL].next==1 &&
         cold.session.supply[0][NG_NORMAL].shuffle!=0);
  assert(cold.session.supply[0][NG_NORMAL].recent[0]==cold.session.game.puzzle_id);
+}
+static void legacy_arbitrary_target_result(void)
+{
+ memset(&disk,0,sizeof disk);disk.write_budget=-1;
+ ng_app_init(&app,test_hooks(&disk),75313);open_game(&app,6);
+ ng_new_supply_version(&app.session.game,6,NG_NORMAL,0,13579,1,UINT32_C(0x10003),1,5);
+ assert(gc_target_init(&app.session.game,247));
+ assert(ng_valid(&app.session.game));
+ app.active=app.resumable=app.dirty=true;app.settings.target=247;app.settings_dirty=true;
+ assert(ng_checkpoint(&app));
+ ng_app_init(&cold,test_hooks(&disk),951);assert(cold.resumable);
+ tap(&cold,NGK_F1);assert(cold.screen==NG_PLAY && cold.session.game.data[0]==247);
+ tap(&cold,NGK_F4);tap(&cold,NGK_F6);
+ assert(cold.modal==NG_MODAL_RESULT && cold.session.game.status==NG_WON);
+ tap(&cold,NGK_F6);
+ assert(cold.screen==NG_ENTRY && !cold.modal && cold.settings.target==24 &&
+        ng_entry_action(&cold,cold.entry_selection)==NG_ENTRY_TARGET && cold.notice[0]);
+ tap(&cold,NGK_F6);
+ assert(cold.screen==NG_PLAY && cold.session.game.pack_revision==6 &&
+        cold.session.game.data[0]==24 && ng_valid(&cold.session.game));
 }
 
 int main(void)
@@ -118,12 +138,14 @@ int main(void)
  for(unsigned d=0;d<2;d++)legacy_run(5,d,0,2,24);
  for(unsigned d=0;d<4;d++)legacy_run(6,d,0,3,247);
  for(unsigned d=0;d<4;d++)legacy_run(6,d,0,4,247);
+ for(unsigned d=0;d<4;d++)legacy_run(6,d,0,5,247);
  legacy_run(7,NG_HARD,0,2,24);
  legacy_run(10,NG_MASTER,0,2,24);
  for(unsigned mode=0;mode<2;mode++)for(unsigned d=0;d<4;d++)
   legacy_run(27,d,mode,2,24);
  target_cycle_reset();
  legacy_target_mode_result();
+ legacy_arbitrary_target_result();
  puts("beta.5 target: old beta.3/beta.4 active puzzles, cold RESUME, INIT and bounded NEW PASS");
  return 0;
 }

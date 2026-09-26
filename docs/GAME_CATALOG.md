@@ -44,16 +44,15 @@ difficulty, size, or CPU-turn variants as extra games.
 | 32 | SLITHERLINK | STANDARD | — | Yes | — | HOST VERIFIED · TARGET BUILT · HARDWARE PENDING |
 | 38 | NET | STANDARD | — | Yes | REVEAL | HOST VERIFIED · TARGET BUILT · HARDWARE PENDING |
 
-The retained 30 games passed real app-key/renderer workflows through terminal
-result, frozen result view and cold-load **no-resume**; the six new games have
-focused family audits for the same transitions. Storage separately covers 198 visible
-game × mode × difficulty configurations (including the identical classic
-2048 difficulty slots for compatibility). Engine family suites exercise
+All 36 games pass app-key/renderer workflows through terminal
+result, frozen result view and cold-load **no-resume**. Storage also covers visible
+game × mode × difficulty configurations, including identical classic
+2048 difficulty slots for compatibility. Engine family suites exercise
 additional seeds, illegal inputs, alternate answers and failure outcomes.
 The CSV [status matrix](acceptance-matrix.csv) records each stage.
 
 Assistance includes undo, hint/reveal/answer and same-seed INIT. No hidden
 guess undo is offered. Only the app's last unfinished run is resumable.
 See [RESUME_POLICY.md](RESUME_POLICY.md) and [DIFFICULTY_AUDIT.md](DIFFICULTY_AUDIT.md).
-The earlier 30-game content quantities and transformation caveats are in
+The current 36-game content quantities and transformation caveats are in
 [CONTENT_INVENTORY.md](CONTENT_INVENTORY.md).

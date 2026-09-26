@@ -1,5 +1,17 @@
 # GUESS / CALC implementation audit
 
+This document records the original and earlier MASTER implementation audits.
+The baseline counts and policies below are historical and must not be read as
+the current NEW GAME supply. For beta.6 Make Target and Countdown counts,
+exact full-pack checks and diversity, see
+[MAKE_TARGET_COUNTDOWN_BETA6_AUDIT.md](MAKE_TARGET_COUNTDOWN_BETA6_AUDIT.md).
+The current 36-game, setting-level counts are in
+[CONTENT_INVENTORY.md](CONTENT_INVENTORY.md) and
+[CONTENT_INVENTORY_SETTINGS.csv](CONTENT_INVENTORY_SETTINGS.csv).
+Prime Factor's revised policy is in
+[PRIME_FACTOR_BETA6_AUDIT.md](PRIME_FACTOR_BETA6_AUDIT.md), and Baseball's in
+[BASEBALL_BETA6_AUDIT.md](BASEBALL_BETA6_AUDIT.md).
+
 Game IDs 01–10 are implemented in `src/games/guesscalc.c` and the pure bounded
 parser in `src/games/guesscalc_math.c`. All expose the common `NgModule` ABI,
 logical-key actions, a distinct playable renderer, rules, initialization,

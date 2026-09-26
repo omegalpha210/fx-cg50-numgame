@@ -1,45 +1,54 @@
-# NEW and puzzle selection
+# NEW, RESUME and puzzle selection
 
-Bank-backed games already used a seed plus cursor and a coprime affine stride
-in v4. The stride visits each bank ordinal exactly once per cycle. V5 keeps
-that no-repeat policy for the **current game and difficulty** and saves only
-its active mode/level cycle. For example, a 30-problem bank produces all 30
-base problems in permuted order, then starts a new permutation. At the boundary
-the first new problem is kept distinct from the preceding last problem when
-the bank has more than one entry. A one-item bank necessarily repeats. The
-former recent-four avoidance could fix the first problem of a five-item bank
-across several cycles; the boundary now avoids only the immediately previous
-problem. Returning to another game or difficulty need not restore its old
-cycle. No permanent cleared-problem bitset or achievement history is stored.
+NEW GAME on the entry screen starts a new run with its selected difficulty and
+settings. F1 INIT restarts the *same* puzzle and marks the run assisted. RESUME
+restores the one unfinished run, including its displayed board, input, random
+state, bank seed and cursor; it does not select or consume another puzzle. A
+completed result's F6 NEW selects the next run using that result's settings.
+Opening RULES, redrawing a timer, or browsing an entry screen consumes no bank
+ordinal.
 
-An unfinished run cold-loads its supply seed and cursor, so NEW after resuming
-continues the same cycle. Completion clears persistent resume, but F6 NEW or
-completion EXE NEW in the still-open app retains the current cycle. Closing
-after completion begins a new cycle next launch because completed state is not
-persisted. Older saves without cycle metadata avoid repeating their current
-bank puzzle on the first NEW when possible.
+Bank-backed games use a seed, cursor and coprime affine stride. For a pool of
+`N` ordinals, the stride visits all `N` once before a new permutation. If
+`N > 1`, a cycle boundary is adjusted so the previous last and next first
+puzzles differ. The seed and cursor travel with the one active run; no
+permutation array or 36-game achievement ledger is saved. Switching to
+another game or difficulty replaces the prior unfinished run and its cycle.
+An unfinished run's cold RESUME continues the same order. Completion clears
+persistent RESUME but the open app retains the cycle in RAM for result NEW.
+After closing the app with no unfinished run, the next launch begins a new
+cycle. Hardware timing remains **HARDWARE TEST REQUIRED**.
 
-Runtime-generated games receive a fresh xorshift seed. Where the immediately
-preceding same-game snapshot fingerprint matches, generation retries at most
-three more seeds; a small content space may still repeat. This is a bounded
-best-effort policy, not permanent puzzle tracking. Make Target keeps the chosen
-1–1000 target when NEW follows a completed run.
+Make Target revision 6 exposes six TARGET settings: `10`, `24`, `50`,
+`100`, `200`, and `RANDOM`. Each fixed target has 200 distinct
+target/card-multiset bases per difficulty, so a fixed setting has a 200-item
+cycle. RANDOM uses the union of those five pools, a 1,000-item cycle at the
+selected difficulty. It is a *selection policy*, not another 4,000 copied
+records. Two consecutive RANDOM puzzles may have the same numerical target
+while their actual puzzle identities differ. A RANDOM result's NEW keeps the
+RANDOM policy, and a fixed result's NEW keeps its fixed target. The requested
+kind and fixed target are distinct from the current puzzle's resolved target
+in the saved run. Different TARGET or difficulty settings start a fresh
+cycle. Old arbitrary-target saved runs resume under their original revision;
+after one finishes, NEW returns to the TARGET entry for an explicit new
+choice instead of silently mapping to one of the six settings.
 
-Content revisions 4 and 5 of Make Target each have two independently verified
-decks for every target (1–1000) and difficulty, selected through the same
-two-item shuffle bag. Fresh revision-5 decks use cards 1–999 only; revision-4
-decks are retained solely for old unfinished runs. Committing a different
-target resets the active bag because its two ordinals refer to different
-decks. Earlier revision-3 target-generated runs retain their original seed
-and target on RESUME and INIT.
+Countdown revision 5 uses 200 base records per difficulty and the same
+no-repeat cycle. Prime Factor revision 5 uses 128 EASY and 256 each
+NORMAL/HARD/MASTER. Their older unfinished records preserve their own
+revision on RESUME and INIT. Legacy Make Target revision-4 and revision-5
+two-deck-per-target banks, revision-3 generated decks and older Countdown
+starts remain compiled for this purpose; they are not included in a new
+beta.6 cycle.
 
-MAGIC SQUARE FREE is rules-only on new revision-3 runs, so it has no bank
-ordinal and starts with a blank 3×3/4×4/5×5/6×6 board by selected difficulty.
-Revision-1/2 FREE records retain their old bank identity and order on RESUME
-and INIT. New 4×4 LIGHTS OUT revision-3 starts use exact minimum-press grades
-2/4/5/6; revision-2 saved starts replay the original generator unchanged.
+Other games retain their previous selection rules. In particular, Magic
+Square FREE starts with a blank size/rule board, not a bank layout, while
+old FREE saved runs still replay their original revision. NEW 4×4 Lights Out
+revision-3 starts keep their certified minimum-press grading; older saved
+starts keep their earlier generator. Runtime-generated games use bounded
+seeded selection, with only a best-effort short recent-fingerprint retry
+where the game has no finite bank.
 
-Host tests cover coprime permutations at N=1, 2 and 5, a complete 30-item
-application cycle, save/reload in the middle of that cycle and the exhaustion
-boundary. Physical content perception and no-repeat UX remain
-**HARDWARE TEST REQUIRED**.
+The [36-game inventory](CONTENT_INVENTORY.md) and its
+[per-setting CSV](CONTENT_INVENTORY_SETTINGS.csv) distinguish a currently
+reachable pool from all compiled historical records.

@@ -4,7 +4,9 @@ Rows are exported from the linked C registry. Bank entries are actual
 embedded base-record counts by mode, in EASY/NORMAL/HARD/MASTER/HELL
 order; 0 denotes a runtime or rule-based source, not missing gameplay.
 Magic FREE and symmetry families are distinguished in the
-[content inventory](CONTENT_INVENTORY.md). The 2048 CLASSIC game
+[content inventory](CONTENT_INVENTORY.md). Make Target shows its
+1,000-record RANDOM pool; each fixed target has 200 records.
+The 2048 CLASSIC game
 uses fixed NORMAL for new runs, with older level buckets preserved.
 
 | ID | Game | Levels | Modes | Overall policy | Embedded bank by mode |
@@ -15,11 +17,11 @@ uses fixed NORMAL for new runs, with older level buckets preserved.
 | 04 | CLUE LOCK | E/N/H/M | STANDARD | HOST_GENERATED_BANK | STANDARD: 30/30/30/30 |
 | 05 | SEQUENCE DETECTIVE | E/N/H/M | STANDARD | HOST_GENERATED_BANK | STANDARD: 30/30/30/30 |
 | 33 | BLACK BOX | E/N/H/M | STANDARD | RUNTIME_GENERATED | STANDARD: 0/0/0/0 |
-| 06 | MAKE TARGET | E/N/H/M | STANDARD | HOST_GENERATED_BANK | STANDARD: 2/2/2/2 |
-| 07 | COUNTDOWN | E/N/H/M | STANDARD | HOST_GENERATED_BANK | STANDARD: 30/30/30/30 |
+| 06 | MAKE TARGET | E/N/H/M | STANDARD | HOST_GENERATED_BANK | STANDARD: 1000/1000/1000/1000 |
+| 07 | COUNTDOWN | E/N/H/M | STANDARD | HOST_GENERATED_BANK | STANDARD: 200/200/200/200 |
 | 08 | MISSING OPERATORS | E/N/H/M | STANDARD | HYBRID | STANDARD: 0/0/0/30 |
 | 09 | CROSS MATH | E/N/H/M | STANDARD | HOST_GENERATED_BANK | STANDARD: 30/30/30/30 |
-| 10 | PRIME FACTOR | E/N/H/M | STANDARD | RUNTIME_GENERATED | STANDARD: 0/0/0/0 |
+| 10 | PRIME FACTOR | E/N/H/M | STANDARD | HOST_GENERATED_BANK | STANDARD: 128/256/256/256 |
 | 34 | CRYPTARITHM | E/N/H/M | STANDARD | HOST_GENERATED_BANK | STANDARD: 30/30/30/30 |
 | 11 | SUDOKU | E/N/H/M/Hell | CLASSIC | HOST_GENERATED_BANK | CLASSIC: 50/50/50/50/30 |
 | 12 | CALCUDOKU | E/N/H/M/Hell | CLASSIC | HOST_GENERATED_BANK | CLASSIC: 50/50/50/50/30 |

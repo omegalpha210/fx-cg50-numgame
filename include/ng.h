@@ -7,6 +7,8 @@
 #define NG_GAME_COUNT 36
 #define NG_ID_MAX 38
 #define NG_LEVEL_COUNT 5
+/* Stored entry choice; never passed to arithmetic validation as a target. */
+#define NG_TARGET_RANDOM 1001u
 #define NG_CELLS 81
 #define NG_DATA 128
 #define NG_HISTORY 16

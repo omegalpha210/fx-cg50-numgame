@@ -1,7 +1,12 @@
 # Make Target card readability — beta.4 to beta.5
 
-Fresh games use content revision 5. Every input card is 1–999; the target
-remains 1–1000. The 8,000 records still comprise two decks per target and
+This is the preserved beta.4→beta.5 comparison, not the current NEW pool.
+Beta.6 uses revision 6 with targets 10/24/50/100/200/RANDOM and 200
+distinct decks per fixed target and difficulty. See the
+[current content audit](MAKE_TARGET_COUNTDOWN_BETA6_AUDIT.md) and
+[current-setting inventory](CONTENT_INVENTORY.md). In beta.5, fresh games
+used content revision 5. Every input card was 1–999; the target
+could be 1–1000. The 8,000 records comprised two decks per target and
 level: 2,000 each for EASY, NORMAL, HARD and MASTER. Earlier unfinished
 revision-4 games keep their original cards, puzzle ID, progress and parser
 rules. The v5 save wire format is unchanged.

@@ -384,7 +384,7 @@ def metrics(id_, d, records, samples):
 
 
 def run_samples():
-    sources = ['tools/generate/guesscalc_difficulty_sample.c', 'src/games/guesscalc.c',
+    sources = ['tools/generate/guesscalc_difficulty_sample.c', 'src/games/guesscalc.c', 'src/games/prime_beta6.c',
                'src/games/guesscalc_extra.c', 'src/games/guesscalc_math.c', 'src/core/common.c', 'src/ui/draw.c']
     build = ROOT/'build-host/guesscalc-difficulty'
     build.mkdir(parents=True, exist_ok=True)

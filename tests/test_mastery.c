@@ -54,7 +54,7 @@ static void bank_cycles(void)
  unsigned groups=0,runs=0;
  for(unsigned i=0;i<NG_GAME_COUNT;i++){
   unsigned id=ng_visible_id(i);for(unsigned d=0;d<ng_difficulty_count(id);d++)for(unsigned mode=0;mode<ng_module(id)->modes;mode++){
-   unsigned n=ng_bank_count(id,d,mode);if(!n)continue;assert(n<=4096);setup(id,d,mode);
+   unsigned n=id==6?200u:ng_bank_count(id,d,mode);if(!n)continue;assert(n<=4096);setup(id,d,mode);
    uint32_t seen[4096],previous=UINT32_MAX;
    for(unsigned cycle=0;cycle<2;cycle++)for(unsigned k=0;k<n;k++){
     open_next();uint32_t puzzle=app.session.game.puzzle_id;

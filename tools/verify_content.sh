@@ -15,6 +15,15 @@ mkdir -p "$NUMGAME_VERIFY_OUTPUT"
 "$NUMGAME_PYTHON" tools/generate/guesscalc_beta5_target.py --verify --jobs 4
 "$NUMGAME_PYTHON" tools/generate/guesscalc_beta5_audit.py --check
 "$NUMGAME_PYTHON" tools/generate/guesscalc_beta5_rows.py --check
+"$NUMGAME_PYTHON" tools/generate/guesscalc_beta6_target.py --check
+"$NUMGAME_PYTHON" tools/generate/guesscalc_beta6_refine.py --check
+"$NUMGAME_PYTHON" tools/generate/guesscalc_beta6_target.py --verify --jobs 5
+"$NUMGAME_PYTHON" tools/generate/guesscalc_beta6_countdown.py --verify
+"$NUMGAME_PYTHON" tools/generate/guesscalc_beta6_audit.py
+"$NUMGAME_PYTHON" tools/generate/guesscalc_beta6_native_audit.py --check
+"$NUMGAME_PYTHON" tools/generate/guesscalc_prime_beta6.py --check
+"$NUMGAME_PYTHON" tests/test_guesscalc_prime_beta6.py
+"$NUMGAME_PYTHON" tests/test_guesscalc_beta6_content.py
 "$NUMGAME_PYTHON" tools/generate/guesscalc_difficulty_audit.py --check > "$NUMGAME_VERIFY_OUTPUT/guesscalc-beta3-baseline.json"
 "$NUMGAME_PYTHON" tests/test_guesscalc_exact.py
 cmp assets/guesscalc_make_target_complexity.csv docs/MAKE_TARGET_COMPLEXITY.csv

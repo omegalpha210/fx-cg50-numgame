@@ -25,7 +25,9 @@ capabilities=['# Implemented difficulty, mode and supply capability','',
               'embedded base-record counts by mode, in EASY/NORMAL/HARD/MASTER/HELL',
               'order; 0 denotes a runtime or rule-based source, not missing gameplay.',
               'Magic FREE and symmetry families are distinguished in the',
-              '[content inventory](CONTENT_INVENTORY.md). The 2048 CLASSIC game',
+              '[content inventory](CONTENT_INVENTORY.md). Make Target shows its',
+              '1,000-record RANDOM pool; each fixed target has 200 records.',
+              'The 2048 CLASSIC game',
               'uses fixed NORMAL for new runs, with older level buckets preserved.','',
               '| ID | Game | Levels | Modes | Overall policy | Embedded bank by mode |',
               '|---:|---|---|---|---|---|']
@@ -41,17 +43,16 @@ for g in games:
     level_text='CLASSIC fixed NORMAL; TARGET E/N/H/M' if g['id']==26 else 'E/N/H/M/Hell' if g['has_hell'] else 'E/N/H/M'
     bank_text='<br>'.join(f"{name}: {'/'.join(map(str,counts))}" for name,counts in zip(g['modes'],g['bank_counts_by_mode']))
     capabilities.append(f"| {g['id']:02} | {g['name']} | {level_text} | {' / '.join(g['modes'])} | {policies[g['generation_policy']]} | {bank_text} |")
-rows += ['', 'The retained 30 games passed real app-key/renderer workflows through terminal',
-         'result, frozen result view and cold-load **no-resume**; the six new games have',
-         'focused family audits for the same transitions. Storage separately covers 198 visible',
-         'game × mode × difficulty configurations (including the identical classic',
-         '2048 difficulty slots for compatibility). Engine family suites exercise',
+rows += ['', 'All 36 games pass app-key/renderer workflows through terminal',
+         'result, frozen result view and cold-load **no-resume**. Storage also covers visible',
+         'game × mode × difficulty configurations, including identical classic',
+         '2048 difficulty slots for compatibility. Engine family suites exercise',
          'additional seeds, illegal inputs, alternate answers and failure outcomes.',
          'The CSV [status matrix](acceptance-matrix.csv) records each stage.','',
          'Assistance includes undo, hint/reveal/answer and same-seed INIT. No hidden',
          'guess undo is offered. Only the app\'s last unfinished run is resumable.',
          'See [RESUME_POLICY.md](RESUME_POLICY.md) and [DIFFICULTY_AUDIT.md](DIFFICULTY_AUDIT.md).',
-         'The earlier 30-game content quantities and transformation caveats are in',
+         'The current 36-game content quantities and transformation caveats are in',
          '[CONTENT_INVENTORY.md](CONTENT_INVENTORY.md).']
 (ROOT/'docs/GAME_CATALOG.md').write_text('\n'.join(rows)+'\n')
 (ROOT/'docs/RULES.md').write_text('\n'.join(rules).rstrip()+'\n')

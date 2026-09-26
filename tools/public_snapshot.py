@@ -15,15 +15,17 @@ MANIFEST='PUBLIC_MANIFEST.json'
 ROOT_FILES={'.gitignore','CMakeLists.txt','LICENSE','README.md','README_KO.md','THIRD_PARTY_NOTICES.md'}
 PUBLIC_DOCS={
     'ACCEPTANCE.md','AI_AUDIT.md','ASSET_PROVENANCE.md','BOARD_AUDIT.md',
-    'CAPABILITIES.md','CONTENT_INVENTORY.md','CONTENT_INVENTORY.csv',
+    'CAPABILITIES.md','CONTENT_INVENTORY.md','CONTENT_INVENTORY.csv','CONTENT_INVENTORY_SETTINGS.csv',
     'CONTROLS.md','DIAGNOSTICS.md','DIAGNOSTIC_GUIDE.md','GAME_CATALOG.md',
     'GENERATION_AUDIT.md','GRID_AUDIT.md','GRID_MASTER_AUDIT.md',
     'GRID_LOGIC_REVIEW.md',
     'GUESS_CALC_AUDIT.md','HARDWARE_RETEST.md','MAKE_TARGET_READABILITY_AUDIT.md','MEMORY_AUDIT.md',
-    'MEMORY_METHOD.md','PERFORMANCE_AUDIT.md','PERFORMANCE_36.md','PERFORMANCE.md',
+    'MAKE_TARGET_COUNTDOWN_BETA6_AUDIT.md','PRIME_FACTOR_BETA6_AUDIT.md','BASEBALL_BETA6_AUDIT.md',
+    'MEMORY_METHOD.md','PERFORMANCE_AUDIT.md','PERFORMANCE_36.md','PERFORMANCE_BETA6.md','PERFORMANCE.md',
     'host-benchmark-normal.json','host-benchmark-diagnostic.json',
     'host-benchmark-36-normal.json','host-benchmark-36-diagnostic.json',
     'host-benchmark-v5-normal.json','host-benchmark-v5-diagnostic.json',
+    'host-benchmark-beta6-normal.json','host-benchmark-beta6-diagnostic.json',
     'host-benchmark-build-evidence.json',
     'POWER_TIMER_AUDIT.md','PUBLIC_SOURCE_AUDIT.md','RULES.md',
     'RESUME_POLICY.md','CONTENT_CYCLE.md','RECENT_SIX_AUDIT.md',
@@ -32,6 +34,7 @@ PUBLIC_DOCS={
     'MAKE_TARGET_COMPLEXITY.csv','MAKE_TARGET_COMPLEXITY_BETA5.csv',
     'RUNTIME_AUDIT.md','STORAGE_ARCHIVE_AUDIT.md','STORAGE_FORMAT.md',
     'STRATEGY_QUICK_AUDIT.md','UI_ALIGNMENT_AUDIT.md','UI_CONVENTIONS.md','UI_LAYOUT_KO.md',
+    'USER_GUIDE.md',
     'UI_REFRESH_KO.md','acceptance-matrix.csv','asset-manifest.json',
     'build-metrics.json','diagnostic-build-metrics.json','game-registry.json',
     'performance-metrics.json',
@@ -47,12 +50,15 @@ ASSET_JSON_ROOT={'guesscalc_packs.json','guesscalc_master.json','guesscalc_crypt
                  'guesscalc_difficulty_rows_beta5.json',
                  'guesscalc_beta4.json','guesscalc_target_beta4.json',
                  'guesscalc_target_beta5.json','guesscalc_target_beta5_audit.json',
+                 'guesscalc_target_beta6.json','guesscalc_countdown_beta6.json','guesscalc_prime_beta6.json',
+                 'guesscalc_beta6_content_audit.json','guesscalc_beta6_native_audit.json',
                  'guesscalc_target_beta5_complexity.csv',
                  'guesscalc_target_beta3_sample.json',
                  'guesscalc_make_target_complexity.csv'}
 ASSET_HEADER_ROOT={'guesscalc_packs.h','guesscalc_master.h','guesscalc_cryptarithm.h',
                    'guesscalc_beta4.h','guesscalc_target_beta4.h',
-                   'guesscalc_target_beta5.h'}
+                   'guesscalc_target_beta5.h','guesscalc_target_beta6.h',
+                   'guesscalc_countdown_beta6.h','guesscalc_prime_beta6.h'}
 ASSET_JSON_SUB={
     'boards':{'puzzles.json','verification.json','difficulty-beta3.json'},
     'strategyquick':{'metadata.json','master.json','master_verification.json','master-sh-metrics.json','extra-native-frames.json','extra-asan-attempt.json',
@@ -89,6 +95,7 @@ def public_png(name):
     if re.fullmatch(r'assets/strategyquick/sliding-beta4-[34]-(?:easy|normal|hard|master)(?:-entry)?\.png',name):return True
     if re.fullmatch(r'assets/boards/captures/(?:(?:31|32)-[0-3]-(?:complete|corner|start|edge)|(?:completed-)?contact)\.png',name):return True
     if re.fullmatch(r'docs/captures/(?:\d{2}-[a-z0-9-]+|category-[1-6]-2x|[a-z-]+-native|menus-2x)\.png',name):return True
+    if re.fullmatch(r'docs/captures/beta6/[a-z0-9-]+\.png',name):return True
     return False
 
 def allowed(name,include_dist=False):
@@ -109,7 +116,7 @@ def allowed(name,include_dist=False):
     if parts[0]=='docs':
         if len(parts)==2:return p.name in PUBLIC_DOCS
         if parts[1]=='third_party':return len(parts)==3 and p.name in LICENSE_FILES
-        if parts[1]=='captures':return public_png(name) or name=='docs/captures/README.md'
+        if parts[1]=='captures':return public_png(name) or name in {'docs/captures/README.md','docs/captures/BETA6_README.md'}
     return bool(include_dist and len(parts)==2 and parts[0]=='dist' and p.name in DIST_FILES)
 
 def inventory(root,include_dist=False):
@@ -210,6 +217,13 @@ def required_findings(selected):
         'tools/generate/guesscalc_beta5_audit.py',
         'tools/generate/guesscalc_beta5_rows.py',
         'tools/generate/guesscalc_beta5_sample.c',
+        'tools/generate/guesscalc_beta6_target.py',
+        'tools/generate/guesscalc_beta6_refine.py',
+        'tools/generate/guesscalc_beta6_countdown.py',
+        'tools/generate/guesscalc_beta6_audit.py',
+        'tools/generate/guesscalc_beta6_native_audit.py',
+        'tools/generate/guesscalc_beta6_native.c',
+        'tools/generate/guesscalc_prime_beta6.py',
         'tools/generate/guesscalc_exact.cpp',
         'tools/generate/guesscalc_exact.py','tools/generate/strategyquick_sliding.py',
         'tools/generate/strategyquick_sliding_verify.py',
@@ -218,6 +232,10 @@ def required_findings(selected):
         'assets/guesscalc_target_beta4.h','assets/guesscalc_target_beta4.json',
         'assets/guesscalc_target_beta5.h','assets/guesscalc_target_beta5.json',
         'assets/guesscalc_target_beta5_audit.json','assets/guesscalc_difficulty_rows_beta5.json',
+        'assets/guesscalc_target_beta6.h','assets/guesscalc_target_beta6.json',
+        'assets/guesscalc_countdown_beta6.h','assets/guesscalc_countdown_beta6.json',
+        'assets/guesscalc_prime_beta6.h','assets/guesscalc_prime_beta6.json',
+        'assets/guesscalc_beta6_content_audit.json','assets/guesscalc_beta6_native_audit.json',
         'assets/guesscalc_target_beta5_complexity.csv',
         'assets/guesscalc_target_beta3_sample.json',
         'assets/guesscalc_difficulty_rows_beta4.json','assets/guesscalc_difficulty_audit_beta4.json',
@@ -238,6 +256,13 @@ def required_findings(selected):
         'docs/DIFFICULTY_AUDIT_BETA3.csv','docs/DIFFICULTY_AUDIT_BETA4.csv',
         'docs/MAKE_TARGET_COMPLEXITY.csv','docs/MAKE_TARGET_COMPLEXITY_BETA5.csv',
         'docs/MAKE_TARGET_READABILITY_AUDIT.md','docs/UI_ALIGNMENT_AUDIT.md',
+        'docs/MAKE_TARGET_COUNTDOWN_BETA6_AUDIT.md','docs/PRIME_FACTOR_BETA6_AUDIT.md',
+        'docs/BASEBALL_BETA6_AUDIT.md','docs/CONTENT_CYCLE.md',
+        'docs/USER_GUIDE.md','docs/PERFORMANCE_BETA6.md','docs/captures/BETA6_README.md',
+        'docs/CONTENT_INVENTORY_SETTINGS.csv',
+        'tests/test_beta6_supply.c','tests/test_baseball_beta6.c',
+        'tests/test_beta6_capture.c','tests/test_guesscalc_beta6_content.py',
+        'tests/test_guesscalc_prime_beta6.py',
     }|{'docs/third_party/'+n for n in LICENSE_FILES}|{f'assets/grids/{n}.json' for n in range(11,21)}|{f'assets/grids/expanded/{n}-{d}.json' for n in range(11,21) for d in (range(5) if n<=15 else (3,))}
     return [dict(file=n,type='required_public_file_missing',severity='error') for n in sorted(required-set(selected))]
 

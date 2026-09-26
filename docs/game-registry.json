@@ -14,7 +14,7 @@
       "flags": 0,
       "aux": "",
       "primary": "SUBMIT",
-      "rules": "Find the hidden digit sequence.\nEASY/NORMAL/HARD/MASTER: 4/5/6/7 digits.\nRepeated digits and leading zero are allowed.\nS = exact digit and position.\nB = right digit, wrong position.\nExact matches are consumed before counting B.\nAttempts by level: 16/12/10/16.\nDigits enter; DEL erases; EXE submits.\nUP/DOWN scroll attempts. No guess undo.\nOlder saved games retain their original rules.",
+      "rules": "Find the hidden digit sequence.\nEASY/NORMAL/HARD/MASTER: 4/5/6/7 digits.\nRepeated digits and leading zero are allowed.\nS = correct digit and position.\nB = correct digit, wrong position.\nExact matches are consumed before counting B.\nTotal attempts by level: 20/30/40/50.\nThe last try is included in that total.\nDigits enter; DEL erases; EXE submits.\nUP/DOWN scroll attempts. No guess undo.\nOlder saved games retain their original rules.",
       "modes": [
         "STANDARD"
       ],
@@ -178,16 +178,16 @@
       "flags": 2,
       "aux": "ANSWER",
       "primary": "CHECK",
-      "rules": "Choose a target 1..1000 on the entry screen.\nUse EVERY card exactly once to reach it.\nEASY/NORMAL/HARD/MASTER: 4/4/5/6 cards.\nUse + - * / and parentheses.\nExact rational intermediate values allowed.\nNo concatenation, powers or extra constants.\nEqual values are separate usable cards.\nNew games: two exact-graded decks per target.\nEvery input card is 1..999 (at most 3 digits).\nE: no division needed. N/H: division needed.\nMASTER: every solution needs fractions.\nType expression; DEL erases; EXE checks.\nHINT gives one first step; ANSWER copies one\nexample. Both mark assisted. All legal answers\nare accepted, not just that example.\n96 chars, nesting12, reduced values <= 1e9.\nEarlier saved decks and targets stay playable.",
+      "rules": "Choose 10/24/50/100/200/RANDOM at entry.\nRANDOM mixes the five targets in your level.\nUse EVERY card exactly once to reach target.\nEASY/NORMAL/HARD/MASTER: 4/4/5/6 cards.\nUse + - * / and parentheses.\nExact rational intermediate values allowed.\nNo concatenation, powers or extra constants.\nEqual values are separate usable cards.\nNew: 200 verified decks per target and level;\nRANDOM shares those 1,000 decks per level.\nEvery input card is 1..999 (at most 3 digits).\nE: no division needed. N/H: division needed.\nMASTER: every solution needs fractions.\nType expression; DEL erases; EXE checks.\nHINT gives one first step; ANSWER copies one\nexample. Both mark assisted. All legal answers\nare accepted, not just that example.\n96 chars, nesting12, reduced values <= 1e9.\nEarlier saved decks and targets stay playable.",
       "modes": [
         "STANDARD"
       ],
       "bank_counts_by_mode": [
         [
-          2,
-          2,
-          2,
-          2
+          1000,
+          1000,
+          1000,
+          1000
         ]
       ]
     },
@@ -203,16 +203,16 @@
       "flags": 2,
       "aux": "FINISH",
       "primary": "CHECK",
-      "rules": "Reach target 100..999 with up to six cards.\nEach card at most once; unused cards allowed.\nEvery intermediate result MUST be a positive\ninteger; division must be exact. + - * / ( ).\nSmall deck: two copies each of 1..10.\nLarge: 25,50,75,100, without repeats.\nEasy/Normal/Hard: 1/2/3 large cards.\nNew HARD: every exact answer needs >=4 cards.\nMASTER: 3 large cards; exact target requires\nall six cards and at least one division.\nUntimed practice. EXE checks each expression.\nExact=10 points, distance 1..5=7,6..10=5,\nelse 0. Best submitted distance is retained.\nFINISH keeps best result. No optimality claim.\nHINT gives first step of one exact solution.",
+      "rules": "Reach target 100..999 with up to six cards.\nEach card at most once; unused cards allowed.\nEvery intermediate result MUST be a positive\ninteger; division must be exact. + - * / ( ).\nSmall deck: two copies each of 1..10.\nLarge: 25,50,75,100, without repeats.\nEasy/Normal/Hard: 1/2/3 large cards.\nNew: 200 verified decks in each difficulty.\nHARD: every exact answer needs >=4 cards.\nMASTER: 3 large cards; exact target requires\nall six cards and at least one division.\nUntimed practice. EXE checks each expression.\nExact=10 points, distance 1..5=7,6..10=5,\nelse 0. Best submitted distance is retained.\nFINISH keeps best result. No optimality claim.\nHINT gives first step of one exact solution.",
       "modes": [
         "STANDARD"
       ],
       "bank_counts_by_mode": [
         [
-          30,
-          30,
-          30,
-          30
+          200,
+          200,
+          200,
+          200
         ]
       ]
     },
@@ -274,20 +274,20 @@
       "difficulties": 4,
       "regular_difficulties": 4,
       "has_hell": false,
-      "generation_policy": 0,
+      "generation_policy": 1,
       "flags": 2,
       "aux": "ANSWER",
       "primary": "CHECK",
-      "rules": "Factor the composite target (4..1000000).\nUse prime bases with optional positive powers.\nExample 360: 2^3*3^2*5, or repeat factors.\nAny factor order is accepted. 1 is not prime\nor composite; composite bases are rejected.\nExponents 1..20; at most 16 written factors.\nNew MASTER: four distinct primes, Omega7..8;\ntwo repeated primes, two primes >=11,\nand largest prime >=37. Target <=488808.\nOlder saves retain their original factors.\nType digits, * and ^. DEL erases, EXE checks.\nHINT proves one prime divisor. ANSWER reveals\na factorization. Both mark assisted.",
+      "rules": "Factor the composite target into primes.\nUse prime bases with optional positive powers.\nExample 360: 2^3*3^2*5, or repeat factors.\nAny factor order is accepted. 1 is not prime\nor composite; composite bases are rejected.\nExponents 1..20; at most 16 written factors.\nNew targets: EASY 3 digits; NORMAL 3/4;\nHARD 4/5; MASTER 5/6. Largest prime <=97.\nStructure, not digit count alone, sets levels.\nOlder saves retain their original factors.\nType digits, * and ^. DEL erases, EXE checks.\nHINT proves one prime divisor. ANSWER reveals\na factorization. Both mark assisted.",
       "modes": [
         "STANDARD"
       ],
       "bank_counts_by_mode": [
         [
-          0,
-          0,
-          0,
-          0
+          128,
+          256,
+          256,
+          256
         ]
       ]
     },

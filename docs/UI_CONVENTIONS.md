@@ -20,13 +20,15 @@ short contextual help. F5 RULES remains available; F3 toggles separate LOGIC
 HELL on its difficulty row and displays colored ENHM on return. Strategy FIRST
 selects YOU or CPU inline. No unused MODE row or popup is shown.
 
-Make Target's TARGET row has SELECT and EDIT states. LEFT enters EDIT with the
-cursor at the left edge; RIGHT enters at the end. Digits insert at the cursor,
-LEFT/RIGHT move it and DEL removes the preceding digit. The first digit typed
-while TARGET is selected replaces the displayed value. An invalid or empty
-draft remains editable with an inline error. EXE validates 1–1000 and commits
-without opening a game; a second EXE, or F6 OPEN after commit, starts NEW GAME.
-EXIT cancels EDIT and restores the committed value. F6 is blank during EDIT.
+Make Target's TARGET row has six choices: 10, 24, 50, 100, 200, RANDOM.
+LEFT/RIGHT moves to adjacent choices and clamps at either end; the current
+choice and available arrow directions fit on one line. There is no numeric
+target editor on this entry screen. EXE or F6 OPEN starts NEW with the
+displayed choice. A saved arbitrary-target run from an older revision still
+resumes with its original target; after its result, NEW returns to TARGET
+selection so no different target is chosen silently.
+[Actual beta.6 entry captures](captures/beta6/make-target-contact.png) show
+all six choices and the selected arrows.
 
 The three new-run labels have different scopes: entry **NEW GAME** uses selected
 settings, playing **F1 INIT** restarts the same run/puzzle, and completed-result
@@ -42,6 +44,16 @@ to that game's entry. RULES may be opened without changing the final state.
 Completion clears persistent RESUME. Input release barriers prevent one held
 EXIT/EXE from passing through two states.
 
+NUMBER BASEBALL's 20/30/40/50-attempt list uses a compact retained history
+representation and a scroll rail when the visible rows do not contain every
+guess. NUMBER MIND and EQUATION GUESS show the same rail on long clue/guess
+lists without changing their attempt rules. The rail follows the RULES style:
+gray UP/DOWN affordances disable at the ends and disappear for short lists.
+The ONE LAST TRY dialog appears once before Baseball's final *included*
+attempt; dismissing it keeps the warning state across save/resume.
+[Native scroll captures](captures/beta6/scroll-contact.png) include top,
+middle and bottom list positions with an unsubmitted draft.
+
 The Cryptarithm renderer omits decorative input underscores. Its addition
 rows, operator, rule and result use fixed integer column centers; the selected
 letter has a visible box, and letter-to-digit assignment and arithmetic rules
@@ -49,7 +61,7 @@ remain intact. Its menu icon places each glyph on the same two-column grid.
 [Aligned play](captures/34-cryptarithm-aligned-layout.png) ·
 [icon](captures/34-cryptarithm-icon.png). 2048 colors advance gray, lime, cyan,
 blue, yellow, orange, magenta and red, then deepen. Long text is measured and
-wrapped within panels. [Entry captures](captures/entry-layout-native.png) and
+wrapped within panels. [Beta.6 entry captures](captures/beta6/make-target-contact.png) and
 [overflow captures](captures/overflow-native.png) are actual host frames,
 including explicitly labeled renderer stress fixtures.
 
@@ -61,7 +73,7 @@ legibility and MENU behavior remain **HARDWARE TEST REQUIRED**.
 Nonogram's optional X annotation does not block completion: only the filled
 black-cell set must match its unique puzzle. Magic Square FREE new runs use
 3×3/4×4/5×5/6×6 normal-square boards. The actual-renderer captures include
-tile badge, entry/editor states, optional-X completion and all four FREE sizes.
+tile badge, older entry/editor states, optional-X completion and all four FREE sizes.
 The 6×6 grid has 26-pixel square cells, centered two-digit numbers and
 `SUM = 111` without footer overlap. These bounds checks are not real-LCD
 readability measurements.

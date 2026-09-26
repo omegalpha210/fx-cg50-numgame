@@ -1,17 +1,17 @@
 {
   "schema_version": 2,
-  "build_directory": "build-clean-4YlNHV",
+  "build_directory": "build-clean-gdvSH1",
   "elf_file": "numgame",
-  "elf_sha256": "9dd868816b874ee255e755093a3611daddece98ddc7bf4f132dde8eab1724157",
+  "elf_sha256": "ee9c686a5cf2ae9a9b76b1de9bc9ccb68cd9998c4809c46a63d243903f799799",
   "compiler": "sh-elf-gcc (GCC) 14.1.0",
-  "native_text": 429192,
+  "native_text": 635588,
   "native_data": 512,
   "native_bss": 46096,
   "berkeley_size_caution": "Legacy size aggregates: text includes readonly data/ILRAM; data can include ROM metadata. These are not RAM peak categories.",
   "elf_sections": [
     {
       "name": ".text",
-      "bytes": 143140,
+      "bytes": 145588,
       "vma": "0x00300000",
       "lma": "0x00300000",
       "flags": [
@@ -25,8 +25,8 @@
     {
       "name": ".gint.blocks",
       "bytes": 352,
-      "vma": "0x00322f30",
-      "lma": "0x00322f30",
+      "vma": "0x003238c0",
+      "lma": "0x003238c0",
       "flags": [
         "CONTENTS",
         "ALLOC",
@@ -38,8 +38,8 @@
     {
       "name": ".gint.drivers",
       "bytes": 432,
-      "vma": "0x00323090",
-      "lma": "0x00323090",
+      "vma": "0x00323a20",
+      "lma": "0x00323a20",
       "flags": [
         "CONTENTS",
         "ALLOC",
@@ -49,9 +49,9 @@
     },
     {
       "name": ".rodata",
-      "bytes": 285572,
-      "vma": "0x00323240",
-      "lma": "0x00323240",
+      "bytes": 489520,
+      "vma": "0x00323bd0",
+      "lma": "0x00323bd0",
       "flags": [
         "CONTENTS",
         "ALLOC",
@@ -73,7 +73,7 @@
       "name": ".data",
       "bytes": 80,
       "vma": "0x0810c7a0",
-      "lma": "0x00368dc4",
+      "lma": "0x0039b400",
       "flags": [
         "CONTENTS",
         "ALLOC",
@@ -97,7 +97,7 @@
       "name": ".ilram",
       "bytes": 128,
       "vma": "0xe5200000",
-      "lma": "0x00368e14",
+      "lma": "0x0039b450",
       "flags": [
         "CONTENTS",
         "ALLOC",
@@ -126,7 +126,7 @@
     },
     {
       "name": ".debug_info",
-      "bytes": 310964,
+      "bytes": 314386,
       "vma": "0x00000000",
       "lma": "0x00000000",
       "flags": [
@@ -138,7 +138,7 @@
     },
     {
       "name": ".debug_abbrev",
-      "bytes": 43144,
+      "bytes": 43507,
       "vma": "0x00000000",
       "lma": "0x00000000",
       "flags": [
@@ -150,7 +150,7 @@
     },
     {
       "name": ".debug_loclists",
-      "bytes": 110030,
+      "bytes": 112564,
       "vma": "0x00000000",
       "lma": "0x00000000",
       "flags": [
@@ -162,7 +162,7 @@
     },
     {
       "name": ".debug_aranges",
-      "bytes": 1128,
+      "bytes": 1160,
       "vma": "0x00000000",
       "lma": "0x00000000",
       "flags": [
@@ -174,7 +174,7 @@
     },
     {
       "name": ".debug_rnglists",
-      "bytes": 16442,
+      "bytes": 16832,
       "vma": "0x00000000",
       "lma": "0x00000000",
       "flags": [
@@ -186,7 +186,7 @@
     },
     {
       "name": ".debug_line",
-      "bytes": 184418,
+      "bytes": 187911,
       "vma": "0x00000000",
       "lma": "0x00000000",
       "flags": [
@@ -198,7 +198,7 @@
     },
     {
       "name": ".debug_str",
-      "bytes": 29272,
+      "bytes": 29811,
       "vma": "0x00000000",
       "lma": "0x00000000",
       "flags": [
@@ -210,7 +210,7 @@
     },
     {
       "name": ".debug_frame",
-      "bytes": 32124,
+      "bytes": 32352,
       "vma": "0x00000000",
       "lma": "0x00000000",
       "flags": [
@@ -236,7 +236,7 @@
   "allocated_sections": [
     {
       "name": ".text",
-      "bytes": 143140,
+      "bytes": 145588,
       "vma": "0x00300000",
       "lma": "0x00300000",
       "flags": [
@@ -250,8 +250,8 @@
     {
       "name": ".gint.blocks",
       "bytes": 352,
-      "vma": "0x00322f30",
-      "lma": "0x00322f30",
+      "vma": "0x003238c0",
+      "lma": "0x003238c0",
       "flags": [
         "CONTENTS",
         "ALLOC",
@@ -263,8 +263,8 @@
     {
       "name": ".gint.drivers",
       "bytes": 432,
-      "vma": "0x00323090",
-      "lma": "0x00323090",
+      "vma": "0x00323a20",
+      "lma": "0x00323a20",
       "flags": [
         "CONTENTS",
         "ALLOC",
@@ -274,9 +274,9 @@
     },
     {
       "name": ".rodata",
-      "bytes": 285572,
-      "vma": "0x00323240",
-      "lma": "0x00323240",
+      "bytes": 489520,
+      "vma": "0x00323bd0",
+      "lma": "0x00323bd0",
       "flags": [
         "CONTENTS",
         "ALLOC",
@@ -298,7 +298,7 @@
       "name": ".data",
       "bytes": 80,
       "vma": "0x0810c7a0",
-      "lma": "0x00368dc4",
+      "lma": "0x0039b400",
       "flags": [
         "CONTENTS",
         "ALLOC",
@@ -322,7 +322,7 @@
       "name": ".ilram",
       "bytes": 128,
       "vma": "0xe5200000",
-      "lma": "0x00368e14",
+      "lma": "0x0039b450",
       "flags": [
         "CONTENTS",
         "ALLOC",
@@ -341,24 +341,24 @@
       ]
     }
   ],
-  "non_allocated_section_bytes": 731794,
-  "initialized_load_section_bytes": 429704,
-  "project_object_count": 29,
+  "non_allocated_section_bytes": 742795,
+  "initialized_load_section_bytes": 636100,
+  "project_object_count": 30,
   "project_object_sections": {
-    ".text": 117036,
+    ".text": 119484,
     ".data": 12,
     ".bss": 45014,
-    ".rodata.str1.4": 32734,
-    ".debug_info": 215873,
-    ".debug_abbrev": 22746,
-    ".debug_loclists": 93184,
-    ".debug_aranges": 872,
-    ".debug_rnglists": 12912,
-    ".debug_line": 154854,
-    ".debug_str": 52655,
-    ".comment": 532,
-    ".debug_frame": 25960,
-    ".rodata": 249833,
+    ".rodata.str1.4": 33094,
+    ".rodata": 453439,
+    ".debug_info": 219295,
+    ".debug_abbrev": 23109,
+    ".debug_loclists": 95718,
+    ".debug_aranges": 904,
+    ".debug_rnglists": 13302,
+    ".debug_line": 158347,
+    ".debug_str": 53803,
+    ".comment": 551,
+    ".debug_frame": 26188,
     ".text.startup": 1788
   },
   "project_object_bss": 45014,
@@ -366,7 +366,7 @@
   "linker_map": {
     "status": "PARSED",
     "file": "numgame.map",
-    "sha256": "c7db029f694ceea8970f4ac0bf536d2e93353f34507ee099efea9c3471c6f40b",
+    "sha256": "7111825665b69067d8578bf551d72148018c6cb58cccd18f803c46c950d29dc1",
     "allocated_sections_match": true,
     "section_checks": {
       ".text": true,
@@ -380,22 +380,23 @@
       ".gint.bss": true
     },
     "project_input_sections": {
-      ".comment": 532,
-      ".text": 117036,
+      ".comment": 551,
+      ".text": 119484,
       ".text.startup": 1788,
-      ".rodata": 249833,
+      ".rodata": 453439,
       ".bss": 45014,
       ".data": 12,
-      ".debug_info": 215873,
-      ".debug_abbrev": 22746,
-      ".debug_line": 154854,
-      ".debug_str": 77890,
-      ".debug_frame": 25960
+      ".debug_info": 219295,
+      ".debug_abbrev": 23109,
+      ".debug_line": 158347,
+      ".debug_str": 79565,
+      ".debug_frame": 26188
     }
   },
   "symbols": {
     "_cache_id.1": 4,
     "_sq_master_start_count": 10,
+    "_gc_target_beta6_answer": 16,
     "_sq_master_sliding3": 18,
     "_sq_master_lights_min": 60,
     "_grids_bank_groups": 200,
@@ -430,11 +431,18 @@
     "_gc_mind_pack": 8820,
     "_ng_storage_probe": 12936,
     "_buffer": 14000,
+    "_gc_countdown_beta6_answer": 14361,
     "_app": 15884,
+    "_gc_countdown_beta6": 16000,
     "_gc_target_beta4_index": 16000,
     "_gc_target_beta5_index": 16000,
     "_gc_target_pack": 16920,
-    "_grids_pack_bytes": 79658
+    "_gc_target_beta6_answer_1": 17306,
+    "_gc_target_beta6_answer_0": 17713,
+    "_gc_target_beta6_answer_2": 24091,
+    "_gc_target_beta6_answer_3": 30476,
+    "_grids_pack_bytes": 79658,
+    "_gc_target_beta6": 80000
   },
   "symbol_details": [
     {
@@ -446,6 +454,12 @@
     {
       "name": "_sq_master_start_count",
       "bytes": 10,
+      "type": "r",
+      "section": ".rodata"
+    },
+    {
+      "name": "_gc_target_beta6_answer",
+      "bytes": 16,
       "type": "r",
       "section": ".rodata"
     },
@@ -654,10 +668,22 @@
       "section": ".bss"
     },
     {
+      "name": "_gc_countdown_beta6_answer",
+      "bytes": 14361,
+      "type": "r",
+      "section": ".rodata"
+    },
+    {
       "name": "_app",
       "bytes": 15884,
       "type": "b",
       "section": ".bss"
+    },
+    {
+      "name": "_gc_countdown_beta6",
+      "bytes": 16000,
+      "type": "r",
+      "section": ".rodata"
     },
     {
       "name": "_gc_target_beta4_index",
@@ -678,21 +704,51 @@
       "section": ".rodata"
     },
     {
+      "name": "_gc_target_beta6_answer_1",
+      "bytes": 17306,
+      "type": "r",
+      "section": ".rodata"
+    },
+    {
+      "name": "_gc_target_beta6_answer_0",
+      "bytes": 17713,
+      "type": "r",
+      "section": ".rodata"
+    },
+    {
+      "name": "_gc_target_beta6_answer_2",
+      "bytes": 24091,
+      "type": "r",
+      "section": ".rodata"
+    },
+    {
+      "name": "_gc_target_beta6_answer_3",
+      "bytes": 30476,
+      "type": "r",
+      "section": ".rodata"
+    },
+    {
       "name": "_grids_pack_bytes",
       "bytes": 79658,
       "type": "R",
       "section": ".rodata"
+    },
+    {
+      "name": "_gc_target_beta6",
+      "bytes": 80000,
+      "type": "r",
+      "section": ".rodata"
     }
   ],
-  "stack_frame_count": 410,
+  "stack_frame_count": 416,
   "largest_frames": [
     {
-      "function": "src/core/app.c:92:13:start",
-      "bytes": 1396,
+      "function": "src/core/app.c:99:13:start",
+      "bytes": 1392,
       "kind": "static"
     },
     {
-      "function": "src/ui/draw.c:142:6:ng_wrap_expression",
+      "function": "src/ui/draw.c:163:6:ng_wrap_expression",
       "bytes": 576,
       "kind": "static"
     },
@@ -712,7 +768,7 @@
       "kind": "static"
     },
     {
-      "function": "src/ui/render.c:231:13:dialog",
+      "function": "src/ui/render.c:216:13:dialog",
       "bytes": 424,
       "kind": "static"
     },
@@ -737,13 +793,18 @@
       "kind": "static"
     },
     {
-      "function": "src/ui/draw.c:128:6:ng_wrap",
+      "function": "src/ui/draw.c:149:6:ng_wrap",
       "bytes": 304,
       "kind": "static"
     },
     {
-      "function": "src/ui/draw.c:107:6:ng_center",
+      "function": "src/ui/draw.c:128:6:ng_center",
       "bytes": 300,
+      "kind": "static"
+    },
+    {
+      "function": "src/games/guesscalc.c:560:13:action_cards.part.0",
+      "bytes": 288,
       "kind": "static"
     },
     {
@@ -752,7 +813,7 @@
       "kind": "static"
     },
     {
-      "function": "src/ui/draw.c:99:6:ng_small_fit",
+      "function": "src/ui/draw.c:120:6:ng_small_fit",
       "bytes": 276,
       "kind": "static"
     },
@@ -762,18 +823,13 @@
       "kind": "static"
     },
     {
-      "function": "src/ui/render.c:362:6:ng_render",
-      "bytes": 240,
-      "kind": "static"
-    },
-    {
       "function": "src/games/strategyquick_quick.c:104:6:sq_lights_solution",
       "bytes": 236,
       "kind": "static"
     },
     {
-      "function": "src/games/guesscalc.c:473:13:action_cards",
-      "bytes": 228,
+      "function": "src/ui/render.c:351:6:ng_render",
+      "bytes": 236,
       "kind": "static"
     },
     {
@@ -822,8 +878,8 @@
   "skipped_stack_reports": [],
   "static_callgraph": {
     "status": "PARTIAL STATIC ANALYSIS",
-    "project_definitions": 410,
-    "direct_project_edges": 961,
+    "project_definitions": 416,
+    "direct_project_edges": 982,
     "unresolved_edges": [
       {
         "caller": "gc_baseball",
@@ -1141,11 +1197,6 @@
         "kind": "library/assembly/missing-unit"
       },
       {
-        "caller": "ng_render",
-        "target": "strlen",
-        "kind": "library/assembly/missing-unit"
-      },
-      {
         "caller": "ng_render_hud",
         "target": "snprintf",
         "kind": "library/assembly/missing-unit"
@@ -1367,7 +1418,7 @@
       },
       {
         "caller": "src/core/app.c:dispatch",
-        "target": "memmove",
+        "target": "memset",
         "kind": "library/assembly/missing-unit"
       },
       {
@@ -1378,11 +1429,6 @@
       {
         "caller": "src/core/app.c:dispatch",
         "target": "strcmp",
-        "kind": "library/assembly/missing-unit"
-      },
-      {
-        "caller": "src/core/app.c:dispatch",
-        "target": "strlen",
         "kind": "library/assembly/missing-unit"
       },
       {
@@ -1423,21 +1469,6 @@
       {
         "caller": "src/core/app.c:start",
         "target": "snprintf",
-        "kind": "library/assembly/missing-unit"
-      },
-      {
-        "caller": "src/core/app.c:target_insert",
-        "target": "memmove",
-        "kind": "library/assembly/missing-unit"
-      },
-      {
-        "caller": "src/core/app.c:target_insert",
-        "target": "snprintf",
-        "kind": "library/assembly/missing-unit"
-      },
-      {
-        "caller": "src/core/app.c:target_insert",
-        "target": "strlen",
         "kind": "library/assembly/missing-unit"
       },
       {
@@ -1491,7 +1522,7 @@
         "kind": "library/assembly/missing-unit"
       },
       {
-        "caller": "src/games/guesscalc.c:action_cards",
+        "caller": "src/games/guesscalc.c:action_cards.part.0",
         "target": "snprintf",
         "kind": "library/assembly/missing-unit"
       },
@@ -2192,6 +2223,64 @@
       },
       {
         "entry": [
+          "src/games/guesscalc.c:action_cards"
+        ],
+        "known_project_path_bytes": 3332,
+        "components": [
+          {
+            "functions": [
+              "src/games/guesscalc.c:action_cards"
+            ],
+            "recursive": false,
+            "component_bytes": 0
+          },
+          {
+            "functions": [
+              "src/games/guesscalc.c:action_cards.part.0"
+            ],
+            "recursive": false,
+            "component_bytes": 288
+          },
+          {
+            "functions": [
+              "gc_expression"
+            ],
+            "recursive": false,
+            "component_bytes": 56
+          },
+          {
+            "functions": [
+              "src/games/guesscalc_math.c:atom",
+              "src/games/guesscalc_math.c:expression",
+              "src/games/guesscalc_math.c:term"
+            ],
+            "recursive": true,
+            "component_bytes": 2860,
+            "limits": {
+              "src/games/guesscalc_math.c:atom": 13,
+              "src/games/guesscalc_math.c:expression": 13,
+              "src/games/guesscalc_math.c:term": 13
+            }
+          },
+          {
+            "functions": [
+              "src/games/guesscalc_math.c:combine"
+            ],
+            "recursive": false,
+            "component_bytes": 44
+          },
+          {
+            "functions": [
+              "src/games/guesscalc_math.c:normalize"
+            ],
+            "recursive": false,
+            "component_bytes": 84
+          }
+        ],
+        "reachable_unbounded_components": []
+      },
+      {
+        "entry": [
           "src/games/guesscalc.c:valid_equation"
         ],
         "known_project_path_bytes": 3328,
@@ -2267,57 +2356,6 @@
             ],
             "recursive": false,
             "component_bytes": 104
-          },
-          {
-            "functions": [
-              "gc_expression"
-            ],
-            "recursive": false,
-            "component_bytes": 56
-          },
-          {
-            "functions": [
-              "src/games/guesscalc_math.c:atom",
-              "src/games/guesscalc_math.c:expression",
-              "src/games/guesscalc_math.c:term"
-            ],
-            "recursive": true,
-            "component_bytes": 2860,
-            "limits": {
-              "src/games/guesscalc_math.c:atom": 13,
-              "src/games/guesscalc_math.c:expression": 13,
-              "src/games/guesscalc_math.c:term": 13
-            }
-          },
-          {
-            "functions": [
-              "src/games/guesscalc_math.c:combine"
-            ],
-            "recursive": false,
-            "component_bytes": 44
-          },
-          {
-            "functions": [
-              "src/games/guesscalc_math.c:normalize"
-            ],
-            "recursive": false,
-            "component_bytes": 84
-          }
-        ],
-        "reachable_unbounded_components": []
-      },
-      {
-        "entry": [
-          "src/games/guesscalc.c:action_cards"
-        ],
-        "known_project_path_bytes": 3272,
-        "components": [
-          {
-            "functions": [
-              "src/games/guesscalc.c:action_cards"
-            ],
-            "recursive": false,
-            "component_bytes": 228
           },
           {
             "functions": [
@@ -2477,14 +2515,14 @@
         "entry": [
           "src/games/guesscalc.c:valid_cards"
         ],
-        "known_project_path_bytes": 3188,
+        "known_project_path_bytes": 3196,
         "components": [
           {
             "functions": [
               "src/games/guesscalc.c:valid_cards"
             ],
             "recursive": false,
-            "component_bytes": 144
+            "component_bytes": 152
           },
           {
             "functions": [
@@ -2528,7 +2566,7 @@
         "entry": [
           "main"
         ],
-        "known_project_path_bytes": 1908,
+        "known_project_path_bytes": 1888,
         "components": [
           {
             "functions": [
@@ -2549,21 +2587,21 @@
               "src/core/app.c:dispatch"
             ],
             "recursive": false,
-            "component_bytes": 36
+            "component_bytes": 24
           },
           {
             "functions": [
               "src/core/app.c:start"
             ],
             "recursive": false,
-            "component_bytes": 1396
+            "component_bytes": 1392
           },
           {
             "functions": [
               "gc_target_init"
             ],
             "recursive": false,
-            "component_bytes": 80
+            "component_bytes": 76
           },
           {
             "functions": [
@@ -2709,14 +2747,14 @@
         "entry": [
           "src/games/guesscalc.c:action_baseball"
         ],
-        "known_project_path_bytes": 684,
+        "known_project_path_bytes": 688,
         "components": [
           {
             "functions": [
               "src/games/guesscalc.c:action_baseball"
             ],
             "recursive": false,
-            "component_bytes": 112
+            "component_bytes": 116
           },
           {
             "functions": [
@@ -3288,14 +3326,14 @@
         "entry": [
           "src/games/guesscalc.c:render_equation"
         ],
-        "known_project_path_bytes": 528,
+        "known_project_path_bytes": 536,
         "components": [
           {
             "functions": [
               "src/games/guesscalc.c:render_equation"
             ],
             "recursive": false,
-            "component_bytes": 140
+            "component_bytes": 148
           },
           {
             "functions": [
@@ -3732,6 +3770,57 @@
       },
       {
         "entry": [
+          "src/games/guesscalc.c:render_baseball"
+        ],
+        "known_project_path_bytes": 336,
+        "components": [
+          {
+            "functions": [
+              "src/games/guesscalc.c:render_baseball"
+            ],
+            "recursive": false,
+            "component_bytes": 132
+          },
+          {
+            "functions": [
+              "src/games/guesscalc.c:text_input"
+            ],
+            "recursive": false,
+            "component_bytes": 8
+          },
+          {
+            "functions": [
+              "ng_input_expression"
+            ],
+            "recursive": false,
+            "component_bytes": 60
+          },
+          {
+            "functions": [
+              "src/ui/draw.c:expression_span"
+            ],
+            "recursive": false,
+            "component_bytes": 64
+          },
+          {
+            "functions": [
+              "src/ui/draw.c:letters"
+            ],
+            "recursive": false,
+            "component_bytes": 72
+          },
+          {
+            "functions": [
+              "ng_rect"
+            ],
+            "recursive": false,
+            "component_bytes": 0
+          }
+        ],
+        "reachable_unbounded_components": []
+      },
+      {
+        "entry": [
           "src/games/guesscalc.c:render_lock"
         ],
         "known_project_path_bytes": 332,
@@ -3785,65 +3874,14 @@
         "entry": [
           "src/games/guesscalc.c:render_mind"
         ],
-        "known_project_path_bytes": 316,
+        "known_project_path_bytes": 328,
         "components": [
           {
             "functions": [
               "src/games/guesscalc.c:render_mind"
             ],
             "recursive": false,
-            "component_bytes": 112
-          },
-          {
-            "functions": [
-              "src/games/guesscalc.c:text_input"
-            ],
-            "recursive": false,
-            "component_bytes": 8
-          },
-          {
-            "functions": [
-              "ng_input_expression"
-            ],
-            "recursive": false,
-            "component_bytes": 60
-          },
-          {
-            "functions": [
-              "src/ui/draw.c:expression_span"
-            ],
-            "recursive": false,
-            "component_bytes": 64
-          },
-          {
-            "functions": [
-              "src/ui/draw.c:letters"
-            ],
-            "recursive": false,
-            "component_bytes": 72
-          },
-          {
-            "functions": [
-              "ng_rect"
-            ],
-            "recursive": false,
-            "component_bytes": 0
-          }
-        ],
-        "reachable_unbounded_components": []
-      },
-      {
-        "entry": [
-          "src/games/guesscalc.c:render_baseball"
-        ],
-        "known_project_path_bytes": 308,
-        "components": [
-          {
-            "functions": [
-              "src/games/guesscalc.c:render_baseball"
-            ],
-            "recursive": false,
-            "component_bytes": 104
+            "component_bytes": 124
           },
           {
             "functions": [
@@ -4014,14 +4052,14 @@
               "src/games/guesscalc.c:init_cards"
             ],
             "recursive": false,
-            "component_bytes": 8
+            "component_bytes": 12
           },
           {
             "functions": [
               "gc_target_init"
             ],
             "recursive": false,
-            "component_bytes": 80
+            "component_bytes": 76
           },
           {
             "functions": [
@@ -4720,6 +4758,43 @@
       },
       {
         "entry": [
+          "src/games/guesscalc.c:init_factor"
+        ],
+        "known_project_path_bytes": 88,
+        "components": [
+          {
+            "functions": [
+              "src/games/guesscalc.c:init_factor"
+            ],
+            "recursive": false,
+            "component_bytes": 60
+          },
+          {
+            "functions": [
+              "ng_bank_pick"
+            ],
+            "recursive": false,
+            "component_bytes": 20
+          },
+          {
+            "functions": [
+              "ng_rand"
+            ],
+            "recursive": false,
+            "component_bytes": 8
+          },
+          {
+            "functions": [
+              "ng_random"
+            ],
+            "recursive": false,
+            "component_bytes": 0
+          }
+        ],
+        "reachable_unbounded_components": []
+      },
+      {
+        "entry": [
           "src/games/guesscalc.c:valid_mind"
         ],
         "known_project_path_bytes": 88,
@@ -5090,36 +5165,6 @@
           {
             "functions": [
               "ng_diag_begin"
-            ],
-            "recursive": false,
-            "component_bytes": 0
-          }
-        ],
-        "reachable_unbounded_components": []
-      },
-      {
-        "entry": [
-          "src/games/guesscalc.c:init_factor"
-        ],
-        "known_project_path_bytes": 68,
-        "components": [
-          {
-            "functions": [
-              "src/games/guesscalc.c:init_factor"
-            ],
-            "recursive": false,
-            "component_bytes": 60
-          },
-          {
-            "functions": [
-              "ng_rand"
-            ],
-            "recursive": false,
-            "component_bytes": 8
-          },
-          {
-            "functions": [
-              "ng_random"
             ],
             "recursive": false,
             "component_bytes": 0
@@ -6301,7 +6346,7 @@
       "Compiler inlining is reflected in the emitted frame. The build source and compiler options must match the analyzed artifacts.",
       "BSS, heap and the largest frame/path are never summed into an alleged device RAM peak."
     ],
-    "compiler_callgraph_files": 28,
+    "compiler_callgraph_files": 29,
     "skipped_callgraph_files": [],
     "recursive_bound_evidence": [
       {
@@ -6321,16 +6366,16 @@
   "g3a": {
     "status": "SUPPLIED ARTIFACT",
     "file": "NUMGAME.g3a",
-    "bytes": 458392,
-    "sha256": "cc05127a0f7aab71f87d3e07e70db04e50b9f04814d97df0aa585172ebdac4e5",
-    "elf_payload_bytes": 429716,
+    "bytes": 664788,
+    "sha256": "af46892f48be8ff4ca9099f6ef0deef0dde858c36c85dbb7a65fd83142586e4b",
+    "elf_payload_bytes": 636112,
     "elf_payload_match": true,
     "target_1000000_pass": true,
     "hard_limit_1200000_pass": true,
     "container_validation": "Separate tools/verify_g3a.py check required; payload equality is not hardware execution."
   },
-  "g3a_bytes": 458392,
-  "sha256": "cc05127a0f7aab71f87d3e07e70db04e50b9f04814d97df0aa585172ebdac4e5",
+  "g3a_bytes": 664788,
+  "sha256": "af46892f48be8ff4ca9099f6ef0deef0dde858c36c85dbb7a65fd83142586e4b",
   "framebuffer_bytes": 177408,
   "platform_accounting": {
     "framebuffer_payload_bytes": 177408,
