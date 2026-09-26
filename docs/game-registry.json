@@ -303,7 +303,7 @@
       "flags": 1,
       "aux": "NEXT",
       "primary": "CHECK",
-      "rules": "Replace letters with decimal digits so the\nvertical addition is true. Each letter keeps\none digit; different letters use different\ndigits. Leading letters cannot be zero.\nE/N/H/MASTER: two 2/3/4/5-digit addends.\nLonger carries and more letters are involved;\nthis is a structural level, not a human rating.\n30 original, unique-solution puzzles per level.\nArrows select a letter. Digits set it.\nDEL clears it. NEXT selects the next blank.\nEXE or F6 checks all public arithmetic rules.\nAny valid assignment is accepted. UNDO works\non digit edits and checks. No stored answer\nis consulted by the native checker.",
+      "rules": "Replace letters with decimal digits so the\nvertical addition is true. Each letter keeps\none digit; different letters use different\ndigits. Leading letters cannot be zero.\nE/N/H/MASTER: two 2/3/4/5-digit addends.\nLonger carries and more letters are involved;\nthis is a structural level, not a human rating.\n30 original, unique-solution puzzles per level.\nArrows select a letter. Digits set it.\nSelected letters are boxed in the sum.\nBlank mappings show only their letter.\nDEL clears it. NEXT selects the next blank.\nEXE or F6 checks all public arithmetic rules.\nAny valid assignment is accepted. UNDO works\non digit edits and checks. No stored answer\nis consulted by the native checker.",
       "modes": [
         "STANDARD"
       ],
@@ -458,7 +458,7 @@
       "flags": 3,
       "aux": "CHECK",
       "primary": "CYCLE",
-      "rules": "Join visible islands with straight bridges.\nOnly horizontal/vertical bridges are allowed.\nEach pair has zero, one or two bridges.\nIsland numbers give their total bridge count.\nBridges cannot cross or pass through islands.\nAll islands must form one connected network.\nArrows select a visible neighboring island.\n2/4/6/8 cycle down/left/right/up bridges.\nEXE cycles last direction; DEL clears it.\nF4 checks. F3 REVEAL marks ASSISTED.",
+      "rules": "Join visible islands with straight bridges.\nOnly horizontal/vertical bridges are allowed.\nEach pair has zero, one or two bridges.\nIsland numbers give their total bridge count.\nBridges cannot cross or pass through islands.\nAll islands must form one connected network.\nArrows select a visible neighboring island.\n2/4/6/8 cycle down/left/right/up bridges.\nEXE cycles last direction; DEL clears it.\nBlue dashed edge is empty; red X is a crossing.\nF4 checks. F3 REVEAL marks ASSISTED.",
       "modes": [
         "CLASSIC"
       ],
@@ -555,11 +555,11 @@
       "difficulties": 4,
       "regular_difficulties": 4,
       "has_hell": false,
-      "generation_policy": 2,
+      "generation_policy": 3,
       "flags": 1,
       "aux": "CHECK",
       "primary": "ENTER",
-      "rules": "Use every integer 1 to N*N exactly once.\nRows, columns and both main diagonals must\nhave the displayed common sum.\nMASTER PAN: all wrapped diagonals also sum 34.\nPARTIAL has fixed clues. FREE has none.\nAny rule-valid solution is accepted.\nType 1-2 digits, EXE enters; F4 checks.\nDEL edits draft or clears. Arrows select.",
+      "rules": "Use every integer 1 to N*N exactly once.\nRows, columns and both main diagonals must\nhave the displayed common sum.\nPARTIAL MASTER: wrapped diagonals also sum 34.\nFREE E/N/H/M: blank 3/4/5/6 square, normal sums.\nOlder FREE saves keep their original rules.\nAny rule-valid solution is accepted.\nType 1-2 digits, EXE enters; F4 checks.\nDEL edits draft or clears. Arrows select.",
       "modes": [
         "PARTIAL",
         "FREE"
@@ -572,10 +572,10 @@
           30
         ],
         [
-          30,
-          30,
-          30,
-          30
+          0,
+          0,
+          0,
+          0
         ]
       ]
     },
@@ -616,7 +616,7 @@
       "flags": 3,
       "aux": "CHECK",
       "primary": "MARK",
-      "rules": "Fill cells to match all row/column run clues.\nRuns appear in order, with an empty gap.\nA zero clue means the whole line is empty.\nMark every cell filled or empty to finish.\nArrows move. 1 fills; 0 marks an empty cross.\nEXE cycles unknown, filled, empty. DEL clears.\nF4 checks every visible run clue.\nF3 REVEAL shows one cell, marking ASSISTED.",
+      "rules": "Fill cells to match all row/column run clues.\nRuns appear in order, with an empty gap.\nA zero clue means the whole line is empty.\nFill exactly the required cells. X is optional.\nArrows move. 1 fills; 0 marks an empty cross.\nEXE cycles unknown, filled, empty. DEL clears.\nF4 checks every visible run clue.\nF3 REVEAL shows one cell, marking ASSISTED.",
       "modes": [
         "CLASSIC"
       ],
@@ -833,7 +833,7 @@
       "flags": 1,
       "aux": "",
       "primary": "",
-      "rules": "Arrows slide all tiles. Equal tiles merge\nonce each move; merged value adds score.\nA changed move spawns 2 (90%) or 4 (10%).\nBlocked moves consume no random numbers.\nCLASSIC: reach 2048 and continue playing.\nTARGET goals E/N/H/M:512/1024/2048/8192.\nTARGET ends when its goal tile is reached.\nCLASSIC/TARGET have separate records.\nNo legal moves means game over.\nUNDO restores tiles, score, and RNG;\nit marks the run as assisted practice.\nTiles cap at 2^30 and cannot merge beyond.\nScore saturates at 4294967295 safely.\nLarge tiles use exact 2^n notation.",
+      "rules": "Arrows slide all tiles. Equal tiles merge\nonce each move; merged value adds score.\nA changed move spawns 2 (90%) or 4 (10%).\nBlocked moves consume no random numbers.\nCLASSIC: reach 2048 and continue playing.\nTARGET goals E/N/H/M:512/1024/2048/8192.\nTARGET ends when its goal tile is reached.\nCLASSIC uses a fixed level.\nNo legal moves means game over.\nUNDO restores tiles, score, and RNG;\nit marks the run as assisted practice.\nTiles cap at 2^30 and cannot merge beyond.\nScore saturates at 4294967295 safely.\nLarge tiles use exact 2^n notation.",
       "modes": [
         "CLASSIC",
         "TARGET"
@@ -897,7 +897,7 @@
       "flags": 3,
       "aux": "",
       "primary": "PRESS",
-      "rules": "Turn every light off. Arrows select.\nEXE or 5 toggles the selected light and\nits orthogonal neighbours (no wrapping).\nModes: 4x4 or 5x5. Both start solvable.\nE/N/H change the generating moves.\nMASTER: certified minimum-press starts.\n4x4 needs 6; 5x5 needs 12..14 presses.\nEvery valid solution is accepted.\nHINT uses Gaussian elimination over GF(2).\nPress the highlighted cell next.\nThe hint does not promise fewest moves.\nHINT/UNDO mark assisted practice.",
+      "rules": "Turn every light off. Arrows select.\nEXE or 5 toggles the selected light and\nits orthogonal neighbours (no wrapping).\nModes: 4x4 or 5x5. Both start solvable.\nNew 4x4 E/N/H minima: 2/4/5 presses.\nOlder 4x4 starts keep their shuffle rules.\n5x5 E/N/H use 4/8/18 generating presses;\nthese are not minimum solution counts.\nMASTER: certified minimum-press starts.\n4x4 needs 6; 5x5 needs 12..14 presses.\nEvery valid solution is accepted.\nHINT uses Gaussian elimination over GF(2).\nPress the highlighted cell next.\nThe hint does not promise fewest moves.\nHINT/UNDO mark assisted practice.",
       "modes": [
         "4 x 4",
         "5 x 5"
@@ -979,7 +979,7 @@
       "flags": 3,
       "aux": "LOCK",
       "primary": "ROTATE",
-      "rules": "Rotate tiles to connect every square.\nEvery wire must meet its neighbour's wire.\nNo wires may leave the board; no wrapping.\nThe whole network must form one tree:\nall tiles connected, with no closed loops.\nArrows select. EXE/5 turns clockwise;\nDEL turns anticlockwise. F4 locks a tile.\nLocked tiles cannot be rotated until freed.\nF3 REVEAL sets one original orientation\nand locks it, marking assisted practice.\nEvery valid network wins, not just ours.\nE/N/H/M use 3/4/5/6 by 3/4/5/6 grids.\nSeeds construct a tree then rotate tiles.\nSolutions need not be unique; no rating claim.\nMoves count rotations, locks and reveals.",
+      "rules": "Rotate tiles to connect every square.\nEvery wire must meet its neighbour's wire.\nNo wires may leave the board; no wrapping.\nThe whole network must form one tree:\nall tiles connected, with no closed loops.\nArrows select. EXE/5 turns clockwise;\nDEL turns anticlockwise. F4 locks a tile.\nLocks block EXE/5/DEL until unlocked.\nF3 REVEAL sets one original orientation\nand locks it, marking assisted practice.\nREVEAL can reset a locked tile too.\nEvery valid network wins, not just ours.\nE/N/H/M use 3/4/5/6 by 3/4/5/6 grids.\nSeeds construct a tree then rotate tiles.\nSolutions need not be unique; no rating claim.\nMoves count rotations, locks and reveals.",
       "modes": [
         "STANDARD"
       ],

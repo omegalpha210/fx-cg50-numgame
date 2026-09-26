@@ -27,6 +27,7 @@ PUBLIC_DOCS={
     'host-benchmark-build-evidence.json',
     'POWER_TIMER_AUDIT.md','PUBLIC_SOURCE_AUDIT.md','RULES.md',
     'RESUME_POLICY.md','CONTENT_CYCLE.md','RECENT_SIX_AUDIT.md',
+    'DIFFICULTY_AUDIT.md','DIFFICULTY_AUDIT.csv',
     'RUNTIME_AUDIT.md','STORAGE_ARCHIVE_AUDIT.md','STORAGE_FORMAT.md',
     'STRATEGY_QUICK_AUDIT.md','UI_CONVENTIONS.md','UI_LAYOUT_KO.md',
     'UI_REFRESH_KO.md','acceptance-matrix.csv','asset-manifest.json',
@@ -38,11 +39,13 @@ LICENSE_FILES={
     'OpenLibm-LICENSE.md','SOKOBAN-LICENSE.txt','fxSDK-LICENSE.txt',
     'fxlibc-Grisu2b-LICENSE.txt','fxlibc-LICENSE.txt','gint-README.md',
 }
-ASSET_JSON_ROOT={'guesscalc_packs.json','guesscalc_master.json','guesscalc_cryptarithm.json'}
+ASSET_JSON_ROOT={'guesscalc_packs.json','guesscalc_master.json','guesscalc_cryptarithm.json',
+                 'guesscalc_difficulty_rows.json','guesscalc_difficulty_audit.json'}
 ASSET_HEADER_ROOT={'guesscalc_packs.h','guesscalc_master.h','guesscalc_cryptarithm.h'}
 ASSET_JSON_SUB={
-    'boards':{'puzzles.json','verification.json'},
-    'strategyquick':{'metadata.json','master.json','master_verification.json','master-sh-metrics.json','extra-native-frames.json','extra-asan-attempt.json'},
+    'boards':{'puzzles.json','verification.json','difficulty-beta3.json'},
+    'strategyquick':{'metadata.json','master.json','master_verification.json','master-sh-metrics.json','extra-native-frames.json','extra-asan-attempt.json',
+                     'difficulty-beta3.json','difficulty-beta3.csv','difficulty-beta3-baseline.json','difficulty-beta3-native.json'},
 }
 DIST_FILES={'NUMGAME.g3a','NUMGDIAG.g3a','SHA256SUMS.txt'}
 TEXT_SUFFIXES={'.c','.h','.S','.py','.sh','.md','.txt','.json','.csv','.cmake'}
@@ -67,6 +70,7 @@ def public_png(name):
     if re.fullmatch(r'assets/grids/expanded/(?:capture-\d+-mode\d+|contact)\.png',name):return True
     if re.fullmatch(r'assets/grids/extra/(?:capture-\d+-\d+|contact)\.png',name):return True
     if re.fullmatch(r'assets/grids/extra/review-20260926/(?:contact|hashi-(?:empty|single|double|crossing)|nonogram-zero-marks)\.png',name):return True
+    if re.fullmatch(r'assets/grids/extra/beta3/(?:magic-free-[3-6]-(?:blank|filled)|nonogram-(?:before-last|mixed-before-last|blank-complete|result-view))\.png',name):return True
     if re.fullmatch(r'assets/strategyquick/extra-\d+-master\.png',name):return True
     if re.fullmatch(r'assets/strategyquick/extra-(?:37-(?:cpu|result|result-modal)|38-result)\.png',name):return True
     if re.fullmatch(r'assets/boards/captures/(?:(?:31|32)-[0-3]-(?:complete|corner|start|edge)|(?:completed-)?contact)\.png',name):return True
@@ -84,7 +88,7 @@ def allowed(name,include_dist=False):
     if parts[0]=='assets':
         if p.suffix=='.png':return public_png(name)
         if len(parts)==2:return p.name in ASSET_JSON_ROOT|ASSET_HEADER_ROOT
-        if parts[1]=='grids':return bool(re.fullmatch(r'assets/grids/(?:(?:1[1-9]|20)|audit)\.json',name) or re.fullmatch(r'assets/grids/master/(?:(?:1[1-9]|20)(?:-generation)?|audit|legacy-sha256)\.json',name) or re.fullmatch(r'assets/grids/expanded/(?:(?:1[1-5]-[0-4]|1[6-9]-3|20-3)(?:-generation)?|audit|capture-selection|memory|seed-replay)\.json',name) or re.fullmatch(r'assets/grids/extra/(?:(?:35-[0-4]|36-[0-3])(?:-generation)?|audit|capture-selection|memory)\.json',name) or re.fullmatch(r'assets/grids/extra/review-20260926/(?:audit\.json|independent-validation\.txt|host-(?:ubsan|asan)\.txt)',name) or name=='assets/grids/extra/generate.py')
+        if parts[1]=='grids':return bool(re.fullmatch(r'assets/grids/(?:(?:1[1-9]|20)|audit)\.json',name) or re.fullmatch(r'assets/grids/master/(?:(?:1[1-9]|20)(?:-generation)?|audit|legacy-sha256)\.json',name) or re.fullmatch(r'assets/grids/expanded/(?:(?:1[1-5]-[0-4]|1[6-9]-3|20-3)(?:-generation)?|audit|capture-selection|memory|seed-replay)\.json',name) or re.fullmatch(r'assets/grids/extra/(?:(?:35-[0-4]|36-[0-3])(?:-generation)?|audit|capture-selection|memory|difficulty-beta3)\.json',name) or re.fullmatch(r'assets/grids/extra/beta3/(?:asan|audit)\.json',name) or re.fullmatch(r'assets/grids/extra/review-20260926/(?:audit\.json|independent-validation\.txt|host-(?:ubsan|asan)\.txt)',name) or name=='assets/grids/extra/generate.py')
         if parts[1] in ASSET_JSON_SUB:
             return len(parts)==3 and (p.name in ASSET_JSON_SUB[parts[1]] or (parts[1]=='strategyquick' and p.name in {'tables.h','master_quick.h','master_strategy.h'}))
         return False

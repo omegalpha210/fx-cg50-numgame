@@ -10,7 +10,21 @@ static unsigned get(Reader *r,unsigned bits)
 }
 bool grids_decode(uint32_t stable_id,GridsPuzzle *p)
 {
- if(!p||stable_id>=GRIDS_PACK_COUNT)return false;
+ if(!p)return false;
+ if(stable_id>=GRIDS_FREE_MAGIC_ID&&stable_id<GRIDS_FREE_MAGIC_ID+4u){
+  /* Construction witnesses support diagnostics only; completion uses sums.
+     One shared decoded cache remains sufficient, with no extra runtime state. */
+  static const uint8_t witness[86]={
+   2,7,6,9,5,1,4,3,8,
+   16,2,3,13,5,11,10,8,9,7,6,12,4,14,15,1,
+   17,24,1,8,15,23,5,7,14,16,4,6,13,20,22,10,12,19,21,3,11,18,25,2,9,
+   35,1,6,26,19,24,3,32,7,21,23,25,31,9,2,22,27,20,8,28,33,17,10,15,30,5,34,12,14,16,4,36,29,13,18,11
+  };
+  static const uint8_t offset[4]={0,9,25,50};unsigned d=stable_id-GRIDS_FREE_MAGIC_ID,n=3+d;
+  memset(p,0,sizeof *p);p->id=19;p->difficulty=(uint8_t)d;p->n=(uint8_t)n;
+  memcpy(p->solution,witness+offset[d],n*n);return true;
+ }
+ if(stable_id>=GRIDS_PACK_COUNT)return false;
  uint32_t start=grids_pack_offsets[stable_id],end=grids_pack_offsets[stable_id+1];
  if(start>=end||end>GRIDS_PACK_BYTES)return false;
  Reader r={grids_pack_bytes+start,(unsigned)(end-start),0,true};memset(p,0,sizeof *p);
@@ -35,13 +49,13 @@ bool grids_decode(uint32_t stable_id,GridsPuzzle *p)
 const GridsPuzzle *grids_record(uint32_t stable_id)
 {
  static GridsPuzzle cache;static uint32_t cache_id=UINT32_MAX;
- if(stable_id>=GRIDS_PACK_COUNT)return NULL;
+ if(stable_id>=GRIDS_PACK_COUNT&&!(stable_id>=GRIDS_FREE_MAGIC_ID&&stable_id<GRIDS_FREE_MAGIC_ID+4u))return NULL;
  if(stable_id!=cache_id){cache_id=UINT32_MAX;if(!grids_decode(stable_id,&cache))return NULL;cache_id=stable_id;}
  return &cache;
 }
 unsigned grids_bank_count(unsigned id,unsigned difficulty,unsigned mode)
 {
- if(id<11||id>20||difficulty>4||mode>(id==19?1u:0u))return 0;
+ if(id<11||id>20||difficulty>4||mode)return 0;
  return grids_bank_groups[(id-11)*5+difficulty][1];
 }
 uint32_t grids_bank_id(unsigned id,unsigned difficulty,unsigned ordinal)

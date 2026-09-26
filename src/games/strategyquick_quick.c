@@ -115,6 +115,35 @@ bool sq_lights_solution(const NgGame *g,uint32_t *solution){
  return true;
 }
 static bool lights_off(const NgGame *g){for(unsigned i=0;i<g->rows*g->cols;i++)if(g->board[i])return false;return true;}
+/* Complete 4x4 toggle nullspace. Every solution for a chosen press mask is
+ * mask XOR one of these 16 words. Host row-chasing independently verifies it. */
+static unsigned lights4_minimum(uint32_t mask){
+ static const uint16_t kernel[16]={0x0000,0x135e,0x278b,0x34d5,0x4e1d,0x5d43,0x6996,0x7ac8,0x8ca7,0x9ff9,0xab2c,0xb872,0xc2ba,0xd1e4,0xe531,0xf66f};
+ unsigned best=16;
+ for(unsigned i=0;i<16;i++){
+  uint32_t bits=mask^kernel[i];unsigned count=0;
+  for(unsigned bit=0;bit<16;bit++)count+=(bits>>bit)&1u;
+  if(count<best)best=count;
+ }
+ return best;
+}
+static void lights4_graded(NgGame *g){
+ static const unsigned targets[3]={2,4,5};unsigned target=targets[g->difficulty];uint32_t chosen=0;
+ /* 16 candidates maximum. The deterministic fallback 0x1f has minimum five;
+  * two/four chosen presses are already minimal (kernel minimum weight eight). */
+ for(unsigned attempt=0;attempt<16;attempt++){
+  chosen=0;
+  for(unsigned i=0;i<target;i++){
+   unsigned choices[16],count=0;for(unsigned p=0;p<16;p++)if(!(chosen&(UINT32_C(1)<<p)))choices[count++]=p;
+   chosen|=UINT32_C(1)<<choices[ng_rand(g,count)];
+  }
+  if(lights4_minimum(chosen)==target)break;
+  if(attempt==15)chosen=UINT32_C(0x1f);
+ }
+ for(unsigned p=0;p<16;p++)if(chosen&(UINT32_C(1)<<p))toggle(g,p);
+ g->data[0]=-1;g->data[1]=(int32_t)target;
+ snprintf(g->message,sizeof g->message,"Start requires at least %u presses",target);
+}
 static void lights_init(NgGame *g){
  if(g->difficulty==3){
   g->puzzle_id=ng_bank_pick(g,30);uint32_t b=sq_master_lights[g->mode][g->puzzle_id];
@@ -122,6 +151,7 @@ static void lights_init(NgGame *g){
   g->data[0]=-1;g->data[1]=sq_master_lights_min[g->mode][g->puzzle_id];
   snprintf(g->message,sizeof g->message,"MASTER: minimum %ld presses from start",(long)g->data[1]);return;
  }
+ if(g->rows==4 && g->pack_revision>=3){lights4_graded(g);return;}
  unsigned n=g->rows*g->cols,count=g->difficulty==0?4:g->difficulty==1?8:g->rows==4?12:18;uint32_t chosen=0;
  for(unsigned i=0;i<count;i++){
   unsigned choices[25],k=0;for(unsigned j=0;j<n;j++)if(!(chosen&(UINT32_C(1)<<j)))choices[k++]=j;
@@ -244,7 +274,7 @@ bool sq_quick_valid(const NgGame *g){
   else if(g->data[0]<80||g->data[0]>240||g->data[1])return false;
   if(g->status!=(sliding_goal(g)?NG_WON:NG_PLAYING))return false;
  }
- if(g->id==28){for(unsigned i=0;i<size*size;i++)if(g->board[i]<0||g->board[i]>1)return false;if(g->data[0]<-1||g->data[0]>=(int)(size*size)||g->data[1]<1||g->data[1]>25)return false;if(g->difficulty==3&&(g->puzzle_id>=30||g->data[1]!=sq_master_lights_min[g->mode][g->puzzle_id]))return false;uint32_t solution;if(!sq_lights_solution(g,&solution))return false;if(g->status!=(lights_off(g)?NG_WON:NG_PLAYING))return false;}
+ if(g->id==28){for(unsigned i=0;i<size*size;i++)if(g->board[i]<0||g->board[i]>1)return false;if(g->data[0]<-1||g->data[0]>=(int)(size*size)||g->data[1]<1||g->data[1]>25)return false;if(g->difficulty==3&&(g->puzzle_id>=30||g->data[1]!=sq_master_lights_min[g->mode][g->puzzle_id]))return false;if(g->pack_revision>=3&&!g->mode&&g->difficulty<3&&g->data[1]!=(g->difficulty==0?2:g->difficulty==1?4:5))return false;uint32_t solution;if(!sq_lights_solution(g,&solution))return false;if(g->status!=(lights_off(g)?NG_WON:NG_PLAYING))return false;}
  if(g->id==29){
   for(unsigned i=0;i<NG_CELLS;i++)if(g->board[i])return false;
   if(g->phase>1||length>6||g->data[0]<1||g->data[0]>1188||g->data[1]<1||g->data[1]>12||g->data[2]<-10||g->data[2]>10||g->data[3]<0||g->data[3]>3||g->data[4]<-100||g->data[4]>1200)return false;

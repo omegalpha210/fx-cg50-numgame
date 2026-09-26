@@ -6,7 +6,7 @@ are stored/decoded as legacy, never offered by the normal selector.
 | Screen/state | Arrows | Digits/operators | EXE / F6 | DEL | EXIT | F1 / F2 / F3 / F4 / F5 |
 |---|---|---|---|---|---|---|
 | Main/category | Wrapped 2×3 selector | 1–6 opens tile; operators unused | OPEN tile | Unused | Category→Main | Main F1 RESUME if active / Main SET / — / — / — |
-| Game entry | UP/DOWN rows; LEFT/RIGHT clamp settings | Digits focus row only; operators unused | RESUME row resumes; other rows START GAME directly | Unused | Category | — / — / HELL for LOGIC / — / RULES |
+| Game entry | UP/DOWN rows; LEFT/RIGHT clamp settings or enter TARGET edit | Digits focus a row; on TARGET, first digit replaces value | RESUME row resumes; otherwise NEW GAME; TARGET EDIT EXE only commits | TARGET EDIT backspace | TARGET EDIT cancels; otherwise Category | — / — / HELL for LOGIC / — / RULES |
 | Rules | UP/DOWN scroll | Unused | Close, preserving result state | Unused | Close | Only F6 OK |
 | Settings | Unused | 1 toggles first help; 2 toggles time display | Unused | Unused | Save preferences→Main | HELP / TIME / DIAG / — / — |
 | NUM DIAG diagnostics | Unused | Unused | Close/cancel stress | Unused | Close/cancel stress | RESET / EXPORT / PAGE / STRESS or STOP / — |
@@ -71,9 +71,20 @@ Grid fixed clues cannot be edited. Numbrix/Magic retain an invalid draft after
 range errors; movement cancels it. Partial Magic has fixed clues; FREE does not.
 MASTER retains the same input controls. LOGIC HELL is selected only by F3
 on the difficulty row; F3 again restores the prior general level, LEFT goes to
-MASTER, RIGHT stays. Difficulty and inline settings changes apply only to START GAME, not RESUME.
+MASTER, RIGHT stays. Difficulty and inline settings changes apply only to NEW GAME, not RESUME.
 2048 TARGET uses goals512/1024/2048/8192; CLASSIC retains the original endless rules.
-Magic MASTER is a4×4 panmagic challenge; RULES lists the extra wrap-diagonal sums.
+Magic PARTIAL MASTER is a 4×4 panmagic challenge; RULES lists the extra wrap-diagonal sums.
+For new FREE runs the normal-square orders E/N/H/M are 3/4/5/6 and sums are
+15/34/65/111. Older FREE runs keep their saved rules and board. Nonogram EXE
+still cycles blank→filled→X→blank; completion requires the exact filled set,
+so X is optional on empty cells but preserved by save/resume.
+
+Make Target's entry TARGET editor accepts 1–1000. LEFT enters with the cursor
+at the beginning, RIGHT at the end. Digits insert, LEFT/RIGHT move and DEL
+backspaces. EXE validates and commits without starting; a second EXE starts.
+EXIT cancels the draft, and F6 OPEN is hidden during edit. Other entry settings
+retain ordinary LEFT/RIGHT option selection. The game tile RESUME badge marks
+only the one validated unfinished game; Main F1 opens the same run.
 
 Strategy21–25 and Reversi37 show a FIRST row with YOU or CPU; new local-two-player games are unavailable. CPU pending hides F6; Reversi also hides HINT/MOVES during CPU work. Game input is rejected; MENU/OFF remain common actions. CPU undo restores the whole human+CPU round. MASTER introduces verified tactical starts for21–25.
 HARD and MASTER use the same exact CPU; MASTER does not claim a stronger AI.

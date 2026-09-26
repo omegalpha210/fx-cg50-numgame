@@ -824,3 +824,150 @@ mkdir -p build-host/guesscalc-focused/captures
 build-host/guesscalc-focused/app-build/test_guesscalc_extra \
   --capture-dir build-host/guesscalc-focused/captures
 ```
+
+## beta.3: actual difficulty audit, 2026-09-26
+
+Scope: all 12 visible GUESS/CALC games, IDs 1–10 and 33–34, each at
+EASY/NORMAL/HARD/MASTER. None supports HELL. This audit separates an actual
+structural change from a claim about human difficulty. **No selector is a
+no-op; monotonic human difficulty has not been established.** Several weak or
+reversed distributions below remain **REVIEW REQUIRED**. No production engine,
+game rule, persisted bank record, or common file was changed for this audit.
+
+Machine-readable evidence:
+
+- `assets/guesscalc_difficulty_rows.json`: exactly 48 rows, with the requested
+  integration columns `game_id,name,difficulty,mechanism,bank_size,board_size,`
+  `generator_params,AI_policy,rating_metric,observed_distribution,overlap,`
+  `meaningfully_distinct,finding,fix`.
+- `assets/guesscalc_difficulty_audit.json`: detailed metrics, source/asset SHA256,
+  sampling scope, canonicalization definitions, and separate bank/runtime counts.
+- `tools/generate/guesscalc_difficulty_sample.c`: host-only driver of the actual
+  C module `init`, `valid`, and selected `action` paths; no generator reimplementation.
+- `tools/generate/guesscalc_difficulty_audit.py`: strict C11/UBSan compilation,
+  full current-bank traversal and C/JSON payload comparison, deterministic
+  samples, independent structural metrics, and exact report regeneration check.
+
+Current production supply contains **1,110 bank records**: Equation 360;
+Mind, Lock, Sequence, Countdown, Cross Math and Cryptarithm 120 each; Operators
+MASTER 30. The additional **240 old Make Target records are compatibility-only**
+for revisions 1/2 and are not counted as fresh revision-3 supply. Old 900 +
+MASTER 330 + Cryptarithm 120 remain physically embedded. No external puzzle
+records or new game content were imported.
+
+### Per-game mechanisms and observed coverage
+
+`30` means 30 distinct public bank problems per level under the stated
+canonicalization; Equation has 30 per mode and three modes. Runtime counts are
+samples, not finite-bank counts or exhaustive seed-domain claims.
+
+| ID | EASY → NORMAL → HARD → MASTER actual mechanism | Current bank E/N/H/M | Audit sample per level |
+|---|---|---:|---:|
+| 01 Baseball | Repeated digits allowed; length 4→5→6→7, attempt cap 16→12→10→16 | 0/0/0/0 | 256/256/256/256 |
+| 02 Equation | E one +/−; N adds *; H STANDARD/LONG two operators; MASTER mixed precedence changes the answer, operator count3/2/3 by mode | 90/90/90/90 | Every record in all modes |
+| 03 Number Mind | Positions/alphabet 4×6→4×8→5×8→6×8; finite domain1296→4096→32768→262144 | 30/30/30/30 | Every record |
+| 04 Clue Lock | Domain100→500→1000→10000; progressively removes auxiliary clues; MASTER three remainders plus essential digit sum | 30/30/30/30 | Every record |
+| 05 Sequence | Grammar families0/1/4→2/3/4→2/3/5→6/7; MASTER has15 records of each new family | 30/30/30/30 | Every record |
+| 06 Make Target | 4→4→5→6 cards; E multiply/add/subtract witness, N quotient, H sum denominator, M sum of rational terms | 0/0/0/0 | 1768 each; all targets1..1000 plus256 seeds for each target1/24/1000 |
+| 07 Countdown | Large/small card counts1/5→2/4→3/3→3/3; MASTER every exact solution needs six cards and division | 30/30/30/30 | Every record; independent minimum-card enumeration |
+| 08 Operators | Ordered numbers3→4→5→6; assignment spaces16→64→256→1024; MASTER only1..3 solutions, each uses≥3 operator kinds | 0/0/0/30 | 256/256/256/30; every operator assignment for each sample |
+| 09 Cross Math | Fixed clues4→2→0→0; MASTER both row-only and column-only candidate counts exceed the largest old HARD minimum-axis count | 30/30/30/30 | Every record; independent orientation counts |
+| 10 Prime Factor | Prime draws2..4 through7→3..5 through13→4..6 through31→four distinct through13, two squared | 0/0/0/0 | 256 each; independent factorization |
+| 33 Black Box | Board5→6→7→8 square; atoms3→4→5→6; ports20→24→28→32 | 0/0/0/0 | 256 each; 5120/6144/7168/8192 complete ray checks |
+| 34 Cryptarithm | Two addends of length2→3→4→5; actual letters3..4→5..6→7→8..10 | 30/30/30/30 | Every record; independent column-solver verification |
+
+Total **12,022 initializations plus 12,022 byte-identical replays**; every initial
+state passes its module validator. Every Make Target/Prime Factor sample's
+revealed expression is submitted through the engine and wins. Current Make
+Target witnesses are separately evaluated with Python exact rational arithmetic
+and checked for precisely the generated card multiset. The target1..1000 sweep
+uses seed `0x6e554d47`; other sample seeds are the consecutive integers1..256.
+This is a reproducible bounded sample, **not unbiased random sampling**.
+
+All current banks are internally distinct and show **zero cross-level overlap**
+under these explicitly limited canonicalizations: exact Equation strings;
+unordered Mind clues with position/alphabet retained; unordered Lock modulus
+pairs with all other constraints retained; visible six-term Sequence prefixes;
+sorted Countdown card multiset plus target; ordered Operators numbers plus
+target; Cross Math public constraints modulo transpose; and Cryptarithm modulo
+letter renaming/addend commutation. Symbol/position relabeling for Mind and
+affine transformations of Sequence are not normalized. Runtime overlap numbers
+are sample-only, except the separately enumerated mathematical factor shapes.
+No supply path inflates its count by applying runtime transforms.
+
+### Findings that limit the level labels
+
+- **GC-D01, Countdown HARD: REVIEW REQUIRED.** Public bank IDs60 and71 both
+  have target100 and a card100. The actual checker accepts input `100` and wins
+  immediately. Independent subset/tree enumeration over all120 records finds
+  minimum-card histograms E `{2:2,3:12,4:13,5:3}`, N `{2:1,3:10,4:18,5:1}`,
+  H `{1:2,2:2,3:11,4:12,5:3}`, M `{6:30}`. Medians are4/4/3.5/6. The E/N/H
+  large-card-composition rule is real, but minimum arithmetic work does not
+  increase monotonically. In-place replacement would alter old saved-bank
+  meaning; the two records were preserved and reported to root for a future
+  explicitly versioned supply decision.
+- **GC-D02, Sequence E/N: REVIEW REQUIRED.** Both levels contain25/30
+  shared-step alternating sequences; E's remaining5 are arithmetic progressions,
+  N's remaining5 are2 quadratic and3 Fibonacci sequences. Both levels' median
+  largest absolute term is11. E's allowed GP family has no selected record.
+  The public puzzles are distinct, but the E→N distributional change is weak.
+  HARD families are14 quadratic/4 Fibonacci/12 affine recurrences; MASTER is
+  exactly15 second-order recurrences/15 unequal-step alternating sequences.
+- **GC-D03, Prime Factor: REVIEW REQUIRED.** The mathematical construction
+  domains contain65/434/6754/90 numeric targets. These are permitted shapes,
+  not exhaustive PRNG reachability results. All90 MASTER shapes belong to the
+  HARD shape domain; E/N overlap55, E/H35, N/H378. In the256-seed samples the
+  distinct counts are50/138/235/80. MASTER's largest prime is13 rather than
+  HARD's31 and its sampled median target is28028 rather than45733. Four distinct
+  primes with two squares is a clear structural rule, not proof of a harder
+  task. Runtime supply has no claimed no-repeat guarantee.
+- **GC-D04, guess limits: REVIEW REQUIRED.** Baseball MASTER restores16
+  guesses after HARD's10, and Equation MASTER restores12 after HARD's8. Secret
+  lengths/operators also increase. This is a playability tradeoff and cannot be
+  summarized as a uniformly tighter limit. No automatic limit reduction was
+  made without evidence that the resulting guessing games remain practical.
+- **GC-D05, Make Target: REVIEW REQUIRED.** E and N both use four cards.
+  Generated witnesses differ, but an alternative solution may avoid their
+  construction pattern. Every sampled MASTER witness has two fractional
+  intermediate operations; fractions are **not proven necessary for every
+  valid solution**. N/H witnesses themselves are integer-only. User target,
+  card-count and exact-rational rules are preserved.
+- **GC-D06, Cryptarithm: REVIEW REQUIRED.** Column-solver node min/median/max
+  is E4/71.5/119, N19/125/385, H120/535.5/2055, M142/639.5/3190.
+  Carry-column counts span1..2/1..3/1..4/1..5; medians2/2/3/3. Longer addends
+  and more letters are verified, but node/carry distributions overlap, and
+  neither is a human-rating calibration. All120 records remain uniquely solved.
+
+Other structural evidence is stronger but still not a human rating: Number
+Mind domain size strictly increases; Lock MASTER's single-clue removal leaves
+2..13 candidates; Operators MASTER exhaustively has1..3 solutions all using at
+least three operator kinds. Cross Math minimum-axis candidate ranges are
+E1..4, N2..12, H8..168, M176..216; every MASTER orientation exceeds168. Black
+Box D4-normalized sample counts are171/250/256/256. Hidden-grid uniqueness is
+not required: ray-equivalent layouts are intentionally accepted.
+
+### Reproduction and validation
+
+```sh
+python3 tools/generate/guesscalc_difficulty_audit.py --write > build-host/gc-level-report.json
+python3 tools/generate/guesscalc_difficulty_audit.py --check > build-host/gc-level-check.json
+python3 tools/generate/guesscalc_verify.py
+python3 tools/generate/guesscalc_verify_master.py
+python3 tests/test_guesscalc_cryptarithm_generate.py
+source tools/env.sh
+sh-elf-gcc -std=c11 -Wall -Wextra -Werror -DFXCG50 -Iinclude -Isrc/games \
+  -fsyntax-only src/games/guesscalc.c src/games/guesscalc_math.c \
+  src/games/guesscalc_extra.c tools/generate/guesscalc_difficulty_sample.c
+```
+
+Executed: actual-module sampler C11 strict warnings + UBSan PASS; old bank
+independent verifier **7,711 checks**, MASTER verifier **344,898 checks**, and
+Cryptarithm **120/120** unique-solution/header-parity PASS. The MASTER verifier
+rechecks every finite code domain, all9! Cross Math boards, exact card structural
+requirements, and all1024 Operators assignments; bank uniqueness is not inferred
+from distinct JSON records. Strict installed-SDK SH syntax compilation passes
+for all three engine files and the host sample driver. The retained, extra and
+app CTest targets pass **3/3** against the current common source under UBSan.
+The new audit makes no ASan, hardware latency, device memory-peak, or human
+playtest claim. Existing hardware requirements and the earlier ASan limitation
+remain unchanged.

@@ -1,0 +1,3439 @@
+{
+  "schema": 1,
+  "milestone": "beta.3",
+  "sample_seed_policy": "Runtime seeds 1..128; full banks, supply_seed=1, ordinal 0..count-1. Strategy probes use reachable HARD/random positions; Reversi uses reachable EASY/random positions after >=8 placements.",
+  "sample_rows": 11101,
+  "samples_sha256": "cf9562186d3035a69d320d9c77b859bc6f967fba990e4af1d6404879af1834f3",
+  "independent_metrics": {
+    "sliding_3x3": "Complete reverse BFS: 181440 reachable states, diameter 31",
+    "lights": "Exhaustive first-row choices with forced row chasing, <=32 candidates per board",
+    "lights_native_kernel": {
+      "native_kernel_words": 16,
+      "independent_nullity": 4,
+      "nonzero_minimum_weight": 8,
+      "fallback_minimum": 5
+    }
+  },
+  "limitations": [
+    "Host audit, not hardware timing.",
+    "No human difficulty calibration.",
+    "Strategy quality uses production exact values already independently exhaustively verified by test_strategyquick.",
+    "Reversi metrics measure work and changed choices, not stronger-play proof.",
+    "CLASSIC 2048 direct-API levels are compatibility probes; normal app selection is fixed NORMAL."
+  ],
+  "initial_metrics": [
+    {
+      "id": 21,
+      "name": "NIM",
+      "mode": 0,
+      "level": 0,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 109,
+      "distinct_rule_starts": 109,
+      "pile_sum": {
+        "min": 4,
+        "max": 20,
+        "mean": 12.3516,
+        "median": 13.0,
+        "distinct": 17
+      },
+      "largest_pile": {
+        "min": 2,
+        "max": 7,
+        "mean": 5.9531,
+        "median": 6.0,
+        "distinct": 6
+      }
+    },
+    {
+      "id": 21,
+      "name": "NIM",
+      "mode": 0,
+      "level": 1,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 125,
+      "distinct_rule_starts": 125,
+      "pile_sum": {
+        "min": 4,
+        "max": 42,
+        "mean": 23.8828,
+        "median": 24.0,
+        "distinct": 36
+      },
+      "largest_pile": {
+        "min": 2,
+        "max": 15,
+        "mean": 11.5156,
+        "median": 12.0,
+        "distinct": 13
+      }
+    },
+    {
+      "id": 21,
+      "name": "NIM",
+      "mode": 0,
+      "level": 2,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 4,
+      "pack_revision": 2,
+      "distinct_initial_boards": 128,
+      "distinct_rule_starts": 128,
+      "pile_sum": {
+        "min": 15,
+        "max": 109,
+        "mean": 67.0312,
+        "median": 68.5,
+        "distinct": 64
+      },
+      "largest_pile": {
+        "min": 9,
+        "max": 31,
+        "mean": 25.6641,
+        "median": 27.0,
+        "distinct": 21
+      }
+    },
+    {
+      "id": 21,
+      "name": "NIM",
+      "mode": 0,
+      "level": 3,
+      "samples": 30,
+      "bank_count": 30,
+      "size": 1,
+      "columns": 4,
+      "pack_revision": 2,
+      "distinct_initial_boards": 30,
+      "distinct_rule_starts": 30,
+      "pile_sum": {
+        "min": 45,
+        "max": 93,
+        "mean": 71.6333,
+        "median": 71.0,
+        "distinct": 21
+      },
+      "largest_pile": {
+        "min": 16,
+        "max": 31,
+        "mean": 24.6333,
+        "median": 26.0,
+        "distinct": 14
+      }
+    },
+    {
+      "id": 21,
+      "name": "NIM",
+      "mode": 1,
+      "level": 0,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 109,
+      "distinct_rule_starts": 109,
+      "pile_sum": {
+        "min": 4,
+        "max": 20,
+        "mean": 12.3516,
+        "median": 13.0,
+        "distinct": 17
+      },
+      "largest_pile": {
+        "min": 2,
+        "max": 7,
+        "mean": 5.9531,
+        "median": 6.0,
+        "distinct": 6
+      }
+    },
+    {
+      "id": 21,
+      "name": "NIM",
+      "mode": 1,
+      "level": 1,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 125,
+      "distinct_rule_starts": 125,
+      "pile_sum": {
+        "min": 4,
+        "max": 42,
+        "mean": 23.8828,
+        "median": 24.0,
+        "distinct": 36
+      },
+      "largest_pile": {
+        "min": 2,
+        "max": 15,
+        "mean": 11.5156,
+        "median": 12.0,
+        "distinct": 13
+      }
+    },
+    {
+      "id": 21,
+      "name": "NIM",
+      "mode": 1,
+      "level": 2,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 4,
+      "pack_revision": 2,
+      "distinct_initial_boards": 128,
+      "distinct_rule_starts": 128,
+      "pile_sum": {
+        "min": 15,
+        "max": 109,
+        "mean": 67.0312,
+        "median": 68.5,
+        "distinct": 64
+      },
+      "largest_pile": {
+        "min": 9,
+        "max": 31,
+        "mean": 25.6641,
+        "median": 27.0,
+        "distinct": 21
+      }
+    },
+    {
+      "id": 21,
+      "name": "NIM",
+      "mode": 1,
+      "level": 3,
+      "samples": 30,
+      "bank_count": 30,
+      "size": 1,
+      "columns": 4,
+      "pack_revision": 2,
+      "distinct_initial_boards": 30,
+      "distinct_rule_starts": 30,
+      "pile_sum": {
+        "min": 38,
+        "max": 96,
+        "mean": 75.3333,
+        "median": 78.0,
+        "distinct": 14
+      },
+      "largest_pile": {
+        "min": 11,
+        "max": 31,
+        "mean": 25.4667,
+        "median": 27.5,
+        "distinct": 14
+      }
+    },
+    {
+      "id": 22,
+      "name": "WYTHOFF",
+      "mode": 0,
+      "level": 0,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 49,
+      "distinct_rule_starts": 49,
+      "pile_sum": {
+        "min": 2,
+        "max": 20,
+        "mean": 11.3438,
+        "median": 12.0,
+        "distinct": 10
+      },
+      "largest_pile": {
+        "min": 1,
+        "max": 10,
+        "mean": 7.3438,
+        "median": 8.0,
+        "distinct": 10
+      }
+    },
+    {
+      "id": 22,
+      "name": "WYTHOFF",
+      "mode": 0,
+      "level": 1,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 86,
+      "distinct_rule_starts": 86,
+      "pile_sum": {
+        "min": 2,
+        "max": 46,
+        "mean": 25.0625,
+        "median": 24.0,
+        "distinct": 23
+      },
+      "largest_pile": {
+        "min": 1,
+        "max": 24,
+        "mean": 15.7188,
+        "median": 16.5,
+        "distinct": 22
+      }
+    },
+    {
+      "id": 22,
+      "name": "WYTHOFF",
+      "mode": 0,
+      "level": 2,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 126,
+      "distinct_rule_starts": 126,
+      "pile_sum": {
+        "min": 6,
+        "max": 76,
+        "mean": 41.1875,
+        "median": 40.0,
+        "distinct": 33
+      },
+      "largest_pile": {
+        "min": 4,
+        "max": 40,
+        "mean": 26.9375,
+        "median": 29.0,
+        "distinct": 35
+      }
+    },
+    {
+      "id": 22,
+      "name": "WYTHOFF",
+      "mode": 0,
+      "level": 3,
+      "samples": 30,
+      "bank_count": 30,
+      "size": 1,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 30,
+      "distinct_rule_starts": 30,
+      "pile_sum": {
+        "min": 20,
+        "max": 74,
+        "mean": 47.2333,
+        "median": 46.5,
+        "distinct": 23
+      },
+      "largest_pile": {
+        "min": 13,
+        "max": 40,
+        "mean": 29.3,
+        "median": 30.5,
+        "distinct": 18
+      }
+    },
+    {
+      "id": 22,
+      "name": "WYTHOFF",
+      "mode": 1,
+      "level": 0,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 49,
+      "distinct_rule_starts": 49,
+      "pile_sum": {
+        "min": 2,
+        "max": 20,
+        "mean": 11.3438,
+        "median": 12.0,
+        "distinct": 10
+      },
+      "largest_pile": {
+        "min": 1,
+        "max": 10,
+        "mean": 7.3438,
+        "median": 8.0,
+        "distinct": 10
+      }
+    },
+    {
+      "id": 22,
+      "name": "WYTHOFF",
+      "mode": 1,
+      "level": 1,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 86,
+      "distinct_rule_starts": 86,
+      "pile_sum": {
+        "min": 2,
+        "max": 46,
+        "mean": 25.0625,
+        "median": 24.0,
+        "distinct": 23
+      },
+      "largest_pile": {
+        "min": 1,
+        "max": 24,
+        "mean": 15.7188,
+        "median": 16.5,
+        "distinct": 22
+      }
+    },
+    {
+      "id": 22,
+      "name": "WYTHOFF",
+      "mode": 1,
+      "level": 2,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 126,
+      "distinct_rule_starts": 126,
+      "pile_sum": {
+        "min": 6,
+        "max": 76,
+        "mean": 41.1875,
+        "median": 40.0,
+        "distinct": 33
+      },
+      "largest_pile": {
+        "min": 4,
+        "max": 40,
+        "mean": 26.9375,
+        "median": 29.0,
+        "distinct": 35
+      }
+    },
+    {
+      "id": 22,
+      "name": "WYTHOFF",
+      "mode": 1,
+      "level": 3,
+      "samples": 12,
+      "bank_count": 12,
+      "size": 1,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 12,
+      "distinct_rule_starts": 12,
+      "pile_sum": {
+        "min": 16,
+        "max": 63,
+        "mean": 39.3333,
+        "median": 39.5,
+        "distinct": 12
+      },
+      "largest_pile": {
+        "min": 10,
+        "max": 39,
+        "mean": 24.4167,
+        "median": 24.5,
+        "distinct": 12
+      }
+    },
+    {
+      "id": 23,
+      "name": "EUCLID",
+      "mode": 0,
+      "level": 0,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 2,
+      "pack_revision": 2,
+      "distinct_initial_boards": 36,
+      "distinct_rule_starts": 36,
+      "pile_sum": {
+        "min": 2,
+        "max": 22,
+        "mean": 12.5,
+        "median": 12.0,
+        "distinct": 11
+      },
+      "largest_pile": {
+        "min": 1,
+        "max": 12,
+        "mean": 8.1094,
+        "median": 8.0,
+        "distinct": 11
+      }
+    },
+    {
+      "id": 23,
+      "name": "EUCLID",
+      "mode": 0,
+      "level": 1,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 2,
+      "pack_revision": 2,
+      "distinct_initial_boards": 112,
+      "distinct_rule_starts": 112,
+      "pile_sum": {
+        "min": 6,
+        "max": 76,
+        "mean": 41.1875,
+        "median": 40.0,
+        "distinct": 33
+      },
+      "largest_pile": {
+        "min": 4,
+        "max": 40,
+        "mean": 26.9375,
+        "median": 29.0,
+        "distinct": 35
+      }
+    },
+    {
+      "id": 23,
+      "name": "EUCLID",
+      "mode": 0,
+      "level": 2,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 2,
+      "pack_revision": 2,
+      "distinct_initial_boards": 120,
+      "distinct_rule_starts": 120,
+      "pile_sum": {
+        "min": 3,
+        "max": 173,
+        "mean": 89.8438,
+        "median": 90.5,
+        "distinct": 90
+      },
+      "largest_pile": {
+        "min": 2,
+        "max": 99,
+        "mean": 63.0234,
+        "median": 67.0,
+        "distinct": 55
+      }
+    },
+    {
+      "id": 23,
+      "name": "EUCLID",
+      "mode": 0,
+      "level": 3,
+      "samples": 30,
+      "bank_count": 30,
+      "size": 1,
+      "columns": 2,
+      "pack_revision": 2,
+      "distinct_initial_boards": 30,
+      "distinct_rule_starts": 30,
+      "pile_sum": {
+        "min": 27,
+        "max": 146,
+        "mean": 84.6,
+        "median": 88.0,
+        "distinct": 28
+      },
+      "largest_pile": {
+        "min": 20,
+        "max": 95,
+        "mean": 64.9667,
+        "median": 69.5,
+        "distinct": 25
+      }
+    },
+    {
+      "id": 23,
+      "name": "EUCLID",
+      "mode": 1,
+      "level": 0,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 2,
+      "pack_revision": 2,
+      "distinct_initial_boards": 36,
+      "distinct_rule_starts": 36,
+      "pile_sum": {
+        "min": 2,
+        "max": 22,
+        "mean": 12.5,
+        "median": 12.0,
+        "distinct": 11
+      },
+      "largest_pile": {
+        "min": 1,
+        "max": 12,
+        "mean": 8.1094,
+        "median": 8.0,
+        "distinct": 11
+      }
+    },
+    {
+      "id": 23,
+      "name": "EUCLID",
+      "mode": 1,
+      "level": 1,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 2,
+      "pack_revision": 2,
+      "distinct_initial_boards": 112,
+      "distinct_rule_starts": 112,
+      "pile_sum": {
+        "min": 6,
+        "max": 76,
+        "mean": 41.1875,
+        "median": 40.0,
+        "distinct": 33
+      },
+      "largest_pile": {
+        "min": 4,
+        "max": 40,
+        "mean": 26.9375,
+        "median": 29.0,
+        "distinct": 35
+      }
+    },
+    {
+      "id": 23,
+      "name": "EUCLID",
+      "mode": 1,
+      "level": 2,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 2,
+      "pack_revision": 2,
+      "distinct_initial_boards": 120,
+      "distinct_rule_starts": 120,
+      "pile_sum": {
+        "min": 3,
+        "max": 173,
+        "mean": 89.8438,
+        "median": 90.5,
+        "distinct": 90
+      },
+      "largest_pile": {
+        "min": 2,
+        "max": 99,
+        "mean": 63.0234,
+        "median": 67.0,
+        "distinct": 55
+      }
+    },
+    {
+      "id": 23,
+      "name": "EUCLID",
+      "mode": 1,
+      "level": 3,
+      "samples": 30,
+      "bank_count": 30,
+      "size": 1,
+      "columns": 2,
+      "pack_revision": 2,
+      "distinct_initial_boards": 30,
+      "distinct_rule_starts": 30,
+      "pile_sum": {
+        "min": 51,
+        "max": 167,
+        "mean": 131.8,
+        "median": 139.0,
+        "distinct": 23
+      },
+      "largest_pile": {
+        "min": 28,
+        "max": 98,
+        "mean": 74.1,
+        "median": 79.5,
+        "distinct": 23
+      }
+    },
+    {
+      "id": 24,
+      "name": "MAKE FIFTEEN",
+      "mode": 0,
+      "level": 0,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 3,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 1,
+      "distinct_rule_starts": 1,
+      "preplayed_cards": {
+        "min": 0,
+        "max": 0,
+        "mean": 0,
+        "median": 0.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 24,
+      "name": "MAKE FIFTEEN",
+      "mode": 0,
+      "level": 1,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 3,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 1,
+      "distinct_rule_starts": 1,
+      "preplayed_cards": {
+        "min": 0,
+        "max": 0,
+        "mean": 0,
+        "median": 0.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 24,
+      "name": "MAKE FIFTEEN",
+      "mode": 0,
+      "level": 2,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 3,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 1,
+      "distinct_rule_starts": 1,
+      "preplayed_cards": {
+        "min": 0,
+        "max": 0,
+        "mean": 0,
+        "median": 0.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 24,
+      "name": "MAKE FIFTEEN",
+      "mode": 0,
+      "level": 3,
+      "samples": 30,
+      "bank_count": 30,
+      "size": 3,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 30,
+      "distinct_rule_starts": 30,
+      "preplayed_cards": {
+        "min": 2,
+        "max": 6,
+        "mean": 4,
+        "median": 4.0,
+        "distinct": 3
+      }
+    },
+    {
+      "id": 24,
+      "name": "MAKE FIFTEEN",
+      "mode": 1,
+      "level": 0,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 3,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 1,
+      "distinct_rule_starts": 1,
+      "preplayed_cards": {
+        "min": 0,
+        "max": 0,
+        "mean": 0,
+        "median": 0.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 24,
+      "name": "MAKE FIFTEEN",
+      "mode": 1,
+      "level": 1,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 3,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 1,
+      "distinct_rule_starts": 1,
+      "preplayed_cards": {
+        "min": 0,
+        "max": 0,
+        "mean": 0,
+        "median": 0.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 24,
+      "name": "MAKE FIFTEEN",
+      "mode": 1,
+      "level": 2,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 3,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 1,
+      "distinct_rule_starts": 1,
+      "preplayed_cards": {
+        "min": 0,
+        "max": 0,
+        "mean": 0,
+        "median": 0.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 24,
+      "name": "MAKE FIFTEEN",
+      "mode": 1,
+      "level": 3,
+      "samples": 5,
+      "bank_count": 5,
+      "size": 3,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 5,
+      "distinct_rule_starts": 5,
+      "preplayed_cards": {
+        "min": 4,
+        "max": 4,
+        "mean": 4,
+        "median": 4,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 25,
+      "name": "RACE TO TARGET",
+      "mode": 0,
+      "level": 0,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 1,
+      "pack_revision": 2,
+      "distinct_initial_boards": 1,
+      "distinct_rule_starts": 1,
+      "target": {
+        "min": 21,
+        "max": 21,
+        "mean": 21,
+        "median": 21.0,
+        "distinct": 1
+      },
+      "max_add": {
+        "min": 3,
+        "max": 3,
+        "mean": 3,
+        "median": 3.0,
+        "distinct": 1
+      },
+      "remaining": {
+        "min": 21,
+        "max": 21,
+        "mean": 21,
+        "median": 21.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 25,
+      "name": "RACE TO TARGET",
+      "mode": 0,
+      "level": 1,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 1,
+      "pack_revision": 2,
+      "distinct_initial_boards": 1,
+      "distinct_rule_starts": 1,
+      "target": {
+        "min": 31,
+        "max": 31,
+        "mean": 31,
+        "median": 31.0,
+        "distinct": 1
+      },
+      "max_add": {
+        "min": 3,
+        "max": 3,
+        "mean": 3,
+        "median": 3.0,
+        "distinct": 1
+      },
+      "remaining": {
+        "min": 31,
+        "max": 31,
+        "mean": 31,
+        "median": 31.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 25,
+      "name": "RACE TO TARGET",
+      "mode": 0,
+      "level": 2,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 1,
+      "pack_revision": 2,
+      "distinct_initial_boards": 1,
+      "distinct_rule_starts": 1,
+      "target": {
+        "min": 23,
+        "max": 23,
+        "mean": 23,
+        "median": 23.0,
+        "distinct": 1
+      },
+      "max_add": {
+        "min": 4,
+        "max": 4,
+        "mean": 4,
+        "median": 4.0,
+        "distinct": 1
+      },
+      "remaining": {
+        "min": 23,
+        "max": 23,
+        "mean": 23,
+        "median": 23.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 25,
+      "name": "RACE TO TARGET",
+      "mode": 0,
+      "level": 3,
+      "samples": 30,
+      "bank_count": 30,
+      "size": 1,
+      "columns": 1,
+      "pack_revision": 2,
+      "distinct_initial_boards": 3,
+      "distinct_rule_starts": 30,
+      "target": {
+        "min": 24,
+        "max": 62,
+        "mean": 41.5333,
+        "median": 40.0,
+        "distinct": 20
+      },
+      "max_add": {
+        "min": 2,
+        "max": 8,
+        "mean": 4.6333,
+        "median": 4.0,
+        "distinct": 7
+      },
+      "remaining": {
+        "min": 14,
+        "max": 59,
+        "mean": 38.1,
+        "median": 37.0,
+        "distinct": 21
+      }
+    },
+    {
+      "id": 25,
+      "name": "RACE TO TARGET",
+      "mode": 1,
+      "level": 0,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 1,
+      "pack_revision": 2,
+      "distinct_initial_boards": 1,
+      "distinct_rule_starts": 1,
+      "target": {
+        "min": 21,
+        "max": 21,
+        "mean": 21,
+        "median": 21.0,
+        "distinct": 1
+      },
+      "max_add": {
+        "min": 3,
+        "max": 3,
+        "mean": 3,
+        "median": 3.0,
+        "distinct": 1
+      },
+      "remaining": {
+        "min": 21,
+        "max": 21,
+        "mean": 21,
+        "median": 21.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 25,
+      "name": "RACE TO TARGET",
+      "mode": 1,
+      "level": 1,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 1,
+      "pack_revision": 2,
+      "distinct_initial_boards": 1,
+      "distinct_rule_starts": 1,
+      "target": {
+        "min": 31,
+        "max": 31,
+        "mean": 31,
+        "median": 31.0,
+        "distinct": 1
+      },
+      "max_add": {
+        "min": 3,
+        "max": 3,
+        "mean": 3,
+        "median": 3.0,
+        "distinct": 1
+      },
+      "remaining": {
+        "min": 31,
+        "max": 31,
+        "mean": 31,
+        "median": 31.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 25,
+      "name": "RACE TO TARGET",
+      "mode": 1,
+      "level": 2,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 1,
+      "columns": 1,
+      "pack_revision": 2,
+      "distinct_initial_boards": 1,
+      "distinct_rule_starts": 1,
+      "target": {
+        "min": 23,
+        "max": 23,
+        "mean": 23,
+        "median": 23.0,
+        "distinct": 1
+      },
+      "max_add": {
+        "min": 4,
+        "max": 4,
+        "mean": 4,
+        "median": 4.0,
+        "distinct": 1
+      },
+      "remaining": {
+        "min": 23,
+        "max": 23,
+        "mean": 23,
+        "median": 23.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 25,
+      "name": "RACE TO TARGET",
+      "mode": 1,
+      "level": 3,
+      "samples": 30,
+      "bank_count": 30,
+      "size": 1,
+      "columns": 1,
+      "pack_revision": 2,
+      "distinct_initial_boards": 3,
+      "distinct_rule_starts": 30,
+      "target": {
+        "min": 24,
+        "max": 63,
+        "mean": 43.7,
+        "median": 43.0,
+        "distinct": 18
+      },
+      "max_add": {
+        "min": 2,
+        "max": 8,
+        "mean": 4.2,
+        "median": 4.0,
+        "distinct": 7
+      },
+      "remaining": {
+        "min": 18,
+        "max": 60,
+        "mean": 40.4667,
+        "median": 40.0,
+        "distinct": 19
+      }
+    },
+    {
+      "id": 26,
+      "name": "2048",
+      "mode": 0,
+      "level": 0,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 4,
+      "columns": 4,
+      "pack_revision": 2,
+      "distinct_initial_boards": 100,
+      "distinct_rule_starts": 100,
+      "target_tiles": [
+        0
+      ],
+      "policy": "FIXED_CLASSIC_NO_LEVEL"
+    },
+    {
+      "id": 26,
+      "name": "2048",
+      "mode": 0,
+      "level": 1,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 4,
+      "columns": 4,
+      "pack_revision": 2,
+      "distinct_initial_boards": 100,
+      "distinct_rule_starts": 100,
+      "target_tiles": [
+        0
+      ],
+      "policy": "FIXED_CLASSIC_NO_LEVEL"
+    },
+    {
+      "id": 26,
+      "name": "2048",
+      "mode": 0,
+      "level": 2,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 4,
+      "columns": 4,
+      "pack_revision": 2,
+      "distinct_initial_boards": 100,
+      "distinct_rule_starts": 100,
+      "target_tiles": [
+        0
+      ],
+      "policy": "FIXED_CLASSIC_NO_LEVEL"
+    },
+    {
+      "id": 26,
+      "name": "2048",
+      "mode": 0,
+      "level": 3,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 4,
+      "columns": 4,
+      "pack_revision": 2,
+      "distinct_initial_boards": 100,
+      "distinct_rule_starts": 100,
+      "target_tiles": [
+        0
+      ],
+      "policy": "FIXED_CLASSIC_NO_LEVEL"
+    },
+    {
+      "id": 26,
+      "name": "2048",
+      "mode": 1,
+      "level": 0,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 4,
+      "columns": 4,
+      "pack_revision": 2,
+      "distinct_initial_boards": 100,
+      "distinct_rule_starts": 100,
+      "target_tiles": [
+        512
+      ],
+      "policy": "TARGET_GOAL"
+    },
+    {
+      "id": 26,
+      "name": "2048",
+      "mode": 1,
+      "level": 1,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 4,
+      "columns": 4,
+      "pack_revision": 2,
+      "distinct_initial_boards": 100,
+      "distinct_rule_starts": 100,
+      "target_tiles": [
+        1024
+      ],
+      "policy": "TARGET_GOAL"
+    },
+    {
+      "id": 26,
+      "name": "2048",
+      "mode": 1,
+      "level": 2,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 4,
+      "columns": 4,
+      "pack_revision": 2,
+      "distinct_initial_boards": 100,
+      "distinct_rule_starts": 100,
+      "target_tiles": [
+        2048
+      ],
+      "policy": "TARGET_GOAL"
+    },
+    {
+      "id": 26,
+      "name": "2048",
+      "mode": 1,
+      "level": 3,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 4,
+      "columns": 4,
+      "pack_revision": 2,
+      "distinct_initial_boards": 100,
+      "distinct_rule_starts": 100,
+      "target_tiles": [
+        8192
+      ],
+      "policy": "TARGET_GOAL"
+    },
+    {
+      "id": 27,
+      "name": "SLIDING",
+      "mode": 0,
+      "level": 0,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 3,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 128,
+      "distinct_rule_starts": 128,
+      "manhattan_lower_bound": {
+        "min": 6,
+        "max": 20,
+        "mean": 14.0938,
+        "median": 14.0,
+        "distinct": 8
+      },
+      "exact_shortest_moves": {
+        "min": 10,
+        "max": 28,
+        "mean": 21.9219,
+        "median": 22.0,
+        "distinct": 10
+      },
+      "shuffle_moves_or_master_witness_limit": {
+        "min": 80,
+        "max": 80,
+        "mean": 80,
+        "median": 80.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 27,
+      "name": "SLIDING",
+      "mode": 0,
+      "level": 1,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 3,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 128,
+      "distinct_rule_starts": 128,
+      "manhattan_lower_bound": {
+        "min": 10,
+        "max": 20,
+        "mean": 14.375,
+        "median": 14.0,
+        "distinct": 6
+      },
+      "exact_shortest_moves": {
+        "min": 12,
+        "max": 28,
+        "mean": 22.1875,
+        "median": 22.0,
+        "distinct": 9
+      },
+      "shuffle_moves_or_master_witness_limit": {
+        "min": 160,
+        "max": 160,
+        "mean": 160,
+        "median": 160.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 27,
+      "name": "SLIDING",
+      "mode": 0,
+      "level": 2,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 3,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 128,
+      "distinct_rule_starts": 128,
+      "manhattan_lower_bound": {
+        "min": 14,
+        "max": 20,
+        "mean": 15.8438,
+        "median": 16.0,
+        "distinct": 4
+      },
+      "exact_shortest_moves": {
+        "min": 14,
+        "max": 28,
+        "mean": 23.25,
+        "median": 24.0,
+        "distinct": 8
+      },
+      "shuffle_moves_or_master_witness_limit": {
+        "min": 240,
+        "max": 240,
+        "mean": 240,
+        "median": 240.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 27,
+      "name": "SLIDING",
+      "mode": 0,
+      "level": 3,
+      "samples": 2,
+      "bank_count": 2,
+      "size": 3,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 2,
+      "distinct_rule_starts": 2,
+      "manhattan_lower_bound": {
+        "min": 21,
+        "max": 21,
+        "mean": 21,
+        "median": 21.0,
+        "distinct": 1
+      },
+      "exact_shortest_moves": {
+        "min": 31,
+        "max": 31,
+        "mean": 31,
+        "median": 31.0,
+        "distinct": 1
+      },
+      "shuffle_moves_or_master_witness_limit": {
+        "min": 31,
+        "max": 31,
+        "mean": 31,
+        "median": 31.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 27,
+      "name": "SLIDING",
+      "mode": 1,
+      "level": 0,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 4,
+      "columns": 4,
+      "pack_revision": 2,
+      "distinct_initial_boards": 128,
+      "distinct_rule_starts": 128,
+      "manhattan_lower_bound": {
+        "min": 18,
+        "max": 40,
+        "mean": 28.3125,
+        "median": 28.0,
+        "distinct": 12
+      },
+      "shuffle_moves_or_master_witness_limit": {
+        "min": 80,
+        "max": 80,
+        "mean": 80,
+        "median": 80.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 27,
+      "name": "SLIDING",
+      "mode": 1,
+      "level": 1,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 4,
+      "columns": 4,
+      "pack_revision": 2,
+      "distinct_initial_boards": 128,
+      "distinct_rule_starts": 128,
+      "manhattan_lower_bound": {
+        "min": 20,
+        "max": 46,
+        "mean": 34.0938,
+        "median": 34.0,
+        "distinct": 13
+      },
+      "shuffle_moves_or_master_witness_limit": {
+        "min": 160,
+        "max": 160,
+        "mean": 160,
+        "median": 160.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 27,
+      "name": "SLIDING",
+      "mode": 1,
+      "level": 2,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 4,
+      "columns": 4,
+      "pack_revision": 2,
+      "distinct_initial_boards": 128,
+      "distinct_rule_starts": 128,
+      "manhattan_lower_bound": {
+        "min": 24,
+        "max": 50,
+        "mean": 36.25,
+        "median": 36.0,
+        "distinct": 14
+      },
+      "shuffle_moves_or_master_witness_limit": {
+        "min": 240,
+        "max": 240,
+        "mean": 240,
+        "median": 240.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 27,
+      "name": "SLIDING",
+      "mode": 1,
+      "level": 3,
+      "samples": 30,
+      "bank_count": 30,
+      "size": 4,
+      "columns": 4,
+      "pack_revision": 2,
+      "distinct_initial_boards": 30,
+      "distinct_rule_starts": 30,
+      "manhattan_lower_bound": {
+        "min": 48,
+        "max": 52,
+        "mean": 49.0667,
+        "median": 48.0,
+        "distinct": 3
+      },
+      "shuffle_moves_or_master_witness_limit": {
+        "min": 400,
+        "max": 400,
+        "mean": 400,
+        "median": 400.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 28,
+      "name": "LIGHTS OUT",
+      "mode": 0,
+      "level": 0,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 4,
+      "columns": 4,
+      "pack_revision": 3,
+      "distinct_initial_boards": 84,
+      "distinct_rule_starts": 84,
+      "exact_minimum_presses": {
+        "min": 2,
+        "max": 2,
+        "mean": 2,
+        "median": 2.0,
+        "distinct": 1
+      },
+      "declared_start_count": {
+        "min": 2,
+        "max": 2,
+        "mean": 2,
+        "median": 2.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 28,
+      "name": "LIGHTS OUT",
+      "mode": 0,
+      "level": 1,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 4,
+      "columns": 4,
+      "pack_revision": 3,
+      "distinct_initial_boards": 126,
+      "distinct_rule_starts": 126,
+      "exact_minimum_presses": {
+        "min": 4,
+        "max": 4,
+        "mean": 4,
+        "median": 4.0,
+        "distinct": 1
+      },
+      "declared_start_count": {
+        "min": 4,
+        "max": 4,
+        "mean": 4,
+        "median": 4.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 28,
+      "name": "LIGHTS OUT",
+      "mode": 0,
+      "level": 2,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 4,
+      "columns": 4,
+      "pack_revision": 3,
+      "distinct_initial_boards": 121,
+      "distinct_rule_starts": 121,
+      "exact_minimum_presses": {
+        "min": 5,
+        "max": 5,
+        "mean": 5,
+        "median": 5.0,
+        "distinct": 1
+      },
+      "declared_start_count": {
+        "min": 5,
+        "max": 5,
+        "mean": 5,
+        "median": 5.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 28,
+      "name": "LIGHTS OUT",
+      "mode": 0,
+      "level": 3,
+      "samples": 30,
+      "bank_count": 30,
+      "size": 4,
+      "columns": 4,
+      "pack_revision": 3,
+      "distinct_initial_boards": 30,
+      "distinct_rule_starts": 30,
+      "exact_minimum_presses": {
+        "min": 6,
+        "max": 6,
+        "mean": 6,
+        "median": 6.0,
+        "distinct": 1
+      },
+      "declared_start_count": {
+        "min": 6,
+        "max": 6,
+        "mean": 6,
+        "median": 6.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 28,
+      "name": "LIGHTS OUT",
+      "mode": 1,
+      "level": 0,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 5,
+      "columns": 5,
+      "pack_revision": 3,
+      "distinct_initial_boards": 127,
+      "distinct_rule_starts": 127,
+      "exact_minimum_presses": {
+        "min": 4,
+        "max": 4,
+        "mean": 4,
+        "median": 4.0,
+        "distinct": 1
+      },
+      "declared_start_count": {
+        "min": 4,
+        "max": 4,
+        "mean": 4,
+        "median": 4.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 28,
+      "name": "LIGHTS OUT",
+      "mode": 1,
+      "level": 1,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 5,
+      "columns": 5,
+      "pack_revision": 3,
+      "distinct_initial_boards": 128,
+      "distinct_rule_starts": 128,
+      "exact_minimum_presses": {
+        "min": 6,
+        "max": 8,
+        "mean": 7.9844,
+        "median": 8.0,
+        "distinct": 2
+      },
+      "declared_start_count": {
+        "min": 8,
+        "max": 8,
+        "mean": 8,
+        "median": 8.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 28,
+      "name": "LIGHTS OUT",
+      "mode": 1,
+      "level": 2,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 5,
+      "columns": 5,
+      "pack_revision": 3,
+      "distinct_initial_boards": 128,
+      "distinct_rule_starts": 128,
+      "exact_minimum_presses": {
+        "min": 6,
+        "max": 14,
+        "mean": 10.0781,
+        "median": 10.0,
+        "distinct": 5
+      },
+      "declared_start_count": {
+        "min": 18,
+        "max": 18,
+        "mean": 18,
+        "median": 18.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 28,
+      "name": "LIGHTS OUT",
+      "mode": 1,
+      "level": 3,
+      "samples": 30,
+      "bank_count": 30,
+      "size": 5,
+      "columns": 5,
+      "pack_revision": 3,
+      "distinct_initial_boards": 30,
+      "distinct_rule_starts": 30,
+      "exact_minimum_presses": {
+        "min": 12,
+        "max": 14,
+        "mean": 12.2667,
+        "median": 12.0,
+        "distinct": 3
+      },
+      "declared_start_count": {
+        "min": 12,
+        "max": 14,
+        "mean": 12.2667,
+        "median": 12.0,
+        "distinct": 3
+      }
+    },
+    {
+      "id": 37,
+      "name": "REVERSI",
+      "mode": 0,
+      "level": 0,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 8,
+      "columns": 8,
+      "pack_revision": 2,
+      "distinct_initial_boards": 1,
+      "distinct_rule_starts": 1
+    },
+    {
+      "id": 37,
+      "name": "REVERSI",
+      "mode": 0,
+      "level": 1,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 8,
+      "columns": 8,
+      "pack_revision": 2,
+      "distinct_initial_boards": 1,
+      "distinct_rule_starts": 1
+    },
+    {
+      "id": 37,
+      "name": "REVERSI",
+      "mode": 0,
+      "level": 2,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 8,
+      "columns": 8,
+      "pack_revision": 2,
+      "distinct_initial_boards": 1,
+      "distinct_rule_starts": 1
+    },
+    {
+      "id": 37,
+      "name": "REVERSI",
+      "mode": 0,
+      "level": 3,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 8,
+      "columns": 8,
+      "pack_revision": 2,
+      "distinct_initial_boards": 1,
+      "distinct_rule_starts": 1
+    },
+    {
+      "id": 37,
+      "name": "REVERSI",
+      "mode": 1,
+      "level": 0,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 8,
+      "columns": 8,
+      "pack_revision": 2,
+      "distinct_initial_boards": 1,
+      "distinct_rule_starts": 1
+    },
+    {
+      "id": 37,
+      "name": "REVERSI",
+      "mode": 1,
+      "level": 1,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 8,
+      "columns": 8,
+      "pack_revision": 2,
+      "distinct_initial_boards": 1,
+      "distinct_rule_starts": 1
+    },
+    {
+      "id": 37,
+      "name": "REVERSI",
+      "mode": 1,
+      "level": 2,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 8,
+      "columns": 8,
+      "pack_revision": 2,
+      "distinct_initial_boards": 1,
+      "distinct_rule_starts": 1
+    },
+    {
+      "id": 37,
+      "name": "REVERSI",
+      "mode": 1,
+      "level": 3,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 8,
+      "columns": 8,
+      "pack_revision": 2,
+      "distinct_initial_boards": 1,
+      "distinct_rule_starts": 1
+    },
+    {
+      "id": 38,
+      "name": "NET",
+      "mode": 0,
+      "level": 0,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 3,
+      "columns": 3,
+      "pack_revision": 2,
+      "distinct_initial_boards": 128,
+      "distinct_rule_starts": 75,
+      "cells": 9,
+      "junctions_degree_at_least_3": {
+        "min": 1,
+        "max": 3,
+        "mean": 1.9688,
+        "median": 2.0,
+        "distinct": 3
+      },
+      "leaves": {
+        "min": 3,
+        "max": 6,
+        "mean": 4.3281,
+        "median": 4.0,
+        "distinct": 4
+      }
+    },
+    {
+      "id": 38,
+      "name": "NET",
+      "mode": 0,
+      "level": 1,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 4,
+      "columns": 4,
+      "pack_revision": 2,
+      "distinct_initial_boards": 128,
+      "distinct_rule_starts": 127,
+      "cells": 16,
+      "junctions_degree_at_least_3": {
+        "min": 2,
+        "max": 6,
+        "mean": 3.8281,
+        "median": 4.0,
+        "distinct": 5
+      },
+      "leaves": {
+        "min": 4,
+        "max": 9,
+        "mean": 6.5469,
+        "median": 6.5,
+        "distinct": 6
+      }
+    },
+    {
+      "id": 38,
+      "name": "NET",
+      "mode": 0,
+      "level": 2,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 5,
+      "columns": 5,
+      "pack_revision": 2,
+      "distinct_initial_boards": 128,
+      "distinct_rule_starts": 128,
+      "cells": 25,
+      "junctions_degree_at_least_3": {
+        "min": 3,
+        "max": 9,
+        "mean": 6.1406,
+        "median": 6.0,
+        "distinct": 7
+      },
+      "leaves": {
+        "min": 6,
+        "max": 12,
+        "mean": 9.5938,
+        "median": 10.0,
+        "distinct": 7
+      }
+    },
+    {
+      "id": 38,
+      "name": "NET",
+      "mode": 0,
+      "level": 3,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 6,
+      "columns": 6,
+      "pack_revision": 2,
+      "distinct_initial_boards": 128,
+      "distinct_rule_starts": 128,
+      "cells": 36,
+      "junctions_degree_at_least_3": {
+        "min": 6,
+        "max": 14,
+        "mean": 9.0391,
+        "median": 9.0,
+        "distinct": 9
+      },
+      "leaves": {
+        "min": 8,
+        "max": 17,
+        "mean": 12.9453,
+        "median": 13.0,
+        "distinct": 9
+      }
+    }
+  ],
+  "exact_strategy_decisions": [
+    {
+      "id": 21,
+      "level": 0,
+      "positions": 128,
+      "decision_opportunities": 106,
+      "optimal_on_opportunities": 6,
+      "different_choice_from_previous_level": null
+    },
+    {
+      "id": 21,
+      "level": 1,
+      "positions": 128,
+      "decision_opportunities": 106,
+      "optimal_on_opportunities": 79,
+      "different_choice_from_previous_level": 112
+    },
+    {
+      "id": 21,
+      "level": 2,
+      "positions": 128,
+      "decision_opportunities": 106,
+      "optimal_on_opportunities": 106,
+      "different_choice_from_previous_level": 36
+    },
+    {
+      "id": 21,
+      "level": 3,
+      "positions": 128,
+      "decision_opportunities": 106,
+      "optimal_on_opportunities": 106,
+      "different_choice_from_previous_level": 0
+    },
+    {
+      "id": 22,
+      "level": 0,
+      "positions": 128,
+      "decision_opportunities": 111,
+      "optimal_on_opportunities": 9,
+      "different_choice_from_previous_level": null
+    },
+    {
+      "id": 22,
+      "level": 1,
+      "positions": 128,
+      "decision_opportunities": 111,
+      "optimal_on_opportunities": 87,
+      "different_choice_from_previous_level": 107
+    },
+    {
+      "id": 22,
+      "level": 2,
+      "positions": 128,
+      "decision_opportunities": 111,
+      "optimal_on_opportunities": 111,
+      "different_choice_from_previous_level": 36
+    },
+    {
+      "id": 22,
+      "level": 3,
+      "positions": 128,
+      "decision_opportunities": 111,
+      "optimal_on_opportunities": 111,
+      "different_choice_from_previous_level": 0
+    },
+    {
+      "id": 23,
+      "level": 0,
+      "positions": 128,
+      "decision_opportunities": 89,
+      "optimal_on_opportunities": 22,
+      "different_choice_from_previous_level": null
+    },
+    {
+      "id": 23,
+      "level": 1,
+      "positions": 128,
+      "decision_opportunities": 89,
+      "optimal_on_opportunities": 69,
+      "different_choice_from_previous_level": 69
+    },
+    {
+      "id": 23,
+      "level": 2,
+      "positions": 128,
+      "decision_opportunities": 89,
+      "optimal_on_opportunities": 89,
+      "different_choice_from_previous_level": 20
+    },
+    {
+      "id": 23,
+      "level": 3,
+      "positions": 128,
+      "decision_opportunities": 89,
+      "optimal_on_opportunities": 89,
+      "different_choice_from_previous_level": 0
+    },
+    {
+      "id": 24,
+      "level": 0,
+      "positions": 128,
+      "decision_opportunities": 67,
+      "optimal_on_opportunities": 31,
+      "different_choice_from_previous_level": null
+    },
+    {
+      "id": 24,
+      "level": 1,
+      "positions": 128,
+      "decision_opportunities": 67,
+      "optimal_on_opportunities": 53,
+      "different_choice_from_previous_level": 93
+    },
+    {
+      "id": 24,
+      "level": 2,
+      "positions": 128,
+      "decision_opportunities": 67,
+      "optimal_on_opportunities": 67,
+      "different_choice_from_previous_level": 73
+    },
+    {
+      "id": 24,
+      "level": 3,
+      "positions": 128,
+      "decision_opportunities": 67,
+      "optimal_on_opportunities": 67,
+      "different_choice_from_previous_level": 0
+    },
+    {
+      "id": 25,
+      "level": 0,
+      "positions": 128,
+      "decision_opportunities": 102,
+      "optimal_on_opportunities": 27,
+      "different_choice_from_previous_level": null
+    },
+    {
+      "id": 25,
+      "level": 1,
+      "positions": 128,
+      "decision_opportunities": 102,
+      "optimal_on_opportunities": 84,
+      "different_choice_from_previous_level": 89
+    },
+    {
+      "id": 25,
+      "level": 2,
+      "positions": 128,
+      "decision_opportunities": 102,
+      "optimal_on_opportunities": 102,
+      "different_choice_from_previous_level": 33
+    },
+    {
+      "id": 25,
+      "level": 3,
+      "positions": 128,
+      "decision_opportunities": 102,
+      "optimal_on_opportunities": 102,
+      "different_choice_from_previous_level": 0
+    }
+  ],
+  "reversi_decisions": [
+    {
+      "level": 0,
+      "positions": 64,
+      "nodes": {
+        "min": 0,
+        "max": 0,
+        "mean": 0,
+        "median": 0.0,
+        "distinct": 1
+      },
+      "completed_depth": {
+        "min": 0,
+        "max": 0,
+        "mean": 0,
+        "median": 0.0,
+        "distinct": 1
+      },
+      "different_choice_from_previous_level": null
+    },
+    {
+      "level": 1,
+      "positions": 64,
+      "nodes": {
+        "min": 1,
+        "max": 16,
+        "mean": 7.5625,
+        "median": 7.0,
+        "distinct": 16
+      },
+      "completed_depth": {
+        "min": 1,
+        "max": 1,
+        "mean": 1,
+        "median": 1.0,
+        "distinct": 1
+      },
+      "different_choice_from_previous_level": 54
+    },
+    {
+      "level": 2,
+      "positions": 64,
+      "nodes": {
+        "min": 5,
+        "max": 1500,
+        "mean": 544.4062,
+        "median": 456.5,
+        "distinct": 59
+      },
+      "completed_depth": {
+        "min": 2,
+        "max": 3,
+        "mean": 2.9531,
+        "median": 3.0,
+        "distinct": 2
+      },
+      "different_choice_from_previous_level": 29
+    },
+    {
+      "level": 3,
+      "positions": 64,
+      "nodes": {
+        "min": 9,
+        "max": 6000,
+        "mean": 4848.9062,
+        "median": 6000.0,
+        "distinct": 20
+      },
+      "completed_depth": {
+        "min": 3,
+        "max": 5,
+        "mean": 4.0469,
+        "median": 4.0,
+        "distinct": 3
+      },
+      "different_choice_from_previous_level": 22
+    }
+  ],
+  "adjacent_initial_comparison": [
+    {
+      "id": 21,
+      "mode": 0,
+      "levels": [
+        0,
+        1
+      ],
+      "paired": 128,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 21,
+      "mode": 0,
+      "levels": [
+        1,
+        2
+      ],
+      "paired": 128,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 21,
+      "mode": 0,
+      "levels": [
+        2,
+        3
+      ],
+      "paired": 30,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 21,
+      "mode": 1,
+      "levels": [
+        0,
+        1
+      ],
+      "paired": 128,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 21,
+      "mode": 1,
+      "levels": [
+        1,
+        2
+      ],
+      "paired": 128,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 21,
+      "mode": 1,
+      "levels": [
+        2,
+        3
+      ],
+      "paired": 30,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 22,
+      "mode": 0,
+      "levels": [
+        0,
+        1
+      ],
+      "paired": 128,
+      "same_initial_board": 2,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 22,
+      "mode": 0,
+      "levels": [
+        1,
+        2
+      ],
+      "paired": 128,
+      "same_initial_board": 5,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 22,
+      "mode": 0,
+      "levels": [
+        2,
+        3
+      ],
+      "paired": 30,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 22,
+      "mode": 1,
+      "levels": [
+        0,
+        1
+      ],
+      "paired": 128,
+      "same_initial_board": 2,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 22,
+      "mode": 1,
+      "levels": [
+        1,
+        2
+      ],
+      "paired": 128,
+      "same_initial_board": 5,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 22,
+      "mode": 1,
+      "levels": [
+        2,
+        3
+      ],
+      "paired": 12,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 23,
+      "mode": 0,
+      "levels": [
+        0,
+        1
+      ],
+      "paired": 128,
+      "same_initial_board": 6,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 23,
+      "mode": 0,
+      "levels": [
+        1,
+        2
+      ],
+      "paired": 128,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 23,
+      "mode": 0,
+      "levels": [
+        2,
+        3
+      ],
+      "paired": 30,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 23,
+      "mode": 1,
+      "levels": [
+        0,
+        1
+      ],
+      "paired": 128,
+      "same_initial_board": 6,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 23,
+      "mode": 1,
+      "levels": [
+        1,
+        2
+      ],
+      "paired": 128,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 23,
+      "mode": 1,
+      "levels": [
+        2,
+        3
+      ],
+      "paired": 30,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 24,
+      "mode": 0,
+      "levels": [
+        0,
+        1
+      ],
+      "paired": 128,
+      "same_initial_board": 128,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 24,
+      "mode": 0,
+      "levels": [
+        1,
+        2
+      ],
+      "paired": 128,
+      "same_initial_board": 128,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 24,
+      "mode": 0,
+      "levels": [
+        2,
+        3
+      ],
+      "paired": 30,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 24,
+      "mode": 1,
+      "levels": [
+        0,
+        1
+      ],
+      "paired": 128,
+      "same_initial_board": 128,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 24,
+      "mode": 1,
+      "levels": [
+        1,
+        2
+      ],
+      "paired": 128,
+      "same_initial_board": 128,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 24,
+      "mode": 1,
+      "levels": [
+        2,
+        3
+      ],
+      "paired": 5,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 25,
+      "mode": 0,
+      "levels": [
+        0,
+        1
+      ],
+      "paired": 128,
+      "same_initial_board": 128,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 25,
+      "mode": 0,
+      "levels": [
+        1,
+        2
+      ],
+      "paired": 128,
+      "same_initial_board": 128,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 25,
+      "mode": 0,
+      "levels": [
+        2,
+        3
+      ],
+      "paired": 30,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 25,
+      "mode": 1,
+      "levels": [
+        0,
+        1
+      ],
+      "paired": 128,
+      "same_initial_board": 128,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 25,
+      "mode": 1,
+      "levels": [
+        1,
+        2
+      ],
+      "paired": 128,
+      "same_initial_board": 128,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 25,
+      "mode": 1,
+      "levels": [
+        2,
+        3
+      ],
+      "paired": 30,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 26,
+      "mode": 0,
+      "levels": [
+        0,
+        1
+      ],
+      "paired": 128,
+      "same_initial_board": 128,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 26,
+      "mode": 0,
+      "levels": [
+        1,
+        2
+      ],
+      "paired": 128,
+      "same_initial_board": 128,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 26,
+      "mode": 0,
+      "levels": [
+        2,
+        3
+      ],
+      "paired": 128,
+      "same_initial_board": 128,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 26,
+      "mode": 1,
+      "levels": [
+        0,
+        1
+      ],
+      "paired": 128,
+      "same_initial_board": 128,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 26,
+      "mode": 1,
+      "levels": [
+        1,
+        2
+      ],
+      "paired": 128,
+      "same_initial_board": 128,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 26,
+      "mode": 1,
+      "levels": [
+        2,
+        3
+      ],
+      "paired": 128,
+      "same_initial_board": 128,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 27,
+      "mode": 0,
+      "levels": [
+        0,
+        1
+      ],
+      "paired": 128,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 27,
+      "mode": 0,
+      "levels": [
+        1,
+        2
+      ],
+      "paired": 128,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 27,
+      "mode": 0,
+      "levels": [
+        2,
+        3
+      ],
+      "paired": 2,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 27,
+      "mode": 1,
+      "levels": [
+        0,
+        1
+      ],
+      "paired": 128,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 27,
+      "mode": 1,
+      "levels": [
+        1,
+        2
+      ],
+      "paired": 128,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 27,
+      "mode": 1,
+      "levels": [
+        2,
+        3
+      ],
+      "paired": 30,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 28,
+      "mode": 0,
+      "levels": [
+        0,
+        1
+      ],
+      "paired": 128,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 28,
+      "mode": 0,
+      "levels": [
+        1,
+        2
+      ],
+      "paired": 128,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 28,
+      "mode": 0,
+      "levels": [
+        2,
+        3
+      ],
+      "paired": 30,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 28,
+      "mode": 1,
+      "levels": [
+        0,
+        1
+      ],
+      "paired": 128,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 28,
+      "mode": 1,
+      "levels": [
+        1,
+        2
+      ],
+      "paired": 128,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 28,
+      "mode": 1,
+      "levels": [
+        2,
+        3
+      ],
+      "paired": 30,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 37,
+      "mode": 0,
+      "levels": [
+        0,
+        1
+      ],
+      "paired": 128,
+      "same_initial_board": 128,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 37,
+      "mode": 0,
+      "levels": [
+        1,
+        2
+      ],
+      "paired": 128,
+      "same_initial_board": 128,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 37,
+      "mode": 0,
+      "levels": [
+        2,
+        3
+      ],
+      "paired": 128,
+      "same_initial_board": 128,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 37,
+      "mode": 1,
+      "levels": [
+        0,
+        1
+      ],
+      "paired": 128,
+      "same_initial_board": 128,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 37,
+      "mode": 1,
+      "levels": [
+        1,
+        2
+      ],
+      "paired": 128,
+      "same_initial_board": 128,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 37,
+      "mode": 1,
+      "levels": [
+        2,
+        3
+      ],
+      "paired": 128,
+      "same_initial_board": 128,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 38,
+      "mode": 0,
+      "levels": [
+        0,
+        1
+      ],
+      "paired": 128,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 38,
+      "mode": 0,
+      "levels": [
+        1,
+        2
+      ],
+      "paired": 128,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 38,
+      "mode": 0,
+      "levels": [
+        2,
+        3
+      ],
+      "paired": 128,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    }
+  ],
+  "assessment": [
+    {
+      "game_id": 21,
+      "name": "NIM",
+      "difficulty": "EASY",
+      "mechanism": "CPU policy and initial position",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 1x3; mode 1: 1x3",
+      "generator_params": "3 piles 1..7",
+      "AI_policy": "random legal move",
+      "rating_metric": "Optimal decisions only where legal choices differ in outcome; pre-existing independent exact-table audit",
+      "observed_distribution": "6/106 optimal on common decision opportunities; 128 total positions",
+      "overlap": "Random branch may choose an optimal move; 75% branch rate is not 75% success rate",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 21,
+      "name": "NIM",
+      "difficulty": "NORMAL",
+      "mechanism": "CPU policy and initial position",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 1x3; mode 1: 1x3",
+      "generator_params": "3 piles 1..15",
+      "AI_policy": "75% exact-policy branch; 25% random",
+      "rating_metric": "Optimal decisions only where legal choices differ in outcome; pre-existing independent exact-table audit",
+      "observed_distribution": "79/106 optimal on common decision opportunities; 128 total positions",
+      "overlap": "Random branch may choose an optimal move; 75% branch rate is not 75% success rate",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 21,
+      "name": "NIM",
+      "difficulty": "HARD",
+      "mechanism": "CPU policy and initial position",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 1x4; mode 1: 1x4",
+      "generator_params": "4 piles 1..31",
+      "AI_policy": "exact outcome-optimal policy",
+      "rating_metric": "Optimal decisions only where legal choices differ in outcome; pre-existing independent exact-table audit",
+      "observed_distribution": "106/106 optimal on common decision opportunities; 128 total positions",
+      "overlap": "HARD/MASTER CPU deliberately identical: 128/128 board and RNG decisions match; starts differ",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 21,
+      "name": "NIM",
+      "difficulty": "MASTER",
+      "mechanism": "Verified forced-win tactical starts; CPU identical to HARD",
+      "bank_size": "mode 0: 30; mode 1: 30",
+      "board_size": "mode 0: 1x4; mode 1: 1x4",
+      "generator_params": "Full enumerated mode-specific bank; human can force a win",
+      "AI_policy": "same exact policy as HARD",
+      "rating_metric": "Optimal decisions only where legal choices differ in outcome; pre-existing independent exact-table audit",
+      "observed_distribution": "106/106 optimal on common decision opportunities; 128 total positions",
+      "overlap": "HARD/MASTER CPU deliberately identical: 128/128 board and RNG decisions match; starts differ",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 22,
+      "name": "WYTHOFF",
+      "difficulty": "EASY",
+      "mechanism": "CPU policy and initial position",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 1x3; mode 1: 1x3",
+      "generator_params": "piles 1..10",
+      "AI_policy": "random legal move",
+      "rating_metric": "Optimal decisions only where legal choices differ in outcome; pre-existing independent exact-table audit",
+      "observed_distribution": "9/111 optimal on common decision opportunities; 128 total positions",
+      "overlap": "Random branch may choose an optimal move; 75% branch rate is not 75% success rate",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 22,
+      "name": "WYTHOFF",
+      "difficulty": "NORMAL",
+      "mechanism": "CPU policy and initial position",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 1x3; mode 1: 1x3",
+      "generator_params": "piles 1..24",
+      "AI_policy": "75% exact-policy branch; 25% random",
+      "rating_metric": "Optimal decisions only where legal choices differ in outcome; pre-existing independent exact-table audit",
+      "observed_distribution": "87/111 optimal on common decision opportunities; 128 total positions",
+      "overlap": "Random branch may choose an optimal move; 75% branch rate is not 75% success rate",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 22,
+      "name": "WYTHOFF",
+      "difficulty": "HARD",
+      "mechanism": "CPU policy and initial position",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 1x3; mode 1: 1x3",
+      "generator_params": "piles 1..40",
+      "AI_policy": "exact outcome-optimal policy",
+      "rating_metric": "Optimal decisions only where legal choices differ in outcome; pre-existing independent exact-table audit",
+      "observed_distribution": "111/111 optimal on common decision opportunities; 128 total positions",
+      "overlap": "HARD/MASTER CPU deliberately identical: 128/128 board and RNG decisions match; starts differ",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 22,
+      "name": "WYTHOFF",
+      "difficulty": "MASTER",
+      "mechanism": "Verified forced-win tactical starts; CPU identical to HARD",
+      "bank_size": "mode 0: 30; mode 1: 12",
+      "board_size": "mode 0: 1x3; mode 1: 1x3",
+      "generator_params": "Full enumerated mode-specific bank; human can force a win",
+      "AI_policy": "same exact policy as HARD",
+      "rating_metric": "Optimal decisions only where legal choices differ in outcome; pre-existing independent exact-table audit",
+      "observed_distribution": "111/111 optimal on common decision opportunities; 128 total positions",
+      "overlap": "HARD/MASTER CPU deliberately identical: 128/128 board and RNG decisions match; starts differ",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 23,
+      "name": "EUCLID",
+      "difficulty": "EASY",
+      "mechanism": "CPU policy and initial position",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 1x2; mode 1: 1x2",
+      "generator_params": "values 1..12",
+      "AI_policy": "random legal move",
+      "rating_metric": "Optimal decisions only where legal choices differ in outcome; pre-existing independent exact-table audit",
+      "observed_distribution": "22/89 optimal on common decision opportunities; 128 total positions",
+      "overlap": "Random branch may choose an optimal move; 75% branch rate is not 75% success rate",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 23,
+      "name": "EUCLID",
+      "difficulty": "NORMAL",
+      "mechanism": "CPU policy and initial position",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 1x2; mode 1: 1x2",
+      "generator_params": "values 1..40",
+      "AI_policy": "75% exact-policy branch; 25% random",
+      "rating_metric": "Optimal decisions only where legal choices differ in outcome; pre-existing independent exact-table audit",
+      "observed_distribution": "69/89 optimal on common decision opportunities; 128 total positions",
+      "overlap": "Random branch may choose an optimal move; 75% branch rate is not 75% success rate",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 23,
+      "name": "EUCLID",
+      "difficulty": "HARD",
+      "mechanism": "CPU policy and initial position",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 1x2; mode 1: 1x2",
+      "generator_params": "values 1..99",
+      "AI_policy": "exact outcome-optimal policy",
+      "rating_metric": "Optimal decisions only where legal choices differ in outcome; pre-existing independent exact-table audit",
+      "observed_distribution": "89/89 optimal on common decision opportunities; 128 total positions",
+      "overlap": "HARD/MASTER CPU deliberately identical: 128/128 board and RNG decisions match; starts differ",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 23,
+      "name": "EUCLID",
+      "difficulty": "MASTER",
+      "mechanism": "Verified forced-win tactical starts; CPU identical to HARD",
+      "bank_size": "mode 0: 30; mode 1: 30",
+      "board_size": "mode 0: 1x2; mode 1: 1x2",
+      "generator_params": "Full enumerated mode-specific bank; human can force a win",
+      "AI_policy": "same exact policy as HARD",
+      "rating_metric": "Optimal decisions only where legal choices differ in outcome; pre-existing independent exact-table audit",
+      "observed_distribution": "89/89 optimal on common decision opportunities; 128 total positions",
+      "overlap": "HARD/MASTER CPU deliberately identical: 128/128 board and RNG decisions match; starts differ",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 24,
+      "name": "MAKE FIFTEEN",
+      "difficulty": "EASY",
+      "mechanism": "CPU policy and initial position",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 3x3; mode 1: 3x3",
+      "generator_params": "empty 9-card opening",
+      "AI_policy": "random legal move",
+      "rating_metric": "Optimal decisions only where legal choices differ in outcome; pre-existing independent exact-table audit",
+      "observed_distribution": "31/67 optimal on common decision opportunities; 128 total positions",
+      "overlap": "Random branch may choose an optimal move; 75% branch rate is not 75% success rate",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 24,
+      "name": "MAKE FIFTEEN",
+      "difficulty": "NORMAL",
+      "mechanism": "CPU policy and initial position",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 3x3; mode 1: 3x3",
+      "generator_params": "empty 9-card opening",
+      "AI_policy": "75% exact-policy branch; 25% random",
+      "rating_metric": "Optimal decisions only where legal choices differ in outcome; pre-existing independent exact-table audit",
+      "observed_distribution": "53/67 optimal on common decision opportunities; 128 total positions",
+      "overlap": "Random branch may choose an optimal move; 75% branch rate is not 75% success rate",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 24,
+      "name": "MAKE FIFTEEN",
+      "difficulty": "HARD",
+      "mechanism": "CPU policy and initial position",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 3x3; mode 1: 3x3",
+      "generator_params": "empty 9-card opening",
+      "AI_policy": "exact outcome-optimal policy",
+      "rating_metric": "Optimal decisions only where legal choices differ in outcome; pre-existing independent exact-table audit",
+      "observed_distribution": "67/67 optimal on common decision opportunities; 128 total positions",
+      "overlap": "HARD/MASTER CPU deliberately identical: 128/128 board and RNG decisions match; starts differ",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 24,
+      "name": "MAKE FIFTEEN",
+      "difficulty": "MASTER",
+      "mechanism": "Verified forced-win tactical starts; CPU identical to HARD",
+      "bank_size": "mode 0: 30; mode 1: 5",
+      "board_size": "mode 0: 3x3; mode 1: 3x3",
+      "generator_params": "Full enumerated mode-specific bank; human can force a win",
+      "AI_policy": "same exact policy as HARD",
+      "rating_metric": "Optimal decisions only where legal choices differ in outcome; pre-existing independent exact-table audit",
+      "observed_distribution": "67/67 optimal on common decision opportunities; 128 total positions",
+      "overlap": "HARD/MASTER CPU deliberately identical: 128/128 board and RNG decisions match; starts differ",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 25,
+      "name": "RACE TO TARGET",
+      "difficulty": "EASY",
+      "mechanism": "CPU policy and initial position",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 1x1; mode 1: 1x1",
+      "generator_params": "target 21/add 1..3",
+      "AI_policy": "random legal move",
+      "rating_metric": "Optimal decisions only where legal choices differ in outcome; pre-existing independent exact-table audit",
+      "observed_distribution": "27/102 optimal on common decision opportunities; 128 total positions",
+      "overlap": "Random branch may choose an optimal move; 75% branch rate is not 75% success rate",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 25,
+      "name": "RACE TO TARGET",
+      "difficulty": "NORMAL",
+      "mechanism": "CPU policy and initial position",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 1x1; mode 1: 1x1",
+      "generator_params": "target 31/add 1..3",
+      "AI_policy": "75% exact-policy branch; 25% random",
+      "rating_metric": "Optimal decisions only where legal choices differ in outcome; pre-existing independent exact-table audit",
+      "observed_distribution": "84/102 optimal on common decision opportunities; 128 total positions",
+      "overlap": "Random branch may choose an optimal move; 75% branch rate is not 75% success rate",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 25,
+      "name": "RACE TO TARGET",
+      "difficulty": "HARD",
+      "mechanism": "CPU policy and initial position",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 1x1; mode 1: 1x1",
+      "generator_params": "target 23/add 1..4",
+      "AI_policy": "exact outcome-optimal policy",
+      "rating_metric": "Optimal decisions only where legal choices differ in outcome; pre-existing independent exact-table audit",
+      "observed_distribution": "102/102 optimal on common decision opportunities; 128 total positions",
+      "overlap": "HARD/MASTER CPU deliberately identical: 128/128 board and RNG decisions match; starts differ",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 25,
+      "name": "RACE TO TARGET",
+      "difficulty": "MASTER",
+      "mechanism": "Verified forced-win tactical starts; CPU identical to HARD",
+      "bank_size": "mode 0: 30; mode 1: 30",
+      "board_size": "mode 0: 1x1; mode 1: 1x1",
+      "generator_params": "Full enumerated mode-specific bank; human can force a win",
+      "AI_policy": "same exact policy as HARD",
+      "rating_metric": "Optimal decisions only where legal choices differ in outcome; pre-existing independent exact-table audit",
+      "observed_distribution": "102/102 optimal on common decision opportunities; 128 total positions",
+      "overlap": "HARD/MASTER CPU deliberately identical: 128/128 board and RNG decisions match; starts differ",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 26,
+      "name": "2048",
+      "difficulty": "EASY",
+      "mechanism": "TARGET terminal goal; CLASSIC fixed rules",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 4x4; mode 1: 4x4",
+      "generator_params": "TARGET=512; CLASSIC keeps playing after 2048",
+      "AI_policy": "None",
+      "rating_metric": "Exact terminal goal, not altered spawn rate",
+      "observed_distribution": "Identical initial board/RNG at equal seed across levels; 90% 2 / 10% 4 spawn rule unchanged",
+      "overlap": "CLASSIC level is an intentional no-op; app hides level and starts NORMAL; old E/N/H preserved",
+      "meaningfully_distinct": "TARGET YES; CLASSIC FIXED EXCEPTION",
+      "finding": "FIXED EXCEPTION",
+      "fix": "Removed stale rules claim that cumulative records persist"
+    },
+    {
+      "game_id": 26,
+      "name": "2048",
+      "difficulty": "NORMAL",
+      "mechanism": "TARGET terminal goal; CLASSIC fixed rules",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 4x4; mode 1: 4x4",
+      "generator_params": "TARGET=1024; CLASSIC keeps playing after 2048",
+      "AI_policy": "None",
+      "rating_metric": "Exact terminal goal, not altered spawn rate",
+      "observed_distribution": "Identical initial board/RNG at equal seed across levels; 90% 2 / 10% 4 spawn rule unchanged",
+      "overlap": "CLASSIC level is an intentional no-op; app hides level and starts NORMAL; old E/N/H preserved",
+      "meaningfully_distinct": "TARGET YES; CLASSIC FIXED EXCEPTION",
+      "finding": "FIXED EXCEPTION",
+      "fix": "Removed stale rules claim that cumulative records persist"
+    },
+    {
+      "game_id": 26,
+      "name": "2048",
+      "difficulty": "HARD",
+      "mechanism": "TARGET terminal goal; CLASSIC fixed rules",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 4x4; mode 1: 4x4",
+      "generator_params": "TARGET=2048; CLASSIC keeps playing after 2048",
+      "AI_policy": "None",
+      "rating_metric": "Exact terminal goal, not altered spawn rate",
+      "observed_distribution": "Identical initial board/RNG at equal seed across levels; 90% 2 / 10% 4 spawn rule unchanged",
+      "overlap": "CLASSIC level is an intentional no-op; app hides level and starts NORMAL; old E/N/H preserved",
+      "meaningfully_distinct": "TARGET YES; CLASSIC FIXED EXCEPTION",
+      "finding": "FIXED EXCEPTION",
+      "fix": "Removed stale rules claim that cumulative records persist"
+    },
+    {
+      "game_id": 26,
+      "name": "2048",
+      "difficulty": "MASTER",
+      "mechanism": "TARGET terminal goal; CLASSIC fixed rules",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 4x4; mode 1: 4x4",
+      "generator_params": "TARGET=8192; CLASSIC keeps playing after 2048",
+      "AI_policy": "None",
+      "rating_metric": "Exact terminal goal, not altered spawn rate",
+      "observed_distribution": "Identical initial board/RNG at equal seed across levels; 90% 2 / 10% 4 spawn rule unchanged",
+      "overlap": "CLASSIC level is an intentional no-op; app hides level and starts NORMAL; old E/N/H preserved",
+      "meaningfully_distinct": "TARGET YES; CLASSIC FIXED EXCEPTION",
+      "finding": "FIXED EXCEPTION",
+      "fix": "Removed stale rules claim that cumulative records persist"
+    },
+    {
+      "game_id": 27,
+      "name": "SLIDING",
+      "difficulty": "EASY",
+      "mechanism": "Solvable legal shuffle and Manhattan lower-bound acceptance",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 3x3; mode 1: 4x4",
+      "generator_params": "80 shuffle steps, Manhattan threshold 6, <=16 attempts",
+      "AI_policy": "None",
+      "rating_metric": "3x3 exhaustive BFS distance; 4x4 Manhattan lower bound only",
+      "observed_distribution": "[{\"exact_shortest_moves\": {\"distinct\": 10, \"max\": 28, \"mean\": 21.9219, \"median\": 22.0, \"min\": 10}, \"manhattan_lower_bound\": {\"distinct\": 8, \"max\": 20, \"mean\": 14.0938, \"median\": 14.0, \"min\": 6}, \"mode\": 0}, {\"manhattan_lower_bound\": {\"distinct\": 12, \"max\": 40, \"mean\": 28.3125, \"median\": 28.0, \"min\": 18}, \"mode\": 1}]",
+      "overlap": "E/N/H shortest-distance ranges overlap strongly; shuffle count is not difficulty",
+      "meaningfully_distinct": "Mechanism YES; E/N separation REVIEW REQUIRED",
+      "finding": "REVIEW REQUIRED",
+      "fix": "No calibration change; retain seeds and label evidence limitations"
+    },
+    {
+      "game_id": 27,
+      "name": "SLIDING",
+      "difficulty": "NORMAL",
+      "mechanism": "Solvable legal shuffle and Manhattan lower-bound acceptance",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 3x3; mode 1: 4x4",
+      "generator_params": "160 shuffle steps, Manhattan threshold 10, <=16 attempts",
+      "AI_policy": "None",
+      "rating_metric": "3x3 exhaustive BFS distance; 4x4 Manhattan lower bound only",
+      "observed_distribution": "[{\"exact_shortest_moves\": {\"distinct\": 9, \"max\": 28, \"mean\": 22.1875, \"median\": 22.0, \"min\": 12}, \"manhattan_lower_bound\": {\"distinct\": 6, \"max\": 20, \"mean\": 14.375, \"median\": 14.0, \"min\": 10}, \"mode\": 0}, {\"manhattan_lower_bound\": {\"distinct\": 13, \"max\": 46, \"mean\": 34.0938, \"median\": 34.0, \"min\": 20}, \"mode\": 1}]",
+      "overlap": "E/N/H shortest-distance ranges overlap strongly; shuffle count is not difficulty",
+      "meaningfully_distinct": "Mechanism YES; E/N separation REVIEW REQUIRED",
+      "finding": "REVIEW REQUIRED",
+      "fix": "No calibration change; retain seeds and label evidence limitations"
+    },
+    {
+      "game_id": 27,
+      "name": "SLIDING",
+      "difficulty": "HARD",
+      "mechanism": "Solvable legal shuffle and Manhattan lower-bound acceptance",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 3x3; mode 1: 4x4",
+      "generator_params": "240 shuffle steps, Manhattan threshold 14, <=16 attempts",
+      "AI_policy": "None",
+      "rating_metric": "3x3 exhaustive BFS distance; 4x4 Manhattan lower bound only",
+      "observed_distribution": "[{\"exact_shortest_moves\": {\"distinct\": 8, \"max\": 28, \"mean\": 23.25, \"median\": 24.0, \"min\": 14}, \"manhattan_lower_bound\": {\"distinct\": 4, \"max\": 20, \"mean\": 15.8438, \"median\": 16.0, \"min\": 14}, \"mode\": 0}, {\"manhattan_lower_bound\": {\"distinct\": 14, \"max\": 50, \"mean\": 36.25, \"median\": 36.0, \"min\": 24}, \"mode\": 1}]",
+      "overlap": "E/N/H shortest-distance ranges overlap strongly; shuffle count is not difficulty",
+      "meaningfully_distinct": "Mechanism YES; E/N separation REVIEW REQUIRED",
+      "finding": "REVIEW REQUIRED",
+      "fix": "No calibration change; retain seeds and label evidence limitations"
+    },
+    {
+      "game_id": 27,
+      "name": "SLIDING",
+      "difficulty": "MASTER",
+      "mechanism": "Certified long starts",
+      "bank_size": "mode 0: 2; mode 1: 30",
+      "board_size": "mode 0: 3x3; mode 1: 4x4",
+      "generator_params": "3x3 exact 31; 4x4 400-step witness and lower bound >=48",
+      "AI_policy": "None",
+      "rating_metric": "3x3 exhaustive BFS distance; 4x4 Manhattan lower bound only",
+      "observed_distribution": "[{\"exact_shortest_moves\": {\"distinct\": 1, \"max\": 31, \"mean\": 31, \"median\": 31.0, \"min\": 31}, \"manhattan_lower_bound\": {\"distinct\": 1, \"max\": 21, \"mean\": 21, \"median\": 21.0, \"min\": 21}, \"mode\": 0}, {\"manhattan_lower_bound\": {\"distinct\": 3, \"max\": 52, \"mean\": 49.0667, \"median\": 48.0, \"min\": 48}, \"mode\": 1}]",
+      "overlap": "E/N/H shortest-distance ranges overlap strongly; shuffle count is not difficulty",
+      "meaningfully_distinct": "Mechanism YES; E/N separation REVIEW REQUIRED",
+      "finding": "PASS",
+      "fix": "No calibration change; retain seeds and label evidence limitations"
+    },
+    {
+      "game_id": 28,
+      "name": "LIGHTS OUT",
+      "difficulty": "EASY",
+      "mechanism": "4x4 certified minimum presses; 5x5 constructive pressing",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 4x4; mode 1: 5x5",
+      "generator_params": "revision 3 4x4 minimum 2; 5x5 4 generating presses",
+      "AI_policy": "No CPU; GF(2) hint does not promise fewest presses",
+      "rating_metric": "Independent exhaustive first-row row-chasing minimum",
+      "observed_distribution": "[{\"exact_minimum_presses\": {\"distinct\": 1, \"max\": 2, \"mean\": 2, \"median\": 2.0, \"min\": 2}, \"mode\": 0}, {\"exact_minimum_presses\": {\"distinct\": 1, \"max\": 4, \"mean\": 4, \"median\": 4.0, \"min\": 4}, \"mode\": 1}]",
+      "overlap": "4x4 new E/N/H/M 2/4/5/6 do not overlap; 5x5 H/M ranges overlap",
+      "meaningfully_distinct": "4x4 YES; 5x5 distribution YES, human ranking uncalibrated",
+      "finding": "FIXED",
+      "fix": "Revision 3 fixes 4x4 inverse grading; revision <=2 preserves initial boards and RNG; <=16 candidates plus verified fallback"
+    },
+    {
+      "game_id": 28,
+      "name": "LIGHTS OUT",
+      "difficulty": "NORMAL",
+      "mechanism": "4x4 certified minimum presses; 5x5 constructive pressing",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 4x4; mode 1: 5x5",
+      "generator_params": "revision 3 4x4 minimum 4; 5x5 8 generating presses",
+      "AI_policy": "No CPU; GF(2) hint does not promise fewest presses",
+      "rating_metric": "Independent exhaustive first-row row-chasing minimum",
+      "observed_distribution": "[{\"exact_minimum_presses\": {\"distinct\": 1, \"max\": 4, \"mean\": 4, \"median\": 4.0, \"min\": 4}, \"mode\": 0}, {\"exact_minimum_presses\": {\"distinct\": 2, \"max\": 8, \"mean\": 7.9844, \"median\": 8.0, \"min\": 6}, \"mode\": 1}]",
+      "overlap": "4x4 new E/N/H/M 2/4/5/6 do not overlap; 5x5 H/M ranges overlap",
+      "meaningfully_distinct": "4x4 YES; 5x5 distribution YES, human ranking uncalibrated",
+      "finding": "FIXED",
+      "fix": "Revision 3 fixes 4x4 inverse grading; revision <=2 preserves initial boards and RNG; <=16 candidates plus verified fallback"
+    },
+    {
+      "game_id": 28,
+      "name": "LIGHTS OUT",
+      "difficulty": "HARD",
+      "mechanism": "4x4 certified minimum presses; 5x5 constructive pressing",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 4x4; mode 1: 5x5",
+      "generator_params": "revision 3 4x4 minimum 5; 5x5 18 generating presses",
+      "AI_policy": "No CPU; GF(2) hint does not promise fewest presses",
+      "rating_metric": "Independent exhaustive first-row row-chasing minimum",
+      "observed_distribution": "[{\"exact_minimum_presses\": {\"distinct\": 1, \"max\": 5, \"mean\": 5, \"median\": 5.0, \"min\": 5}, \"mode\": 0}, {\"exact_minimum_presses\": {\"distinct\": 5, \"max\": 14, \"mean\": 10.0781, \"median\": 10.0, \"min\": 6}, \"mode\": 1}]",
+      "overlap": "4x4 new E/N/H/M 2/4/5/6 do not overlap; 5x5 H/M ranges overlap",
+      "meaningfully_distinct": "4x4 YES; 5x5 distribution YES, human ranking uncalibrated",
+      "finding": "FIXED",
+      "fix": "Revision 3 fixes 4x4 inverse grading; revision <=2 preserves initial boards and RNG; <=16 candidates plus verified fallback"
+    },
+    {
+      "game_id": 28,
+      "name": "LIGHTS OUT",
+      "difficulty": "MASTER",
+      "mechanism": "Certified minimum-press banks",
+      "bank_size": "mode 0: 30; mode 1: 30",
+      "board_size": "mode 0: 4x4; mode 1: 5x5",
+      "generator_params": "4x4 exact 6; 5x5 exact 12..14",
+      "AI_policy": "No CPU; GF(2) hint does not promise fewest presses",
+      "rating_metric": "Independent exhaustive first-row row-chasing minimum",
+      "observed_distribution": "[{\"exact_minimum_presses\": {\"distinct\": 1, \"max\": 6, \"mean\": 6, \"median\": 6.0, \"min\": 6}, \"mode\": 0}, {\"exact_minimum_presses\": {\"distinct\": 3, \"max\": 14, \"mean\": 12.2667, \"median\": 12.0, \"min\": 12}, \"mode\": 1}]",
+      "overlap": "4x4 new E/N/H/M 2/4/5/6 do not overlap; 5x5 H/M ranges overlap",
+      "meaningfully_distinct": "4x4 YES; 5x5 distribution YES, human ranking uncalibrated",
+      "finding": "PASS",
+      "fix": "Revision 3 fixes 4x4 inverse grading; revision <=2 preserves initial boards and RNG; <=16 candidates plus verified fallback"
+    },
+    {
+      "game_id": 37,
+      "name": "REVERSI",
+      "difficulty": "EASY",
+      "mechanism": "Bounded CPU search depth/node budget; common opening",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 8x8; mode 1: 8x8",
+      "generator_params": "Standard 8x8 opening for every level",
+      "AI_policy": "random legal",
+      "rating_metric": "Actual visited nodes, completed depth and chosen-move changes on common reachable positions",
+      "observed_distribution": "{\"completed_depth\": {\"distinct\": 1, \"max\": 0, \"mean\": 0, \"median\": 0.0, \"min\": 0}, \"different_choice_from_previous_level\": null, \"level\": 0, \"nodes\": {\"distinct\": 1, \"max\": 0, \"mean\": 0, \"median\": 0.0, \"min\": 0}, \"positions\": 64}",
+      "overlap": "Some positions choose the same move; higher budgets are not proof of universally stronger play",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None; no full-game exact or human-skill claim"
+    },
+    {
+      "game_id": 37,
+      "name": "REVERSI",
+      "difficulty": "NORMAL",
+      "mechanism": "Bounded CPU search depth/node budget; common opening",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 8x8; mode 1: 8x8",
+      "generator_params": "Standard 8x8 opening for every level",
+      "AI_policy": "1 ply / 256 nodes",
+      "rating_metric": "Actual visited nodes, completed depth and chosen-move changes on common reachable positions",
+      "observed_distribution": "{\"completed_depth\": {\"distinct\": 1, \"max\": 1, \"mean\": 1, \"median\": 1.0, \"min\": 1}, \"different_choice_from_previous_level\": 54, \"level\": 1, \"nodes\": {\"distinct\": 16, \"max\": 16, \"mean\": 7.5625, \"median\": 7.0, \"min\": 1}, \"positions\": 64}",
+      "overlap": "Some positions choose the same move; higher budgets are not proof of universally stronger play",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None; no full-game exact or human-skill claim"
+    },
+    {
+      "game_id": 37,
+      "name": "REVERSI",
+      "difficulty": "HARD",
+      "mechanism": "Bounded CPU search depth/node budget; common opening",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 8x8; mode 1: 8x8",
+      "generator_params": "Standard 8x8 opening for every level",
+      "AI_policy": "up to 3 plies / 1500 nodes",
+      "rating_metric": "Actual visited nodes, completed depth and chosen-move changes on common reachable positions",
+      "observed_distribution": "{\"completed_depth\": {\"distinct\": 2, \"max\": 3, \"mean\": 2.9531, \"median\": 3.0, \"min\": 2}, \"different_choice_from_previous_level\": 29, \"level\": 2, \"nodes\": {\"distinct\": 59, \"max\": 1500, \"mean\": 544.4062, \"median\": 456.5, \"min\": 5}, \"positions\": 64}",
+      "overlap": "Some positions choose the same move; higher budgets are not proof of universally stronger play",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None; no full-game exact or human-skill claim"
+    },
+    {
+      "game_id": 37,
+      "name": "REVERSI",
+      "difficulty": "MASTER",
+      "mechanism": "Bounded CPU search depth/node budget; common opening",
+      "bank_size": "mode 0: 0; mode 1: 0",
+      "board_size": "mode 0: 8x8; mode 1: 8x8",
+      "generator_params": "Standard 8x8 opening for every level",
+      "AI_policy": "up to 5 plies / 6000 nodes",
+      "rating_metric": "Actual visited nodes, completed depth and chosen-move changes on common reachable positions",
+      "observed_distribution": "{\"completed_depth\": {\"distinct\": 3, \"max\": 5, \"mean\": 4.0469, \"median\": 4.0, \"min\": 3}, \"different_choice_from_previous_level\": 22, \"level\": 3, \"nodes\": {\"distinct\": 20, \"max\": 6000, \"mean\": 4848.9062, \"median\": 6000.0, \"min\": 9}, \"positions\": 64}",
+      "overlap": "Some positions choose the same move; higher budgets are not proof of universally stronger play",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None; no full-game exact or human-skill claim"
+    },
+    {
+      "game_id": 38,
+      "name": "NET",
+      "difficulty": "EASY",
+      "mechanism": "Larger seeded tree-rotation puzzle",
+      "bank_size": "mode 0: 0",
+      "board_size": "mode 0: 3x3",
+      "generator_params": "9 cells; nonwrapping tree plus rotations",
+      "AI_policy": "None",
+      "rating_metric": "Cells, leaves and degree>=3 junctions; no human rating or uniqueness guarantee",
+      "observed_distribution": "{\"cells\": 9, \"junctions_degree_at_least_3\": {\"distinct\": 3, \"max\": 3, \"mean\": 1.9688, \"median\": 2.0, \"min\": 1}, \"leaves\": {\"distinct\": 4, \"max\": 6, \"mean\": 4.3281, \"median\": 4.0, \"min\": 3}}",
+      "overlap": "Same construction algorithm; larger area is a structural difference, not calibrated human difficulty",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 38,
+      "name": "NET",
+      "difficulty": "NORMAL",
+      "mechanism": "Larger seeded tree-rotation puzzle",
+      "bank_size": "mode 0: 0",
+      "board_size": "mode 0: 4x4",
+      "generator_params": "16 cells; nonwrapping tree plus rotations",
+      "AI_policy": "None",
+      "rating_metric": "Cells, leaves and degree>=3 junctions; no human rating or uniqueness guarantee",
+      "observed_distribution": "{\"cells\": 16, \"junctions_degree_at_least_3\": {\"distinct\": 5, \"max\": 6, \"mean\": 3.8281, \"median\": 4.0, \"min\": 2}, \"leaves\": {\"distinct\": 6, \"max\": 9, \"mean\": 6.5469, \"median\": 6.5, \"min\": 4}}",
+      "overlap": "Same construction algorithm; larger area is a structural difference, not calibrated human difficulty",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 38,
+      "name": "NET",
+      "difficulty": "HARD",
+      "mechanism": "Larger seeded tree-rotation puzzle",
+      "bank_size": "mode 0: 0",
+      "board_size": "mode 0: 5x5",
+      "generator_params": "25 cells; nonwrapping tree plus rotations",
+      "AI_policy": "None",
+      "rating_metric": "Cells, leaves and degree>=3 junctions; no human rating or uniqueness guarantee",
+      "observed_distribution": "{\"cells\": 25, \"junctions_degree_at_least_3\": {\"distinct\": 7, \"max\": 9, \"mean\": 6.1406, \"median\": 6.0, \"min\": 3}, \"leaves\": {\"distinct\": 7, \"max\": 12, \"mean\": 9.5938, \"median\": 10.0, \"min\": 6}}",
+      "overlap": "Same construction algorithm; larger area is a structural difference, not calibrated human difficulty",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    },
+    {
+      "game_id": 38,
+      "name": "NET",
+      "difficulty": "MASTER",
+      "mechanism": "Larger seeded tree-rotation puzzle",
+      "bank_size": "mode 0: 0",
+      "board_size": "mode 0: 6x6",
+      "generator_params": "36 cells; nonwrapping tree plus rotations",
+      "AI_policy": "None",
+      "rating_metric": "Cells, leaves and degree>=3 junctions; no human rating or uniqueness guarantee",
+      "observed_distribution": "{\"cells\": 36, \"junctions_degree_at_least_3\": {\"distinct\": 9, \"max\": 14, \"mean\": 9.0391, \"median\": 9.0, \"min\": 6}, \"leaves\": {\"distinct\": 9, \"max\": 17, \"mean\": 12.9453, \"median\": 13.0, \"min\": 8}}",
+      "overlap": "Same construction algorithm; larger area is a structural difference, not calibrated human difficulty",
+      "meaningfully_distinct": "YES",
+      "finding": "PASS",
+      "fix": "None"
+    }
+  ],
+  "source_sha256": {
+    "src/games/strategyquick_strategy.c": "5811d2d6cd4adb3edd4af9db0e5e91e62b0bd8c9a36fb2fff419ee2f01053a91",
+    "src/games/strategyquick_quick.c": "2381432f66f064d72e6398a204a6f21f1c8a112a12d3f5648a98d0bf79f525a2",
+    "src/games/strategyquick_extra.c": "9e760ae278bd33172ed8e22078b2ff79564985224b413444aee3f8296b6fb374",
+    "src/games/strategyquick_registry.c": "3ecba96f5b125a05f81d40a91573e0a4b7c0170b42d8872e0ca0dc664ccd7202",
+    "src/games/boards.c": "4c913d3f050c83ac4b48a92be2626eeb4b27b1f30cf936ce25e44d161c730dd8",
+    "src/games/boards_pack.c": "386d052fd0bab5ac68f40c25748159ac1f02405af62c214d203e349f5a041a72",
+    "tests/test_strategyquick_difficulty.c": "f11af3301e8c2a1cea2c4b18c2f08bb7ffbb5513b0d35b12f84c7e2c2291d2c3",
+    "tools/generate/strategyquick_difficulty.py": "943333e7d9347884321b667246ff80ee21fb9c79df4e338a51d0258b54448342"
+  }
+}

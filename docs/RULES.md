@@ -235,6 +235,8 @@ Longer carries and more letters are involved;
 this is a structural level, not a human rating.
 30 original, unique-solution puzzles per level.
 Arrows select a letter. Digits set it.
+Selected letters are boxed in the sum.
+Blank mappings show only their letter.
 DEL clears it. NEXT selects the next blank.
 EXE or F6 checks all public arithmetic rules.
 Any valid assignment is accepted. UNDO works
@@ -319,6 +321,7 @@ All islands must form one connected network.
 Arrows select a visible neighboring island.
 2/4/6/8 cycle down/left/right/up bridges.
 EXE cycles last direction; DEL clears it.
+Blue dashed edge is empty; red X is a crossing.
 F4 checks. F3 REVEAL marks ASSISTED.
 ```
 
@@ -371,8 +374,9 @@ Modes: CLASSIC.
 Use every integer 1 to N*N exactly once.
 Rows, columns and both main diagonals must
 have the displayed common sum.
-MASTER PAN: all wrapped diagonals also sum 34.
-PARTIAL has fixed clues. FREE has none.
+PARTIAL MASTER: wrapped diagonals also sum 34.
+FREE E/N/H/M: blank 3/4/5/6 square, normal sums.
+Older FREE saves keep their original rules.
 Any rule-valid solution is accepted.
 Type 1-2 digits, EXE enters; F4 checks.
 DEL edits draft or clears. Arrows select.
@@ -399,7 +403,7 @@ Modes: CLASSIC.
 Fill cells to match all row/column run clues.
 Runs appear in order, with an empty gap.
 A zero clue means the whole line is empty.
-Mark every cell filled or empty to finish.
+Fill exactly the required cells. X is optional.
 Arrows move. 1 fills; 0 marks an empty cross.
 EXE cycles unknown, filled, empty. DEL clears.
 F4 checks every visible run clue.
@@ -539,7 +543,7 @@ Blocked moves consume no random numbers.
 CLASSIC: reach 2048 and continue playing.
 TARGET goals E/N/H/M:512/1024/2048/8192.
 TARGET ends when its goal tile is reached.
-CLASSIC/TARGET have separate records.
+CLASSIC uses a fixed level.
 No legal moves means game over.
 UNDO restores tiles, score, and RNG;
 it marks the run as assisted practice.
@@ -576,7 +580,10 @@ Turn every light off. Arrows select.
 EXE or 5 toggles the selected light and
 its orthogonal neighbours (no wrapping).
 Modes: 4x4 or 5x5. Both start solvable.
-E/N/H change the generating moves.
+New 4x4 E/N/H minima: 2/4/5 presses.
+Older 4x4 starts keep their shuffle rules.
+5x5 E/N/H use 4/8/18 generating presses;
+these are not minimum solution counts.
 MASTER: certified minimum-press starts.
 4x4 needs 6; 5x5 needs 12..14 presses.
 Every valid solution is accepted.
@@ -639,9 +646,10 @@ The whole network must form one tree:
 all tiles connected, with no closed loops.
 Arrows select. EXE/5 turns clockwise;
 DEL turns anticlockwise. F4 locks a tile.
-Locked tiles cannot be rotated until freed.
+Locks block EXE/5/DEL until unlocked.
 F3 REVEAL sets one original orientation
 and locks it, marking assisted practice.
+REVEAL can reset a locked tile too.
 Every valid network wins, not just ours.
 E/N/H/M use 3/4/5/6 by 3/4/5/6 grids.
 Seeds construct a tree then rotate tiles.

@@ -1,0 +1,6 @@
+{
+  "status": "NOT VERIFIED",
+  "reason": "ASan runtime timed out after 15 seconds without test output",
+  "stdout_bytes": 0,
+  "stderr_bytes": 0
+}

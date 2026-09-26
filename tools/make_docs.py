@@ -7,7 +7,7 @@ catalog=json.loads(subprocess.check_output([ROOT/'build-host/export_catalog'],te
 games=catalog['games'];assert sorted(g['id'] for g in games)==list(range(1,29))+list(range(31,39))
 rows=['# Game catalog and acceptance matrix','',
       'Stable IDs1–28,31–38; legacy IDs29/30 are archived, never reused. All 36 have an engine, playable UI,',
-      'verified content, per-game save/resume, host verification and a linked SH',
+      'verified content, one shared unfinished-run save/resume, host verification and a linked SH',
       'target. Every row remains **HARDWARE PENDING**. Counts below never include',
       'difficulty, size, or CPU-turn variants as extra games.','',
       '| ID | Game | Modes | CPU | Undo | Hint / reveal | Status |',
@@ -39,14 +39,16 @@ for g in games:
     level_text='CLASSIC fixed NORMAL; TARGET E/N/H/M' if g['id']==26 else 'E/N/H/M/Hell' if g['has_hell'] else 'E/N/H/M'
     bank_text='<br>'.join(f"{name}: {'/'.join(map(str,counts))}" for name,counts in zip(g['modes'],g['bank_counts_by_mode']))
     capabilities.append(f"| {g['id']:02} | {g['name']} | {level_text} | {' / '.join(g['modes'])} | {policies[g['generation_policy']]} | {bank_text} |")
-rows += ['', 'All rows passed a real app-key/renderer workflow through terminal result,',
-         f"checkpoint and cold-load result. Storage separately covers {sum(len(g['modes'])*g['difficulties'] for g in games)} visible",
+rows += ['', 'The retained 30 games passed real app-key/renderer workflows through terminal',
+         'result, frozen result view and cold-load **no-resume**; the six new games have',
+         'focused family audits for the same transitions. Storage separately covers 198 visible',
          'game × mode × difficulty configurations (including the identical classic',
          '2048 difficulty slots for compatibility). Engine family suites exercise',
          'additional seeds, illegal inputs, alternate answers and failure outcomes.',
          'The CSV [status matrix](acceptance-matrix.csv) records each stage.','',
          'Assistance includes undo, hint/reveal/answer and same-seed INIT. No hidden',
-         'guess undo is offered. Only five recent games retain resumable saves.',
+         'guess undo is offered. Only the app\'s last unfinished run is resumable.',
+         'See [RESUME_POLICY.md](RESUME_POLICY.md) and [DIFFICULTY_AUDIT.md](DIFFICULTY_AUDIT.md).',
          'The earlier 30-game content quantities and transformation caveats are in',
          '[CONTENT_INVENTORY.md](CONTENT_INVENTORY.md).']
 (ROOT/'docs/GAME_CATALOG.md').write_text('\n'.join(rows)+'\n')

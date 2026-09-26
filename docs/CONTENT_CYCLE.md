@@ -25,6 +25,12 @@ three more seeds; a small content space may still repeat. This is a bounded
 best-effort policy, not permanent puzzle tracking. Make Target keeps the chosen
 1–1000 target when NEW follows a completed run.
 
+MAGIC SQUARE FREE is rules-only on new revision-3 runs, so it has no bank
+ordinal and starts with a blank 3×3/4×4/5×5/6×6 board by selected difficulty.
+Revision-1/2 FREE records retain their old bank identity and order on RESUME
+and INIT. New 4×4 LIGHTS OUT revision-3 starts use exact minimum-press grades
+2/4/5/6; revision-2 saved starts replay the original generator unchanged.
+
 Host tests cover coprime permutations at N=1, 2 and 5, a complete 30-item
 application cycle, save/reload in the middle of that cycle and the exhaustion
 boundary. Physical content perception and no-repeat UX remain

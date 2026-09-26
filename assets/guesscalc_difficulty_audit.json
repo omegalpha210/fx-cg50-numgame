@@ -1,0 +1,2324 @@
+{
+  "audit": "beta.3 GUESS/CALC structural difficulty",
+  "current_bank_records": 1110,
+  "external_puzzle_records": 0,
+  "findings": [
+    "No level selector is a no-op. Structural difference does not establish monotonic human difficulty.",
+    "Baseball MASTER increases length but relaxes guesses 10->16; Equation MASTER 8->12. Intentional playability tradeoff, review required.",
+    "Countdown E/N/H changes large-card composition, not minimum solution length; HARD puzzle60 target100 is immediately solved by its single 100 card.",
+    "Make Target E/N both use four cards. Templates differ, but no level guarantees every solution needs the template operators or fractions.",
+    "Prime Factor targets overlap between levels and MASTER has at most 90 possible distinct targets, all in the HARD mathematical shape domain; no no-repeat promise exists for runtime supply.",
+    "Cryptarithm length increases; carry counts, letter counts and solver nodes overlap. No human-hardness calibration.",
+    "Sequence E/N/H family sets overlap; visible six-term problem keys do not.",
+    "Black Box accepts ray-equivalent atom layouts; distinct generated layouts are not a unique-hidden-solution claim."
+  ],
+  "legacy_only_target_records": 240,
+  "method": {
+    "bank_selection": "actual C init, 30-ordinal complete cycle for each mode and level",
+    "canonicalization": {
+      "10": "numeric target",
+      "2": "exact equation string; arithmetic-equivalent strings intentionally distinct",
+      "3": "positions/alphabet plus unordered exact-match clues; no symbol/position relabel normalization",
+      "33": "exact atom grid; separate D4 and ray-vector metrics",
+      "34": "letter relabeling and addend commutation",
+      "4": "numeric domain/range/nonmodular clues plus unordered modulus/remainder pairs",
+      "5": "six visible terms; no affine scaling/translation normalization",
+      "6": "target and sorted card multiset",
+      "7": "target and sorted card multiset",
+      "8": "ordered numbers and target",
+      "9": "public constraints normalized under transpose only"
+    },
+    "human_rating": "NOT MEASURED; solver nodes and structural parameters are not human ratings",
+    "runtime": "host C11 strict warnings + UBSan; no device timing or ASan claim",
+    "runtime_seeds": "1..256; Target additionally all 1..1000 targets at seed 0x6e554d47",
+    "sample_coverage": "bounded consecutive-seed sample, not unbiased sampling or exhaustion of the 32-bit seed domain",
+    "unique_meaning": "distinct public problem, NOT solution count; bank solution uniqueness is checked by separate verifiers"
+  },
+  "rows": [
+    {
+      "bank_count": 0,
+      "bank_count_per_mode": 0,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 256,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 1,
+      "initial_state_validations": 512,
+      "level": "EASY",
+      "level_index": 0,
+      "level_no_op": false,
+      "mechanism": "4 digits; repeats and leading zero allowed; 16 guesses",
+      "metric": {
+        "code_domain": 10000,
+        "digits": 4,
+        "guess_limit": 16,
+        "samples_with_repeated_digit": 148
+      },
+      "modes": 1,
+      "name": "NUMBER BASEBALL",
+      "overlap_scope": "bounded runtime sample only, not full generator domain",
+      "overlap_with_other_levels": {
+        "HARD": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 256,
+      "supply": "RUNTIME",
+      "unique_bank_count": null,
+      "unique_sample_count": 251
+    },
+    {
+      "bank_count": 0,
+      "bank_count_per_mode": 0,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 256,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 1,
+      "initial_state_validations": 512,
+      "level": "NORMAL",
+      "level_index": 1,
+      "level_no_op": false,
+      "mechanism": "5 digits; 12 guesses",
+      "metric": {
+        "code_domain": 100000,
+        "digits": 5,
+        "guess_limit": 12,
+        "samples_with_repeated_digit": 214
+      },
+      "modes": 1,
+      "name": "NUMBER BASEBALL",
+      "overlap_scope": "bounded runtime sample only, not full generator domain",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "MASTER": 0
+      },
+      "sampled_initializations": 256,
+      "supply": "RUNTIME",
+      "unique_bank_count": null,
+      "unique_sample_count": 254
+    },
+    {
+      "bank_count": 0,
+      "bank_count_per_mode": 0,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 256,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 1,
+      "initial_state_validations": 512,
+      "level": "HARD",
+      "level_index": 2,
+      "level_no_op": false,
+      "mechanism": "6 digits; 10 guesses",
+      "metric": {
+        "code_domain": 1000000,
+        "digits": 6,
+        "guess_limit": 10,
+        "samples_with_repeated_digit": 238
+      },
+      "modes": 1,
+      "name": "NUMBER BASEBALL",
+      "overlap_scope": "bounded runtime sample only, not full generator domain",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 256,
+      "supply": "RUNTIME",
+      "unique_bank_count": null,
+      "unique_sample_count": 256
+    },
+    {
+      "bank_count": 0,
+      "bank_count_per_mode": 0,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 256,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only. REVIEW REQUIRED: longer secret but more permitted guesses than HARD.",
+      "hell_supported": false,
+      "id": 1,
+      "initial_state_validations": 512,
+      "level": "MASTER",
+      "level_index": 3,
+      "level_no_op": false,
+      "mechanism": "7 digits; 16 guesses",
+      "metric": {
+        "code_domain": 10000000,
+        "digits": 7,
+        "guess_limit": 16,
+        "samples_with_repeated_digit": 251
+      },
+      "modes": 1,
+      "name": "NUMBER BASEBALL",
+      "overlap_scope": "bounded runtime sample only, not full generator domain",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 256,
+      "supply": "RUNTIME",
+      "unique_bank_count": null,
+      "unique_sample_count": 256
+    },
+    {
+      "bank_count": 90,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 90,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 2,
+      "initial_state_validations": 180,
+      "level": "EASY",
+      "level_index": 0,
+      "level_no_op": false,
+      "mechanism": "one + or -; mode lengths 7/6/8; 12 guesses",
+      "metric": {
+        "by_mode": {
+          "0": {
+            "count": 30,
+            "division_puzzles": 0,
+            "length": {
+              "max": 7,
+              "median": 7.0,
+              "min": 7
+            },
+            "multiplication_puzzles": 0,
+            "operator_count": {
+              "max": 1,
+              "median": 1.0,
+              "min": 1
+            }
+          },
+          "1": {
+            "count": 30,
+            "division_puzzles": 0,
+            "length": {
+              "max": 6,
+              "median": 6.0,
+              "min": 6
+            },
+            "multiplication_puzzles": 0,
+            "operator_count": {
+              "max": 1,
+              "median": 1.0,
+              "min": 1
+            }
+          },
+          "2": {
+            "count": 30,
+            "division_puzzles": 0,
+            "length": {
+              "max": 8,
+              "median": 8.0,
+              "min": 8
+            },
+            "multiplication_puzzles": 0,
+            "operator_count": {
+              "max": 1,
+              "median": 1.0,
+              "min": 1
+            }
+          }
+        },
+        "guess_limit": 12
+      },
+      "modes": 3,
+      "name": "EQUATION GUESS",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "HARD": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 90,
+      "supply": "BANK",
+      "unique_bank_count": 90,
+      "unique_sample_count": 90
+    },
+    {
+      "bank_count": 90,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 90,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 2,
+      "initial_state_validations": 180,
+      "level": "NORMAL",
+      "level_index": 1,
+      "level_no_op": false,
+      "mechanism": "one +, -, or *; mode lengths 7/6/8; 10 guesses",
+      "metric": {
+        "by_mode": {
+          "0": {
+            "count": 30,
+            "division_puzzles": 0,
+            "length": {
+              "max": 7,
+              "median": 7.0,
+              "min": 7
+            },
+            "multiplication_puzzles": 5,
+            "operator_count": {
+              "max": 1,
+              "median": 1.0,
+              "min": 1
+            }
+          },
+          "1": {
+            "count": 30,
+            "division_puzzles": 0,
+            "length": {
+              "max": 6,
+              "median": 6.0,
+              "min": 6
+            },
+            "multiplication_puzzles": 16,
+            "operator_count": {
+              "max": 1,
+              "median": 1.0,
+              "min": 1
+            }
+          },
+          "2": {
+            "count": 30,
+            "division_puzzles": 0,
+            "length": {
+              "max": 8,
+              "median": 8.0,
+              "min": 8
+            },
+            "multiplication_puzzles": 3,
+            "operator_count": {
+              "max": 1,
+              "median": 1.0,
+              "min": 1
+            }
+          }
+        },
+        "guess_limit": 10
+      },
+      "modes": 3,
+      "name": "EQUATION GUESS",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "MASTER": 0
+      },
+      "sampled_initializations": 90,
+      "supply": "BANK",
+      "unique_bank_count": 90,
+      "unique_sample_count": 90
+    },
+    {
+      "bank_count": 90,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 90,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 2,
+      "initial_state_validations": 180,
+      "level": "HARD",
+      "level_index": 2,
+      "level_no_op": false,
+      "mechanism": "STANDARD/LONG two operators, SHORT one; + - * /; 8 guesses",
+      "metric": {
+        "by_mode": {
+          "0": {
+            "count": 30,
+            "division_puzzles": 8,
+            "length": {
+              "max": 7,
+              "median": 7.0,
+              "min": 7
+            },
+            "multiplication_puzzles": 11,
+            "operator_count": {
+              "max": 2,
+              "median": 2.0,
+              "min": 2
+            }
+          },
+          "1": {
+            "count": 30,
+            "division_puzzles": 6,
+            "length": {
+              "max": 6,
+              "median": 6.0,
+              "min": 6
+            },
+            "multiplication_puzzles": 10,
+            "operator_count": {
+              "max": 1,
+              "median": 1.0,
+              "min": 1
+            }
+          },
+          "2": {
+            "count": 30,
+            "division_puzzles": 5,
+            "length": {
+              "max": 8,
+              "median": 8.0,
+              "min": 8
+            },
+            "multiplication_puzzles": 21,
+            "operator_count": {
+              "max": 2,
+              "median": 2.0,
+              "min": 2
+            }
+          }
+        },
+        "guess_limit": 8
+      },
+      "modes": 3,
+      "name": "EQUATION GUESS",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 90,
+      "supply": "BANK",
+      "unique_bank_count": 90,
+      "unique_sample_count": 90
+    },
+    {
+      "bank_count": 90,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 90,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only. REVIEW REQUIRED: longer secret but more permitted guesses than HARD.",
+      "hell_supported": false,
+      "id": 2,
+      "initial_state_validations": 180,
+      "level": "MASTER",
+      "level_index": 3,
+      "level_no_op": false,
+      "mechanism": "3/2/3 operators; mode lengths 9/8/10; mixed precedence must affect value; 12 guesses",
+      "metric": {
+        "by_mode": {
+          "0": {
+            "count": 30,
+            "division_puzzles": 17,
+            "length": {
+              "max": 9,
+              "median": 9.0,
+              "min": 9
+            },
+            "multiplication_puzzles": 16,
+            "operator_count": {
+              "max": 3,
+              "median": 3.0,
+              "min": 3
+            }
+          },
+          "1": {
+            "count": 30,
+            "division_puzzles": 3,
+            "length": {
+              "max": 8,
+              "median": 8.0,
+              "min": 8
+            },
+            "multiplication_puzzles": 27,
+            "operator_count": {
+              "max": 2,
+              "median": 2.0,
+              "min": 2
+            }
+          },
+          "2": {
+            "count": 30,
+            "division_puzzles": 10,
+            "length": {
+              "max": 10,
+              "median": 10.0,
+              "min": 10
+            },
+            "multiplication_puzzles": 23,
+            "operator_count": {
+              "max": 3,
+              "median": 3.0,
+              "min": 3
+            }
+          }
+        },
+        "guess_limit": 12
+      },
+      "modes": 3,
+      "name": "EQUATION GUESS",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 90,
+      "supply": "BANK",
+      "unique_bank_count": 90,
+      "unique_sample_count": 90
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 3,
+      "initial_state_validations": 60,
+      "level": "EASY",
+      "level_index": 0,
+      "level_no_op": false,
+      "mechanism": "4 positions \u00d7 6 symbols",
+      "metric": {
+        "clue_count": {
+          "max": 11,
+          "median": 8.0,
+          "min": 5
+        },
+        "domain": 1296,
+        "zero_match_clues": {
+          "max": 7,
+          "median": 4.0,
+          "min": 1
+        }
+      },
+      "modes": 1,
+      "name": "NUMBER MIND",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "HARD": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 3,
+      "initial_state_validations": 60,
+      "level": "NORMAL",
+      "level_index": 1,
+      "level_no_op": false,
+      "mechanism": "4 positions \u00d7 8 symbols",
+      "metric": {
+        "clue_count": {
+          "max": 13,
+          "median": 10.0,
+          "min": 6
+        },
+        "domain": 4096,
+        "zero_match_clues": {
+          "max": 9,
+          "median": 5.0,
+          "min": 2
+        }
+      },
+      "modes": 1,
+      "name": "NUMBER MIND",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "MASTER": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 3,
+      "initial_state_validations": 60,
+      "level": "HARD",
+      "level_index": 2,
+      "level_no_op": false,
+      "mechanism": "5 positions \u00d7 8 symbols",
+      "metric": {
+        "clue_count": {
+          "max": 14,
+          "median": 11.5,
+          "min": 6
+        },
+        "domain": 32768,
+        "zero_match_clues": {
+          "max": 10,
+          "median": 5.0,
+          "min": 1
+        }
+      },
+      "modes": 1,
+      "name": "NUMBER MIND",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 3,
+      "initial_state_validations": 60,
+      "level": "MASTER",
+      "level_index": 3,
+      "level_no_op": false,
+      "mechanism": "6 positions \u00d7 8 symbols; up to 13 clues",
+      "metric": {
+        "clue_count": {
+          "max": 13,
+          "median": 12.0,
+          "min": 8
+        },
+        "domain": 262144,
+        "zero_match_clues": {
+          "max": 7,
+          "median": 4.0,
+          "min": 1
+        }
+      },
+      "modes": 1,
+      "name": "NUMBER MIND",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 4,
+      "initial_state_validations": 60,
+      "level": "EASY",
+      "level_index": 0,
+      "level_no_op": false,
+      "mechanism": "domain 0..99; range/parity/digit sum/two remainders/contains digit",
+      "metric": {
+        "domain": 100,
+        "modulus_values": [
+          3,
+          4,
+          5,
+          7,
+          9,
+          11,
+          13,
+          17
+        ],
+        "public_range_width": {
+          "max": 99,
+          "median": 72.5,
+          "min": 52
+        }
+      },
+      "modes": 1,
+      "name": "CLUE LOCK",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "HARD": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 4,
+      "initial_state_validations": 60,
+      "level": "NORMAL",
+      "level_index": 1,
+      "level_no_op": false,
+      "mechanism": "domain 0..499; contains-digit clue removed",
+      "metric": {
+        "domain": 500,
+        "modulus_values": [
+          3,
+          4,
+          5,
+          7,
+          9,
+          11,
+          13,
+          17
+        ],
+        "public_range_width": {
+          "max": 471,
+          "median": 377.0,
+          "min": 242
+        }
+      },
+      "modes": 1,
+      "name": "CLUE LOCK",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "MASTER": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 4,
+      "initial_state_validations": 60,
+      "level": "HARD",
+      "level_index": 2,
+      "level_no_op": false,
+      "mechanism": "domain 0..999; range and two distinct large moduli, no parity or digit sum",
+      "metric": {
+        "domain": 1000,
+        "modulus_values": [
+          17,
+          19,
+          23,
+          29,
+          31,
+          37
+        ],
+        "public_range_width": {
+          "max": 973,
+          "median": 732.5,
+          "min": 573
+        }
+      },
+      "modes": 1,
+      "name": "CLUE LOCK",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 4,
+      "initial_state_validations": 60,
+      "level": "MASTER",
+      "level_index": 3,
+      "level_no_op": false,
+      "mechanism": "domain 0..9999; three remainders plus digit sum; every clue essential",
+      "metric": {
+        "domain": 10000,
+        "modulus_values": [
+          7,
+          11,
+          13,
+          17,
+          19
+        ],
+        "omit_one_clue_candidates": {
+          "max": 13,
+          "median": 4.0,
+          "min": 2
+        },
+        "public_range_width": {
+          "max": 10000,
+          "median": 10000.0,
+          "min": 10000
+        }
+      },
+      "modes": 1,
+      "name": "CLUE LOCK",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only. REVIEW REQUIRED: E and N each have 25/30 shared-step alternating puzzles; median largest term both11. E bank contains no GP puzzle despite allowed family.",
+      "hell_supported": false,
+      "id": 5,
+      "initial_state_validations": 60,
+      "level": "EASY",
+      "level_index": 0,
+      "level_no_op": false,
+      "mechanism": "AP/GP/shared-step alternating grammar",
+      "metric": {
+        "families": {
+          "0": 5,
+          "4": 25
+        },
+        "max_absolute_term": {
+          "max": 39,
+          "median": 11.0,
+          "min": 3
+        }
+      },
+      "modes": 1,
+      "name": "SEQUENCE DETECTIVE",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "HARD": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only. REVIEW REQUIRED: E and N each have 25/30 shared-step alternating puzzles; median largest term both11. E bank contains no GP puzzle despite allowed family.",
+      "hell_supported": false,
+      "id": 5,
+      "initial_state_validations": 60,
+      "level": "NORMAL",
+      "level_index": 1,
+      "level_no_op": false,
+      "mechanism": "quadratic/Fibonacci/shared-step alternating grammar",
+      "metric": {
+        "families": {
+          "2": 2,
+          "3": 3,
+          "4": 25
+        },
+        "max_absolute_term": {
+          "max": 96,
+          "median": 11.0,
+          "min": 5
+        }
+      },
+      "modes": 1,
+      "name": "SEQUENCE DETECTIVE",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "MASTER": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 5,
+      "initial_state_validations": 60,
+      "level": "HARD",
+      "level_index": 2,
+      "level_no_op": false,
+      "mechanism": "quadratic/Fibonacci/affine recurrence grammar",
+      "metric": {
+        "families": {
+          "2": 14,
+          "3": 4,
+          "5": 12
+        },
+        "max_absolute_term": {
+          "max": 3644,
+          "median": 82.5,
+          "min": 2
+        }
+      },
+      "modes": 1,
+      "name": "SEQUENCE DETECTIVE",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 5,
+      "initial_state_validations": 60,
+      "level": "MASTER",
+      "level_index": 3,
+      "level_no_op": false,
+      "mechanism": "second-order affine recurrence or unequal-step alternating grammar; 15 each",
+      "metric": {
+        "families": {
+          "6": 15,
+          "7": 15
+        },
+        "max_absolute_term": {
+          "max": 989,
+          "median": 17.5,
+          "min": 2
+        }
+      },
+      "modes": 1,
+      "name": "SEQUENCE DETECTIVE",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 0,
+      "bank_count_per_mode": 0,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 1768,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only. REVIEW REQUIRED: constructive witness complexity is not a lower bound on all valid solutions; E/N both four cards.",
+      "hell_supported": false,
+      "id": 6,
+      "initial_state_validations": 3536,
+      "level": "EASY",
+      "level_index": 0,
+      "level_no_op": false,
+      "mechanism": "4 cards; constructive a*b+c-d",
+      "metric": {
+        "all_targets_at_fixed_seed": 1000,
+        "arithmetic_rules": "all cards exactly once; arbitrary valid exact rational steps",
+        "card_value": {
+          "max": 501,
+          "median": 10.0,
+          "min": 1
+        },
+        "cards": 4,
+        "fraction_required_for_every_solution": "NOT PROVEN",
+        "seed_sample_targets": [
+          1,
+          24,
+          1000
+        ],
+        "seed_samples_per_target": 256,
+        "target_domain_tested": [
+          1,
+          1000
+        ],
+        "witness_fractional_intermediates": {
+          "max": 0,
+          "median": 0.0,
+          "min": 0
+        }
+      },
+      "modes": 1,
+      "name": "MAKE TARGET",
+      "overlap_scope": "bounded runtime sample only, not full generator domain",
+      "overlap_with_other_levels": {
+        "HARD": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 1768,
+      "supply": "RUNTIME",
+      "unique_bank_count": null,
+      "unique_sample_count": 1208
+    },
+    {
+      "bank_count": 0,
+      "bank_count_per_mode": 0,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 1768,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only. REVIEW REQUIRED: constructive witness complexity is not a lower bound on all valid solutions; E/N both four cards.",
+      "hell_supported": false,
+      "id": 6,
+      "initial_state_validations": 3536,
+      "level": "NORMAL",
+      "level_index": 1,
+      "level_no_op": false,
+      "mechanism": "4 cards; constructive (a*b-c)/d",
+      "metric": {
+        "all_targets_at_fixed_seed": 1000,
+        "arithmetic_rules": "all cards exactly once; arbitrary valid exact rational steps",
+        "card_value": {
+          "max": 801,
+          "median": 10.0,
+          "min": 1
+        },
+        "cards": 4,
+        "fraction_required_for_every_solution": "NOT PROVEN",
+        "seed_sample_targets": [
+          1,
+          24,
+          1000
+        ],
+        "seed_samples_per_target": 256,
+        "target_domain_tested": [
+          1,
+          1000
+        ],
+        "witness_fractional_intermediates": {
+          "max": 0,
+          "median": 0.0,
+          "min": 0
+        }
+      },
+      "modes": 1,
+      "name": "MAKE TARGET",
+      "overlap_scope": "bounded runtime sample only, not full generator domain",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "MASTER": 0
+      },
+      "sampled_initializations": 1768,
+      "supply": "RUNTIME",
+      "unique_bank_count": null,
+      "unique_sample_count": 1190
+    },
+    {
+      "bank_count": 0,
+      "bank_count_per_mode": 0,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 1768,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only. REVIEW REQUIRED: constructive witness complexity is not a lower bound on all valid solutions; E/N both four cards.",
+      "hell_supported": false,
+      "id": 6,
+      "initial_state_validations": 3536,
+      "level": "HARD",
+      "level_index": 2,
+      "level_no_op": false,
+      "mechanism": "5 cards; constructive (a*b-c)/(d+e)",
+      "metric": {
+        "all_targets_at_fixed_seed": 1000,
+        "arithmetic_rules": "all cards exactly once; arbitrary valid exact rational steps",
+        "card_value": {
+          "max": 901,
+          "median": 9.0,
+          "min": 1
+        },
+        "cards": 5,
+        "fraction_required_for_every_solution": "NOT PROVEN",
+        "seed_sample_targets": [
+          1,
+          24,
+          1000
+        ],
+        "seed_samples_per_target": 256,
+        "target_domain_tested": [
+          1,
+          1000
+        ],
+        "witness_fractional_intermediates": {
+          "max": 0,
+          "median": 0.0,
+          "min": 0
+        }
+      },
+      "modes": 1,
+      "name": "MAKE TARGET",
+      "overlap_scope": "bounded runtime sample only, not full generator domain",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 1768,
+      "supply": "RUNTIME",
+      "unique_bank_count": null,
+      "unique_sample_count": 1519
+    },
+    {
+      "bank_count": 0,
+      "bank_count_per_mode": 0,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 1768,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only. REVIEW REQUIRED: constructive witness complexity is not a lower bound on all valid solutions; E/N both four cards.",
+      "hell_supported": false,
+      "id": 6,
+      "initial_state_validations": 3536,
+      "level": "MASTER",
+      "level_index": 3,
+      "level_no_op": false,
+      "mechanism": "6 cards; constructive (a*b-c)/d+e/f; witness has fractional intermediates",
+      "metric": {
+        "all_targets_at_fixed_seed": 1000,
+        "arithmetic_rules": "all cards exactly once; arbitrary valid exact rational steps",
+        "card_value": {
+          "max": 969,
+          "median": 12.0,
+          "min": 1
+        },
+        "cards": 6,
+        "fraction_required_for_every_solution": "NOT PROVEN",
+        "seed_sample_targets": [
+          1,
+          24,
+          1000
+        ],
+        "seed_samples_per_target": 256,
+        "target_domain_tested": [
+          1,
+          1000
+        ],
+        "witness_fractional_intermediates": {
+          "max": 2,
+          "median": 2.0,
+          "min": 2
+        }
+      },
+      "modes": 1,
+      "name": "MAKE TARGET",
+      "overlap_scope": "bounded runtime sample only, not full generator domain",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 1768,
+      "supply": "RUNTIME",
+      "unique_bank_count": null,
+      "unique_sample_count": 1731
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only. REVIEW REQUIRED: large-card composition differs; minimum-card distributions overlap and do not increase monotonically.",
+      "hell_supported": false,
+      "id": 7,
+      "initial_state_validations": 60,
+      "level": "EASY",
+      "level_index": 0,
+      "level_no_op": false,
+      "mechanism": "6 cards; 1 large + 5 small",
+      "metric": {
+        "division_required": "NOT CONSTRAINED",
+        "large_cards": {
+          "max": 1,
+          "median": 1.0,
+          "min": 1
+        },
+        "minimum_cards_exhaustive": {
+          "max": 5,
+          "median": 4.0,
+          "min": 2
+        },
+        "minimum_cards_histogram": {
+          "2": 2,
+          "3": 12,
+          "4": 13,
+          "5": 3
+        },
+        "one_card_puzzle_ids": [],
+        "target": {
+          "max": 910,
+          "median": 352.0,
+          "min": 101
+        },
+        "witness_card_count": {
+          "max": 6,
+          "median": 5.0,
+          "min": 3
+        },
+        "witness_division_count": {
+          "max": 2,
+          "median": 0.0,
+          "min": 0
+        }
+      },
+      "modes": 1,
+      "name": "COUNTDOWN",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "HARD": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only. REVIEW REQUIRED: large-card composition differs; minimum-card distributions overlap and do not increase monotonically.",
+      "hell_supported": false,
+      "id": 7,
+      "initial_state_validations": 60,
+      "level": "NORMAL",
+      "level_index": 1,
+      "level_no_op": false,
+      "mechanism": "6 cards; 2 large + 4 small",
+      "metric": {
+        "division_required": "NOT CONSTRAINED",
+        "large_cards": {
+          "max": 2,
+          "median": 2.0,
+          "min": 2
+        },
+        "minimum_cards_exhaustive": {
+          "max": 5,
+          "median": 4.0,
+          "min": 2
+        },
+        "minimum_cards_histogram": {
+          "2": 1,
+          "3": 10,
+          "4": 18,
+          "5": 1
+        },
+        "one_card_puzzle_ids": [],
+        "target": {
+          "max": 801,
+          "median": 238.0,
+          "min": 106
+        },
+        "witness_card_count": {
+          "max": 6,
+          "median": 5.0,
+          "min": 3
+        },
+        "witness_division_count": {
+          "max": 2,
+          "median": 0.0,
+          "min": 0
+        }
+      },
+      "modes": 1,
+      "name": "COUNTDOWN",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "MASTER": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only. REVIEW REQUIRED: large-card composition differs; minimum-card distributions overlap and do not increase monotonically. HARD puzzle60 and71 are solved by one card100; saved-bank compatibility prevents in-place replacement.",
+      "hell_supported": false,
+      "id": 7,
+      "initial_state_validations": 60,
+      "level": "HARD",
+      "level_index": 2,
+      "level_no_op": false,
+      "mechanism": "6 cards; 3 large + 3 small",
+      "metric": {
+        "division_required": "NOT CONSTRAINED",
+        "large_cards": {
+          "max": 3,
+          "median": 3.0,
+          "min": 3
+        },
+        "minimum_cards_exhaustive": {
+          "max": 5,
+          "median": 3.5,
+          "min": 1
+        },
+        "minimum_cards_histogram": {
+          "1": 2,
+          "2": 2,
+          "3": 11,
+          "4": 12,
+          "5": 3
+        },
+        "one_card_puzzle_ids": [
+          60,
+          71
+        ],
+        "target": {
+          "max": 875,
+          "median": 346.0,
+          "min": 100
+        },
+        "witness_card_count": {
+          "max": 6,
+          "median": 4.0,
+          "min": 2
+        },
+        "witness_division_count": {
+          "max": 3,
+          "median": 0.0,
+          "min": 0
+        }
+      },
+      "modes": 1,
+      "name": "COUNTDOWN",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 7,
+      "initial_state_validations": 60,
+      "level": "MASTER",
+      "level_index": 3,
+      "level_no_op": false,
+      "mechanism": "6 cards; 3 large + 3 small; every exact solution uses all six and division",
+      "metric": {
+        "division_required": true,
+        "large_cards": {
+          "max": 3,
+          "median": 3.0,
+          "min": 3
+        },
+        "minimum_cards_exhaustive": {
+          "max": 6,
+          "median": 6.0,
+          "min": 6
+        },
+        "minimum_cards_histogram": {
+          "6": 30
+        },
+        "one_card_puzzle_ids": [],
+        "target": {
+          "max": 999,
+          "median": 768.0,
+          "min": 137
+        },
+        "witness_card_count": {
+          "max": 6,
+          "median": 6.0,
+          "min": 6
+        },
+        "witness_division_count": {
+          "max": 2,
+          "median": 1.0,
+          "min": 1
+        }
+      },
+      "modes": 1,
+      "name": "COUNTDOWN",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 0,
+      "bank_count_per_mode": 0,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 256,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 8,
+      "initial_state_validations": 512,
+      "level": "EASY",
+      "level_index": 0,
+      "level_no_op": false,
+      "mechanism": "3 numbers; witness + - *; all four operators accepted",
+      "metric": {
+        "fallback": "128 attempts then fixed plus-only puzzle",
+        "fallback_observed": "not instrumented; not inferred from absence",
+        "numbers": 3,
+        "operator_assignments_per_puzzle": 16,
+        "operator_kinds_per_solution": {
+          "max": 2,
+          "median": 2.0,
+          "min": 1
+        },
+        "solution_count_exhaustive": {
+          "max": 4,
+          "median": 1.0,
+          "min": 1
+        }
+      },
+      "modes": 1,
+      "name": "MISSING OPERATORS",
+      "overlap_scope": "bounded runtime sample only, not full generator domain",
+      "overlap_with_other_levels": {
+        "HARD": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 256,
+      "supply": "RUNTIME",
+      "unique_bank_count": null,
+      "unique_sample_count": 251
+    },
+    {
+      "bank_count": 0,
+      "bank_count_per_mode": 0,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 256,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 8,
+      "initial_state_validations": 512,
+      "level": "NORMAL",
+      "level_index": 1,
+      "level_no_op": false,
+      "mechanism": "4 numbers; witness + - * /",
+      "metric": {
+        "fallback": "128 attempts then fixed plus-only puzzle",
+        "fallback_observed": "not instrumented; not inferred from absence",
+        "numbers": 4,
+        "operator_assignments_per_puzzle": 64,
+        "operator_kinds_per_solution": {
+          "max": 3,
+          "median": 2,
+          "min": 1
+        },
+        "solution_count_exhaustive": {
+          "max": 10,
+          "median": 1.0,
+          "min": 1
+        }
+      },
+      "modes": 1,
+      "name": "MISSING OPERATORS",
+      "overlap_scope": "bounded runtime sample only, not full generator domain",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "MASTER": 0
+      },
+      "sampled_initializations": 256,
+      "supply": "RUNTIME",
+      "unique_bank_count": null,
+      "unique_sample_count": 256
+    },
+    {
+      "bank_count": 0,
+      "bank_count_per_mode": 0,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 256,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 8,
+      "initial_state_validations": 512,
+      "level": "HARD",
+      "level_index": 2,
+      "level_no_op": false,
+      "mechanism": "5 numbers; witness + - * /",
+      "metric": {
+        "fallback": "128 attempts then fixed plus-only puzzle",
+        "fallback_observed": "not instrumented; not inferred from absence",
+        "numbers": 5,
+        "operator_assignments_per_puzzle": 256,
+        "operator_kinds_per_solution": {
+          "max": 4,
+          "median": 3,
+          "min": 1
+        },
+        "solution_count_exhaustive": {
+          "max": 21,
+          "median": 3.0,
+          "min": 1
+        }
+      },
+      "modes": 1,
+      "name": "MISSING OPERATORS",
+      "overlap_scope": "bounded runtime sample only, not full generator domain",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 256,
+      "supply": "RUNTIME",
+      "unique_bank_count": null,
+      "unique_sample_count": 256
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 8,
+      "initial_state_validations": 60,
+      "level": "MASTER",
+      "level_index": 3,
+      "level_no_op": false,
+      "mechanism": "6 numbers; 1..3 solutions; every solution uses at least 3 operator kinds",
+      "metric": {
+        "fallback": "none; bank-backed",
+        "fallback_observed": "not applicable",
+        "numbers": 6,
+        "operator_assignments_per_puzzle": 1024,
+        "operator_kinds_per_solution": {
+          "max": 4,
+          "median": 3,
+          "min": 3
+        },
+        "solution_count_exhaustive": {
+          "max": 3,
+          "median": 1.0,
+          "min": 1
+        }
+      },
+      "modes": 1,
+      "name": "MISSING OPERATORS",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 9,
+      "initial_state_validations": 60,
+      "level": "EASY",
+      "level_index": 0,
+      "level_no_op": false,
+      "mechanism": "3\u00d73; four fixed numbers",
+      "metric": {
+        "column_only_all_different_boards": {
+          "max": 6,
+          "median": 2.0,
+          "min": 1
+        },
+        "givens": {
+          "max": 4,
+          "median": 4.0,
+          "min": 4
+        },
+        "minimum_axis_candidates": {
+          "max": 4,
+          "median": 2.0,
+          "min": 1
+        },
+        "row_only_all_different_boards": {
+          "max": 6,
+          "median": 2.0,
+          "min": 1
+        }
+      },
+      "modes": 1,
+      "name": "CROSS MATH",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "HARD": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 9,
+      "initial_state_validations": 60,
+      "level": "NORMAL",
+      "level_index": 1,
+      "level_no_op": false,
+      "mechanism": "3\u00d73; two fixed numbers",
+      "metric": {
+        "column_only_all_different_boards": {
+          "max": 32,
+          "median": 7.0,
+          "min": 2
+        },
+        "givens": {
+          "max": 2,
+          "median": 2.0,
+          "min": 2
+        },
+        "minimum_axis_candidates": {
+          "max": 12,
+          "median": 4.0,
+          "min": 2
+        },
+        "row_only_all_different_boards": {
+          "max": 16,
+          "median": 4.0,
+          "min": 2
+        }
+      },
+      "modes": 1,
+      "name": "CROSS MATH",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "MASTER": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 9,
+      "initial_state_validations": 60,
+      "level": "HARD",
+      "level_index": 2,
+      "level_no_op": false,
+      "mechanism": "3\u00d73; no fixed numbers",
+      "metric": {
+        "column_only_all_different_boards": {
+          "max": 288,
+          "median": 24.0,
+          "min": 8
+        },
+        "givens": {
+          "max": 0,
+          "median": 0.0,
+          "min": 0
+        },
+        "minimum_axis_candidates": {
+          "max": 168,
+          "median": 20.0,
+          "min": 8
+        },
+        "row_only_all_different_boards": {
+          "max": 576,
+          "median": 24.0,
+          "min": 8
+        }
+      },
+      "modes": 1,
+      "name": "CROSS MATH",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 9,
+      "initial_state_validations": 60,
+      "level": "MASTER",
+      "level_index": 3,
+      "level_no_op": false,
+      "mechanism": "3\u00d73; no fixed numbers; row-only and column-only candidates both exceed old HARD min-axis maximum",
+      "metric": {
+        "column_only_all_different_boards": {
+          "max": 648,
+          "median": 216.0,
+          "min": 176
+        },
+        "givens": {
+          "max": 0,
+          "median": 0.0,
+          "min": 0
+        },
+        "minimum_axis_candidates": {
+          "max": 216,
+          "median": 216.0,
+          "min": 176
+        },
+        "row_only_all_different_boards": {
+          "max": 432,
+          "median": 216.0,
+          "min": 176
+        }
+      },
+      "modes": 1,
+      "name": "CROSS MATH",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 0,
+      "bank_count_per_mode": 0,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 256,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only. REVIEW REQUIRED: numeric target domains overlap; MASTER shape domain90 is a subset of HARD shape domain and uses smaller primes.",
+      "hell_supported": false,
+      "id": 10,
+      "initial_state_validations": 512,
+      "level": "EASY",
+      "level_index": 0,
+      "level_no_op": false,
+      "mechanism": "2..4 prime draws from 2,3,5,7",
+      "metric": {
+        "distinct_primes": {
+          "max": 4,
+          "median": 2.0,
+          "min": 1
+        },
+        "largest_prime": {
+          "max": 7,
+          "median": 7.0,
+          "min": 2
+        },
+        "mathematical_shape_domain": 65,
+        "multiplicity": {
+          "max": 4,
+          "median": 2.0,
+          "min": 2
+        },
+        "shape_domain_overlap": {
+          "HARD": 35,
+          "MASTER": 0,
+          "NORMAL": 55
+        },
+        "shape_vs_rng": "admissible mathematical shapes; no exhaustive PRNG reachability proof",
+        "target": {
+          "max": 1715,
+          "median": 24.0,
+          "min": 4
+        }
+      },
+      "modes": 1,
+      "name": "PRIME FACTOR",
+      "overlap_scope": "bounded runtime sample only, not full generator domain",
+      "overlap_with_other_levels": {
+        "HARD": 3,
+        "MASTER": 0,
+        "NORMAL": 21
+      },
+      "sampled_initializations": 256,
+      "supply": "RUNTIME",
+      "unique_bank_count": null,
+      "unique_sample_count": 50
+    },
+    {
+      "bank_count": 0,
+      "bank_count_per_mode": 0,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 256,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only. REVIEW REQUIRED: numeric target domains overlap; MASTER shape domain90 is a subset of HARD shape domain and uses smaller primes.",
+      "hell_supported": false,
+      "id": 10,
+      "initial_state_validations": 512,
+      "level": "NORMAL",
+      "level_index": 1,
+      "level_no_op": false,
+      "mechanism": "3..5 prime draws from primes through 13",
+      "metric": {
+        "distinct_primes": {
+          "max": 5,
+          "median": 3.0,
+          "min": 1
+        },
+        "largest_prime": {
+          "max": 13,
+          "median": 13.0,
+          "min": 3
+        },
+        "mathematical_shape_domain": 434,
+        "multiplicity": {
+          "max": 5,
+          "median": 3.0,
+          "min": 3
+        },
+        "shape_domain_overlap": {
+          "EASY": 55,
+          "HARD": 378,
+          "MASTER": 0
+        },
+        "shape_vs_rng": "admissible mathematical shapes; no exhaustive PRNG reachability proof",
+        "target": {
+          "max": 314171,
+          "median": 455.0,
+          "min": 12
+        }
+      },
+      "modes": 1,
+      "name": "PRIME FACTOR",
+      "overlap_scope": "bounded runtime sample only, not full generator domain",
+      "overlap_with_other_levels": {
+        "EASY": 21,
+        "HARD": 3,
+        "MASTER": 0
+      },
+      "sampled_initializations": 256,
+      "supply": "RUNTIME",
+      "unique_bank_count": null,
+      "unique_sample_count": 138
+    },
+    {
+      "bank_count": 0,
+      "bank_count_per_mode": 0,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 256,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only. REVIEW REQUIRED: numeric target domains overlap; MASTER shape domain90 is a subset of HARD shape domain and uses smaller primes.",
+      "hell_supported": false,
+      "id": 10,
+      "initial_state_validations": 512,
+      "level": "HARD",
+      "level_index": 2,
+      "level_no_op": false,
+      "mechanism": "4..6 prime draws through 31; multiplication over 1e6 skipped",
+      "metric": {
+        "distinct_primes": {
+          "max": 6,
+          "median": 4.0,
+          "min": 2
+        },
+        "largest_prime": {
+          "max": 31,
+          "median": 29.0,
+          "min": 5
+        },
+        "mathematical_shape_domain": 6754,
+        "multiplicity": {
+          "max": 6,
+          "median": 4.0,
+          "min": 4
+        },
+        "shape_domain_overlap": {
+          "EASY": 35,
+          "MASTER": 90,
+          "NORMAL": 378
+        },
+        "shape_vs_rng": "admissible mathematical shapes; no exhaustive PRNG reachability proof",
+        "target": {
+          "max": 981274,
+          "median": 45733.0,
+          "min": 90
+        }
+      },
+      "modes": 1,
+      "name": "PRIME FACTOR",
+      "overlap_scope": "bounded runtime sample only, not full generator domain",
+      "overlap_with_other_levels": {
+        "EASY": 3,
+        "MASTER": 0,
+        "NORMAL": 3
+      },
+      "sampled_initializations": 256,
+      "supply": "RUNTIME",
+      "unique_bank_count": null,
+      "unique_sample_count": 235
+    },
+    {
+      "bank_count": 0,
+      "bank_count_per_mode": 0,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 256,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only. REVIEW REQUIRED: numeric target domains overlap; MASTER shape domain90 is a subset of HARD shape domain and uses smaller primes.",
+      "hell_supported": false,
+      "id": 10,
+      "initial_state_validations": 512,
+      "level": "MASTER",
+      "level_index": 3,
+      "level_no_op": false,
+      "mechanism": "four distinct primes through 13; exactly two squared; six factors counting multiplicity",
+      "metric": {
+        "distinct_primes": {
+          "max": 4,
+          "median": 4.0,
+          "min": 4
+        },
+        "largest_prime": {
+          "max": 13,
+          "median": 13.0,
+          "min": 7
+        },
+        "mathematical_shape_domain": 90,
+        "multiplicity": {
+          "max": 6,
+          "median": 6.0,
+          "min": 6
+        },
+        "shape_domain_overlap": {
+          "EASY": 0,
+          "HARD": 90,
+          "NORMAL": 0
+        },
+        "shape_vs_rng": "admissible mathematical shapes; no exhaustive PRNG reachability proof",
+        "target": {
+          "max": 715715,
+          "median": 28028.0,
+          "min": 1260
+        }
+      },
+      "modes": 1,
+      "name": "PRIME FACTOR",
+      "overlap_scope": "bounded runtime sample only, not full generator domain",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 256,
+      "supply": "RUNTIME",
+      "unique_bank_count": null,
+      "unique_sample_count": 80
+    },
+    {
+      "bank_count": 0,
+      "bank_count_per_mode": 0,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 256,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 33,
+      "initial_state_validations": 512,
+      "level": "EASY",
+      "level_index": 0,
+      "level_no_op": false,
+      "mechanism": "5\u00d75; 3 atoms; 20 ports",
+      "metric": {
+        "atom_layout_domain": 2300,
+        "atoms": 3,
+        "board_side": 5,
+        "ports": 20,
+        "ray_checks": 5120,
+        "unique_hidden_layout_guarantee": false,
+        "unique_sample_D4_layouts": 171,
+        "unique_sample_full_ray_vectors": 244
+      },
+      "modes": 1,
+      "name": "BLACK BOX",
+      "overlap_scope": "bounded runtime sample only, not full generator domain",
+      "overlap_with_other_levels": {
+        "HARD": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 256,
+      "supply": "RUNTIME",
+      "unique_bank_count": null,
+      "unique_sample_count": 244
+    },
+    {
+      "bank_count": 0,
+      "bank_count_per_mode": 0,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 256,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 33,
+      "initial_state_validations": 512,
+      "level": "NORMAL",
+      "level_index": 1,
+      "level_no_op": false,
+      "mechanism": "6\u00d76; 4 atoms; 24 ports",
+      "metric": {
+        "atom_layout_domain": 58905,
+        "atoms": 4,
+        "board_side": 6,
+        "ports": 24,
+        "ray_checks": 6144,
+        "unique_hidden_layout_guarantee": false,
+        "unique_sample_D4_layouts": 250,
+        "unique_sample_full_ray_vectors": 256
+      },
+      "modes": 1,
+      "name": "BLACK BOX",
+      "overlap_scope": "bounded runtime sample only, not full generator domain",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "MASTER": 0
+      },
+      "sampled_initializations": 256,
+      "supply": "RUNTIME",
+      "unique_bank_count": null,
+      "unique_sample_count": 256
+    },
+    {
+      "bank_count": 0,
+      "bank_count_per_mode": 0,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 256,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 33,
+      "initial_state_validations": 512,
+      "level": "HARD",
+      "level_index": 2,
+      "level_no_op": false,
+      "mechanism": "7\u00d77; 5 atoms; 28 ports",
+      "metric": {
+        "atom_layout_domain": 1906884,
+        "atoms": 5,
+        "board_side": 7,
+        "ports": 28,
+        "ray_checks": 7168,
+        "unique_hidden_layout_guarantee": false,
+        "unique_sample_D4_layouts": 256,
+        "unique_sample_full_ray_vectors": 256
+      },
+      "modes": 1,
+      "name": "BLACK BOX",
+      "overlap_scope": "bounded runtime sample only, not full generator domain",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 256,
+      "supply": "RUNTIME",
+      "unique_bank_count": null,
+      "unique_sample_count": 256
+    },
+    {
+      "bank_count": 0,
+      "bank_count_per_mode": 0,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 256,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only.",
+      "hell_supported": false,
+      "id": 33,
+      "initial_state_validations": 512,
+      "level": "MASTER",
+      "level_index": 3,
+      "level_no_op": false,
+      "mechanism": "8\u00d78; 6 atoms; 32 ports",
+      "metric": {
+        "atom_layout_domain": 74974368,
+        "atoms": 6,
+        "board_side": 8,
+        "ports": 32,
+        "ray_checks": 8192,
+        "unique_hidden_layout_guarantee": false,
+        "unique_sample_D4_layouts": 256,
+        "unique_sample_full_ray_vectors": 256
+      },
+      "modes": 1,
+      "name": "BLACK BOX",
+      "overlap_scope": "bounded runtime sample only, not full generator domain",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 256,
+      "supply": "RUNTIME",
+      "unique_bank_count": null,
+      "unique_sample_count": 256
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only. REVIEW REQUIRED: letter-count and column-count increase; carry/node distributions overlap. Solver nodes are not human ratings.",
+      "hell_supported": false,
+      "id": 34,
+      "initial_state_validations": 60,
+      "level": "EASY",
+      "level_index": 0,
+      "level_no_op": false,
+      "mechanism": "two 2-digit addends; 3..5 letters",
+      "metric": {
+        "addend_length": 2,
+        "carry_columns": {
+          "max": 2,
+          "median": 2.0,
+          "min": 1
+        },
+        "column_solver_nodes": {
+          "max": 119,
+          "median": 71.5,
+          "min": 4
+        },
+        "letters": {
+          "max": 4,
+          "median": 3.0,
+          "min": 3
+        },
+        "solution_count_declared_and_independently_verified": 1
+      },
+      "modes": 1,
+      "name": "CRYPTARITHM",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "HARD": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only. REVIEW REQUIRED: letter-count and column-count increase; carry/node distributions overlap. Solver nodes are not human ratings.",
+      "hell_supported": false,
+      "id": 34,
+      "initial_state_validations": 60,
+      "level": "NORMAL",
+      "level_index": 1,
+      "level_no_op": false,
+      "mechanism": "two 3-digit addends; 5..7 letters",
+      "metric": {
+        "addend_length": 3,
+        "carry_columns": {
+          "max": 3,
+          "median": 2.0,
+          "min": 1
+        },
+        "column_solver_nodes": {
+          "max": 385,
+          "median": 125.0,
+          "min": 19
+        },
+        "letters": {
+          "max": 6,
+          "median": 5.0,
+          "min": 5
+        },
+        "solution_count_declared_and_independently_verified": 1
+      },
+      "modes": 1,
+      "name": "CRYPTARITHM",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "MASTER": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only. REVIEW REQUIRED: letter-count and column-count increase; carry/node distributions overlap. Solver nodes are not human ratings.",
+      "hell_supported": false,
+      "id": 34,
+      "initial_state_validations": 60,
+      "level": "HARD",
+      "level_index": 2,
+      "level_no_op": false,
+      "mechanism": "two 4-digit addends; 7..9 letters",
+      "metric": {
+        "addend_length": 4,
+        "carry_columns": {
+          "max": 4,
+          "median": 3.0,
+          "min": 1
+        },
+        "column_solver_nodes": {
+          "max": 2055,
+          "median": 535.5,
+          "min": 120
+        },
+        "letters": {
+          "max": 7,
+          "median": 7.0,
+          "min": 7
+        },
+        "solution_count_declared_and_independently_verified": 1
+      },
+      "modes": 1,
+      "name": "CRYPTARITHM",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "MASTER": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    },
+    {
+      "bank_count": 30,
+      "bank_count_per_mode": 30,
+      "classification": "STRUCTURAL DIFFERENCE VERIFIED; HUMAN RATING REVIEW REQUIRED",
+      "deterministic_replays": 30,
+      "finding": "Human difficulty uncalibrated; measured structural parameters only. REVIEW REQUIRED: letter-count and column-count increase; carry/node distributions overlap. Solver nodes are not human ratings.",
+      "hell_supported": false,
+      "id": 34,
+      "initial_state_validations": 60,
+      "level": "MASTER",
+      "level_index": 3,
+      "level_no_op": false,
+      "mechanism": "two 5-digit addends; 8..10 letters",
+      "metric": {
+        "addend_length": 5,
+        "carry_columns": {
+          "max": 5,
+          "median": 3.0,
+          "min": 1
+        },
+        "column_solver_nodes": {
+          "max": 3190,
+          "median": 639.5,
+          "min": 142
+        },
+        "letters": {
+          "max": 10,
+          "median": 8.0,
+          "min": 8
+        },
+        "solution_count_declared_and_independently_verified": 1
+      },
+      "modes": 1,
+      "name": "CRYPTARITHM",
+      "overlap_scope": "complete current bank",
+      "overlap_with_other_levels": {
+        "EASY": 0,
+        "HARD": 0,
+        "NORMAL": 0
+      },
+      "sampled_initializations": 30,
+      "supply": "BANK",
+      "unique_bank_count": 30,
+      "unique_sample_count": 30
+    }
+  ],
+  "sampled_initializations": 12022,
+  "schema": 1,
+  "source_sha256": {
+    "assets/guesscalc_cryptarithm.h": "22b109847d9e876245e4a9c33543f2122a15daa2e81eaf077d27a469f65db14b",
+    "assets/guesscalc_cryptarithm.json": "4a7ccaa0a307baed9af4475ad6cb3b9066e27b7e5e090462671b3a431c341871",
+    "assets/guesscalc_master.h": "0b363f2051bf312ca1a0e161e39bf5eecdf77192902adffb00a4379d6469f0d2",
+    "assets/guesscalc_master.json": "1d0eed741199b02f4b83325768943043348dc12db30c387d19db6175aa94624a",
+    "assets/guesscalc_packs.h": "430df5b94b2ffa37871443d84319aaa449576a55ad8944875317322d6521259a",
+    "assets/guesscalc_packs.json": "e11fa9f8720b813570f686558837e24acab1afe73d4f700610c4651423bd7ef2",
+    "src/core/common.c": "db528a238fbf0a519104ae6ef1cd2c2ccec0b96d02e9d24b2e67d91117a13fb8",
+    "src/games/guesscalc.c": "b8b6231bb0a1ca31d3bdcc792f4ba258d15b999af3a95fa9331e54d670e59896",
+    "src/games/guesscalc_extra.c": "e1c336b1cf19390773d54599c6f0ef1f0755a0de324e44aa95a0d3d7e0ce8f78",
+    "src/games/guesscalc_math.c": "38eb544556928350ce4a51c3163875b682336956531c78193bc0eedbeae5238d"
+  }
+}

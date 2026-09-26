@@ -5,7 +5,7 @@
   "hashi_record_bytes": 77,
   "nonogram_records": 120,
   "nonogram_record_bytes": 96,
-  "engine_text_rodata_bytes": 7992,
+  "engine_text_rodata_bytes": 8072,
   "engine_data_bss_bytes": 0,
   "engine_heap_allocations": 0,
   "frames_bytes": {
@@ -29,8 +29,9 @@
     "grids_extra_complete": 8,
     "valid": 48,
     "render": 200,
-    "action": 36,
-    "grids_extra_witness": 16
+    "action": 28,
+    "grids_extra_witness": 16,
+    "check": 32
   },
   "frame_note": "Individual compiler-estimated frames, not simultaneous call-chain peak.",
   "hardware_stack_peak": "NOT MEASURED",

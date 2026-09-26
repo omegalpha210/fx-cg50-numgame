@@ -7,14 +7,41 @@ device symptom resolved. Use the exact `dist/SHA256SUMS.txt` before testing.
 Back up existing NG saves. NUM DIAG is a separate `NDSTATEA/B.dat` namespace
 and must be tested with disposable ND progress.
 
-1. Cold launch with no unfinished game: Main F1 must be blank. START GAME,
+For beta.3, check these interactions first on the physical LCD and flash:
+
+1. The saved game's tile alone shows a legible blue RESUME badge; the selected
+   border, icon and name remain distinguishable. Main F1 resumes that same run.
+2. Starting another game moves the badge, completing a game removes it, and
+   cold load or recovery shows it only for a validated unfinished run.
+3. Entry text reads NEW GAME. The same-game entry focuses RESUME; a different
+   game has NEW GAME first. Settings on RESUME remain those of the saved run.
+4. Nonogram completes with all correct black cells and unmarked empty cells,
+   then again with all empty cells X, then with a mixture. One extra black cell
+   must prevent completion. Hold the final EXE and check it cannot dismiss the
+   result or start another game. Cold resume must preserve individual X marks.
+5. New Magic Square FREE E/N/H/M starts show blank 3×3/4×4/5×5/6×6 squares
+   and common sums 15/34/65/111. Test 2-digit values through 36, cursor
+   contrast, centered numerals, full 6×6 bounds and unobstructed F-keys.
+   An old FREE save must resume at its old size and INIT the same puzzle.
+6. On Make Target TARGET, LEFT opens the editor at the first digit and RIGHT
+   at the end. Test insertion, cursor movement, DEL, invalid/empty draft,
+   EXIT cancel, EXE commit without start, then EXE/F6 start. F6 during edit
+   must do nothing. Check 1 and 1000 boundaries and persistence after cold load.
+7. Compare representative EASY/NORMAL/HARD/MASTER runs using
+   [DIFFICULTY_AUDIT.md](DIFFICULTY_AUDIT.md): LIGHTS 4×4 revised levels,
+   MAGIC FREE sizes, CPU MASTER tactical starts, 2048 CLASSIC without a
+   difficulty row, TARGET goals, and F3 HELL/ENHM for each LOGIC game.
+8. Recheck the reported MENU flashing, real BFile latency and allocation,
+   dim/APO, and SHIFT+AC/ON. These remain unverified on hardware.
+
+1. Cold launch with no unfinished game: Main F1 must be blank. NEW GAME,
    return to Main, confirm F1 RESUME appears and opens the exact run.
-2. Return to the same game's entry: RESUME and START GAME must both appear,
+2. Return to the same game's entry: RESUME and NEW GAME must both appear,
    with RESUME focused. Enter a different game's entry: no RESUME row or
    softkey appears. Browsing alone must not delete the prior run.
 3. Start that different game: it must replace the old resume without a prompt.
    Cold launch must reopen only the new game. Repeat with the same game's
-   START GAME and a changed difficulty/mode; RESUME retains its run settings.
+   NEW GAME and a changed difficulty/mode; RESUME retains its run settings.
 4. Complete a game. The modal must show EXIT VIEW RESULT. EXIT must reveal the
    frozen final board; game input must not alter it. F6 NEW must use the
    completed run's game/difficulty/mode. A second EXIT returns to entry.

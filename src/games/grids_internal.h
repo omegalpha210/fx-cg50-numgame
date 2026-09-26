@@ -9,6 +9,8 @@ typedef struct {
  int16_t a[81],b[81];
 } GridsPuzzle;
 #include "grids_pack_data.h"
+#define GRIDS_FREE_MAGIC_ID UINT32_C(0xfffffff0)
+/* Revision-3 FREE magic orders use four rules-only IDs, outside the bank. */
 /* Decode one stable record. No whole-bank runtime decompression. */
 bool grids_decode(uint32_t stable_id,GridsPuzzle *out);
 /* One shared 490-byte cache; pointer remains valid only until a different

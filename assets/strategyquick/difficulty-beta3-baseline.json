@@ -1,0 +1,287 @@
+{
+  "schema": 1,
+  "milestone": "beta.3",
+  "sample_seed_policy": "Runtime seeds 1..128; full banks, supply_seed=1, ordinal 0..count-1. CPU probes use replayable reachable HARD/random positions.",
+  "sample_rows": 828,
+  "samples_sha256": "23ddd356b9079c692bf797c1a37fd40345360c81b3672351fa75126c0125fe30",
+  "independent_metrics": {
+    "lights": "Exhaustive first-row choices with forced row chasing, <=32 candidates per board"
+  },
+  "limitations": [
+    "Historical revision-2 Lights sample only; not a claim about the revised generator.",
+    "No human difficulty calibration or hardware timing."
+  ],
+  "initial_metrics": [
+    {
+      "id": 28,
+      "name": "LIGHTS OUT",
+      "mode": 0,
+      "level": 0,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 4,
+      "distinct_initial_boards": 126,
+      "exact_minimum_presses": {
+        "min": 4,
+        "max": 4,
+        "mean": 4,
+        "median": 4.0,
+        "distinct": 1
+      },
+      "declared_start_count": {
+        "min": 4,
+        "max": 4,
+        "mean": 4,
+        "median": 4.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 28,
+      "name": "LIGHTS OUT",
+      "mode": 0,
+      "level": 1,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 4,
+      "distinct_initial_boards": 120,
+      "exact_minimum_presses": {
+        "min": 1,
+        "max": 6,
+        "mean": 4.5547,
+        "median": 4.0,
+        "distinct": 4
+      },
+      "declared_start_count": {
+        "min": 8,
+        "max": 8,
+        "mean": 8,
+        "median": 8.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 28,
+      "name": "LIGHTS OUT",
+      "mode": 0,
+      "level": 2,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 4,
+      "distinct_initial_boards": 126,
+      "exact_minimum_presses": {
+        "min": 2,
+        "max": 6,
+        "mean": 4.4375,
+        "median": 4.0,
+        "distinct": 3
+      },
+      "declared_start_count": {
+        "min": 12,
+        "max": 12,
+        "mean": 12,
+        "median": 12.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 28,
+      "name": "LIGHTS OUT",
+      "mode": 0,
+      "level": 3,
+      "samples": 30,
+      "bank_count": 30,
+      "size": 4,
+      "distinct_initial_boards": 30,
+      "exact_minimum_presses": {
+        "min": 6,
+        "max": 6,
+        "mean": 6,
+        "median": 6.0,
+        "distinct": 1
+      },
+      "declared_start_count": {
+        "min": 6,
+        "max": 6,
+        "mean": 6,
+        "median": 6.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 28,
+      "name": "LIGHTS OUT",
+      "mode": 1,
+      "level": 0,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 5,
+      "distinct_initial_boards": 127,
+      "exact_minimum_presses": {
+        "min": 4,
+        "max": 4,
+        "mean": 4,
+        "median": 4.0,
+        "distinct": 1
+      },
+      "declared_start_count": {
+        "min": 4,
+        "max": 4,
+        "mean": 4,
+        "median": 4.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 28,
+      "name": "LIGHTS OUT",
+      "mode": 1,
+      "level": 1,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 5,
+      "distinct_initial_boards": 128,
+      "exact_minimum_presses": {
+        "min": 6,
+        "max": 8,
+        "mean": 7.9844,
+        "median": 8.0,
+        "distinct": 2
+      },
+      "declared_start_count": {
+        "min": 8,
+        "max": 8,
+        "mean": 8,
+        "median": 8.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 28,
+      "name": "LIGHTS OUT",
+      "mode": 1,
+      "level": 2,
+      "samples": 128,
+      "bank_count": 0,
+      "size": 5,
+      "distinct_initial_boards": 128,
+      "exact_minimum_presses": {
+        "min": 6,
+        "max": 14,
+        "mean": 10.0781,
+        "median": 10.0,
+        "distinct": 5
+      },
+      "declared_start_count": {
+        "min": 18,
+        "max": 18,
+        "mean": 18,
+        "median": 18.0,
+        "distinct": 1
+      }
+    },
+    {
+      "id": 28,
+      "name": "LIGHTS OUT",
+      "mode": 1,
+      "level": 3,
+      "samples": 30,
+      "bank_count": 30,
+      "size": 5,
+      "distinct_initial_boards": 30,
+      "exact_minimum_presses": {
+        "min": 12,
+        "max": 14,
+        "mean": 12.2667,
+        "median": 12.0,
+        "distinct": 3
+      },
+      "declared_start_count": {
+        "min": 12,
+        "max": 14,
+        "mean": 12.2667,
+        "median": 12.0,
+        "distinct": 3
+      }
+    }
+  ],
+  "adjacent_initial_comparison": [
+    {
+      "id": 28,
+      "mode": 0,
+      "levels": [
+        0,
+        1
+      ],
+      "paired": 128,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 28,
+      "mode": 0,
+      "levels": [
+        1,
+        2
+      ],
+      "paired": 128,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 28,
+      "mode": 0,
+      "levels": [
+        2,
+        3
+      ],
+      "paired": 30,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 28,
+      "mode": 1,
+      "levels": [
+        0,
+        1
+      ],
+      "paired": 128,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 28,
+      "mode": 1,
+      "levels": [
+        1,
+        2
+      ],
+      "paired": 128,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    },
+    {
+      "id": 28,
+      "mode": 1,
+      "levels": [
+        2,
+        3
+      ],
+      "paired": 30,
+      "same_initial_board": 0,
+      "note": "Equal board alone does not imply no-op: goals or CPU policy may differ. Bank comparisons use bank ordinal, runtime comparisons use equal seed."
+    }
+  ],
+  "source_sha256": {
+    "src/games/strategyquick_strategy.c": "5811d2d6cd4adb3edd4af9db0e5e91e62b0bd8c9a36fb2fff419ee2f01053a91",
+    "src/games/strategyquick_quick.c": "b5a9a3921c90ca272324c8529b8d206e8724db3bcaf2e33a4d12ee9df839e97b",
+    "src/games/strategyquick_extra.c": "9e760ae278bd33172ed8e22078b2ff79564985224b413444aee3f8296b6fb374",
+    "src/games/strategyquick_registry.c": "69d92a360edf583ca1024204b59cba8a386feb8fa7d2cf224f369a39ed9b0c0b",
+    "src/games/boards.c": "4c913d3f050c83ac4b48a92be2626eeb4b27b1f30cf936ce25e44d161c730dd8",
+    "src/games/boards_pack.c": "386d052fd0bab5ac68f40c25748159ac1f02405af62c214d203e349f5a041a72",
+    "tests/test_strategyquick_difficulty.c": "2f4b3945985b480e3e3a526c8aa74ed3488d1fe557608d173009651297c6df0a",
+    "tools/generate/strategyquick_difficulty.py": "704b854f79f85f94be7fe7ac8ceea36e8834220845fbc7ec4d9584f3c8174644"
+  },
+  "scope": "Pre-fix revision-2 Lights initial metrics only; runtime seeds 1..128 and full MASTER banks. The preserved source/raw-stream hashes identify the original broader sample, not only this extracted subset."
+}

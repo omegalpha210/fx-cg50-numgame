@@ -4,9 +4,15 @@
 #include <stdio.h>
 #include <string.h>
 
+static bool free_magic(const NgGame *g)
+{return g->id==19&&g->mode==1&&g->pack_revision>=3;}
+static bool pan_magic(const NgGame *g)
+{return g->id==19&&g->difficulty==3&&!free_magic(g);}
 const GridsPuzzle *grids_puzzle(const NgGame *g)
 {
  if(g->id<11||g->id>20||g->difficulty>4)return NULL;
+ if(free_magic(g)){if(g->difficulty>=4||g->puzzle_id!=GRIDS_FREE_MAGIC_ID+g->difficulty)return NULL;}
+ else if(g->puzzle_id>=GRIDS_PACK_COUNT)return NULL;
  const GridsPuzzle *p=grids_record(g->puzzle_id);
  return p&&p->id==g->id&&p->difficulty==g->difficulty?p:NULL;
 }
@@ -28,8 +34,13 @@ static bool editable(const NgGame *g,unsigned i)
 }
 static void init(NgGame *g)
 {
- unsigned count=grids_bank_count(g->id,g->difficulty,g->mode);if(!count)return;
- g->puzzle_id=grids_bank_id(g->id,g->difficulty,ng_bank_pick(g,count));
+ if(free_magic(g)){
+  if(g->difficulty>=4)return;
+  g->puzzle_id=GRIDS_FREE_MAGIC_ID+g->difficulty;
+ }else{
+  unsigned count=grids_bank_count(g->id,g->difficulty,0);if(!count)return;
+  g->puzzle_id=grids_bank_id(g->id,g->difficulty,ng_bank_pick(g,count));
+ }
  const GridsPuzzle *p=grids_puzzle(g);
  if(!p)return;
  g->rows=p->n;g->cols=p->n;
@@ -42,7 +53,7 @@ static void init(NgGame *g)
   g->board[i]=(int16_t)v;g->fixed[i]=v!=blank(g);
  }
  while((unsigned)g->cursor+1u<size(g)&&!editable(g,g->cursor))g->cursor++;
- if(g->id==19&&g->difficulty==3)ng_message(g,"PAN: every wrapped diagonal sums to 34.");
+ if(pan_magic(g))ng_message(g,"PAN: every wrapped diagonal sums to 34.");
  else if(two_digits(g))ng_message(g,"Digits + EXE: enter. F4: CHECK.");
  else if(toggle_game(g))ng_message(g,"EXE: toggle. F4: CHECK.");
  else if(g->id==11)ng_message(g,"Digits: enter. F4: NOTES. EXE: CHECK.");
@@ -168,7 +179,7 @@ bool grids_rules_complete(const NgGame *g,const GridsPuzzle *p)
    int target=(int)(n*(nn+1)/2),d1=0,d2=0;
    for(unsigned r=0;r<n;r++){int rs=0,cs=0;for(unsigned c=0;c<n;c++){rs+=g->board[r*n+c];cs+=g->board[c*n+r];}if(rs!=target||cs!=target)return false;d1+=g->board[r*n+r];d2+=g->board[r*n+n-1-r];}
    if(d1!=target||d2!=target)return false;
-   if(g->difficulty==3){
+   if(pan_magic(g)){
     for(unsigned start=0;start<n;start++){
      int rising=0,falling=0;
      for(unsigned r=0;r<n;r++){rising+=g->board[r*n+(start+r)%n];falling+=g->board[r*n+(start+n-r)%n];}
@@ -374,7 +385,7 @@ static void render(const NgGame *g,NgCanvas *c)
  int sx=l.x+(int)(g->cursor%n)*pitch,sy=l.y+(int)(g->cursor/n)*pitch;
  ng_border(c,sx,sy,l.size,l.size,NG_BLUE,g->id==11&&g->notes[g->cursor]?1:2);
  int info=235;
- if(g->id==19&&g->mode==1)snprintf(text,sizeof text,"%s %ux%u",g->difficulty==3?"FREE PAN":"FREE",n,n);
+ if(g->id==19&&g->mode==1)snprintf(text,sizeof text,"%s %ux%u",pan_magic(g)?"FREE PAN":"FREE",n,n);
  else if(g->difficulty>=3){unsigned count=grids_bank_count(g->id,g->difficulty,g->mode),ordinal=0;while(ordinal<count&&grids_bank_id(g->id,g->difficulty,ordinal)!=g->puzzle_id)ordinal++;snprintf(text,sizeof text,"%s %02u / %u",g->difficulty==4?"HELL":"MASTER",ordinal+1,count);}
  else {unsigned count=grids_bank_count(g->id,g->difficulty,g->mode),ordinal=0;while(ordinal<count&&grids_bank_id(g->id,g->difficulty,ordinal)!=g->puzzle_id)ordinal++;snprintf(text,sizeof text,"PUZZLE %u / %u",ordinal+1,count);}
  ng_text(c,info,34,text,NG_MUTED,1);
@@ -382,7 +393,7 @@ static void render(const NgGame *g,NgCanvas *c)
  if(two_digits(g)){
   snprintf(text,sizeof text,"RANGE 1-%u",nn);ng_text(c,info,70,text,NG_INK,1);ng_input(c,info,89,140,g->input);
   ng_text(c,info,119,"EXE: ENTER",NG_BLUE,1);ng_text(c,info,137,"F4: CHECK",NG_MUTED,1);
-  if(g->id==19){snprintf(text,sizeof text,"%sSUM = %u",g->difficulty==3?"PAN ":"",n*(nn+1)/2);ng_text(c,info,156,text,NG_GREEN,1);if(g->difficulty==3)ng_small(c,info,173,"ALL WRAP DIAGONALS",NG_GREEN);}
+  if(g->id==19){snprintf(text,sizeof text,"%sSUM = %u",pan_magic(g)?"PAN ":"",n*(nn+1)/2);ng_text(c,info,156,text,NG_GREEN,1);if(pan_magic(g))ng_small(c,info,173,"ALL WRAP DIAGONALS",NG_GREEN);}
  }else if(g->id==11){
   ng_text(c,info,73,g->notes_mode?"NOTES ON":"NOTES OFF",NG_BLUE,1);
   ng_text(c,info,93,"F4: NOTES",NG_MUTED,1);ng_text(c,info,111,"DEL: CLEAR",NG_MUTED,1);
@@ -412,6 +423,6 @@ const NgModule ng_grids[10]={
  GRID(16,"HITORI","HITORI","EXE shades or unshades the selected cell.\nUnshaded values cannot repeat in a row/column.\nShaded cells cannot share an edge.\nAll unshaded cells must connect by edges.\nDiagonal shaded contacts are allowed.\nF4 CHECK validates all three rules.\nDEL unshades. F3 REVEAL is assisted.",NGF_UNDO|NGF_HINT,"CHECK","SHADE",1,normal_mode),
  GRID(17,"BINARY PUZZLE","BINARY","Enter 0 or 1. A blank differs from zero.\nEach row/column contains half zeros/half ones.\nNever three identical neighbors in a line.\nNo two completed rows or columns may match.\nGiven clues stay fixed. DEL returns to blank.\nEXE checks. F3 REVEAL is assisted.",NGF_UNDO|NGF_HINT,"","CHECK",1,normal_mode),
  GRID(18,"NUMBRIX","NUMBRIX","Place every integer from 1 to N*N once.\nConsecutive numbers must share an edge.\nDiagonal steps are forbidden. Clues are fixed.\nType one or two digits, then EXE to enter.\nMoving the cursor cancels a draft. DEL erases.\nF4 CHECK validates the path.\nF3 REVEAL shows one cell and marks ASSISTED.",NGF_UNDO|NGF_HINT,"CHECK","ENTER",1,normal_mode),
- GRID(19,"MAGIC SQUARE","MAGIC SQUARE","Use every integer 1 to N*N exactly once.\nRows, columns and both main diagonals must\nhave the displayed common sum.\nMASTER PAN: all wrapped diagonals also sum 34.\nPARTIAL has fixed clues. FREE has none.\nAny rule-valid solution is accepted.\nType 1-2 digits, EXE enters; F4 checks.\nDEL edits draft or clears. Arrows select.",NGF_UNDO,"CHECK","ENTER",2,magic_mode),
+ GRID(19,"MAGIC SQUARE","MAGIC SQUARE","Use every integer 1 to N*N exactly once.\nRows, columns and both main diagonals must\nhave the displayed common sum.\nPARTIAL MASTER: wrapped diagonals also sum 34.\nFREE E/N/H/M: blank 3/4/5/6 square, normal sums.\nOlder FREE saves keep their original rules.\nAny rule-valid solution is accepted.\nType 1-2 digits, EXE enters; F4 checks.\nDEL edits draft or clears. Arrows select.",NGF_UNDO,"CHECK","ENTER",2,magic_mode),
  GRID(20,"SUM GRID","SUM GRID","EXE toggles KEEP or REMOVE for a number.\nKept numbers must sum to each row/column target.\nRemoved numbers remain visible with a line.\nA zero target means remove the whole line.\nF4 CHECK validates every sum. DEL keeps.\nF3 REVEAL shows one choice, marking ASSISTED.",NGF_UNDO|NGF_HINT,"CHECK","TOGGLE",1,normal_mode)
 };

@@ -1,0 +1,57 @@
+{
+  "scope": "Strict SH object comparison, strategyquick_quick.c only; not final linked ELF or actual hardware timing",
+  "toolchain": "sh-elf-gcc 14.1.0",
+  "flags": [
+    "-m4-nofpu",
+    "-mb",
+    "-std=c11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wframe-larger-than=2048",
+    "-Os",
+    "-fstack-usage",
+    "-fcallgraph-info=su",
+    "-DFXCG50"
+  ],
+  "baseline_commit": "53308fb949ee57852a59445433e2eb119d6bc9d0",
+  "source_sha256": "2381432f66f064d72e6398a204a6f21f1c8a112a12d3f5648a98d0bf79f525a2",
+  "sections": {
+    "before": {
+      ".text": 7636,
+      ".rodata": 814,
+      ".rodata.str1.4": 1138,
+      ".data": 0,
+      ".bss": 0
+    },
+    "after": {
+      ".text": 7888,
+      ".rodata": 858,
+      ".rodata.str1.4": 1174,
+      ".data": 0,
+      ".bss": 0
+    }
+  },
+  "payload_delta_bytes": 332,
+  "frames_bytes": {
+    "sq_quick_init": 148,
+    "sq_lights_solution": 236
+  },
+  "frame_delta_bytes": 0,
+  "maximum_new_generation_work": {
+    "candidates": 16,
+    "chosen_cells_per_candidate": 5,
+    "coset_masks_per_candidate": 16,
+    "bit_checks_per_coset": 16,
+    "deterministic_fallback": "press mask 0x001f, independently verified exact minimum five"
+  },
+  "hardware_status": "HARDWARE TEST REQUIRED",
+  "asan_status": "NOT VERIFIED",
+  "asan_attempt": {
+    "status": "NOT_VERIFIED_RUNTIME_TIMEOUT",
+    "scope": "test_strategyquick_difficulty, actual engine/core and revision INIT/codec checks, AppleClang 17 AddressSanitizer",
+    "timeout_seconds": 20,
+    "stdout_bytes": 0,
+    "stderr_bytes": 0
+  }
+}

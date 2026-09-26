@@ -1,8 +1,6 @@
 # Memory and build audit
 
-> Historical 30-game baseline measurement. The current 36-game catalog, controls, and compact storage are documented in [README](../README.md), [GAME_CATALOG](GAME_CATALOG.md), and [STORAGE_FORMAT](STORAGE_FORMAT.md). The figures below have not been remeasured for the current build.
-
-Measured native build: `build-clean-1R7P67`. ELF SHA256 `3a005edc8a67ab56bb1c998c890463909be9f3b44fe328c43df9fe37f8da4a99`.
+Measured native build: `build-clean-eDJ0ah`. ELF SHA256 `e6764024b11a56cc9a0acee333c12d1e7e5a129510c268e791a6acf0fe8cc16d`.
 This report separates ELF placement, compiler static analysis, host observations
 and device observations. **No total runtime RAM peak is inferred.**
 Method and measurement limits: [MEMORY_METHOD.md](MEMORY_METHOD.md).
@@ -11,20 +9,20 @@ Method and measurement limits: [MEMORY_METHOD.md](MEMORY_METHOD.md).
 
 | ELF allocated section | Bytes | VMA | LMA | Flags |
 |---|---:|---|---|---|
-| `.text` | 107,044 | `0x00300000` | `0x00300000` | CONTENTS, ALLOC, LOAD, READONLY, CODE |
-| `.gint.blocks` | 352 | `0x0031a230` | `0x0031a230` | CONTENTS, ALLOC, LOAD, READONLY, CODE |
-| `.gint.drivers` | 432 | `0x0031a390` | `0x0031a390` | CONTENTS, ALLOC, LOAD, DATA |
-| `.rodata` | 209,580 | `0x0031a540` | `0x0031a540` | CONTENTS, ALLOC, LOAD, READONLY, DATA |
-| `.bss` | 45,760 | `0x08101400` | `0x08101400` | ALLOC |
-| `.data` | 80 | `0x0810c6c0` | `0x0034d7ec` | CONTENTS, ALLOC, LOAD, DATA |
-| `.data.4` | 0 | `0x0810c710` | `0x0810c710` | CONTENTS, ALLOC, LOAD, DATA |
-| `.ilram` | 128 | `0xe5200000` | `0x0034d83c` | CONTENTS, ALLOC, LOAD, READONLY, CODE |
-| `.gint.bss` | 112 | `0x0810c710` | `0x0810c710` | ALLOC |
+| `.text` | 138,884 | `0x00300000` | `0x00300000` | CONTENTS, ALLOC, LOAD, READONLY, CODE |
+| `.gint.blocks` | 352 | `0x00321e90` | `0x00321e90` | CONTENTS, ALLOC, LOAD, READONLY, CODE |
+| `.gint.drivers` | 432 | `0x00321ff0` | `0x00321ff0` | CONTENTS, ALLOC, LOAD, DATA |
+| `.rodata` | 242,920 | `0x003221a0` | `0x003221a0` | CONTENTS, ALLOC, LOAD, READONLY, DATA |
+| `.bss` | 45,984 | `0x08101400` | `0x08101400` | ALLOC |
+| `.data` | 80 | `0x0810c7a0` | `0x0035d688` | CONTENTS, ALLOC, LOAD, DATA |
+| `.data.4` | 0 | `0x0810c7f0` | `0x0810c7f0` | CONTENTS, ALLOC, LOAD, DATA |
+| `.ilram` | 128 | `0xe5200000` | `0x0035d6d8` | CONTENTS, ALLOC, LOAD, READONLY, CODE |
+| `.gint.bss` | 112 | `0x0810c7f0` | `0x0810c7f0` | ALLOC |
 
-GNU size aggregate text/data/BSS: 317,104/512/45,872 B.
+GNU size aggregate text/data/BSS: 382,284/512/46,096 B.
 These legacy aggregates do not mean code/RAM/peak: `text` includes readonly
 data and ILRAM code; `.gint.drivers` can be ROM metadata despite DATA flags.
-Pre-link project object BSS: 44,782 B across 25 objects.
+Pre-link project object BSS: 45,014 B across 29 objects.
 Do not add object totals to the linked sections; they describe overlapping storage.
 Linker map: PARSED; allocated-section cross-check: True.
 
@@ -49,6 +47,7 @@ Linker map: PARSED; allocated-section cross-check: True.
 | `_gc_lock_pack` | 1,980 | `.rodata` |
 | `_gc_sequence_pack` | 1,980 | `.rodata` |
 | `_gc_equation_pack` | 2,430 | `.rodata` |
+| `_gc_crypt_pack` | 2,760 | `.rodata` |
 | `_gc_master_countdown` | 2,820 | `.rodata` |
 | `_gc_master_mind` | 2,940 | `.rodata` |
 | `_grids_bank_ids` | 3,500 | `.rodata` |
@@ -63,7 +62,7 @@ Linker map: PARSED; allocated-section cross-check: True.
 | `_gc_mind_pack` | 8,820 | `.rodata` |
 | `_ng_storage_probe` | 12,936 | `.bss` |
 | `_buffer` | 14,000 | `.bss` |
-| `_app` | 15,708 | `.bss` |
+| `_app` | 15,884 | `.bss` |
 | `_gc_target_pack` | 16,920 | `.rodata` |
 | `_grids_pack_bytes` | 79,658 | `.rodata` |
 
@@ -74,27 +73,27 @@ this ELF are counted; no whole-bank RAM cache is assumed.
 ## B. Compiler static analysis
 
 Compiler: `sh-elf-gcc (GCC) 14.1.0`. Individual-frame limit: 2,048 B; pass: True.
-Accepted .su functions: 304; accepted .ci units: 24.
+Accepted .su functions: 401; accepted .ci units: 28.
 
 | Function | Individual frame bytes | Kind |
 |---|---:|---|
+| `src/core/app.c:92:13:start` | 1392 | static |
 | `src/ui/draw.c:142:6:ng_wrap_expression` | 576 | static |
 | `src/games/guesscalc_math.c:78:6:gc_feedback` | 532 | static |
-| `src/games/grids.c:84:6:grids_rules_complete` | 508 | static |
-| `src/ui/render.c:164:13:dialog` | 424 | static |
-| `src/storage/native.c:192:13:diagnostic_line` | 408 | static |
+| `src/storage/native.c:396:13:migrate_state` | 524 | static |
+| `src/games/grids.c:95:6:grids_rules_complete` | 512 | static |
+| `src/ui/render.c:192:13:dialog` | 424 | static |
+| `src/storage/native.c:473:13:diagnostic_line` | 408 | static |
+| `src/storage/native.c:307:13:migrate` | 376 | static |
+| `src/games/guesscalc_extra.c:54:6:gc_blackbox_complete` | 352 | static |
 | `src/games/boards.c:41:6:nb_slither_complete` | 316 | static |
 | `src/ui/draw.c:128:6:ng_wrap` | 304 | static |
 | `src/ui/draw.c:107:6:ng_center` | 300 | static |
+| `src/games/strategyquick_extra.c:86:5:sq_reversi_pick` | 280 | static |
 | `src/ui/draw.c:99:6:ng_small_fit` | 276 | static |
-| `src/storage/native.c:231:12:dispatch` | 244 | static |
-| `src/games/strategyquick_quick.c:96:6:sq_lights_solution` | 236 | static |
-| `src/ui/render.c:287:6:ng_render` | 232 | static |
-| `src/games/grids.c:297:13:render` | 224 | static |
-| `src/games/guesscalc_math.c:65:6:gc_equation` | 220 | static |
-| `src/games/strategyquick_quick.c:275:6:sq_quick_render` | 184 | static |
+| `src/games/strategyquick_extra.c:68:12:rv_search` | 244 | static |
 
-Callgraph status: **PARTIAL STATIC ANALYSIS**. Known definitions: 304; unresolved edges: 191.
+Callgraph status: **PARTIAL STATIC ANALYSIS**. Known definitions: 401; unresolved edges: 249.
 The following sums include only known direct project continuations and
 checked recursive-component limits. They are conditional contributions,
 **not a whole-program bound and not observed stack peaks**.
@@ -104,13 +103,13 @@ checked recursive-component limits. They are conditional contributions,
 | `src/games/guesscalc.c:action_equation` | 3356 | action_equation → gc_equation → gc_expression → SCC(atom + expression + term) → combine → normalize |
 | `src/games/guesscalc.c:valid_equation` | 3328 | valid_equation → gc_equation → gc_expression → SCC(atom + expression + term) → combine → normalize |
 | `src/games/guesscalc.c:init_operators` | 3276 | init_operators → operators_value → gc_expression → SCC(atom + expression + term) → combine → normalize |
+| `src/games/guesscalc.c:action_cards` | 3272 | action_cards → gc_expression → SCC(atom + expression + term) → combine → normalize |
 | `src/games/guesscalc.c:valid_operators` | 3272 | valid_operators → operators_value → gc_expression → SCC(atom + expression + term) → combine → normalize |
 | `src/games/guesscalc.c:action_operators` | 3252 | action_operators → operators_value → gc_expression → SCC(atom + expression + term) → combine → normalize |
-| `src/games/guesscalc.c:valid_cards` | 3164 | valid_cards → gc_expression → SCC(atom + expression + term) → combine → normalize |
-| `src/games/guesscalc.c:action_cards` | 3156 | action_cards → gc_expression → SCC(atom + expression + term) → combine → normalize |
-| `main` | 1548 | main → draw → ng_render → dialog → ng_wrap_expression → expression_span → letters → ng_rect |
-| `src/games/guesscalc.c:valid_baseball` | 684 | valid_baseball → gc_baseball → gc_feedback |
-| `src/storage/native.c:dispatch` | 680 | dispatch → diagnostic_line → file_write → raw_write → ng_diag_io |
+| `src/games/guesscalc.c:valid_cards` | 3184 | valid_cards → gc_expression → SCC(atom + expression + term) → combine → normalize |
+| `main` | 1796 | main → ng_app_event → dispatch → start → gc_target_init → target_deck → target_rand |
+| `src/storage/native.c:dispatch` | 1100 | dispatch → migrate_state → ng_state_save_io → read_state_slot → ng_single_decode → game → u32 → u16 → u8 |
+| `src/games/guesscalc.c:valid_baseball` | 708 | valid_baseball → gc_baseball → gc_feedback |
 
 The parser accepts atom nesting depth12; the rejected thirteenth atom still
 has a frame, as do its expression/term callers. When the matching guard is
@@ -146,7 +145,7 @@ simultaneous. See the method document for workloads and coverage limits.
 
 ## Artifact identity
 
-G3A `NUMGAME.g3a`: **346,304 B**, SHA256 `7d2ea0dca296bd8ed78968e13966319126eb75253e851f6ee9653f87669eeaff`.
+G3A `NUMGAME.g3a`: **411,484 B**, SHA256 `23021bec2e20d01865433aa8cdc517cea38136f22e57b3755937efa16aae03da`.
 ELF binary payload equals G3A payload: **True**.
 1,000,000-byte target: True; 1,200,000-byte hard limit: True.
 Container checksum/identity validation remains a separate check; neither proves device execution.

@@ -33,8 +33,8 @@ static void solve_actions(NgGame *g)
    for(unsigned k=0;k<(unsigned)(solution[cell]/3);k++)assert(m->action(g,'2'));
    assert(m->valid(g));
   }
- }else for(unsigned i=0;i<(unsigned)g->rows*g->cols;i++){g->cursor=(uint8_t)i;assert(m->action(g,'0'+solution[i]));assert(m->valid(g));}
- assert(!memcmp(g->board,solution,sizeof solution));assert(m->action(g,NGK_AUX));assert(g->status==NG_WON&&m->valid(g));
+ }else for(unsigned fill=0;fill<2;fill++)for(unsigned i=0;i<(unsigned)g->rows*g->cols;i++)if(solution[i]==(int)fill){g->cursor=(uint8_t)i;assert(m->action(g,'0'+solution[i]));assert(m->valid(g));}
+ assert(!memcmp(g->board,solution,sizeof solution));if(!g->status)assert(m->action(g,NGK_AUX));assert(g->status==NG_WON&&m->valid(g));
 }
 static void all_records(void)
 {
@@ -49,7 +49,7 @@ static void all_records(void)
   NgGame completed=g;
   for(unsigned k=0;k<sizeof frozen_keys/sizeof frozen_keys[0];k++){assert(!m->action(&g,frozen_keys[k]));assert(!memcmp(&g,&completed,sizeof g));}
   if(id==35){unsigned cell=grids_hashi_pack[g.puzzle_id].pos[0];int v=g.board[cell];g.board[cell]=(int16_t)(v%3?v-1:v-3);}
-  else g.board[g.cursor]=-1;
+  else {for(unsigned i=0;i<(unsigned)g.rows*g.cols;i++)if(g.board[i]==1){g.board[i]=-1;break;}}
   assert(!m->valid(&g));
  }
 }
@@ -66,10 +66,10 @@ static void rule_boundaries(void)
  p.count=26;assert(!grids_hashi_rules(&g,&p));
  GridsNonoPuzzle n={5,{0x21,0,0,0,0,1,0,0,1,1},{65535}};memset(&g,0,sizeof g);g.id=36;g.rows=g.cols=5;g.board[0]=g.board[3]=g.board[4]=1;
  assert(grids_nono_rules(&g,&n));n.clue[0]=0x12;assert(!grids_nono_rules(&g,&n));n.clue[0]=0x21;
- g.board[1]=-1;assert(!grids_nono_rules(&g,&n));g.board[1]=0;g.board[0]=2;assert(!grids_nono_rules(&g,&n));g.board[0]=1;n.clue[0]=0x201;assert(!grids_nono_rules(&g,&n));
+ g.board[1]=-1;assert(grids_nono_rules(&g,&n));g.board[1]=0;g.board[0]=2;assert(!grids_nono_rules(&g,&n));g.board[0]=1;n.clue[0]=0x201;assert(!grids_nono_rules(&g,&n));
  /* Zero clues mean an empty line, never a missing/unconstrained clue. */
  memset(&n,0,sizeof n);n.n=3;memset(&g,0,sizeof g);g.rows=g.cols=3;
- assert(grids_nono_rules(&g,&n));g.board[4]=1;assert(!grids_nono_rules(&g,&n));g.board[4]=-1;assert(!grids_nono_rules(&g,&n));g.board[4]=0;
+ assert(grids_nono_rules(&g,&n));g.board[4]=1;assert(!grids_nono_rules(&g,&n));g.board[4]=-1;assert(grids_nono_rules(&g,&n));g.board[4]=0;
  n.clue[0]=0x11;n.clue[3]=n.clue[5]=1;g.board[0]=g.board[2]=1;assert(grids_nono_rules(&g,&n));
  g.board[1]=1;g.board[2]=0;n.clue[4]=1;n.clue[5]=0;assert(!grids_nono_rules(&g,&n)); /* Adjacent singles merge. */
  n.clue[0]=2;assert(grids_nono_rules(&g,&n));n.clue[0]=4;assert(!grids_nono_rules(&g,&n));
@@ -77,6 +77,36 @@ static void rule_boundaries(void)
  memset(&n,0,sizeof n);n.n=9;memset(&g,0,sizeof g);g.rows=g.cols=9;n.clue[0]=0x11111;
  for(unsigned c=0;c<9;c+=2){g.board[c]=1;n.clue[9+c]=1;}
  assert(grids_nono_rules(&g,&n));g.board[1]=1;n.clue[10]=1;assert(!grids_nono_rules(&g,&n));
+}
+/* A-F: every shipped unique public-clue board, independent filled-set oracle. */
+static void nonogram_filled_sets(void)
+{
+ const NgModule *m=&ng_grids_extra[1];
+ for(unsigned index=0;index<120;index++){
+  NgGame initial=fresh(36,index/30,index%30);int16_t truth[81];assert(grids_extra_witness(36,index,truth));
+  unsigned nn=(unsigned)initial.rows*initial.cols,black=nn,empty=nn;
+  for(unsigned i=0;i<nn;i++){if(truth[i])black=i;else empty=i;}
+  assert(black<nn&&empty<nn);
+  for(unsigned style=0;style<3;style++){
+   NgGame g=initial;
+   /* A: all X. B: all unknown. C: both annotations. */
+   for(unsigned i=0;i<nn;i++)if(!truth[i]&&(style==0||(style==2&&i%2))){g.cursor=(uint8_t)i;assert(m->action(&g,'0'));}
+   for(unsigned i=0;i<nn;i++)if(truth[i]){g.cursor=(uint8_t)i;assert(m->action(&g,'1'));assert(g.status==(i==black?NG_WON:NG_PLAYING));}
+   assert(grids_extra_complete(&g)&&m->valid(&g));
+   GridsNonoPuzzle clues=grids_nono_pack[index];memset(clues.solution,255,sizeof clues.solution);assert(grids_nono_rules(&g,&clues));
+   NgGame bad=g;bad.status=NG_PLAYING;bad.score=0;
+   bad.board[black]=-1;assert(!grids_extra_complete(&bad)); /* D: missing black. */
+   bad.board[empty]=1;assert(!grids_extra_complete(&bad)); /* E: extra + missing. */
+   bad.board[black]=1;assert(!grids_extra_complete(&bad)); /* F: extra + all required. */
+   assert(m->valid(&bad));assert(m->action(&bad,NGK_AUX)&&bad.status==NG_PLAYING);
+   bad.cursor=(uint8_t)empty;assert(m->action(&bad,NGK_DEL)&&bad.status==NG_WON);
+  }
+  /* REVEAL keeps empty X distinct from unknown and marks assistance. */
+  NgGame hint=initial;hint.cursor=(uint8_t)empty;assert(m->action(&hint,NGK_HINT));
+  assert(hint.board[empty]==0&&hint.assisted&&hint.status==NG_PLAYING);
+  hint.cursor=(uint8_t)black;assert(m->action(&hint,NGK_HINT)&&hint.board[black]==1);
+ }
+ puts("NONOGRAM A-F: 120 banks x X/blank/mixed, exact filled sets, auto-complete and REVEAL PASS");
 }
 static unsigned leader(unsigned parent[8],unsigned i)
 {while(parent[i]!=i)i=parent[i];return i;}
@@ -185,7 +215,7 @@ static void controls_and_states(void)
  assert(grids_extra_bank_id(35,0,30)==UINT32_MAX);
 }
 void test_grids_extra(void)
-{all_records();rule_boundaries();exhaustive_hashi_geometry();hashi_feedback();controls_and_states();puts("grids_extra: 270 witnesses/actions, independent completion, states, content bounds PASS");}
+{all_records();rule_boundaries();nonogram_filled_sets();exhaustive_hashi_geometry();hashi_feedback();controls_and_states();puts("grids_extra: 270 witnesses/actions, independent completion, states, content bounds PASS");}
 
 #ifdef NG_GRIDS_EXTRA_TEST_MAIN
 static void capture_one(const NgGame *g,const char *directory,const char *name,uint16_t *image)

@@ -18,12 +18,12 @@ unsigned ng_generation_policy(unsigned id)
  if(id==37)return NG_SUPPLY_RULES;
  if(id==8 || (id>=21 && id<=25) || id==27 || id==28)return NG_SUPPLY_HYBRID;
  if(id==26)return NG_SUPPLY_RULES;
- return id==19?NG_SUPPLY_TRANSFORMS:NG_SUPPLY_BANK;
+ return id==19?NG_SUPPLY_HYBRID:NG_SUPPLY_BANK;
 }
 unsigned ng_level_generation_policy(unsigned id,unsigned difficulty,unsigned mode)
 {
  if(id==6)return NG_SUPPLY_RUNTIME;
- if(id==19)return NG_SUPPLY_TRANSFORMS;
+ if(id==19)return mode==1?NG_SUPPLY_RULES:NG_SUPPLY_TRANSFORMS;
  if(ng_bank_count(id,difficulty,mode))return NG_SUPPLY_BANK;
  if((id>=21 && id<=26) || id==37)return NG_SUPPLY_RULES;
  return NG_SUPPLY_RUNTIME;
@@ -71,7 +71,7 @@ void ng_new_supply(NgGame *g,unsigned id,unsigned difficulty,unsigned mode,uint3
 {
  const NgModule *m=ng_module(id);
  if(m && mode>=m->modes)mode=0;
- ng_new_supply_version(g,id,difficulty,mode,seed,run_id,supply_seed,supply_index,(id==1 || id==6)?3u:2u);
+ ng_new_supply_version(g,id,difficulty,mode,seed,run_id,supply_seed,supply_index,(id==1 || id==6 || id==28 || (id==19 && mode==1))?3u:2u);
 }
 void ng_new_supply_version(NgGame *g,unsigned id,unsigned difficulty,unsigned mode,uint32_t seed,uint32_t run_id,uint32_t supply_seed,uint32_t supply_index,unsigned revision)
 {
@@ -82,7 +82,7 @@ void ng_new_supply_version(NgGame *g,unsigned id,unsigned difficulty,unsigned mo
  g->mode=(uint8_t)(mode<m->modes || legacy_mode?mode:0);g->seed=seed?seed:1;
  g->rng=g->seed;g->run_id=run_id?run_id:1;g->supply_seed=supply_seed;g->supply_index=supply_index;g->pack_revision=revision;
  unsigned policy_mode=revision<=2 && id>=21 && id<=25 && g->mode==2?0:g->mode;
- g->generation_policy=id==6 && revision<=2?NG_SUPPLY_BANK:ng_level_generation_policy(g->id,g->difficulty,policy_mode);
+ g->generation_policy=id==6 && revision<=2?NG_SUPPLY_BANK:id==19 && g->mode==1 && revision<=2?NG_SUPPLY_TRANSFORMS:ng_level_generation_policy(g->id,g->difficulty,policy_mode);
  NgDiagScope scope=ng_diag_begin(NGOP_NEW,id);m->init(g);ng_diag_end(scope);
 }
 static bool valid(const NgGame *g)
@@ -90,7 +90,7 @@ static bool valid(const NgGame *g)
  const NgModule *m=ng_module(g->id);
  bool old_mode=g->pack_revision<=2 && ((g->id==1 && g->mode<6) || (g->id==6 && g->mode<2) || (g->id>=21 && g->id<=25 && g->mode==2));
  unsigned policy_mode=g->pack_revision<=2 && g->id>=21 && g->id<=25 && g->mode==2?0:g->mode;
- unsigned policy=g->id==6 && g->pack_revision<=2?NG_SUPPLY_BANK:ng_level_generation_policy(g->id,g->difficulty,policy_mode);
+ unsigned policy=g->id==6 && g->pack_revision<=2?NG_SUPPLY_BANK:g->id==19 && g->mode==1 && g->pack_revision<=2?NG_SUPPLY_TRANSFORMS:ng_level_generation_policy(g->id,g->difficulty,policy_mode);
  if(!m || !m->valid || g->difficulty>=ng_difficulty_count(g->id) || (g->mode>=m->modes && !old_mode) ||
  g->status>NG_DRAW || g->assisted>1 || g->recorded>1 || g->turn>1 ||
  g->rows>9 || g->cols>9 || g->history_count>NG_HISTORY ||

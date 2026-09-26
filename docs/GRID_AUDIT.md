@@ -41,7 +41,8 @@ new ordinary Calcudoku records were regenerated under the original limits.
 Magic is not counted as a unique-solution family. Its original 90 PARTIAL
 layouts have 85 distinct D4-normalized clue layouts, derived from two underlying
 3×3/4×4 constructions with 16 oriented witnesses. MASTER adds the explicit PAN
-rule: **every wrapped diagonal also sums to 34**, in both PARTIAL and FREE.
+rule: **every wrapped diagonal also sums to 34** in PARTIAL and in retained
+revision-2 FREE saves. New revision-3 FREE games use normal magic rules.
 The rule is displayed on the board and explained in RULES. Every rule-valid
 completion is accepted; the stored witness is not the only accepted answer.
 
@@ -54,8 +55,9 @@ bases. The original balanced-bit construction enumerates 384 arrays (48 D4,
 count, not a claim that the tool classifies all conceivable square generators.
 
 FREE removes all givens. It is one open rule challenge for each size/rule set,
-not 30 different puzzles. Stable bank IDs remain for save compatibility, but
-FREE renders `FREE PAN 4x4` or `FREE 3x3/4x4`, without a puzzle-count label.
+not 30 different puzzles. Legacy stable bank IDs remain for save compatibility. New revision-3 FREE
+uses four rules-only IDs outside the bank and renders `FREE 3x3/4x4/5x5/6x6`,
+without a puzzle-count label. Older saves keep their original FREE/PAN label.
 
 ## Difficulty evidence
 
@@ -135,9 +137,9 @@ Engine call paths retain them only while accessing that same record; caller-owne
 C tests exercise that lifetime boundary. Decoding checks record bounds, bit
 lengths, dimensions, values and cage indices. There is no whole-bank RAM copy.
 
-SH `-Os` measurements: decoder text/read-only 1,108 B, data 4 B, BSS 490 B;
-engine/renderer text/read-only 14,086 B and zero data/BSS. Individual compiler
-frames are init 48 B, decode 76 B, rules 508 B, render 224 B and valid 60 B.
+SH `-Os` measurements: decoder text/read-only 1,282 B, data 4 B, BSS 490 B;
+engine/renderer text/read-only 14,314 B and zero data/BSS. Individual compiler
+frames are init 48 B, decode 76 B, rules 512 B, render 224 B and valid 60 B.
 These are not simultaneous whole-call-chain or measured device peaks. Exact
 per-family payload/minimum/maximum record sizes are in
 `assets/grids/expanded/memory.json`. **Hardware stack peak and latency: NOT MEASURED.**
@@ -272,8 +274,9 @@ Incorrect totals/crossings may remain in an unfinished player board; CHECK
 rejects them. A won persisted state must satisfy the full rules again.
 
 NONOGRAM stores ordered row/column runs as nibble sequences. Its board values
-are −1 unknown, 0 marked empty, and 1 filled. Completion requires every cell to
-be marked and independently extracts all runs from the player's rows/columns.
+are −1 unknown, 0 marked empty, and 1 filled. Completion independently extracts
+runs of filled cells from the player's rows/columns; unknown and X both count as
+unfilled. The annotations stay distinct for editing, REVEAL and persistence.
 It checks run order and gaps against the public clues, including zero clues.
 Neither game's completion routine reads the stored witness. C tests poison
 every witness in a copied record and still accept its rule-valid player board.
@@ -346,7 +349,7 @@ reproduction. The strict C11/UBSan suite completes all 270 puzzles using real
 key actions and checks malformed states, disconnected/crossing HASHI boards,
 NONOGRAM run order/unknown cells, and pixel bounds for every initial/won board.
 The engine and pack pass strict SH compilation. Engine text/read-only size is
-7,992 bytes, with zero data/BSS; largest individual frame is render 200 bytes,
+8,072 bytes, with zero data/BSS; largest individual frame is render 200 bytes,
 HASHI rules 96 bytes, valid 48 bytes and init 16 bytes. These are compiler
 estimates, not a measured hardware call-chain peak.
 
@@ -405,3 +408,94 @@ show incorrect/partial player states. Reproduce those content-only captures with
 the above C test binary's `--audit-capture OUTPUT_DIRECTORY` option. The current
 SH object measurements are in `assets/grids/extra/memory.json`; individual frames
 are not a whole-call-chain or physical-device peak.
+
+
+## Beta.3: optional NONOGRAM marks and FREE Magic orders
+
+NONOGRAM now completes immediately after a cell edit makes its filled set exact.
+All public row/column runs must match; missing black cells and extra black cells
+both fail. Since every shipped NONOGRAM is independently unique, checking the
+public runs is equivalent to exact filled-set equality without comparing the
+answer witness. Empty cells may remain blank or carry X. EXE still cycles
+blank → filled → X → blank; DEL restores blank. REVEAL of an empty cell still
+writes X and marks assistance. RULES and failed CHECK no longer demand that every
+cell be annotated.
+
+`tests/test_grids_extra.c` covers requested A–F on all 120 NONOGRAM banks: all-X,
+all-blank and mixed empties; missing black; extra black with a missing required
+cell; and extra black with every required cell present. All three successful
+styles complete on the last required edit. The independent public-clue and
+native-pack Python tests still pass. `tests/test_grids_beta3.c` covers G with an
+actual A/B save and cold load preserving X versus unknown, and H by holding the
+completing EXE 50 times: the result barrier prevents dismissal or accidental NEW.
+EXIT exposes the frozen result board; F6 explicitly starts a new run.
+
+New MAGIC SQUARE FREE games use revision 3 and blank normal magic squares:
+
+| Level | Order | Values | Common sum | Bank records |
+|---|---|---|---|---|
+| EASY | 3×3 | 1–9 | 15 | 0 |
+| NORMAL | 4×4 | 1–16 | 34 | 0 |
+| HARD | 5×5 | 1–25 | 65 | 0 |
+| MASTER | 6×6 | 1–36 | 111 | 0 |
+
+All values must occur exactly once; every row, column and both main diagonals
+must have the common sum. Wrapped diagonals are not required in new FREE.
+Alternative valid arrays, including rotated known squares, are accepted.
+PARTIAL retains its existing clues, stable bank IDs and MASTER PAN rule.
+Revision-1/2 FREE saves retain original orders 3/3/4/4 and the original MASTER
+PAN rule, including during INIT. A later NEW uses the selected level's new order.
+The four new rules-only IDs are `0xfffffff0 + difficulty`; they are not extra
+bank puzzles. They use the existing one-record decoded cache, with no new save
+fields, heap allocations or additional cache. Construction witnesses exist only
+for diagnostics; completion and rendering do not read them.
+
+Known 3×3, 4×4, 5×5 and 6×6 solutions and rotations pass. Duplicate, missing,
+out-of-range, wrong row, wrong column and wrong diagonal fixtures fail. Real
+key entry supports 36, and codec/cold resume/INIT preserves order, values and
+pending two-digit drafts. The full 396×224 application renderer captures are in
+`assets/grids/extra/beta3/`; this is the actual fx-CG50 renderer resolution. The
+6×6 board uses square 26-pixel cells, readable centered two-digit text, a blue
+cursor and `SUM = 111`, with no footer overlap. Initial and filled boards for
+all four orders and the NONOGRAM result with every empty cell blank were inspected.
+A separate mixed-mark pre-completion capture records the preserved X annotation.
+Physical LCD legibility and hold timing remain **HARDWARE TEST REQUIRED**.
+
+The owned strict C11/UBSan suites and strict SH compilation pass. Current native
+object sizes and frame estimates are in the existing expanded/extra memory
+JSON files. The beta.3 ASan binary again timed out after 15 seconds with no test
+output: **ASan NOT VERIFIED**, not PASS. The concise `beta3/asan.json` contains
+no raw process dump or private paths.
+
+### All twelve games: measured difficulty differences
+
+`assets/grids/extra/difficulty-beta3.json` covers 54 game/level rows and all
+2,020 supplied bank records, plus the four FREE rule configurations. Its exact
+14-column `csv_rows` supports the integrated difficulty table. Measurements
+freshly replay public-clue inference and bounded search after removing witnesses.
+It includes board/clue distributions, exact and documented-canonical counts,
+cross-level intersections, source hashes and explicit interpretation caveats.
+The 1,900 unique-solution records remain unique; the other 120 records are Magic
+PARTIAL layouts. Cross-level exact and canonical intersections are zero under
+the documented equivalence scope. Magic's within-level D4 clue-layout counts
+are 29/26/30/30, so those 120 records must not be claimed as 120 independent bases.
+
+For IDs 11–15, measured MASTER maximum search nodes are 17/33/15/35/39 and HELL
+minimum nodes are 19/34/18/36/41, respectively. HASHI has increasing geometry
+(6/9/12/16/21 islands), but MASTER 3–23 and HELL 7–31 node ranges overlap.
+Lower bands also overlap in several games. SUM GRID E/N/H all finish by basic
+propagation with one search node; their distinction is arithmetic range
+(maximum values 5/9/11–12) and size (5/5/6), not a demonstrated need for harder
+inference. MASTER uses 7×7 interacting subset sums and 3–19 nodes. No measured
+algorithmic band is presented as a calibrated human solving-time ranking.
+The identified FREE E/N no-op is fixed by the distinct board orders above.
+
+Reproduce the full deterministic difficulty report without mutating source:
+
+```sh
+python3 -B tests/test_grids_difficulty.py --output build/difficulty-beta3.json
+```
+
+Build/link `tests/test_grids_beta3.c` with `numgame_core`; its `--capture DIR`
+option reproduces the full application PPM captures. The normal unit binaries
+remain `test_grids` and `test_grids_extra`; no external puzzle corpus was added.

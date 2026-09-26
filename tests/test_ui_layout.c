@@ -45,6 +45,12 @@ static void settings_rows(void)
    assert(ng_entry_action(&app,0)==NG_ENTRY_NEW);
    press(NGK_F1);press(NGK_F2);press(NGK_F4);
    assert(app.screen==NG_ENTRY && !app.modal);
+   if(ng_entry_level(&app) && d<ng_regular_difficulty_count(id)){
+    app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_LEVEL);
+    app.settings.difficulty[id-1]=NG_EASY;press(NGK_LEFT);assert(app.settings.difficulty[id-1]==NG_EASY);
+    app.settings.difficulty[id-1]=NG_MASTER;press(NGK_RIGHT);assert(app.settings.difficulty[id-1]==NG_MASTER);
+    app.settings.difficulty[id-1]=(uint8_t)d;
+   }
    if(ng_module(id)->modes>1){
     app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_MODE);
     press(NGK_F3);assert(!app.modal);
@@ -56,9 +62,10 @@ static void settings_rows(void)
     for(const char *p="1000";*p;p++)press(*p);
     press(NGK_EXE);assert(app.settings.target==1000);
    }
-   app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_NEW);
+   app.entry_selection=(uint8_t)ng_entry_row(&app,ng_entry_level(&app)?NG_ENTRY_LEVEL:NG_ENTRY_NEW);
    press(NGK_F6);assert(app.screen==NG_PLAY && ng_valid(&app.session.game));
    assert(app.session.game.id==id && app.session.game.mode==mode);
+   assert(app.session.game.difficulty==(id==26 && !mode?NG_NORMAL:d));
    draw();press(NGK_F5);assert(app.modal==NG_MODAL_RULES);draw();press(NGK_EXIT);
    press(NGK_EXIT);assert(app.screen==NG_ENTRY && app.active);
    assert(ng_entry_action(&app,0)==NG_ENTRY_RESUME);

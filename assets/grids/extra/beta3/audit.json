@@ -1,0 +1,102 @@
+{
+  "milestone": "beta.3",
+  "nonogram": {
+    "banks": 120,
+    "completion": "Exact filled set via independently unique public row/column runs; X and blank both unfilled",
+    "A_F": "PASS on all 120 banks x 3 empty annotation styles",
+    "G": "PASS: X=0 and unknown=-1 through real cold A/B storage load",
+    "H": "PASS: final EXE auto-complete, 50 HOLD events blocked; explicit F6 NEW",
+    "annotations_and_reveal": "Unchanged -1/0/1 state encoding; REVEAL empty writes X and assisted"
+  },
+  "magic_free": {
+    "revision": 3,
+    "orders": [
+      3,
+      4,
+      5,
+      6
+    ],
+    "sums": [
+      15,
+      34,
+      65,
+      111
+    ],
+    "bank_records": 0,
+    "rule_challenges": 4,
+    "virtual_id_base": "0xfffffff0",
+    "legacy_orders": [
+      3,
+      3,
+      4,
+      4
+    ],
+    "legacy_master_rule": "PAN",
+    "partial_packs": "Unchanged",
+    "tests": "Known and rotated normal squares, invalid range/duplicate/rows/columns/diagonals, two digits up to36, codec/cold resume/INIT/NEW PASS"
+  },
+  "strict_c11_ubsan_ctest": "3/3 PASS",
+  "python_extra": "5 tests /270 unique and seed/rating replay PASS",
+  "strict_sh": "PASS",
+  "difficulty_records": 2020,
+  "difficulty_rows": 54,
+  "difficulty_replay": "Byte-for-byte identical on independent second full replay",
+  "asan": "NOT VERIFIED: 15-second runtime timeout without output",
+  "hardware": "HARDWARE TEST REQUIRED: LCD legibility, latency and physical HOLD behavior",
+  "render_resolution": [
+    396,
+    224
+  ],
+  "render_source": "Real common ng_render() from tests/test_grids_beta3.c; PPM to PNG lossless conversion",
+  "artifacts": {
+    "assets/grids/extra/beta3/magic-free-3-blank.png": {
+      "sha256": "b71184151b2d938a96486ff8bcb90fb6c5dd08722505a9e9e3073210bff0c87a",
+      "public_safe": true
+    },
+    "assets/grids/extra/beta3/magic-free-3-filled.png": {
+      "sha256": "a2130c912577342262ea63fb4106a3a908c3eea6d2fc7bd916bcf0272d06a528",
+      "public_safe": true
+    },
+    "assets/grids/extra/beta3/magic-free-4-blank.png": {
+      "sha256": "a7f7ddf9417eeb13019192aea2c553c45b3f28f58341f6cbf98599fe8def5cf8",
+      "public_safe": true
+    },
+    "assets/grids/extra/beta3/magic-free-4-filled.png": {
+      "sha256": "4ca41eb196fa02a72dbceb6337aa711983bc1bc1c67298d3515941adb68b1bb8",
+      "public_safe": true
+    },
+    "assets/grids/extra/beta3/magic-free-5-blank.png": {
+      "sha256": "2680a26e7e4ee870407445f7a9f6efc4701b1263cffb7c3627b56b395aa0b587",
+      "public_safe": true
+    },
+    "assets/grids/extra/beta3/magic-free-5-filled.png": {
+      "sha256": "505b5909613949c297af1633aee62bf92aba2df92f30bcfc6b710e4578580084",
+      "public_safe": true
+    },
+    "assets/grids/extra/beta3/magic-free-6-blank.png": {
+      "sha256": "0e34193ec22301c08e1b28924b87cdce6f1fa4af612956c6b2dc0ff9b5be32e9",
+      "public_safe": true
+    },
+    "assets/grids/extra/beta3/magic-free-6-filled.png": {
+      "sha256": "672959915f76e00e459c100673ff0264ac6124ff4098c580a0b34d5617c2761b",
+      "public_safe": true
+    },
+    "assets/grids/extra/beta3/nonogram-before-last.png": {
+      "sha256": "86f5a28efae0f51ea2c6d67a142d4644462f7e9f75d404fd26ee039889cfa5ad",
+      "public_safe": true
+    },
+    "assets/grids/extra/beta3/nonogram-blank-complete.png": {
+      "sha256": "bd1c9a2c06a34098bba0b915767b51a639f8fba935b8c6f1a4224203c105321a",
+      "public_safe": true
+    },
+    "assets/grids/extra/beta3/nonogram-mixed-before-last.png": {
+      "sha256": "a46eae9bb87e1cab0253f9f707f61140db1b9aa0b1bcc490aecd538b7d1899ff",
+      "public_safe": true
+    },
+    "assets/grids/extra/beta3/nonogram-result-view.png": {
+      "sha256": "feb00699f3be976d8449a56c19e9fd42b2772f6106642a3a50826e7e5d7834ae",
+      "public_safe": true
+    }
+  },
+  "private_paths_or_raw_process_dumps": false
+}

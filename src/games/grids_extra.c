@@ -104,7 +104,11 @@ bool grids_nono_rules(const NgGame *g,const GridsNonoPuzzle *p)
 {
  if(!p||p->n<3||p->n>9||g->rows!=p->n||g->cols!=p->n)return false;
  unsigned n=p->n;
- for(unsigned i=0;i<NG_CELLS;i++)if(i<n*n?(g->board[i]<0||g->board[i]>1):g->board[i]!=0)return false;
+ /* Unknown (-1) and X (0) remain distinct saved annotations. Both are
+    unfilled for completion; exact public runs reject missing/extra fills.
+    Every shipped board is independently unique, so this is exact filled-set
+    equality without trusting or comparing the stored solution witness. */
+ for(unsigned i=0;i<NG_CELLS;i++)if(i<n*n?(g->board[i]<-1||g->board[i]>1):g->board[i]!=0)return false;
  for(unsigned i=0;i<18;i++)if(i<2*n?!run_schema(p->clue[i],n):p->clue[i]!=0)return false;
  for(unsigned i=0;i<n;i++)if(board_run(g,i*n,1)!=p->clue[i]||board_run(g,i,n)!=p->clue[n+i])return false;
  return true;
@@ -133,7 +137,7 @@ static bool check(NgGame *g)
   for(unsigned i=0;i<p->count;i++)if(incident(g,p,p->pos[i])!=p->clue[i])totals=false;
   if(hashi_crossing(g,p,NULL))ng_message(g,"Bridges cannot cross. Clear a marked crossing.");
   else ng_message(g,totals?"All totals match, but the network is disconnected.":"Match each island's total, then connect all islands.");
- }else ng_message(g,"Mark every cell; match all row/column clues.");
+ }else ng_message(g,"Match every filled run. Empty X marks are optional.");
  return true;
 }
 static bool set_bridge(NgGame *g,const GridsHashiPuzzle *p,int value)
@@ -183,8 +187,9 @@ static bool action(NgGame *g,int key)
  if(value==-2)return false;
  bool changed=g->board[g->cursor]!=value;
  if(changed){g->board[g->cursor]=(int16_t)value;g->moves++;g->message[0]=0;}
- if(key==NGK_HINT){ng_message(g,"REVEAL: one cell shown. ASSISTED.");return true;}
- return changed;
+ if(key==NGK_HINT)ng_message(g,"REVEAL: one cell shown. ASSISTED.");
+ if(changed&&grids_extra_complete(g))return check(g);
+ return changed||key==NGK_HINT;
 }
 static bool valid(const NgGame *g)
 {
@@ -276,5 +281,5 @@ static void render(const NgGame *g,NgCanvas *c)
 static const char *mode_name(unsigned mode){(void)mode;return "CLASSIC";}
 const NgModule ng_grids_extra[2]={
  {35,"HASHI","HASHI","Join visible islands with straight bridges.\nOnly horizontal/vertical bridges are allowed.\nEach pair has zero, one or two bridges.\nIsland numbers give their total bridge count.\nBridges cannot cross or pass through islands.\nAll islands must form one connected network.\nArrows select a visible neighboring island.\n2/4/6/8 cycle down/left/right/up bridges.\nEXE cycles last direction; DEL clears it.\nBlue dashed edge is empty; red X is a crossing.\nF4 checks. F3 REVEAL marks ASSISTED.",NGF_UNDO|NGF_HINT,"CHECK","CYCLE",1,mode_name,init,action,NULL,valid,render},
- {36,"NONOGRAM","NONOGRAM","Fill cells to match all row/column run clues.\nRuns appear in order, with an empty gap.\nA zero clue means the whole line is empty.\nMark every cell filled or empty to finish.\nArrows move. 1 fills; 0 marks an empty cross.\nEXE cycles unknown, filled, empty. DEL clears.\nF4 checks every visible run clue.\nF3 REVEAL shows one cell, marking ASSISTED.",NGF_UNDO|NGF_HINT,"CHECK","MARK",1,mode_name,init,action,NULL,valid,render}
+ {36,"NONOGRAM","NONOGRAM","Fill cells to match all row/column run clues.\nRuns appear in order, with an empty gap.\nA zero clue means the whole line is empty.\nFill exactly the required cells. X is optional.\nArrows move. 1 fills; 0 marks an empty cross.\nEXE cycles unknown, filled, empty. DEL clears.\nF4 checks every visible run clue.\nF3 REVEAL shows one cell, marking ASSISTED.",NGF_UNDO|NGF_HINT,"CHECK","MARK",1,mode_name,init,action,NULL,valid,render}
 };

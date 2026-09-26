@@ -45,6 +45,8 @@ int main(void)
   if(id==29)tap(&app,'2');
   char name[40];snprintf(name,sizeof(name),"%02u-play",id);capture(name);
  }
+ open_game(&app,1);tap(&app,NGK_EXIT);tap(&app,NGK_EXIT);
+ assert(app.screen==NG_CATEGORY && app.resumable);capture("01-tile-resume-badge");
  main_screen();unsigned crypt_index=(unsigned)ng_catalog_index(34);
  tap(&app,'1'+(int)(crypt_index/6));
  while(app.selection!=crypt_index%6)tap(&app,NGK_RIGHT);
@@ -54,7 +56,7 @@ int main(void)
  capture("31-result-win");capture("31-modal-view-result");
  tap(&app,NGK_EXIT);capture("32-frozen-result-f6-new");
  tap(&app,NGK_EXIT);capture("32-completed-entry-no-resume");
- open_game(&app,1);tap(&app,NGK_EXIT);capture("32-same-game-entry-resume-start");
+ open_game(&app,1);tap(&app,NGK_EXIT);capture("32-same-game-entry-resume-new");
  main_screen();capture("32-main-f1-resume");
  tap(&app,'1');tap(&app,'2');capture("32-different-game-entry-no-resume");
  tap(&app,NGK_F6);
@@ -107,6 +109,13 @@ int main(void)
  main_screen();tap(&app,'2');tap(&app,'1');app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_TARGET);
  app.notice[0]=0;
  capture("63-target-inline-entry");
+ capture("64-target-select");
+ tap(&app,NGK_LEFT);capture("65-target-edit-left");tap(&app,NGK_EXIT);
+ tap(&app,NGK_RIGHT);capture("66-target-edit-right");tap(&app,NGK_EXIT);
+ tap(&app,'0');tap(&app,NGK_EXE);capture("67-target-invalid");tap(&app,NGK_EXIT);
+ tap(&app,'2');tap(&app,'4');tap(&app,'7');tap(&app,NGK_EXE);
+ assert(app.screen==NG_ENTRY && !app.target_editing && app.settings.target==247);
+ capture("68-target-committed");
  assert(!fclose(manifest));
  puts("Renderer capture: main +6 categories +36 games +inline options +edge states PASS");return 0;
 }

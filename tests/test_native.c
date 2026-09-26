@@ -302,7 +302,7 @@ static void test_global_screens(void)
  tap(KEY_F5);checked_menu();tap(KEY_EXIT); /* rules */
  add(0,KEYEV_NONE,32,NULL);tap(KEY_F1);checked_menu();tap(KEY_EXIT); /* init confirmation */
  tap(KEY_EXIT);checked_menu(); /* entry */
- tap(KEY_F6);checked_menu();tap(KEY_EXIT); /* direct START GAME */
+ tap(KEY_F6);checked_menu();tap(KEY_EXIT); /* direct NEW GAME */
  tap(KEY_EXIT);checked_menu(); /* category */
  tap(KEY_EXIT);tap(KEY_F2);checked_menu();tap(KEY_F3);checked_menu(); /* settings + diagnostics */
  tap(KEY_SHIFT);tap(KEY_ACON);tap(KEY_EXIT);tap(KEY_EXIT);checked_menu(); /* main */

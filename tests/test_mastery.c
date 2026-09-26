@@ -80,14 +80,22 @@ static void old_formats(void)
  unsigned cases=0;
  for(unsigned id=2;id<=32;id++)for(unsigned d=0;d<3;d++)for(unsigned mode=0;mode<ng_module(id)->modes;mode++){
   if(id==6 || id==29 || id==30 || (id==26 && mode))continue;
-  memset(&original,0,sizeof original);ng_new(&original.game,id,d,mode,20260922,1);original.stats.started=1;
+  memset(&original,0,sizeof original);
+  /* Legacy payloads must be constructed with the old supply rules. New
+     Magic FREE uses virtual IDs; new Lights 4x4 uses revised grading. */
+  if((id==19 && mode==1) || id==28)
+   ng_new_supply_version(&original.game,id,d,mode,20260922,1,0,0,1);
+  else ng_new(&original.game,id,d,mode,20260922,1);
+  original.stats.started=1;
   /* An old payload must reference content that actually existed then. */
-  if(id>=11 && id<=20)for(unsigned seed=1;original.game.puzzle_id>=900 && seed<10000;seed++)ng_new(&original.game,id,d,mode,seed,1);
+  if(id>=11 && id<=20 && !(id==19 && mode==1))for(unsigned seed=1;original.game.puzzle_id>=900 && seed<10000;seed++)ng_new(&original.game,id,d,mode,seed,1);
   if(id>=11 && id<=20)assert(original.game.puzzle_id<900);
   if(!original.game.cpu_pending && (ng_module(id)->flags&NGF_UNDO)){original.undo_count=4;for(unsigned j=0;j<4;j++)original.undo[j]=original.game;}
   size_t n=ng_encode(&original,bytes,sizeof bytes);assert(n);
   for(unsigned levels=3;levels<=4;levels++){
-   size_t len=legacy_wire(old,bytes,n,levels);assert(ng_decode(&cold,old,len,id));
+   size_t len=legacy_wire(old,bytes,n,levels);
+   if(!ng_decode(&cold,old,len,id))fprintf(stderr,"Legacy decode failed: id=%u level=%u mode=%u wire_levels=%u revision=%lu puzzle=%lu\n",id,d,mode,levels,(unsigned long)original.game.pack_revision,(unsigned long)original.game.puzzle_id);
+   assert(ng_decode(&cold,old,len,id));
    assert(cold.game.pack_revision==1 && !cold.game.supply_seed && cold.undo_count==original.undo_count);
    NgGame expected=original.game;expected.pack_revision=1;assert(!memcmp(&expected,&cold.game,sizeof expected));
    assert(!cold.stats.best[0][NG_HELL][0].completed);

@@ -93,7 +93,7 @@ link all production modules directly and use no temporary adapters.
 |2048|Merge once, no-op RNG, deterministic replay, exponent/score caps; 10,000 starting spawns yielded 9,016 twos and 984 fours|
 |2048 TARGET|All four terminal goals, replay/undo and codec; historical compatibility tests check mode-separated record structures; CLASSIC remains active after reaching 8192|
 |Sliding|1,200 original seeded starts; independent inversion parity; MASTER full 181,440-state 3×3 BFS and all 30 4×4 legal-path witnesses/admissible Manhattan bounds|
-|Lights|1,200 original starts and all 65,535 nonempty 4×4 press subsets; MASTER matrix RREF plus full affine nullspace versus generator row chasing certifies every minimum|
+|Lights|1,200 seeded E/N/H starts and all 65,535 nonempty 4×4 press subsets; MASTER matrix RREF plus full affine nullspace versus generator row chasing certifies every minimum|
 |Actual app|64 setting requests (61 distinct new configurations): NEW, INIT, legal input, CPU, round UNDO, explicit RESUME, EXIT/MENU and codec|
 |Legacy 29/30|Nine mode/difficulty codec cases plus 600 Rush timed/practice checks and 300 full 20-round Memory runs|
 |Removed LOCAL 2P|20 level/game initial-state codec cases plus 161 played states, including 19 P2 wins; preserved ownership/result meaning, disabled actions and revision-3 rejection|
@@ -116,7 +116,8 @@ resume unchanged. Version 5 does not persist cumulative records or best scores.
 Tests of mode-separated record structures cover historical compatibility only.
 Exponents cap at 30 and scores saturate at UINT32_MAX.
 
-E/N/H game initialization and existing puzzle identities are retained. MASTER
+Existing revisions retain their E/N/H initialization and puzzle identities.
+The beta.3 Lights revision-3 change is detailed below. MASTER
 Make Fifteen stores its even preplayed ply count separately from new player
 moves; ownership counts and alternating turns are validated. HELL is rejected
 by all these modules. Legacy 29/30 still reject difficulty above HARD.
@@ -312,3 +313,123 @@ the integrated core. The new game source also passes strict SH GCC with the
 unverified as described above. Native LCD clarity of the 8×8 legal dots and
 6×6 lock marks, physical controls, storage latency and MENU behavior remain
 **HARDWARE TEST REQUIRED**. This audit does not claim to resolve MENU flicker.
+
+## beta.3 difficulty audit
+
+The audit samples the actual native engines, rather than inferring difficulty
+from the menu label. `tests/test_strategyquick_difficulty.c` links the production
+core and emits deterministic JSONL. Runtime groups use seeds 1..128; each bank
+is loaded in full using a fixed shuffle key and every ordinal. All initial
+states pass their real validators and exact replay checks. The owned report
+contains IDs 21–28, 37 and 38: 76 game/mode/level groups and 11,101 rows including
+CPU decisions. Its 40-row CSV uses the common integration schema. The same
+harness also loads all 240 Shikaku/Slitherlink clues; their detailed grading
+review and final report belong to root.
+
+| ID / game | EASY / NORMAL / HARD mechanism | MASTER mechanism | Finding |
+|---|---|---|---|
+|21 NIM|3 piles ≤7 / 3 piles ≤15 / 4 piles ≤31; CPU random / mixed / exact|Verified four-pile forced-win starts, same exact CPU|Distinct starts and E/N/H policies; MASTER is not stronger AI|
+|22 WYTHOFF|Pile limits 10/24/40; CPU random / mixed / exact|30 YOU-first and 12 CPU-first tactical starts; same exact CPU|Distinct challenge, not a stronger-than-exact claim|
+|23 EUCLID|Value limits 12/40/99; CPU random / mixed / exact|30 starts per mode, coprime multi-step positions; same exact CPU|Distinct challenge, not a stronger-than-exact claim|
+|24 MAKE FIFTEEN|Same empty board; CPU random / mixed / exact|30 YOU-first and 5 CPU-first midgames|E/N/H opening equality is intentional; CPU behavior changes|
+|25 RACE TO TARGET|Target/add limit 21/3, 31/3, 23/4; CPU random / mixed / exact|30 starts per mode with varied targets/add limits; same exact CPU|Rule parameters change; numeric target alone is not a rating|
+|26 2048|TARGET goals 512/1024/2048|TARGET goal 8192|CLASSIC is a fixed-rule exception, not four meaningful levels|
+|27 SLIDING|80/160/240 legal shuffle moves; Manhattan thresholds 6/10/14|3×3 shortest path 31; 4×4 lower bound ≥48|E/N/H calibration **REVIEW REQUIRED**; MASTER has certified separation|
+|28 LIGHTS OUT|New 4×4 exact minima 2/4/5; 5×5 generates with 4/8/18 presses|Exact minima 6 on 4×4, 12..14 on 5×5|4×4 inverse grading fixed; 5×5 ranges still overlap|
+|31 SHIKAKU|5×5/6×6/8×8, 30 banks per level|30 8×8 puzzles with interacting rectangle choices|Distinct structure, human grade uncalibrated; root review|
+|32 SLITHERLINK|5×5/6×6/8×8, 30 banks per level|30 8×8 puzzles with unresolved edge interactions|Distinct structure, human grade uncalibrated; root review|
+|37 REVERSI|Random / 1 ply and 256 nodes / up to 3 plies and 1,500 nodes|Up to 5 plies and 6,000 nodes|Search work and choices differ; no full-game strength guarantee|
+|38 NET|3×3/4×4/5×5 seeded rotated trees|6×6 seeded rotated trees|Larger structural problem; no uniqueness or human-rating claim|
+
+For IDs 21–25, NORMAL chooses the exact-policy branch with probability 75%;
+the other branch may also happen to pick an optimal move. This is not a 75%
+win rate. Counterfactual probes compare the same reachable position and RNG
+at all levels. These are decision probes, not imported MASTER-bank save states.
+HARD and MASTER produced identical boards and RNG in all 128 positions per
+game. Existing independent exhaustive table/DAG tests remain the exact-policy
+oracle validation; the new comparison does not claim a second independent AI.
+
+| Game | Decisions with better/worse alternatives | Optimal EASY | Optimal NORMAL | Optimal HARD / MASTER |
+|---|---|---|---|---|
+|NIM|106|6|79|106 / 106|
+|WYTHOFF|111|9|87|111 / 111|
+|EUCLID|89|22|69|89 / 89|
+|MAKE FIFTEEN|67|31|53|67 / 67|
+|RACE|102|27|84|102 / 102|
+
+The Reversi probes use 64 reachable positions after at least eight placements.
+NORMAL used 1–16 nodes and completed depth 1; HARD used 5–1,500 and completed
+depth 2–3; MASTER used 9–6,000 and completed depth 3–5. Adjacent E→N, N→H and
+H→M choices differed in 54, 29 and 22 positions. Equal decisions on some boards
+are not a no-op setting. Bigger budgets alone do not prove stronger play on
+every position or establish a human skill rating.
+
+Sliding's independent reverse BFS covers all 181,440 reachable 3×3 positions.
+E/N/H shortest-path means were 21.9219 / 22.1875 / 23.25, with ranges
+10–28 / 12–28 / 14–28. Those distributions overlap substantially, particularly
+EASY and NORMAL. On 4×4, mean Manhattan lower bounds were 28.3125 / 34.0938 /
+36.25, versus 49.0667 in MASTER. A lower bound is not the actual shortest path.
+No Sliding generation change was made from this sample alone; its E/N/H
+human difficulty calibration remains **REVIEW REQUIRED**.
+
+### LIGHTS OUT correction and compatibility
+
+The independent first-row/row-chasing solver found a real 4×4 grading failure
+in revision 2. E/N/H generated with 4/8/12 presses, but minimum-solution means
+were 4.0000 / 4.5547 / 4.4375. NORMAL included a one-press puzzle; HARD could
+need only two. Increasing generating presses had not produced an ordered
+solution-length scale. The [baseline metrics](../assets/strategyquick/difficulty-beta3-baseline.json)
+preserve the 128-seed evidence.
+
+Revision 3 now gives 4×4 E/N/H exact minima 2/4/5, with the existing MASTER
+minimum 6. The complete four-dimensional GF(2) nullspace contains 16 masks;
+every solution of a selected press pattern is one of those 16 XOR variants.
+The generator checks their weights, tries at most 16 candidate patterns, and
+has a deterministic fallback whose exact minimum is five. The independent
+row-chasing audit reconstructs the nullspace from the rules and checks every
+native constant, its minimum nonzero weight eight, and the fallback.
+
+The C regression tests independently solve 4,096 seeds for each new E/N/H
+level (12,288 starts), reject changed minimum metadata, and check six preserved
+revision-2 board/RNG/count digests covering 768 old starts. Sixteen version-2
+and version-3 mode/level combinations pass compact codec round-trip and actual
+application INIT with the original board, RNG, metadata and revision restored.
+Old saves retain their puzzle; the shared core selects revision 3 for new
+Lights runs. The state layout, bank sizes, MASTER identities, gameplay rules,
+hint algorithm and 5×5 generator are unchanged.
+
+The 5×5 E/N/H/M exact minimum means were 4 / 7.9844 / 10.0781 / 12.2667, with
+ranges 4 / 6–8 / 6–14 / 12–14. These are increasing sample means with overlap,
+not a guarantee that every higher-level instance is harder. Net's 128 samples
+per level all had distinct initial boards; average degree-three-or-more
+junction counts grew 1.9688 / 3.8281 / 6.1406 / 9.0391 as area grew
+9 / 16 / 25 / 36 cells. This measures structural size, not human difficulty.
+
+2048 TARGET keeps identical movement/spawn rules and changes the terminal goal.
+CLASSIC has identical boards and RNG across direct-API level probes. The app
+hides its level control and starts it at NORMAL while retaining the separately
+selected TARGET level. This intentional fixed exception is reported explicitly.
+The stale in-game claim about separate persistent records was removed to agree
+with v5, which does not persist cumulative records.
+
+Evidence: [structured report](../assets/strategyquick/difficulty-beta3.json),
+[integration CSV](../assets/strategyquick/difficulty-beta3.csv), and
+[strict SH object/frame comparison](../assets/strategyquick/difficulty-beta3-native.json).
+The Lights change adds 252 B of `.text`, 44 B of `.rodata` and 36 B of strings
+to its object (+332 B total); `.data` and `.bss` remain zero. The `sq_quick_init`
+frame remains 148 B and `sq_lights_solution` remains 236 B. These are object and
+individual-frame measurements, not a linked-package delta or runtime RAM peak.
+
+```sh
+cmake -S tests -B build-host -DNG_SANITIZE=ON -DNG_ASAN=OFF
+cmake --build build-host --target test_strategyquick_difficulty test_strategyquick test_strategyquick_extra -j8
+ctest --test-dir build-host -R '^strategyquick(_extra|_difficulty)?$' --output-on-failure
+python3 tools/generate/strategyquick_difficulty.py --sample-exe build-host/test_strategyquick_difficulty --output assets/strategyquick/difficulty-beta3.json
+```
+
+The report embeds relative-source SHA256 values. Its metrics use fixed seeds
+and no timestamps, private local paths or timing-based pass criteria. Hardware
+latency, display usability and MENU behavior remain **HARDWARE TEST REQUIRED**;
+the three owned C11/UBSan targets passed. The new ASan target compiled, but its
+20-second execution attempt timed out with zero stdout/stderr bytes; ASan is
+still unverified. No stronger claim follows from the host audit.

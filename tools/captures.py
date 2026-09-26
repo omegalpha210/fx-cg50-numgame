@@ -50,7 +50,7 @@ for group in range(6):
     sheet(items,f'category-{group+1}-2x.png',2,2)
 sheet([p for p in paths if p.stem.endswith('-hard')],'hard-grids-native.png',1,2)
 sheet([p for p in paths if p not in games and p.stem[:2].isdigit() and int(p.stem[:2])>=31],'states-native.png',1,2)
-entry_frames=[p for p in paths if p.stem[:2].isdigit() and 42<=int(p.stem[:2])<=47]
+entry_frames=[p for p in paths if p.stem[:2].isdigit() and (42<=int(p.stem[:2])<=47 or 64<=int(p.stem[:2])<=68)]
 overflow_frames=[p for p in paths if p.stem[:2].isdigit() and 48<=int(p.stem[:2])<=53]
 master_frames=[p for p in paths if '-master' in p.stem]
 if master_frames:sheet(master_frames,'master-native.png',1,2)
@@ -60,8 +60,21 @@ board_complete=[p for p in paths if p.stem.startswith(('31-level','32-level')) a
 if board_complete:sheet(board_complete,'boards-complete-native.png',1,2)
 if entry_frames:sheet(entry_frames,'entry-layout-native.png',1,2)
 if overflow_frames:sheet(overflow_frames,'overflow-native.png',1,2)
-(OUT/'README.md').write_text('# Actual renderer captures\n\n396×224 pixels from `src/ui/render.c` and the same game render adapters as the SH build.\nHost RGB565 backend, not a desktop mockup or a hardware LCD photograph.\n\n[All menus / game icons, native](menus-native.png) · [Integer 2×](menus-2x.png).\n[Entry settings](entry-layout-native.png) · [Overflow/large values](overflow-native.png).\nThe normal font matches DIFF EQ/gint 8×9; compact clues retain 5×7.\n\n'+''.join(f'- [{p.stem}]({p.stem}.png)\n' for p in paths)+''.join(f'- [NUM DIAG {name}]({name}.png)\n' for name in diagnostic_names if (OUT/(name+'.png')).exists())+'\n`contact-native.png`: 1×. `category-*-2x.png`: nearest-neighbor integer 2×.\n39-2048-large, 48–53 and 57–58 are explicit renderer stress fixtures (52 selects an actual verified pack entry); maximum scores are not played results.\n')
+grid_review=ROOT/'assets/grids/extra/beta3'
+grid_frames={
+    'nonogram-mixed-before-last':'36-nonogram-mixed-before-last',
+    'nonogram-blank-complete':'36-nonogram-blank-complete',
+    'nonogram-result-view':'36-nonogram-result-view',
+    **{f'magic-free-{n}-blank':f'19-magic-free-{n}-blank' for n in (3,4,5,6)},
+    'magic-free-6-filled':'19-magic-free-6-filled',
+}
+for source,label in grid_frames.items():
+    frame=Image.open(grid_review/(source+'.png'))
+    assert frame.size==(396,224)
+    frame.save(OUT/(label+'.png'))
+(OUT/'README.md').write_text('# Actual renderer captures\n\n396×224 pixels from `src/ui/render.c` and the same game render adapters as the SH build.\nHost RGB565 backend, not a desktop mockup or a hardware LCD photograph.\n\n[All menus / game icons, native](menus-native.png) · [Integer 2×](menus-2x.png).\n[Entry settings](entry-layout-native.png) · [Overflow/large values](overflow-native.png).\nThe normal font matches DIFF EQ/gint 8×9; compact clues retain 5×7.\n\n'+''.join(f'- [{p.stem}]({p.stem}.png)\n' for p in paths)+''.join(f'- [{label}]({label}.png)\n' for label in grid_frames.values())+''.join(f'- [NUM DIAG {name}]({name}.png)\n' for name in diagnostic_names if (OUT/(name+'.png')).exists())+'\n`contact-native.png`: 1×. `category-*-2x.png`: nearest-neighbor integer 2×.\n39-2048-large, 48–53 and 57–58 are explicit renderer stress fixtures (52 selects an actual verified pack entry); maximum scores are not played results.\n')
 for obsolete in ('29-play','30-play','37-memory-pause','38-memory-loss','44-entry-long-mode',
+                 '32-same-game-entry-resume-start',
                  '32-resume-entry','41-entry-no-stats',
                  '41-records','36-stats','45-entry-local-2p','48-max-statistics','49-max-records',
                  '01-mode-chooser','21-mode-chooser','22-mode-chooser','23-mode-chooser',

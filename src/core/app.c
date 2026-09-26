@@ -84,7 +84,7 @@ static bool enter(NgApp *a,unsigned id)
 {
  if(!ng_checkpoint(a)){modal(a,NG_MODAL_SAVE_ERROR);return false;}
  a->selected_id=(uint8_t)id;
- a->target_draft[0]=0;
+ a->target_draft[0]=0;a->target_editing=a->target_replace=false;a->target_cursor=0;
  a->screen=NG_ENTRY;a->modal=NG_MODAL_NONE;
  a->entry_selection=(uint8_t)ng_entry_row(a,a->resumable && a->session.game.id==id?NG_ENTRY_RESUME:NG_ENTRY_NEW);
  barrier(a);return true;
@@ -189,8 +189,9 @@ static void init_same(NgApp *a)
  }
  g->recorded=recorded;g->assisted=1;
  /* A larger bank must never change an old run's INIT puzzle. */
- if(g->puzzle_id!=puzzle && ng_bank_count(id,d,m)){
-  unsigned count=ng_bank_count(id,d,m);
+ unsigned legacy_free_mode=id==19 && m==1 && revision<=2?0:m;
+ if(g->puzzle_id!=puzzle && ng_bank_count(id,d,legacy_free_mode)){
+  unsigned count=ng_bank_count(id,d,legacy_free_mode);
   for(unsigned ordinal=0;ordinal<count;ordinal++){
    ng_new_supply_version(g,id,d,m,seed,run,1,ordinal,revision);if(g->puzzle_id==puzzle)break;
   }
@@ -254,11 +255,41 @@ static void mode_next(NgApp *a,int step)
 }
 static bool target_commit(NgApp *a)
 {
- if(!a->target_draft[0])return true;
+ if(!a->target_editing)return true;
+ if(!a->target_draft[0]){snprintf(a->notice,sizeof a->notice,"Target needs a number 1..1000.");return false;}
  unsigned value=0;
  for(unsigned i=0;a->target_draft[i];i++)value=value*10u+(unsigned)(a->target_draft[i]-'0');
  if(value<1 || value>1000){snprintf(a->notice,sizeof a->notice,"Target must be 1..1000.");return false;}
- a->settings.target=(uint16_t)value;a->settings_dirty=true;a->target_draft[0]=0;a->notice[0]=0;return true;
+ if(a->settings.target!=value){a->settings.target=(uint16_t)value;a->settings_dirty=true;}
+ a->target_draft[0]=0;a->target_cursor=0;a->target_editing=a->target_replace=false;a->notice[0]=0;return true;
+}
+static void target_begin(NgApp *a,int key,bool replace)
+{
+ snprintf(a->target_draft,sizeof a->target_draft,"%u",a->settings.target);
+ a->target_cursor=(uint8_t)(key==NGK_LEFT?0:strlen(a->target_draft));
+ a->target_editing=true;a->target_replace=replace;a->notice[0]=0;
+}
+static void target_cancel(NgApp *a)
+{
+ a->target_editing=a->target_replace=false;a->target_cursor=0;
+ a->target_draft[0]=0;a->notice[0]=0;
+}
+static void target_insert(NgApp *a,int key)
+{
+ if(a->target_replace){a->target_draft[0]=0;a->target_cursor=0;a->target_replace=false;}
+ size_t n=strlen(a->target_draft);
+ if(n>=sizeof a->target_draft-1){snprintf(a->notice,sizeof a->notice,"Target: at most 4 digits.");return;}
+ unsigned cursor=a->target_cursor;if(cursor>n)cursor=(unsigned)n;
+ memmove(a->target_draft+cursor+1,a->target_draft+cursor,n-cursor+1);
+ a->target_draft[cursor]=(char)key;a->target_cursor=(uint8_t)(cursor+1);a->notice[0]=0;
+}
+static void target_delete(NgApp *a)
+{
+ a->target_replace=false;
+ if(a->target_cursor){unsigned cursor=--a->target_cursor;
+  memmove(a->target_draft+cursor,a->target_draft+cursor+1,strlen(a->target_draft+cursor+1)+1);
+  a->notice[0]=0;
+ }
 }
 static bool dispatch(NgApp *a,int key)
 {
@@ -347,7 +378,16 @@ static bool dispatch(NgApp *a,int key)
  if(a->screen==NG_ENTRY) {
   unsigned count=ng_entry_count(a);
   if(a->entry_selection>=count)a->entry_selection=0;
-  if((key==NGK_UP || key==NGK_DOWN) && a->target_draft[0] && !target_commit(a))return true;
+  if(a->target_editing){
+   if(key==NGK_EXIT)target_cancel(a);
+   else if(key==NGK_EXE)(void)target_commit(a);
+   else if(key==NGK_LEFT && a->target_cursor){a->target_cursor--;a->target_replace=false;}
+   else if(key==NGK_RIGHT && a->target_cursor<strlen(a->target_draft)){a->target_cursor++;a->target_replace=false;}
+   else if(key==NGK_DEL)target_delete(a);
+   else if(key>='0' && key<='9')target_insert(a,key);
+   else if(key==NGK_F5)modal(a,NG_MODAL_RULES);
+   return true;
+  }
   if(key==NGK_UP)a->entry_selection=(uint8_t)((a->entry_selection+count-1)%count);
   else if(key==NGK_DOWN)a->entry_selection=(uint8_t)((a->entry_selection+1)%count);
   else if(key==NGK_F5)modal(a,NG_MODAL_RULES);
@@ -357,14 +397,8 @@ static bool dispatch(NgApp *a,int key)
    if(row_shortcut)a->entry_selection=(uint8_t)(key-'1');
    int choice=ng_entry_action(a,a->entry_selection);
    if(choice==NG_ENTRY_TARGET && !row_shortcut && key>='0' && key<='9'){
-    size_t n=strlen(a->target_draft);
-    if(n<4){a->target_draft[n]=(char)key;a->target_draft[n+1]=0;}
-    return true;
+    target_begin(a,NGK_RIGHT,true);target_insert(a,key);return true;
    }
-   if(choice==NG_ENTRY_TARGET && key==NGK_DEL){
-    size_t n=strlen(a->target_draft);if(n)a->target_draft[n-1]=0;return true;
-   }
-   if(choice==NG_ENTRY_TARGET && key==NGK_EXE){(void)target_commit(a);return true;}
    if(key==NGK_F3 && choice==NG_ENTRY_LEVEL && ng_has_hell(a->selected_id)){
     unsigned index=a->selected_id-1;
     if(a->settings.difficulty[index]==NG_HELL)a->settings.difficulty[index]=a->previous_level[index];
@@ -376,12 +410,8 @@ static bool dispatch(NgApp *a,int key)
     int step=key==NGK_LEFT?-1:1;
     if(choice==NG_ENTRY_LEVEL)difficulty(a,step);
     else if(choice==NG_ENTRY_MODE){mode_next(a,step);a->entry_selection=(uint8_t)ng_entry_row(a,NG_ENTRY_MODE);}
-    else if(choice==NG_ENTRY_TARGET){
-     if(!target_commit(a))return true;
-     int value=(int)a->settings.target+step;if(value>=1 && value<=1000){a->settings.target=(uint16_t)value;a->settings_dirty=true;}
-    }
+    else if(choice==NG_ENTRY_TARGET)target_begin(a,key,false);
    }else if(key==NGK_EXE || key==NGK_F6){
-    if(!target_commit(a))return true;
     if(choice==NG_ENTRY_RESUME)resume(a);
     else start(a,false);
    }

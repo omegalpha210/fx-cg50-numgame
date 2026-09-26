@@ -9,15 +9,28 @@ All 36 games have original 40×32 menu pictograms and 2×3 category tiles.
 SH build, through a host RGB565 backend.
 
 Main F1 shows **RESUME** only for the one unfinished run; F2 SET and F6 OPEN
-remain. Category screens have no RESUME softkey. Opening a different game's
-entry does not affect the saved run and shows START GAME first. Opening the
-same game's entry adds RESUME above START GAME and focuses RESUME. UP/DOWN and
+remain. Exactly that run's game tile carries a small blue RESUME badge below
+its icon/name. Category tiles have no badge or RESUME softkey. Opening a different game's
+entry does not affect the saved run and shows NEW GAME first. Opening the
+same game's entry adds RESUME above NEW GAME and focuses RESUME. UP/DOWN and
 digits select a row. LEFT/RIGHT changes an applicable value, while EXE/F6
-OPEN starts the current settings or resumes only from the RESUME row. START
-GAME commits the replacement without a confirmation dialog. The footer gives
+OPEN starts the current settings or resumes only from the RESUME row. NEW GAME
+commits the replacement without a confirmation dialog. The footer gives
 short contextual help. F5 RULES remains available; F3 toggles separate LOGIC
 HELL on its difficulty row and displays colored ENHM on return. Strategy FIRST
 selects YOU or CPU inline. No unused MODE row or popup is shown.
+
+Make Target's TARGET row has SELECT and EDIT states. LEFT enters EDIT with the
+cursor at the left edge; RIGHT enters at the end. Digits insert at the cursor,
+LEFT/RIGHT move it and DEL removes the preceding digit. The first digit typed
+while TARGET is selected replaces the displayed value. An invalid or empty
+draft remains editable with an inline error. EXE validates 1–1000 and commits
+without opening a game; a second EXE, or F6 OPEN after commit, starts NEW GAME.
+EXIT cancels EDIT and restores the committed value. F6 is blank during EDIT.
+
+The three new-run labels have different scopes: entry **NEW GAME** uses selected
+settings, playing **F1 INIT** restarts the same run/puzzle, and completed-result
+**F6 NEW** starts the next run with the completed run's settings.
 
 In play, F1 INIT restarts the current puzzle, F2 UNDO appears only with an undo
 state, F3 HINT/REVEAL and F4 are module-specific, F5 RULES and F6 the module's
@@ -44,3 +57,11 @@ The focused review covered Black Box, Cryptarithm, Hashi, Nonogram, Reversi and
 Net. Findings, rule tests and limitations are in
 [RECENT_SIX_AUDIT.md](RECENT_SIX_AUDIT.md). Physical LCD contrast, clue
 legibility and MENU behavior remain **HARDWARE TEST REQUIRED**.
+
+Nonogram's optional X annotation does not block completion: only the filled
+black-cell set must match its unique puzzle. Magic Square FREE new runs use
+3×3/4×4/5×5/6×6 normal-square boards. The actual-renderer captures include
+tile badge, entry/editor states, optional-X completion and all four FREE sizes.
+The 6×6 grid has 26-pixel square cells, centered two-digit numbers and
+`SUM = 111` without footer overlap. These bounds checks are not real-LCD
+readability measurements.

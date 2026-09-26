@@ -134,6 +134,46 @@ static void rule_probes(void)
  /* Malformed persisted fields reject rather than indexing outside arrays. */
  g=fresh(11,0,0,19);m=&ng_grids[0];g.data[127]=1;assert(!m->valid(&g));g.data[127]=0;g.rows=8;assert(!m->valid(&g));g.rows=9;g.cursor=81;assert(!m->valid(&g));g.cursor=0;memset(g.input,'9',sizeof g.input);assert(!m->valid(&g));
 }
+static void free_magic_sizes(void)
+{
+ const NgModule *m=&ng_grids[8];
+ /* Independent known normal squares; no reference-answer equality is used. */
+ static const int16_t squares[4][36]={
+  {8,1,6,3,5,7,4,9,2},
+  {16,2,3,13,5,11,10,8,9,7,6,12,4,14,15,1},
+  {17,24,1,8,15,23,5,7,14,16,4,6,13,20,22,10,12,19,21,3,11,18,25,2,9},
+  {35,1,6,26,19,24,3,32,7,21,23,25,31,9,2,22,27,20,8,28,33,17,10,15,30,5,34,12,14,16,4,36,29,13,18,11}
+ };
+ for(unsigned d=0;d<4;d++){
+  NgGame initial={0};initial.id=19;initial.mode=1;initial.difficulty=(uint8_t)d;initial.pack_revision=3;initial.seed=initial.rng=1;m->init(&initial);
+  unsigned n=d+3,nn=n*n;assert(initial.rows==n&&initial.cols==n&&initial.puzzle_id==GRIDS_FREE_MAGIC_ID+d&&m->valid(&initial));
+  assert(!grids_bank_count(19,d,1));for(unsigned i=0;i<81;i++)assert(!initial.board[i]&&!initial.fixed[i]);
+  GridsPuzzle public_clues=*grids_puzzle(&initial);memset(public_clues.solution,255,sizeof public_clues.solution);
+  NgGame solved=initial;memcpy(solved.board,squares[d],nn*sizeof(int16_t));assert(grids_rules_complete(&solved,&public_clues));
+  NgGame changed=solved;for(unsigned r=0;r<n;r++)for(unsigned c=0;c<n;c++)changed.board[r*n+c]=solved.board[(n-1-c)*n+r];
+  assert(grids_rules_complete(&changed,&public_clues)); /* Different rotated solution. */
+  changed=solved;changed.board[0]=changed.board[1];assert(!grids_complete(&changed));
+  changed=solved;changed.board[0]=0;assert(!grids_complete(&changed));changed.board[0]=(int16_t)(nn+1);assert(!grids_complete(&changed)&&!m->valid(&changed));
+  changed=solved;changed.board[0]=solved.board[n];changed.board[n]=solved.board[0];assert(!grids_complete(&changed)); /* Column preserved, row wrong. */
+  changed=solved;changed.board[0]=solved.board[1];changed.board[1]=solved.board[0];assert(!grids_complete(&changed)); /* Row preserved, column wrong. */
+  changed=solved;for(unsigned c=0;c<n;c++){changed.board[c]=solved.board[n+c];changed.board[n+c]=solved.board[c];}
+  assert(!grids_complete(&changed)); /* All rows/columns correct, diagonals wrong. */
+  NgGame entered=initial;
+  for(unsigned i=0;i<nn;i++){
+   entered.cursor=(uint8_t)i;unsigned v=(unsigned)squares[d][i];
+   if(v>=10)assert(m->action(&entered,'0'+(int)(v/10)));
+   assert(m->action(&entered,'0'+(int)(v%10)));assert(m->action(&entered,NGK_EXE));assert(entered.board[i]==(int)v&&m->valid(&entered));
+  }
+  unsigned pixels=0;NgCanvas canvas={&pixels,pixel};m->render(&entered,&canvas);assert(pixels);
+  assert(m->action(&entered,NGK_AUX)&&entered.status==NG_WON&&m->valid(&entered));
+  changed=initial;changed.rows=changed.cols=(uint8_t)(n==3?4:3);assert(!m->valid(&changed));
+  changed=initial;changed.pack_revision=2;assert(!m->valid(&changed));
+  changed=initial;changed.puzzle_id=720+d*30;assert(!m->valid(&changed));
+  /* Legacy blank boards retain original order/rules; they are never resized. */
+  NgGame legacy=fresh(19,d,1,887);assert(legacy.rows==(d>=2?4:3)&&m->valid(&legacy));
+ }
+ puts("MAGIC FREE: 3/4/5/6 normal sums, alternative answers, invalid rows/columns/diagonals, two-digit actions PASS");
+}
 static void bank_ranges(void)
 {
  const unsigned ids[4]={11,12,14,15};
@@ -163,7 +203,7 @@ static void bank_ranges(void)
 }
 void test_grids(void)
 {
- lifecycle();all_records();rule_probes();bank_ranges();printf("grids: %u witnesses, completion independence, all supported lifecycles, compact/bag/rules/input/render PASS\n",GRIDS_PACK_COUNT);
+ lifecycle();all_records();rule_probes();free_magic_sizes();bank_ranges();printf("grids: %u witnesses, completion independence, all supported lifecycles, compact/bag/rules/input/render PASS\n",GRIDS_PACK_COUNT);
 }
 #ifdef NG_GRIDS_TEST_MAIN
 int main(void){test_grids();return 0;}
