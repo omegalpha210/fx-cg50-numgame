@@ -3,6 +3,7 @@
 #include "ng.h"
 #include "ui.h"
 typedef struct { int choice, amount; } SqMove;
+#define SQ_SLIDING_BAND_COUNT 128u
 unsigned sq_bank_count(unsigned id,unsigned difficulty,unsigned mode);
 /* Pure helper API exposed for independent host audits. */
 int sq_strategy_value(unsigned id,const NgGame *g);

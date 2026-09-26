@@ -21,9 +21,7 @@ static void game(Codec *c,NgGame *g,bool modern)
  u32(c,&g->moves);u32(c,&g->score);u32(c,&g->puzzle_id);
  if(modern){u32(c,&g->supply_seed);u32(c,&g->supply_index);u32(c,&g->pack_revision);u32(c,&g->generation_policy);}
  else {g->pack_revision=1;unsigned policy_mode=g->id>=21 && g->id<=25 && g->mode==2?0:g->mode;
-  g->generation_policy=g->id==6?NG_SUPPLY_BANK:
-   g->id==19 && g->mode==1?NG_SUPPLY_TRANSFORMS:
-   ng_level_generation_policy(g->id,g->difficulty,policy_mode);}
+  g->generation_policy=ng_level_generation_policy_version(g->id,g->difficulty,policy_mode,1);}
  for(unsigned i=0;i<NG_CELLS;i++){uint16_t v=(uint16_t)g->board[i];u16(c,&v);if(!c->out)g->board[i]=v<=INT16_MAX?(int16_t)v:(int16_t)(-1-(int)(UINT16_MAX-v));}
  for(unsigned i=0;i<NG_CELLS;i++)u8(c,&g->fixed[i]);
  for(unsigned i=0;i<NG_CELLS;i++)u16(c,&g->notes[i]);

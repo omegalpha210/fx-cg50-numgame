@@ -87,7 +87,7 @@ static void master_bank_tests(void){
  for(unsigned id=1;id<=10;id++)for(unsigned mode=0;mode<old_modes(id);mode++){
   CHECK(gc_bank_count(id,NG_HELL,mode)==0);CHECK(gc_bank_count(id,NG_MASTER,255)==0);
   unsigned count=gc_bank_count(id,NG_MASTER,mode);
-  if(id==6){CHECK(count==0);count=30;}
+  if(id==6){CHECK(count==(mode?0u:2u));count=30;}
   CHECK(count==(id==1||id==10?0u:30u));
   for(unsigned i=0;i<count;i++){
    NgGame g;master_start(&g,id,mode,i);NgGame initial=g,copy=g;
@@ -438,4 +438,42 @@ static void revised_baseball_target_tests(void){
  }
 }
 
-int main(void){revised_baseball_target_tests();expression_prose_tests();expression_render_tests();countdown_score_tests();bounded_text_tests();additional_metamorphic_tests();parser_tests();feedback_tests();lifecycle_tests();game_rules_tests();all_pack_engine_tests();master_bank_tests();master_runtime_tests();legacy_state_tests();alternative_and_mutation_tests();printf("guesscalc: %u assertions, %u rendered rectangles; PASS\n",checks,rects);return 0;}
+static void beta4_start(NgGame *g,unsigned id,unsigned d,unsigned ordinal){
+ memset(g,0,sizeof(*g));g->id=(uint8_t)id;g->difficulty=(uint8_t)d;g->pack_revision=4;
+ g->seed=g->rng=739;g->run_id=17;g->supply_seed=(id==6?2u:30u)<<16;g->supply_index=ordinal;
+ module(g)->init(g);CHECK(module(g)->valid(g));
+}
+static void beta4_content_tests(void){
+ NgCanvas canvas={NULL,rect};
+ for(unsigned id=5;id<=7;id+=2)for(unsigned d=0;d<4;d++)for(unsigned ordinal=0;ordinal<30;ordinal++){
+  NgGame g;beta4_start(&g,id,d,ordinal);unsigned expected=(id==5&&d<2)?120+d*30+ordinal:id==7&&d==2?120+ordinal:d*30+ordinal;
+  CHECK(g.puzzle_id==expected);NgGame copy=g;beta4_start(&g,id,d,ordinal);CHECK(!memcmp(&g,&copy,sizeof(g)));
+  if(id==7&&d==2)for(unsigned i=0;i<6;i++)CHECK(g.board[i]!=g.data[0]);
+  gc_test_solve(&g,&g,press);CHECK(g.status==NG_WON);if(!ordinal)module(&g)->render(&g,&canvas);
+  copy.pack_revision=2;if((id==5&&d<2)||(id==7&&d==2))CHECK(!module(&copy)->valid(&copy));
+ }
+ for(unsigned d=0;d<4;d++)for(unsigned target=1;target<=1000;target++)for(unsigned ordinal=0;ordinal<2;ordinal++){
+  NgGame g;beta4_start(&g,6,d,ordinal);CHECK(gc_bank_count(6,d,0)==2);CHECK(gc_target_init(&g,target));CHECK(module(&g)->valid(&g));
+  CHECK(g.puzzle_id==240+(d*1000+target-1)*2+ordinal);CHECK(g.data[0]==(int)target&&g.data[1]==(int)(d<2?4:d+3));
+  for(unsigned i=0;i<(unsigned)g.data[1];i++)CHECK(g.board[i]>=1&&g.board[i]<=32767);
+  NgGame original=g,copy=g;CHECK(gc_target_init(&copy,target)&&!memcmp(&copy,&g,sizeof(g)));
+  CHECK(!gc_target_init(&copy,0)&&!memcmp(&copy,&g,sizeof(g)));CHECK(!gc_target_init(&copy,1001)&&!memcmp(&copy,&g,sizeof(g)));
+  press(&g,NGK_ANSWER);GcExpression e;CHECK(gc_expression(g.input,false,&e)&&gc_cards(&e,g.board,(unsigned)g.data[1],true));CHECK(e.value.num==(int64_t)target*e.value.den);
+  char alternate[97];snprintf(alternate,sizeof(alternate),"--(%.80s)",g.input);strcpy(g.input,alternate);press(&g,NGK_EXE);CHECK(g.status==NG_WON);
+  if(target%250==0)module(&g)->render(&g,&canvas);
+  copy=original;copy.board[0]++;CHECK(!module(&copy)->valid(&copy));copy=original;copy.puzzle_id=239;CHECK(!module(&copy)->valid(&copy));
+  copy=original;copy.data[0]=target==1000?999:(int32_t)target+1;CHECK(!module(&copy)->valid(&copy));
+  copy=original;copy.pack_revision=3;CHECK(!module(&copy)->valid(&copy));copy=original;copy.status=NG_WON;CHECK(!module(&copy)->valid(&copy));
+ }
+ for(unsigned seed=1;seed<=4096;seed++){
+  NgGame g;beta4_start(&g,10,NG_MASTER,0);g.seed=g.rng=seed;module(&g)->init(&g);CHECK(module(&g)->valid(&g));
+  unsigned value=(unsigned)g.data[0],distinct=0,omega=0,repeated=0,large=0,maximum=0;
+  for(unsigned p=2;p<=value;p++)if(value%p==0){unsigned exponent=0;do{value/=p;exponent++;}while(value%p==0);distinct++;omega+=exponent;repeated+=exponent>1;large+=p>=11;maximum=p;}
+  CHECK(distinct==4&&(omega==7||omega==8)&&repeated==2&&large==2&&maximum>=37&&g.data[0]<=488808);
+  NgGame old=g;old.pack_revision=2;CHECK(!module(&old)->valid(&old));gc_test_solve(&g,&g,press);CHECK(g.status==NG_WON);
+ }
+ /* The former one-card HARD runs still have their exact original semantics. */
+ for(unsigned index=60;index<=71;index+=11){NgGame g;start(&g,7,2,0,1);for(unsigned seed=2;g.puzzle_id!=index;seed++)start(&g,7,2,0,seed);gc_test_type(&g,press,"100");press(&g,NGK_EXE);CHECK(g.status==NG_WON);}
+}
+
+int main(void){beta4_content_tests();revised_baseball_target_tests();expression_prose_tests();expression_render_tests();countdown_score_tests();bounded_text_tests();additional_metamorphic_tests();parser_tests();feedback_tests();lifecycle_tests();game_rules_tests();all_pack_engine_tests();master_bank_tests();master_runtime_tests();legacy_state_tests();alternative_and_mutation_tests();printf("guesscalc: %u assertions, %u rendered rectangles; PASS\n",checks,rects);return 0;}

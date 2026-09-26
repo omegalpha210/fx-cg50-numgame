@@ -23,6 +23,8 @@ CASIO **fx-CG50**용 오프라인 네이티브 숫자 게임 **36종**입니다.
 
 Number Baseball은 반복 숫자를 허용하며 EASY/NORMAL/HARD/MASTER가 각각 4/5/6/7자리입니다. Make Target은 목표를 **1–1000**에서 직접 입력하고 EASY/NORMAL 4장, HARD 5장, MASTER 6장의 카드를 모두 사용합니다. TARGET에서 LEFT/RIGHT는 숫자 편집 커서를 왼쪽/끝에서 열고, 첫 EXE는 유효한 값을 확정하며 다음 EXE가 새 게임을 시작합니다. EXIT은 편집을 취소하고 편집 중 F6은 비활성입니다. Countdown은 여전히 카드를 일부 남겨도 됩니다. MAGIC SQUARE FREE는 난이도 순서대로 빈 3×3/4×4/5×5/6×6 보드입니다. NONOGRAM은 정답의 검은 칸만 정확히 칠하면 완료되며 나머지 빈칸은 그대로 두거나 X로 표시해도 됩니다. 2048은 작은 타일의 회색부터 연두·시안·파랑·노랑·주황·마젠타·빨강 계열로 색이 변합니다. [전체 조작표](docs/CONTROLS.md) · [36게임 난이도 감사](docs/DIFFICULTY_AUDIT.md).
 
+beta.4에서는 새 Countdown HARD 문제의 1~3장 지름길을 없애고, Sequence EASY/NORMAL의 규칙 계열을 구분했습니다. Prime Factor MASTER의 소인수 구조를 강화했고 Sliding EASY/NORMAL/HARD는 최단 이동 횟수를 검증한 보드를 사용합니다. Make Target은 PC의 전수 풀이기로 가장 쉬운 합법 해법을 확인한 문제를 목표 숫자별로 제공하며, 새 MASTER 문제는 중간 분수 계산이 필요합니다. 진행 중이던 예전 게임의 문제와 규칙은 유지됩니다.
+
 앱 전체에서 **미완료 게임 하나**만 이어할 수 있습니다. NEW GAME은 새 게임을 안전하게 저장한 뒤 기존 이어하기를 확인창 없이 교체합니다. 완료 후에는 이어하기가 사라지고, 완료 창에서 EXIT을 누르면 최종 화면을 수정할 수 없는 상태로 볼 수 있습니다. 여기서 EXIT은 게임 시작 화면으로, F6 NEW는 다음 판으로 갑니다. `NGSTATEA/B.dat` 두 파일은 하나의 논리 저장을 위한 복구 사본입니다. 빈 파일 둘은 총 252바이트, 새 게임 저장 둘은 총 3,996바이트입니다. 기존 최근 5개·구형 아카이브에서는 가장 최근의 유효한 미완료 게임 하나와 설정을 이관합니다. [저장 형식](docs/STORAGE_FORMAT.md), [이어하기 정책](docs/RESUME_POLICY.md), [문제 순환](docs/CONTENT_CYCLE.md).
 
 일반판과 진단판은 `NG`/`ND` 저장 파일을 따로 사용합니다. 진단판은 Main→F2 SET→F3 DIAG에서 RAM/시간 계측, 1,000회 stress, `NDDIAG.txt` 내보내기를 제공합니다. 실기 지연·메모리 최대치는 아직 **HARDWARE TEST REQUIRED**입니다. [현재 호스트 측정](docs/PERFORMANCE_36.md) · [진단 안내](docs/DIAGNOSTICS.md).

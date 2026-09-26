@@ -81,9 +81,9 @@ static void old_formats(void)
  for(unsigned id=2;id<=32;id++)for(unsigned d=0;d<3;d++)for(unsigned mode=0;mode<ng_module(id)->modes;mode++){
   if(id==6 || id==29 || id==30 || (id==26 && mode))continue;
   memset(&original,0,sizeof original);
-  /* Legacy payloads must be constructed with the old supply rules. New
-     Magic FREE uses virtual IDs; new Lights 4x4 uses revised grading. */
-  if((id==19 && mode==1) || id==28)
+  /* Legacy payloads must use their original supply rules. Revisions 3/4
+     may have different banks, grading or virtual puzzle IDs. */
+  if(id==5 || id==7 || id==10 || (id==19 && mode==1) || id==27 || id==28)
    ng_new_supply_version(&original.game,id,d,mode,20260922,1,0,0,1);
   else ng_new(&original.game,id,d,mode,20260922,1);
   original.stats.started=1;

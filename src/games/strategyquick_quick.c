@@ -1,5 +1,6 @@
 #include "strategyquick.h"
 #include "../../assets/strategyquick/master_quick.h"
+#include "../../assets/strategyquick/sliding_bands.h"
 #include <limits.h>
 #include <stdio.h>
 #include <string.h>
@@ -61,7 +62,14 @@ static bool slide(NgGame *g,int key){
  g->board[p]=g->board[q];g->board[q]=0;g->cursor=(uint8_t)q;return true;
 }
 static unsigned manhattan(const NgGame *g){unsigned d=0;for(unsigned i=0;i<g->rows*g->cols;i++)if(g->board[i]){unsigned p=(unsigned)g->board[i]-1;int x=(int)(i%g->cols)-(int)(p%g->cols),y=(int)(i/g->cols)-(int)(p/g->cols);d+=(unsigned)(x<0?-x:x)+(unsigned)(y<0?-y:y);}return d;}
+static const uint8_t *sliding_banded(const NgGame *g){return g->mode?sq_sliding_banded4[g->difficulty][g->puzzle_id]:sq_sliding_banded3[g->difficulty][g->puzzle_id];}
 static void sliding_init(NgGame *g){
+ if(g->pack_revision>=4 && g->difficulty<3){
+  g->puzzle_id=ng_bank_pick(g,SQ_SLIDING_BAND_COUNT);const uint8_t *p=sliding_banded(g);unsigned cells=g->rows*g->cols;
+  for(unsigned i=0;i<cells;i++){g->board[i]=(int16_t)((p[i/2]>>((i%2)*4))&15u);if(!g->board[i])g->cursor=(uint8_t)i;}
+  g->data[0]=g->data[1]=p[(cells+1)/2];
+  snprintf(g->message,sizeof g->message,"Start shortest solution: %ld moves",(long)g->data[1]);return;
+ }
  if(g->difficulty==3){
   g->puzzle_id=ng_bank_pick(g,sq_bank_count(27,3,g->mode));const uint8_t *p=g->mode?sq_master_sliding4[g->puzzle_id]:sq_master_sliding3[g->puzzle_id];
   for(unsigned i=0;i<g->rows*g->cols;i++){g->board[i]=p[i];if(!p[i])g->cursor=(uint8_t)i;}
@@ -271,6 +279,7 @@ bool sq_quick_valid(const NgGame *g){
   for(unsigned i=0;i<n;i++){if(g->board[i]<0||g->board[i]>=(int)n || (seen&(1u<<g->board[i])))return false;seen|=1u<<g->board[i];}
   if(g->board[g->cursor] || !sq_sliding_solvable(g))return false;
   if(g->difficulty==3){if(g->puzzle_id>=sq_bank_count(27,3,g->mode)||g->data[0]!=(g->mode?400:31)||g->data[1]<(g->mode?48:31)||g->data[1]>(g->mode?80:31))return false;}
+  else if(g->pack_revision>=4){if(g->puzzle_id>=SQ_SLIDING_BAND_COUNT)return false;unsigned distance=sliding_banded(g)[(n+1)/2];if(g->data[0]!=(int)distance||g->data[1]!=(int)distance)return false;}
   else if(g->data[0]<80||g->data[0]>240||g->data[1])return false;
   if(g->status!=(sliding_goal(g)?NG_WON:NG_PLAYING))return false;
  }
@@ -327,7 +336,7 @@ void sq_quick_render(const NgGame *g,NgCanvas *c){
   ng_text(c,x,47,"MOVES",NG_MUTED,1);snprintf(s,sizeof s,"%lu",(unsigned long)g->moves);ng_text_fit(c,x,65,386-x,s,NG_INK,2);
   if(g->id==27){ng_text(c,x,115,"ARROWS",NG_BLUE,1);ng_text(c,x,134,"MOVE BLANK",NG_MUTED,1);}
   else{ng_text(c,x,115,"EXE: PRESS",NG_BLUE,1);ng_text(c,x,134,"TURN ALL OFF",NG_MUTED,1);}
-  if(g->difficulty==3){snprintf(s,sizeof s,g->id==27&&g->mode?"START >= %ld":"START MIN %ld",(long)g->data[1]);ng_text_fit(c,x,158,386-x,s,NG_MUTED,1);}
+  if(g->difficulty==3 || (g->id==27&&g->pack_revision>=4)){snprintf(s,sizeof s,g->id==27&&g->mode&&g->difficulty==3?"START >= %ld":"START MIN %ld",(long)g->data[1]);ng_text_fit(c,x,158,386-x,s,NG_MUTED,1);}
  }else if(g->id==29){
   snprintf(s,sizeof s,"%s  OK %ld  MISS %ld",g->mode?"PRACTICE":"RUSH",(long)g->data[5],(long)g->data[6]);ng_text_fit(c,13,33,g->mode?373:302,s,NG_MUTED,1);
   const char *ops[]={"+","-","x","/"};

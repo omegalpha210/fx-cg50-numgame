@@ -91,7 +91,7 @@ static void entry(NgCanvas *c,const NgApp *a)
  unsigned count=ng_entry_count(a);
  for(unsigned i=0;i<count;i++){
   int action=ng_entry_action(a,i);char number[4];snprintf(number,sizeof number,"%u",i+1);
-  const char *name=action==NG_ENTRY_RESUME?"RESUME":action==NG_ENTRY_NEW?"NEW GAME":action==NG_ENTRY_LEVEL?(a->selected_id==27?"SCRAMBLE":"DIFFICULTY"):action==NG_ENTRY_TARGET?"TARGET":((a->selected_id>=21 && a->selected_id<=25) || a->selected_id==37)?"FIRST":"MODE";
+  const char *name=action==NG_ENTRY_RESUME?"RESUME":action==NG_ENTRY_NEW?"NEW GAME":action==NG_ENTRY_LEVEL?"DIFFICULTY":action==NG_ENTRY_TARGET?"TARGET":((a->selected_id>=21 && a->selected_id<=25) || a->selected_id==37)?"FIRST":"MODE";
   bool compact=count>4;int y=(compact?30:34)+(int)i*(compact?27:34),height=compact?25:29;
   ng_rect(c,10,y,376,height,i==a->entry_selection?pale[ng_catalog_index(a->selected_id)/6]:NG_WHITE);
   ng_border(c,10,y,376,height,i==a->entry_selection?NG_BLUE:NG_LINE,i==a->entry_selection?2:1);
@@ -109,7 +109,7 @@ static void entry(NgCanvas *c,const NgApp *a)
  }
  int selected=ng_entry_action(a,a->entry_selection);
   const char *hint=selected==NG_ENTRY_RESUME?"Continue the saved game with its original settings.":selected==NG_ENTRY_NEW?"New game with these settings; replaces old resume.":selected==NG_ENTRY_LEVEL?"LEFT/RIGHT: difficulty for the next NEW GAME.":selected==NG_ENTRY_TARGET?(a->target_editing?"EXE: COMMIT   EXIT: CANCEL":"LEFT/RIGHT: edit target 1..1000."):"LEFT/RIGHT: mode for the next NEW GAME.";
- if(selected==NG_ENTRY_LEVEL && a->selected_id==27)hint="LEFT/RIGHT: choose how much to shuffle a new board.";
+ if(selected==NG_ENTRY_LEVEL && a->selected_id==27)hint="LEFT/RIGHT: distance-based level for NEW GAME.";
  if(selected==NG_ENTRY_MODE && (a->selected_id==27 || a->selected_id==28))hint="LEFT/RIGHT: board size for the next NEW GAME.";
  if(selected==NG_ENTRY_MODE && ((a->selected_id>=21 && a->selected_id<=25) || a->selected_id==37))hint="LEFT/RIGHT: YOU or CPU starts.";
  if(selected==NG_ENTRY_LEVEL && ng_has_hell(a->selected_id))hint=a->settings.difficulty[a->selected_id-1]==NG_HELL?"HELL selected. F3: return to E/N/H/M.":"LEFT/RIGHT: level. F3: separate HELL challenge.";

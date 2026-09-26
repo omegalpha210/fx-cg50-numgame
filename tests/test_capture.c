@@ -116,6 +116,21 @@ int main(void)
  tap(&app,'2');tap(&app,'4');tap(&app,'7');tap(&app,NGK_EXE);
  assert(app.screen==NG_ENTRY && !app.target_editing && app.settings.target==247);
  capture("68-target-committed");
+ /* Revision-4 content at every level, including the 1000-target card widths.
+    These frames come from the real entry and game renderer. */
+ static const unsigned revised[]={5,6,7,10};
+ for(size_t j=0;j<sizeof revised/sizeof revised[0];j++)for(unsigned d=0;d<4;d++){
+  unsigned id=revised[j];main_screen();
+  app.settings.difficulty[id-1]=(uint8_t)d;
+  if(id==6)app.settings.target=1000;
+  tap(&app,'1'+(int)(ng_catalog_index(id)/6));
+  tap(&app,'1'+(int)(ng_catalog_index(id)%6));
+  assert(app.screen==NG_ENTRY);
+  app.entry_selection=(uint8_t)ng_entry_row(&app,NG_ENTRY_LEVEL);
+  char name[40];snprintf(name,sizeof name,"%02u-beta4-%u-entry",id,d);capture(name);
+  open_game(&app,id);
+  snprintf(name,sizeof name,"%02u-beta4-%u-game",id,d);capture(name);
+ }
  assert(!fclose(manifest));
  puts("Renderer capture: main +6 categories +36 games +inline options +edge states PASS");return 0;
 }

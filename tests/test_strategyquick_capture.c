@@ -14,14 +14,26 @@ static void paint(void *ctx,int x,int y,int w,int h,uint16_t color){
 }
 static void save(const char *dir,const char *name){
  char path[512];int length=snprintf(path,sizeof path,"%s/%s.ppm",dir,name);assert(length>0&&(size_t)length<sizeof path);
- NgCanvas canvas={NULL,paint};memset(pixels,255,sizeof pixels);ng_render(&app,&canvas);assert(ng_valid(&app.session.game));
+ NgCanvas canvas={NULL,paint};memset(pixels,255,sizeof pixels);ng_render(&app,&canvas);assert(app.screen!=NG_PLAY||ng_valid(&app.session.game));
  FILE *f=fopen(path,"wb");assert(f);fprintf(f,"P6\n396 224\n255\n");
  for(unsigned p=0;p<396*224;p++){unsigned v=pixels[p];uint8_t rgb[3]={(uint8_t)(((v>>11)&31)*255/31),(uint8_t)(((v>>5)&63)*255/63),(uint8_t)((v&31)*255/31)};assert(fwrite(rgb,1,3,f)==3);}
  assert(!fclose(f));
 }
 static void press(int key){ng_app_event(&app,key,NG_DOWN);ng_app_event(&app,key,NG_UP);}
 int main(int argc,char **argv){
- assert(argc==2 || (argc==3&&!strcmp(argv[2],"recent")));const unsigned ids[]={21,22,23,24,25,26,27,28,31,32,37,38};
+ assert(argc==2 || (argc==3&&(!strcmp(argv[2],"recent")||!strcmp(argv[2],"sliding"))));
+ if(argc==3&&!strcmp(argv[2],"sliding")){
+  static const char *levels[]={"easy","normal","hard","master"};
+  for(unsigned mode=0;mode<2;mode++)for(unsigned d=0;d<4;d++){
+   ng_app_init(&app,(NgHooks){0},412);app.settings.mode[26]=(uint8_t)mode;app.settings.difficulty[26]=(uint8_t)d;
+   int index=ng_catalog_index(27);press('1'+index/6);press('1'+index%6);assert(app.screen==NG_ENTRY&&app.selected_id==27);
+   char name[64];snprintf(name,sizeof name,"sliding-beta4-%u-%s-entry",mode+3,levels[d]);
+   save(argv[1],name);press(NGK_F6);assert(app.screen==NG_PLAY&&app.session.game.pack_revision==4);
+   snprintf(name,sizeof name,"sliding-beta4-%u-%s",mode+3,levels[d]);save(argv[1],name);
+  }
+  return 0;
+ }
+ const unsigned ids[]={21,22,23,24,25,26,27,28,31,32,37,38};
  for(unsigned i=argc==3?10:0;i<sizeof ids/sizeof ids[0];i++){
   unsigned id=ids[i],mode=id>=26&&id<=28?1:0;ng_app_init(&app,(NgHooks){0},412);app.screen=NG_PLAY;app.selected_id=(uint8_t)id;app.active=app.resumable=true;app.session.stats.started=1;app.settings.difficulty[id-1]=3;app.settings.mode[id-1]=(uint8_t)mode;
   ng_new_supply(&app.session.game,id,3,mode,717,1,43,0);char name[40];snprintf(name,sizeof name,"master-%u",id);save(argv[1],name);

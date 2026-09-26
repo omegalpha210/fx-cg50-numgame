@@ -58,7 +58,7 @@ legacy names are removed only when their record or archive ownership validates.
 Checkpoint triggers include NEW GAME, EXIT, MENU, SHIFT+AC/ON, APO, settings
 changes and completion. Game keys are not individually written. Native BFile
 transactions run synchronously on the main thread inside `gint_world_switch`.
-The v5 wire layout is unchanged in beta.3. A run already stores its supply
+The v5 wire layout is unchanged in beta.3 and beta.4. A run already stores its supply
 revision, actual board dimensions and per-cell progress. This allows old Magic
 Square FREE and Lights Out revision-1/2 runs to resume and INIT with their old
 order/puzzle while NEW uses revision 3. Nonogram blank and X remain separate

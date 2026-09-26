@@ -89,6 +89,7 @@ SqMove sq_strategy_pick(NgGame *g,bool exact){
 }
 const char *sq_strategy_mode(unsigned mode){static const char *names[]={"YOU FIRST","CPU FIRST","LEGACY 2P"};return names[mode<3?mode:0];}
 unsigned sq_bank_count(unsigned id,unsigned difficulty,unsigned mode){
+ if(id==27&&difficulty<3&&mode<2)return SQ_SLIDING_BAND_COUNT;
  if(difficulty!=3)return 0;
  if(id>=21&&id<=25&&mode<3)return sq_master_start_count[id-21][mode==1];
  if(id==27&&mode<2)return mode?30:2;

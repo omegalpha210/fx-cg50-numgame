@@ -27,7 +27,8 @@ PUBLIC_DOCS={
     'host-benchmark-build-evidence.json',
     'POWER_TIMER_AUDIT.md','PUBLIC_SOURCE_AUDIT.md','RULES.md',
     'RESUME_POLICY.md','CONTENT_CYCLE.md','RECENT_SIX_AUDIT.md',
-    'DIFFICULTY_AUDIT.md','DIFFICULTY_AUDIT.csv',
+    'DIFFICULTY_AUDIT.md','DIFFICULTY_AUDIT.csv','DIFFICULTY_AUDIT_BETA3.csv',
+    'MAKE_TARGET_COMPLEXITY.csv',
     'RUNTIME_AUDIT.md','STORAGE_ARCHIVE_AUDIT.md','STORAGE_FORMAT.md',
     'STRATEGY_QUICK_AUDIT.md','UI_CONVENTIONS.md','UI_LAYOUT_KO.md',
     'UI_REFRESH_KO.md','acceptance-matrix.csv','asset-manifest.json',
@@ -40,12 +41,19 @@ LICENSE_FILES={
     'fxlibc-Grisu2b-LICENSE.txt','fxlibc-LICENSE.txt','gint-README.md',
 }
 ASSET_JSON_ROOT={'guesscalc_packs.json','guesscalc_master.json','guesscalc_cryptarithm.json',
-                 'guesscalc_difficulty_rows.json','guesscalc_difficulty_audit.json'}
-ASSET_HEADER_ROOT={'guesscalc_packs.h','guesscalc_master.h','guesscalc_cryptarithm.h'}
+                 'guesscalc_difficulty_rows.json','guesscalc_difficulty_audit.json',
+                 'guesscalc_difficulty_rows_beta4.json','guesscalc_difficulty_audit_beta4.json',
+                 'guesscalc_beta4.json','guesscalc_target_beta4.json',
+                 'guesscalc_target_beta3_sample.json',
+                 'guesscalc_make_target_complexity.csv'}
+ASSET_HEADER_ROOT={'guesscalc_packs.h','guesscalc_master.h','guesscalc_cryptarithm.h',
+                   'guesscalc_beta4.h','guesscalc_target_beta4.h'}
 ASSET_JSON_SUB={
     'boards':{'puzzles.json','verification.json','difficulty-beta3.json'},
     'strategyquick':{'metadata.json','master.json','master_verification.json','master-sh-metrics.json','extra-native-frames.json','extra-asan-attempt.json',
-                     'difficulty-beta3.json','difficulty-beta3.csv','difficulty-beta3-baseline.json','difficulty-beta3-native.json'},
+                     'difficulty-beta3.json','difficulty-beta3.csv','difficulty-beta3-baseline.json','difficulty-beta3-native.json',
+                     'difficulty-beta4.json','difficulty-beta4.csv','sliding_bands.h','sliding_bands.json',
+                     'sliding-beta4-audit.json','sliding-beta4-native.json'},
 }
 DIST_FILES={'NUMGAME.g3a','NUMGDIAG.g3a','SHA256SUMS.txt'}
 TEXT_SUFFIXES={'.c','.h','.S','.py','.sh','.md','.txt','.json','.csv','.cmake'}
@@ -73,6 +81,7 @@ def public_png(name):
     if re.fullmatch(r'assets/grids/extra/beta3/(?:magic-free-[3-6]-(?:blank|filled)|nonogram-(?:before-last|mixed-before-last|blank-complete|result-view))\.png',name):return True
     if re.fullmatch(r'assets/strategyquick/extra-\d+-master\.png',name):return True
     if re.fullmatch(r'assets/strategyquick/extra-(?:37-(?:cpu|result|result-modal)|38-result)\.png',name):return True
+    if re.fullmatch(r'assets/strategyquick/sliding-beta4-[34]-(?:easy|normal|hard|master)(?:-entry)?\.png',name):return True
     if re.fullmatch(r'assets/boards/captures/(?:(?:31|32)-[0-3]-(?:complete|corner|start|edge)|(?:completed-)?contact)\.png',name):return True
     if re.fullmatch(r'docs/captures/(?:\d{2}-[a-z0-9-]+|category-[1-6]-2x|[a-z-]+-native|menus-2x)\.png',name):return True
     return False
@@ -84,7 +93,7 @@ def allowed(name,include_dist=False):
     if name in ROOT_FILES:return True
     if parts[0] in {'src','include'}:return p.suffix in {'.c','.h','.S'}
     if parts[0]=='tests':return p.suffix in {'.c','.h','.py','.sh','.md'} or p.name=='CMakeLists.txt'
-    if parts[0]=='tools':return p.suffix in {'.c','.h','.py','.sh'} or name=='tools/toolchain-lock.json'
+    if parts[0]=='tools':return p.suffix in {'.c','.h','.cpp','.py','.sh'} or name=='tools/toolchain-lock.json'
     if parts[0]=='assets':
         if p.suffix=='.png':return public_png(name)
         if len(parts)==2:return p.name in ASSET_JSON_ROOT|ASSET_HEADER_ROOT
@@ -189,8 +198,23 @@ def required_findings(selected):
         'tools/generate/guesscalc_master.py','tools/generate/guesscalc_verify_master.py',
         'tools/generate/strategyquick_master.py','tools/generate/strategyquick_master_verify.py',
         'tools/generate/strategyquick_tables.py',
+        'tools/generate/guesscalc_beta4.py','tools/generate/guesscalc_beta4_target.py',
+        'tools/generate/guesscalc_beta4_audit.py',
+        'tools/generate/guesscalc_beta4_sample.c',
+        'tools/generate/guesscalc_exact.cpp',
+        'tools/generate/guesscalc_exact.py','tools/generate/strategyquick_sliding.py',
+        'tools/generate/strategyquick_sliding_verify.py',
         'assets/boards/puzzles.json','assets/guesscalc_packs.json','assets/guesscalc_master.json',
+        'assets/guesscalc_beta4.h','assets/guesscalc_beta4.json',
+        'assets/guesscalc_target_beta4.h','assets/guesscalc_target_beta4.json',
+        'assets/guesscalc_target_beta3_sample.json',
+        'assets/guesscalc_difficulty_rows_beta4.json','assets/guesscalc_difficulty_audit_beta4.json',
+        'assets/guesscalc_make_target_complexity.csv',
         'assets/strategyquick/master.json','assets/strategyquick/tables.h',
+        'assets/strategyquick/sliding_bands.h','assets/strategyquick/sliding_bands.json',
+        'assets/strategyquick/sliding-beta4-audit.json','assets/strategyquick/sliding-beta4-native.json',
+        'assets/strategyquick/difficulty-beta4.json',
+        'assets/strategyquick/difficulty-beta4.csv',
         'assets/guesscalc_packs.h','assets/guesscalc_master.h','src/ui/font_data.h',
         'assets/guesscalc_cryptarithm.h','assets/guesscalc_cryptarithm.json',
         'assets/icon-uns.png','assets/icon-sel.png','assets/font/font5x7.png','assets/font/font8x9.png',
@@ -199,6 +223,7 @@ def required_findings(selected):
         'tools/generate/grids_compact.py','tools/generate/grids_expand.py',
         'tools/generate/grids_expanded_verify.py',
         'assets/grids/extra/generate.py','assets/grids/extra/audit.json',
+        'docs/DIFFICULTY_AUDIT_BETA3.csv','docs/MAKE_TARGET_COMPLEXITY.csv',
     }|{'docs/third_party/'+n for n in LICENSE_FILES}|{f'assets/grids/{n}.json' for n in range(11,21)}|{f'assets/grids/expanded/{n}-{d}.json' for n in range(11,21) for d in (range(5) if n<=15 else (3,))}
     return [dict(file=n,type='required_public_file_missing',severity='error') for n in sorted(required-set(selected))]
 

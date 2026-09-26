@@ -481,7 +481,13 @@ def main():
         if args.write:
             audit_file.write_text(text)
         else:
-            assert audit_file.read_text() == text, 'detailed report is stale; regenerate with --write'
+            # Source hashes describe the retained beta.3 evidence, not today's
+            # revision4 additions. Replay every old state/metric, preserve the
+            # published baseline bytes, and compare all non-hash evidence.
+            historical = json.loads(audit_file.read_text())
+            current = json.loads(text)
+            historical.pop('source_sha256');current.pop('source_sha256')
+            assert historical == current, 'historical beta.3 semantics or metrics changed'
         integration = []
         for row in rows:
             id_, d = row['id'], row['level_index']

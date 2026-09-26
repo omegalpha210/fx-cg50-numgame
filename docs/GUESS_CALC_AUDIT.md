@@ -971,3 +971,308 @@ app CTest targets pass **3/3** against the current common source under UBSan.
 The new audit makes no ASan, hardware latency, device memory-peak, or human
 playtest claim. Existing hardware requirements and the earlier ASan limitation
 remain unchanged.
+
+## beta.4: exact grading and retained-save content revisions
+
+This section supersedes the beta.3 REVIEW REQUIRED decisions for GC-D01,
+GC-D02, GC-D03 and GC-D05. The beta.3 evidence files remain intact;
+`assets/guesscalc_difficulty_audit_beta4.json` contains the explicit before/after
+metrics and `assets/guesscalc_difficulty_rows_beta4.json` contains 48 rows in
+the integration schema. All added puzzles are generated in this repository:
+external puzzle files, parsed external records and bundled external records
+are each zero. Solver complexity metrics are objective structural evidence,
+not a measured human difficulty rating.
+
+### Revision and supply compatibility
+
+Fresh games 05, 06, 07 and 10 use pack revision 4. Existing revisions keep
+their original generation, validation, puzzle IDs and answers. No old array
+was overwritten. New Sequence E/N IDs are 120..179; new Countdown HARD IDs
+are 120..149. Fifteen already-suitable HARD contents are intentionally retained
+under the new revision IDs; the other fifteen are newly generated.
+
+Make Target revisions 1/2 retain their 30-record mode banks; revision 3 keeps
+its arbitrary-target runtime generator. Revision 4 exposes a two-record bank
+for each of the 1,000 user targets at each level: 8,000 records total, with
+IDs `240 + (difficulty * 1000 + target - 1) * 2 + ordinal`. The actual common
+bank count is 2, not 8,000: target selection chooses the bank, and the common
+supply cycle chooses the ordinal. Changing target resets the cycle. This is
+two verified decks per target/level, not unlimited distinct runtime content.
+The 8,000-entry uint16 candidate-index table occupies 16,000 native bytes;
+the engine reconstructs its exact cards and first-step hint with fixed,
+bounded arithmetic. The exhaustive solver is host-only and is not linked
+into the add-in. Prime Factor remains a runtime generator with bank count 0.
+
+`tests/test_beta4_revision.c` (common integration ownership) verifies old
+active states through save, cold RESUME and INIT, followed by NEW using the
+new revision. It covers Sequence E/N, arbitrary-target Make Target at all
+four levels, Countdown HARD and Prime Factor MASTER. Owned tests also retain
+old HARD puzzles whose answer is the single card `100`; their old saved
+rules are intentionally still playable.
+
+### GC-D01: Countdown HARD — RESOLVED / CONTENT REVISED
+
+The host verifier enumerates every nonempty distinct card submultiset and
+all binary expression trees under Countdown's positive-integer intermediate
+rule. Division must be exact; zero, negative results and unary minus are
+illegal in this mode. Counts identify equal card occurrences and commutative
+`+`/`*` ordering, while retaining different association trees. Counts are
+summed over usable submultisets because Countdown allows unused cards.
+
+| HARD metric (30 records) | Before | Revision 4 |
+|---|---:|---:|
+| Minimum cards, min / median / max | 1 / 3.5 / 5 | 4 / 4 / 5 |
+| Minimum-card histogram | 1:2, 2:2, 3:11, 4:12, 5:3 | 4:19, 5:11 |
+| Minimum operations, min / median / max | 0 / 2.5 / 4 | 3 / 3 / 4 |
+| Canonical exact solutions, min / median / max | 17 / 555 / 6,858 | 16 / 168 / 2,064 |
+| Easiest witness subtractions, min / median / max | 0 / 0 / 2 | 0 / 1 / 2 |
+| Problems requiring division | 0 | 0 |
+
+All 30 fresh HARD puzzles need at least four cards, and none has a target
+equal to any card. They retain six cards with three large cards. Fifteen
+legacy contents passed and were retained, while fifteen shortcut contents
+were replaced. The generation loop examined 63 candidates; one otherwise
+eligible new candidate was rejected for a shortcut. Out-of-range targets
+and duplicates are not included in that shortcut-rejection number.
+
+EASY and NORMAL are unchanged and rechecked; their minimum-card distributions
+remain respectively `{2:2,3:12,4:13,5:3}` and `{2:1,3:10,4:18,5:1}`.
+All 30 unchanged MASTER records were exhaustively reverified: every exact
+solution uses all six cards and includes division. MASTER canonical solution
+counts are 1 / 3 / 42 (min / median / max). Division is not claimed necessary
+for HARD; its distinct new constraint is the four-card minimum.
+
+### GC-D02: Sequence E/N — RESOLVED / BANK REBALANCED
+
+| Level | Before (30 records) | Revision 4 (30 records) |
+|---|---|---|
+| EASY | AP 5, shared-step alternating 25 | AP 12, GP 9, simple shared-step alternating 9 |
+| NORMAL | Quadratic 2, Fibonacci 3, shared-step alternating 25 | Quadratic 9, Fibonacci 9, unequal-step interleaved 8, offset recurrence 4 |
+
+Each puzzle shows six terms and asks for the seventh. The finite allowed
+grammar is explicitly enumerated in `sequence_grammar`: E uses legacy AP,
+GP and shared-step families; N uses legacy quadratic, Fibonacci and offset
+families plus two interleaved sequences with starts 1..9 and distinct steps
+1..3. Every selected prefix has exactly one next answer within its level's
+grammar. There were zero ambiguity rejections in the selected candidate
+stream; this is not a claim that arbitrary mathematical continuations are
+unique. Selection excludes every old six-term prefix. New E/N exact-prefix
+overlap is zero, and all 60 new prefixes are distinct.
+
+Translation and any nonzero rational scaling, including sign, are normalized
+by subtracting the first term and dividing by the first nonzero difference.
+Under this stricter structural definition, EASY has 9 classes out of 30,
+NORMAL has 27 out of 30, and one class overlaps across levels (geometric and
+offset forms can be affine-equivalent). Thus 60 different displayed prefixes
+do not mean 60 unrelated mathematical structures. Largest absolute term
+min / median / max changes E from 3 / 11 / 39 to 4 / 17.5 / 3,645, and N
+from 5 / 11 / 96 to 3 / 49 / 2,550. Larger magnitudes alone are not the
+difficulty criterion. HARD and MASTER arrays and behavior remain unchanged.
+
+### GC-D03: Prime Factor MASTER — RESOLVED / GENERATOR REVISED
+
+The new exact form is `2^(2 or 3) * 3^3 * p * q`, where
+`p ∈ {37,41,43,47,53,59,61,67,71,73}` and
+`q ∈ {11,13,17,19,23,29,31}`. Its 140 mathematical target shapes all have
+four distinct primes, two repeated primes, Omega 7 or 8, and exactly two
+distinct primes at least 11. Every maximum prime is at least 37. The runtime
+validator checks this factor structure; it does not compare a submitted
+factorization with a stored witness. The player may submit any equivalent
+prime factorization accepted by the retained grammar.
+
+| MASTER metric, min / median / max | Before (90 shapes) | Revision 4 (140 shapes) |
+|---|---:|---:|
+| Omega (prime factors with multiplicity) | 6 / 6 / 6 | 7 / 7.5 / 8 |
+| Distinct primes / repeated primes | 4 / 2 throughout | 4 / 2 throughout |
+| Distinct primes at least 11 | 0 / 1 / 2 | 2 / 2 / 2 |
+| Maximum prime | 7 / 13 / 13 | 37 / 56 / 73 |
+| Target | 1,260 / 30,062.5 / 715,715 | 43,956 / 157,626 / 488,808 |
+| Decimal digits | 4 / 5 / 6 | 5 / 6 / 6 |
+| Trial-division proxy | 2 / 4 / 6 | 7 / 9 / 11 |
+
+The proxy sums `max(0, floor(sqrt(p))-1)` over distinct prime bases; it is
+not elapsed device time. Full enumeration finds zero target overlap between
+the unchanged HARD domain and new MASTER. Owned native-engine tests check
+4,096 deterministic seeds and solve every sampled factorization. EASY,
+NORMAL and HARD domains remain 65, 434 and 6,754 mathematical target shapes.
+
+### GC-D05: Make Target — RESOLVED / EXHAUSTIVE COMPLEXITY GRADING
+
+The user still chooses any integer target 1..1000. Card counts remain
+4 / 4 / 5 / 6, every occurrence must be used exactly once, and the runtime
+grader accepts every legal exact answer. Fractions, negative intermediate
+values, zero and unary minus are included. No concatenation, powers or extra
+constants are introduced. The exact host DP uses reduced signed rational
+values and the actual parser bounds: literal at most 1,000,000, reduced
+absolute numerator and denominator at most 1,000,000,000, input at most
+96 characters, recursive atom depth at most 12 and operation count at most
+31. Zero divisors are rejected. There is no heuristic magnitude, denominator
+or reachable-value pruning. Integer cross-products are at most 10^18 and
+addition/subtraction numerators at most 2*10^18, within int64.
+
+For solution counts the canonical equivalence is precisely: equal-valued
+card-occurrence renaming; commutation at `+` and `*`; redundant parentheses;
+and adjacent double negation. Association is retained. Unary `-0` remains
+a distinct canonical expression. Removing double negation preserves every
+reachable value and cannot improve any required complexity metric by keeping
+the removed operations. In normal form each binary/leaf node has at most one
+unary wrapper. With at most six cards, this fits at most 16 operations, depth
+12 in the native atom parser and 68 characters even for seven-digit card
+literals. Thus this normalization does not silently exclude a legal minimum
+because of the actual parser limits. Raw syntactic counts are not claimed:
+the reported counts are for this documented canonical quotient.
+
+The DP uses card-value multisets rather than dividing labelled counts by
+duplicate-card factorials. For equal submultisets and equal value classes,
+commutative unordered pairs contribute `count*(count+1)/2`; ordered minus
+and division contribute `count*count`. Reachable values and all counts are
+retained independently of optimal-expression features. Proper subsets are
+computed fully; only the full-set root may filter to target and its negative
+before the unary wrapper. The six-card raw syntactic upper bound
+63,417,876,480 is below uint64 capacity.
+
+Two independent minimum objectives are reported:
+
+1. Raw core: `(fractional steps, divisions, subtractions+divisions, tree depth,
+   maximum denominator)`.
+2. Grading core: `(fractional steps, divisions, subtractions+divisions+unary
+   steps, negative-result steps, tree depth, maximum denominator)`.
+
+The host keeps separate frontiers for these objectives. Prefix metrics are
+additive; equal-prefix depth/denominator alternatives are Pareto-retained,
+since a parent may absorb one child's depth. Unary evaluation contributes
+to fractional and negative-result counts when appropriate. Leaf depth is 0;
+maximum magnitude includes leaves and every operation result and is stored
+as an exact rational string. The raw core is deliberately not replaced by
+the grading core: e.g. cards 3,3,8,8 targeting 24 have 96 canonical solutions
+with unary enabled and raw minimum `(2,2,2,3,3)`, whose unary rewrites evade
+a binary subtraction. Without unary there is one canonical solution and
+raw minimum `(2,2,3,3,3)`. The graded minimum selects `8/(3-8/3)` with score
+148,227; unary is not a free way to lower the grading score.
+
+The grading scalar is `65536*f + 8192*d + 256*(sub+div+unary) +
+16*negative + depth`. For at most six cards in this normal form, division
+is at most 5, effective noncommutative/unary count at most 16, negative-result
+count at most 11 and depth at most 11. Each coefficient therefore dominates
+all lower fields (187 < 256; 4,283 < 8,192; 45,243 < 65,536), preserving their
+lexicographic order. Denominator is a reported tie-break, not part of the
+scalar. Rarity is `max(0,16-floor(log2(canonical_count)))`; final reported
+complexity is `32*grading_scalar + rarity`, so rarity cannot outweigh a
+structural score point. These are reproducible design metrics, not human
+playtest ratings.
+
+The new banks are admitted by actual minimum, not the construction witness:
+E has f=0, d=0 and grading score <=259; N has score 8,450; H has f=0, d=1
+and score 8,451..8,715; M requires f>=1. The completed MASTER bank actually
+has minimum fractional-step count 2 for all 2,000 records. Every N/H record
+requires division and has an integer-only solution; every M solution needs
+fractions. Target/card-multiset duplicates, including cross-level duplicates,
+are zero across all 8,000 records.
+
+| Level | Records | Final complexity min / median / max | Canonical solutions min / median / max | Minimum fractions | Minimum divisions |
+|---|---:|---:|---:|---:|---:|
+| EASY | 2,000 | 69 / 8,296 / 8,296 | 324 / 432 / 10,512 | 0 throughout | 0 throughout |
+| NORMAL | 2,000 | 270,404 / 270,409 / 270,410 | 96 / 144 / 4,320 | 0 throughout | 1 throughout |
+| HARD | 2,000 | 270,434 / 278,631 / 278,632 | 432 / 576 / 27,648 | 0 throughout | 1 throughout |
+| MASTER | 2,000 | 4,472,963 / 5,014,693 / 5,014,693 | 2,304 / 2,304 / 52,992 | 2 throughout | 1 / 3 / 3 |
+
+For comparison, the saved beta.3 sample is exactly 384 generated cases:
+targets 1, 24 and 1000, seeds 1..32, all four levels (96 per level). It is
+a bounded sample, not the complete runtime domain. Its E/N/H/M final-score
+min/median/max are 71/8,295/8,295; 8,259/16,488.5/278,634;
+100/8,290.5/278,632; and 96/8,288/278,691. Division was necessary in
+0/96, 46/96, 30/96 and 12/96 cases; fractions were necessary in none.
+The exact independent grading, rather than the original construction shape,
+exposes the original MASTER weakness.
+
+Generation accepted 2,000 records per level. Candidate attempts E/N/H/M
+were 2,010 / 2,005 / 2,002 / 2,056; complexity rejections 0 / 5 / 2 / 56;
+duplicate candidates 10 / 0 / 0 / 0. Full generation took 195.46 seconds
+with four host workers. A separate all-8,000 exact recomputation passed in
+195.71 seconds. These are host elapsed observations, not device budgets.
+`assets/guesscalc_make_target_complexity.csv` contains cards, target,
+exact solution count, raw core, graded features, final score, maximum rational
+magnitude, minimal expression and construction witness for every record.
+Card count is the length of the card list (4 / 4 / 5 / 6); it is invariant
+across all legal solutions to the same puzzle.
+
+Independent validation in `tests/test_make_target_reference.py` enumerates
+permutations and expression trees without importing the production DP:
+eight fixed four-card multisets agree on all 2,614 rational-value groups and
+1,698,872 canonical trees, including counts, raw minima, graded minima and
+scores. A separate deterministic E/N sample of 20 bank records (ten targets
+per level, three repeated-card cases) agrees across 7,627,392 canonical
+trees, including JSON/CSV and supplied-expression metrics. This independent
+sample is not an independent enumeration of all 8,000 bank records. The
+production solver separately recomputed every bank record, while native
+runtime parity covers all 8,000 cards/witnesses and 24,000 expressions
+(construction, raw minimum and graded minimum).
+
+### GC-D04 and GC-D06: accepted retained behavior
+
+GC-D04 is **ACCEPTED AS DESIGNED**. Number Baseball keeps attempt caps
+16 / 12 / 10 / 16 and 4 / 5 / 6 / 7 digits, with repeats and leading zero.
+The code spaces are 10^4 through 10^7; this does not by itself prove relative
+human solve rates. Equation Guess keeps caps 12 / 10 / 8 / 12 and 30 hidden
+equations per mode/level. MASTER's longer equations and extra operators
+remain, with the deliberately larger attempt allowance.
+
+GC-D06 is **ACCEPTED / OVERLAP DOCUMENTED**. The 120 unique-solution
+Cryptarithm records are unchanged. E/N/H/M column-solver node min/median/max
+remain 4/71.5/119, 19/125/385, 120/535.5/2,055 and 142/639.5/3,190.
+Medians rise while ranges overlap; no claim of strict per-puzzle human
+difficulty separation is made. No new GUESS/CALC HELL level was added.
+
+### Validation, memory and reproduction
+
+Owned native-engine checks pass under C11 strict warnings and UBSan,
+including all 8,000 target payloads, equivalent legal answers, invalid
+targets, corrupted payload rejection, deterministic replay, retained legacy
+records, all revised Sequence/Countdown records and 4,096 Factor seeds.
+The six focused exact-solver Python regressions pass. Separate C++ UBSan
+probes pass for the 3,3,8,8 case, large six-card values and a fractional
+MASTER record. Installed-SDK strict SH compilation passes with a 2,048-byte
+frame warning limit. The retained, extra, app and beta4_revision CTest targets
+pass 4/4 (4.05 seconds); the root's
+integrated beta.4 suite reports 23/23 before adding later test registrations.
+These counts refer to the executed suite, not an inferred future total.
+
+At identical SH `-Os` settings the guesscalc translation unit changes from
+85,704 to 107,938 bytes of text plus read-only data, a 22,234-byte increase;
+data and BSS remain zero. Added packed content payloads are 16,000 bytes
+for target indices, 1,320 for Sequence and 2,820 for Countdown (20,140 total).
+Compiler `.su` frames are target reconstruction 76, target init 92,
+card validation 140, card action 228, Factor init 60 and Factor validation
+24 bytes. Frames are individual static compiler estimates, not measured
+peak stack or device RAM. Device latency, device peak memory and physical
+key/power behavior remain HARDWARE TEST REQUIRED. The prior ASan runtime
+limitation remains; this section makes no new ASan-pass claim.
+
+Read-only verification commands:
+
+```sh
+python3 tools/generate/guesscalc_beta4.py
+python3 tools/generate/guesscalc_beta4_target.py --check
+python3 tools/generate/guesscalc_beta4_target.py --verify --jobs 4
+python3 tools/generate/guesscalc_beta4_audit.py --check
+python3 tools/generate/guesscalc_difficulty_audit.py --check
+python3 tests/test_guesscalc_exact.py
+python3 tests/test_make_target_reference.py --all-fixed
+python3 tests/test_make_target_reference.py --bank-sample20
+ctest --test-dir build-host -R 'guesscalc|beta4_revision' --output-on-failure
+source tools/env.sh
+sh-elf-gcc -std=c11 -Wall -Wextra -Werror -Wframe-larger-than=2048 -Os \
+  -DFXCG50 -Iinclude -Isrc/games -fsyntax-only src/games/guesscalc.c \
+  src/games/guesscalc_math.c src/games/guesscalc_extra.c
+```
+
+To reproduce generated bytes, run `guesscalc_beta4.py --generate`,
+`guesscalc_beta4_target.py --generate --jobs 4`, then
+`guesscalc_beta4_audit.py --write`. Generation uses fixed seeds and stable
+record ordering; generated JSON/header/CSV omit elapsed timestamps.
+`--check` reconstructs and byte-compares the header and CSV and checks the
+exact C++ source SHA-256 recorded in the bank. `--verify` additionally solves
+all records again. The audit compiles its host native sampler itself and
+byte-compares both beta.4 JSON reports. The beta.3 `--check` replays retained
+revision behavior and compares original metrics while preserving historical
+source hashes; do not run its `--write` to replace the historical evidence.

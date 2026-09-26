@@ -51,7 +51,9 @@ int main(void){
  for(unsigned index=0;index<sizeof(ids)/sizeof(*ids);index++){
   unsigned id=ids[index];
   for(unsigned level=0;level<4;level++)for(unsigned mode=0;mode<module(id)->modes;mode++){
-   unsigned count=id<=10?gc_bank_count(id,level,mode):gc_extra_bank_count(id,level,mode);
+   /* Historical beta.3 replay: current bank_count describes fresh revision4,
+    * while this fixture intentionally initializes revision2/3 saved content. */
+   unsigned count=id==6?0:id<=10?gc_bank_count(id,level,mode):gc_extra_bank_count(id,level,mode);
    if(count){for(unsigned ordinal=0;ordinal<count;ordinal++)output(id,level,mode,739,ordinal,24,"bank");}
    else if(id==6){
     for(unsigned target=1;target<=1000;target++)output(id,level,mode,UINT32_C(0x6e554d47),0,target,"target-domain");

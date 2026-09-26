@@ -98,10 +98,16 @@ static void start(NgApp *a,bool continue_result)
  uint32_t seed=advance_seed(a->seed);
  unsigned d=continue_result?a->session.game.difficulty:a->settings.difficulty[id-1];
  unsigned mode=continue_result?a->session.game.mode:a->settings.mode[id-1];
+ const NgModule *module=ng_module(id);
+ if(module && mode>=module->modes)mode=0;
  unsigned target=continue_result && id==6?(unsigned)a->session.game.data[0]:a->settings.target;
  if(id==26 && !mode)d=NG_NORMAL;
  unsigned count=ng_bank_count(id,d,mode);
- NgSupply staged={0};if(same)staged=a->session.supply[mode][d];
+ NgSupply staged={0};
+ bool target_ok=true;
+ if(same && a->session.game.pack_revision==ng_pack_revision(id,mode) &&
+    (id!=6 || a->session.game.data[0]==(int32_t)target))
+  staged=a->session.supply[mode][d];
  NgSupply *bag=&staged;
  a->before=a->session.game;
  if(count && count<=4096){
@@ -117,6 +123,7 @@ static void start(NgApp *a,bool continue_result)
    a->before.mode==mode && count>1;
   for(unsigned attempt=0;attempt<count;attempt++){
    ng_new_supply(&a->session.game,id,d,mode,seed,run,bag->shuffle,bag->next);
+   if(id==6 && !(target_ok=gc_target_init(&a->session.game,target)))break;
    if(!cycle || !avoid_previous ||
     a->session.game.puzzle_id!=a->before.puzzle_id)break;
    if(attempt+1<count)bag->shuffle=(bag->shuffle&UINT32_C(0xffff0000))|(((bag->shuffle&65535u)+1)%count);
@@ -125,7 +132,8 @@ static void start(NgApp *a,bool continue_result)
   for(unsigned i=3;i;i--)bag->recent[i]=bag->recent[i-1];
   bag->recent[0]=a->session.game.puzzle_id;if(bag->recent_count<4)bag->recent_count++;
  }else ng_new(&a->session.game,id,d,mode,seed,run);
- if(id==6 && !gc_target_init(&a->session.game,target)){
+ if(id==6 && !count)target_ok=gc_target_init(&a->session.game,target);
+ if(!target_ok){
   a->session.game=a->before;
   snprintf(a->notice,sizeof a->notice,"Target setup failed; previous run retained.");modal(a,NG_MODAL_NONE);return;
  }
@@ -155,7 +163,8 @@ static void start(NgApp *a,bool continue_result)
  a->session.supply[mode][d]=staged;
  a->session.undo_count=0;a->session.stats.started=run;
  a->active=a->resumable=true;a->dirty=true;
- a->settings.last_game=(uint8_t)id;resume_setting(&a->settings,id);a->settings_dirty=true;
+ a->settings.last_game=(uint8_t)id;a->settings.mode[id-1]=(uint8_t)mode;
+ resume_setting(&a->settings,id);a->settings_dirty=true;
  if(!ng_checkpoint(a)){
   a->session.game=a->before;memcpy(a->session.supply,previous_supply,sizeof previous_supply);
   a->session.undo_count=previous_undo;a->session.stats.started=previous_started;
@@ -189,11 +198,13 @@ static void init_same(NgApp *a)
  }
  g->recorded=recorded;g->assisted=1;
  /* A larger bank must never change an old run's INIT puzzle. */
- unsigned legacy_free_mode=id==19 && m==1 && revision<=2?0:m;
- if(g->puzzle_id!=puzzle && ng_bank_count(id,d,legacy_free_mode)){
-  unsigned count=ng_bank_count(id,d,legacy_free_mode);
+ unsigned count=ng_bank_count_version(id,d,m,revision);
+ if(g->puzzle_id!=puzzle && count){
   for(unsigned ordinal=0;ordinal<count;ordinal++){
-   ng_new_supply_version(g,id,d,m,seed,run,1,ordinal,revision);if(g->puzzle_id==puzzle)break;
+   ng_new_supply_version(g,id,d,m,seed,run,1,ordinal,revision);
+   if(id==6 && revision>=3 &&
+      !gc_target_init(g,(unsigned)a->before.data[0]))break;
+   if(g->puzzle_id==puzzle)break;
   }
   if(g->puzzle_id!=puzzle){*g=a->before;ng_message(g,"Original puzzle unavailable; run retained.");modal(a,NG_MODAL_NONE);return;}
   g->pack_revision=revision;g->recorded=recorded;g->assisted=1;

@@ -1,0 +1,3493 @@
+{
+  "revision": 4,
+  "seed": 3032505969,
+  "external_records": 0,
+  "sequence": [
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 120,
+      "rules_version": 4,
+      "family": 0,
+      "params": [
+        6,
+        3,
+        0
+      ],
+      "sequence": [
+        6,
+        9,
+        12,
+        15,
+        18,
+        21,
+        24
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 121,
+      "rules_version": 4,
+      "family": 0,
+      "params": [
+        1,
+        -5,
+        0
+      ],
+      "sequence": [
+        1,
+        -4,
+        -9,
+        -14,
+        -19,
+        -24,
+        -29
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 122,
+      "rules_version": 4,
+      "family": 0,
+      "params": [
+        1,
+        -3,
+        0
+      ],
+      "sequence": [
+        1,
+        -2,
+        -5,
+        -8,
+        -11,
+        -14,
+        -17
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 123,
+      "rules_version": 4,
+      "family": 0,
+      "params": [
+        6,
+        -2,
+        0
+      ],
+      "sequence": [
+        6,
+        4,
+        2,
+        0,
+        -2,
+        -4,
+        -6
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 124,
+      "rules_version": 4,
+      "family": 0,
+      "params": [
+        4,
+        5,
+        0
+      ],
+      "sequence": [
+        4,
+        9,
+        14,
+        19,
+        24,
+        29,
+        34
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 125,
+      "rules_version": 4,
+      "family": 0,
+      "params": [
+        8,
+        -4,
+        0
+      ],
+      "sequence": [
+        8,
+        4,
+        0,
+        -4,
+        -8,
+        -12,
+        -16
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 126,
+      "rules_version": 4,
+      "family": 0,
+      "params": [
+        7,
+        -5,
+        0
+      ],
+      "sequence": [
+        7,
+        2,
+        -3,
+        -8,
+        -13,
+        -18,
+        -23
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 127,
+      "rules_version": 4,
+      "family": 0,
+      "params": [
+        6,
+        -3,
+        0
+      ],
+      "sequence": [
+        6,
+        3,
+        0,
+        -3,
+        -6,
+        -9,
+        -12
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 128,
+      "rules_version": 4,
+      "family": 0,
+      "params": [
+        9,
+        1,
+        0
+      ],
+      "sequence": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 129,
+      "rules_version": 4,
+      "family": 0,
+      "params": [
+        2,
+        -1,
+        0
+      ],
+      "sequence": [
+        2,
+        1,
+        0,
+        -1,
+        -2,
+        -3,
+        -4
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 130,
+      "rules_version": 4,
+      "family": 0,
+      "params": [
+        8,
+        5,
+        0
+      ],
+      "sequence": [
+        8,
+        13,
+        18,
+        23,
+        28,
+        33,
+        38
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 131,
+      "rules_version": 4,
+      "family": 0,
+      "params": [
+        6,
+        -4,
+        0
+      ],
+      "sequence": [
+        6,
+        2,
+        -2,
+        -6,
+        -10,
+        -14,
+        -18
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 132,
+      "rules_version": 4,
+      "family": 1,
+      "params": [
+        5,
+        3,
+        0
+      ],
+      "sequence": [
+        5,
+        15,
+        45,
+        135,
+        405,
+        1215,
+        3645
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 133,
+      "rules_version": 4,
+      "family": 1,
+      "params": [
+        1,
+        3,
+        0
+      ],
+      "sequence": [
+        1,
+        3,
+        9,
+        27,
+        81,
+        243,
+        729
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 134,
+      "rules_version": 4,
+      "family": 1,
+      "params": [
+        2,
+        3,
+        0
+      ],
+      "sequence": [
+        2,
+        6,
+        18,
+        54,
+        162,
+        486,
+        1458
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 135,
+      "rules_version": 4,
+      "family": 1,
+      "params": [
+        3,
+        3,
+        0
+      ],
+      "sequence": [
+        3,
+        9,
+        27,
+        81,
+        243,
+        729,
+        2187
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 136,
+      "rules_version": 4,
+      "family": 1,
+      "params": [
+        1,
+        2,
+        0
+      ],
+      "sequence": [
+        1,
+        2,
+        4,
+        8,
+        16,
+        32,
+        64
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 137,
+      "rules_version": 4,
+      "family": 1,
+      "params": [
+        4,
+        2,
+        0
+      ],
+      "sequence": [
+        4,
+        8,
+        16,
+        32,
+        64,
+        128,
+        256
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 138,
+      "rules_version": 4,
+      "family": 1,
+      "params": [
+        2,
+        2,
+        0
+      ],
+      "sequence": [
+        2,
+        4,
+        8,
+        16,
+        32,
+        64,
+        128
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 139,
+      "rules_version": 4,
+      "family": 1,
+      "params": [
+        4,
+        3,
+        0
+      ],
+      "sequence": [
+        4,
+        12,
+        36,
+        108,
+        324,
+        972,
+        2916
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 140,
+      "rules_version": 4,
+      "family": 1,
+      "params": [
+        3,
+        2,
+        0
+      ],
+      "sequence": [
+        3,
+        6,
+        12,
+        24,
+        48,
+        96,
+        192
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 141,
+      "rules_version": 4,
+      "family": 4,
+      "params": [
+        2,
+        3,
+        2
+      ],
+      "sequence": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 142,
+      "rules_version": 4,
+      "family": 4,
+      "params": [
+        5,
+        2,
+        1
+      ],
+      "sequence": [
+        5,
+        2,
+        6,
+        3,
+        7,
+        4,
+        8
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 143,
+      "rules_version": 4,
+      "family": 4,
+      "params": [
+        3,
+        -4,
+        1
+      ],
+      "sequence": [
+        3,
+        -4,
+        4,
+        -3,
+        5,
+        -2,
+        6
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 144,
+      "rules_version": 4,
+      "family": 4,
+      "params": [
+        2,
+        6,
+        1
+      ],
+      "sequence": [
+        2,
+        6,
+        3,
+        7,
+        4,
+        8,
+        5
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 145,
+      "rules_version": 4,
+      "family": 4,
+      "params": [
+        9,
+        -5,
+        1
+      ],
+      "sequence": [
+        9,
+        -5,
+        10,
+        -4,
+        11,
+        -3,
+        12
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 146,
+      "rules_version": 4,
+      "family": 4,
+      "params": [
+        9,
+        2,
+        1
+      ],
+      "sequence": [
+        9,
+        2,
+        10,
+        3,
+        11,
+        4,
+        12
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 147,
+      "rules_version": 4,
+      "family": 4,
+      "params": [
+        5,
+        5,
+        2
+      ],
+      "sequence": [
+        5,
+        5,
+        7,
+        7,
+        9,
+        9,
+        11
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 148,
+      "rules_version": 4,
+      "family": 4,
+      "params": [
+        7,
+        4,
+        1
+      ],
+      "sequence": [
+        7,
+        4,
+        8,
+        5,
+        9,
+        6,
+        10
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 0,
+      "puzzle_id": 149,
+      "rules_version": 4,
+      "family": 4,
+      "params": [
+        7,
+        -6,
+        2
+      ],
+      "sequence": [
+        7,
+        -6,
+        9,
+        -4,
+        11,
+        -2,
+        13
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 150,
+      "rules_version": 4,
+      "family": 2,
+      "params": [
+        -1,
+        -4,
+        2
+      ],
+      "sequence": [
+        -1,
+        -3,
+        -1,
+        5,
+        15,
+        29,
+        47
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 151,
+      "rules_version": 4,
+      "family": 2,
+      "params": [
+        3,
+        4,
+        1
+      ],
+      "sequence": [
+        3,
+        8,
+        15,
+        24,
+        35,
+        48,
+        63
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 152,
+      "rules_version": 4,
+      "family": 2,
+      "params": [
+        -3,
+        -3,
+        2
+      ],
+      "sequence": [
+        -3,
+        -4,
+        -1,
+        6,
+        17,
+        32,
+        51
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 153,
+      "rules_version": 4,
+      "family": 2,
+      "params": [
+        1,
+        -2,
+        2
+      ],
+      "sequence": [
+        1,
+        1,
+        5,
+        13,
+        25,
+        41,
+        61
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 154,
+      "rules_version": 4,
+      "family": 2,
+      "params": [
+        5,
+        -1,
+        1
+      ],
+      "sequence": [
+        5,
+        5,
+        7,
+        11,
+        17,
+        25,
+        35
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 155,
+      "rules_version": 4,
+      "family": 2,
+      "params": [
+        -2,
+        4,
+        3
+      ],
+      "sequence": [
+        -2,
+        5,
+        18,
+        37,
+        62,
+        93,
+        130
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 156,
+      "rules_version": 4,
+      "family": 2,
+      "params": [
+        5,
+        -3,
+        1
+      ],
+      "sequence": [
+        5,
+        3,
+        3,
+        5,
+        9,
+        15,
+        23
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 157,
+      "rules_version": 4,
+      "family": 2,
+      "params": [
+        -2,
+        3,
+        2
+      ],
+      "sequence": [
+        -2,
+        3,
+        12,
+        25,
+        42,
+        63,
+        88
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 158,
+      "rules_version": 4,
+      "family": 2,
+      "params": [
+        -4,
+        4,
+        3
+      ],
+      "sequence": [
+        -4,
+        3,
+        16,
+        35,
+        60,
+        91,
+        128
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 159,
+      "rules_version": 4,
+      "family": 3,
+      "params": [
+        7,
+        5,
+        0
+      ],
+      "sequence": [
+        7,
+        5,
+        12,
+        17,
+        29,
+        46,
+        75
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 160,
+      "rules_version": 4,
+      "family": 3,
+      "params": [
+        2,
+        7,
+        0
+      ],
+      "sequence": [
+        2,
+        7,
+        9,
+        16,
+        25,
+        41,
+        66
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 161,
+      "rules_version": 4,
+      "family": 3,
+      "params": [
+        1,
+        3,
+        0
+      ],
+      "sequence": [
+        1,
+        3,
+        4,
+        7,
+        11,
+        18,
+        29
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 162,
+      "rules_version": 4,
+      "family": 3,
+      "params": [
+        3,
+        1,
+        0
+      ],
+      "sequence": [
+        3,
+        1,
+        4,
+        5,
+        9,
+        14,
+        23
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 163,
+      "rules_version": 4,
+      "family": 3,
+      "params": [
+        1,
+        8,
+        0
+      ],
+      "sequence": [
+        1,
+        8,
+        9,
+        17,
+        26,
+        43,
+        69
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 164,
+      "rules_version": 4,
+      "family": 3,
+      "params": [
+        8,
+        8,
+        0
+      ],
+      "sequence": [
+        8,
+        8,
+        16,
+        24,
+        40,
+        64,
+        104
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 165,
+      "rules_version": 4,
+      "family": 3,
+      "params": [
+        4,
+        1,
+        0
+      ],
+      "sequence": [
+        4,
+        1,
+        5,
+        6,
+        11,
+        17,
+        28
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 166,
+      "rules_version": 4,
+      "family": 3,
+      "params": [
+        8,
+        5,
+        0
+      ],
+      "sequence": [
+        8,
+        5,
+        13,
+        18,
+        31,
+        49,
+        80
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 167,
+      "rules_version": 4,
+      "family": 3,
+      "params": [
+        3,
+        6,
+        0
+      ],
+      "sequence": [
+        3,
+        6,
+        9,
+        15,
+        24,
+        39,
+        63
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 168,
+      "rules_version": 4,
+      "family": 7,
+      "params": [
+        1,
+        3,
+        0
+      ],
+      "sequence": [
+        1,
+        5,
+        2,
+        8,
+        3,
+        11,
+        4
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 169,
+      "rules_version": 4,
+      "family": 7,
+      "params": [
+        3,
+        2,
+        0
+      ],
+      "sequence": [
+        1,
+        6,
+        4,
+        8,
+        7,
+        10,
+        10
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 170,
+      "rules_version": 4,
+      "family": 7,
+      "params": [
+        3,
+        2,
+        0
+      ],
+      "sequence": [
+        8,
+        9,
+        11,
+        11,
+        14,
+        13,
+        17
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 171,
+      "rules_version": 4,
+      "family": 7,
+      "params": [
+        1,
+        2,
+        0
+      ],
+      "sequence": [
+        9,
+        3,
+        10,
+        5,
+        11,
+        7,
+        12
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 172,
+      "rules_version": 4,
+      "family": 7,
+      "params": [
+        3,
+        1,
+        0
+      ],
+      "sequence": [
+        6,
+        8,
+        9,
+        9,
+        12,
+        10,
+        15
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 173,
+      "rules_version": 4,
+      "family": 7,
+      "params": [
+        3,
+        2,
+        0
+      ],
+      "sequence": [
+        6,
+        1,
+        9,
+        3,
+        12,
+        5,
+        15
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 174,
+      "rules_version": 4,
+      "family": 7,
+      "params": [
+        2,
+        3,
+        0
+      ],
+      "sequence": [
+        6,
+        2,
+        8,
+        5,
+        10,
+        8,
+        12
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 175,
+      "rules_version": 4,
+      "family": 7,
+      "params": [
+        1,
+        3,
+        0
+      ],
+      "sequence": [
+        5,
+        5,
+        6,
+        8,
+        7,
+        11,
+        8
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 176,
+      "rules_version": 4,
+      "family": 5,
+      "params": [
+        2,
+        3,
+        3
+      ],
+      "sequence": [
+        2,
+        9,
+        30,
+        93,
+        282,
+        849,
+        2550
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 177,
+      "rules_version": 4,
+      "family": 5,
+      "params": [
+        -3,
+        -1,
+        -2
+      ],
+      "sequence": [
+        -3,
+        1,
+        -3,
+        1,
+        -3,
+        1,
+        -3
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 178,
+      "rules_version": 4,
+      "family": 5,
+      "params": [
+        -3,
+        3,
+        3
+      ],
+      "sequence": [
+        -3,
+        -6,
+        -15,
+        -42,
+        -123,
+        -366,
+        -1095
+      ],
+      "distinct_next_answers": 1
+    },
+    {
+      "game_id": 5,
+      "difficulty": 1,
+      "puzzle_id": 179,
+      "rules_version": 4,
+      "family": 5,
+      "params": [
+        -3,
+        -2,
+        1
+      ],
+      "sequence": [
+        -3,
+        7,
+        -13,
+        27,
+        -53,
+        107,
+        -213
+      ],
+      "distinct_next_answers": 1
+    }
+  ],
+  "sequence_audit": {
+    "ambiguity_rejects": [
+      0,
+      0
+    ],
+    "affine_unique": [
+      9,
+      27
+    ],
+    "affine_cross_level_overlap": 1
+  },
+  "countdown": [
+    {
+      "difficulty": 2,
+      "cards": [
+        75,
+        8,
+        25,
+        50,
+        9,
+        6
+      ],
+      "target": 560,
+      "witness": "((75*8)-((25+6)+9))",
+      "hint": "Exact answer needs at least 4 cards.",
+      "puzzle_id": 120,
+      "rules_version": 4,
+      "game_id": 7,
+      "source_puzzle_id": 64,
+      "exact": {
+        "min_cards": 5,
+        "min_operations": 4,
+        "canonical_exact_solutions": 142,
+        "division_required": false,
+        "easiest_expression": "((75*8)-((25+6)+9))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      }
+    },
+    {
+      "difficulty": 2,
+      "cards": [
+        3,
+        1,
+        6,
+        50,
+        25,
+        100
+      ],
+      "target": 197,
+      "witness": "((25*6)+(50-3))",
+      "hint": "Exact answer needs at least 4 cards.",
+      "puzzle_id": 121,
+      "rules_version": 4,
+      "game_id": 7,
+      "source_puzzle_id": 65,
+      "exact": {
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 678,
+        "division_required": false,
+        "easiest_expression": "((25*6)+(50-3))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      }
+    },
+    {
+      "difficulty": 2,
+      "cards": [
+        5,
+        75,
+        50,
+        4,
+        9,
+        25
+      ],
+      "target": 539,
+      "witness": "(((50-4)*9)+(25*5))",
+      "hint": "Exact answer needs at least 4 cards.",
+      "puzzle_id": 122,
+      "rules_version": 4,
+      "game_id": 7,
+      "source_puzzle_id": 68,
+      "exact": {
+        "min_cards": 5,
+        "min_operations": 4,
+        "canonical_exact_solutions": 47,
+        "division_required": false,
+        "easiest_expression": "(((50-4)*9)+(25*5))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      }
+    },
+    {
+      "difficulty": 2,
+      "cards": [
+        25,
+        4,
+        8,
+        50,
+        100,
+        1
+      ],
+      "target": 128,
+      "witness": "((100+25)+(4-1))",
+      "hint": "Exact answer needs at least 4 cards.",
+      "puzzle_id": 123,
+      "rules_version": 4,
+      "game_id": 7,
+      "source_puzzle_id": 69,
+      "exact": {
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 1749,
+        "division_required": false,
+        "easiest_expression": "((100+25)+(4-1))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      }
+    },
+    {
+      "difficulty": 2,
+      "cards": [
+        75,
+        7,
+        10,
+        6,
+        100,
+        25
+      ],
+      "target": 502,
+      "witness": "(((7+75)*6)+10)",
+      "hint": "Exact answer needs at least 4 cards.",
+      "puzzle_id": 124,
+      "rules_version": 4,
+      "game_id": 7,
+      "source_puzzle_id": 72,
+      "exact": {
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 60,
+        "division_required": false,
+        "easiest_expression": "(((7+75)*6)+10)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      }
+    },
+    {
+      "difficulty": 2,
+      "cards": [
+        10,
+        75,
+        4,
+        7,
+        100,
+        25
+      ],
+      "target": 662,
+      "witness": "(((100-4)*7)-10)",
+      "hint": "Exact answer needs at least 4 cards.",
+      "puzzle_id": 125,
+      "rules_version": 4,
+      "game_id": 7,
+      "source_puzzle_id": 75,
+      "exact": {
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 17,
+        "division_required": false,
+        "easiest_expression": "(((100-4)*7)-10)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 2
+      }
+    },
+    {
+      "difficulty": 2,
+      "cards": [
+        6,
+        50,
+        8,
+        2,
+        100,
+        75
+      ],
+      "target": 217,
+      "witness": "((100+50)+(75-8))",
+      "hint": "Exact answer needs at least 4 cards.",
+      "puzzle_id": 126,
+      "rules_version": 4,
+      "game_id": 7,
+      "source_puzzle_id": 78,
+      "exact": {
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 343,
+        "division_required": false,
+        "easiest_expression": "((100+50)+(75-8))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      }
+    },
+    {
+      "difficulty": 2,
+      "cards": [
+        25,
+        1,
+        75,
+        2,
+        50,
+        7
+      ],
+      "target": 373,
+      "witness": "((25-2)+(50*7))",
+      "hint": "Exact answer needs at least 4 cards.",
+      "puzzle_id": 127,
+      "rules_version": 4,
+      "game_id": 7,
+      "source_puzzle_id": 79,
+      "exact": {
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 143,
+        "division_required": false,
+        "easiest_expression": "((25-2)+(50*7))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      }
+    },
+    {
+      "difficulty": 2,
+      "cards": [
+        10,
+        50,
+        10,
+        100,
+        5,
+        25
+      ],
+      "target": 180,
+      "witness": "((100+25)+(5+50))",
+      "hint": "Exact answer needs at least 4 cards.",
+      "puzzle_id": 128,
+      "rules_version": 4,
+      "game_id": 7,
+      "source_puzzle_id": 81,
+      "exact": {
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 2017,
+        "division_required": false,
+        "easiest_expression": "((100+25)+(5+50))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      }
+    },
+    {
+      "difficulty": 2,
+      "cards": [
+        25,
+        3,
+        3,
+        10,
+        50,
+        100
+      ],
+      "target": 298,
+      "witness": "((100*3)-(50/25))",
+      "hint": "Exact answer needs at least 4 cards.",
+      "puzzle_id": 129,
+      "rules_version": 4,
+      "game_id": 7,
+      "source_puzzle_id": 83,
+      "exact": {
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 50,
+        "division_required": false,
+        "easiest_expression": "((100*3)-(50/25))",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 1
+      }
+    },
+    {
+      "difficulty": 2,
+      "cards": [
+        10,
+        75,
+        50,
+        100,
+        8,
+        7
+      ],
+      "target": 445,
+      "witness": "((7*75)-(10*8))",
+      "hint": "Exact answer needs at least 4 cards.",
+      "puzzle_id": 130,
+      "rules_version": 4,
+      "game_id": 7,
+      "source_puzzle_id": 84,
+      "exact": {
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 78,
+        "division_required": false,
+        "easiest_expression": "((7*75)-(10*8))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      }
+    },
+    {
+      "difficulty": 2,
+      "cards": [
+        2,
+        100,
+        7,
+        75,
+        8,
+        25
+      ],
+      "target": 848,
+      "witness": "(((100+2)*8)+(25+7))",
+      "hint": "Exact answer needs at least 4 cards.",
+      "puzzle_id": 131,
+      "rules_version": 4,
+      "game_id": 7,
+      "source_puzzle_id": 86,
+      "exact": {
+        "min_cards": 5,
+        "min_operations": 4,
+        "canonical_exact_solutions": 48,
+        "division_required": false,
+        "easiest_expression": "(((100+2)*8)+(25+7))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      }
+    },
+    {
+      "difficulty": 2,
+      "cards": [
+        25,
+        100,
+        75,
+        4,
+        3,
+        1
+      ],
+      "target": 153,
+      "witness": "(((1+25)*3)+75)",
+      "hint": "Exact answer needs at least 4 cards.",
+      "puzzle_id": 132,
+      "rules_version": 4,
+      "game_id": 7,
+      "source_puzzle_id": 87,
+      "exact": {
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 696,
+        "division_required": false,
+        "easiest_expression": "(((1+25)*3)+75)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      }
+    },
+    {
+      "difficulty": 2,
+      "cards": [
+        8,
+        25,
+        10,
+        1,
+        75,
+        50
+      ],
+      "target": 180,
+      "witness": "((10*8)+(25+75))",
+      "hint": "Exact answer needs at least 4 cards.",
+      "puzzle_id": 133,
+      "rules_version": 4,
+      "game_id": 7,
+      "source_puzzle_id": 88,
+      "exact": {
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 556,
+        "division_required": false,
+        "easiest_expression": "((10*8)+(25+75))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      }
+    },
+    {
+      "difficulty": 2,
+      "cards": [
+        8,
+        2,
+        75,
+        100,
+        50,
+        8
+      ],
+      "target": 348,
+      "witness": "((50+8)*(8-2))",
+      "hint": "Exact answer needs at least 4 cards.",
+      "puzzle_id": 134,
+      "rules_version": 4,
+      "game_id": 7,
+      "source_puzzle_id": 89,
+      "exact": {
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 57,
+        "division_required": false,
+        "easiest_expression": "((50+8)*(8-2))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      }
+    },
+    {
+      "cards": [
+        4,
+        6,
+        25,
+        50,
+        6,
+        75
+      ],
+      "target": 871,
+      "witness": "(((6+6)*75)-(25+4))",
+      "hint": "Exact answer needs at least 4 cards.",
+      "difficulty": 2,
+      "source_puzzle_id": null,
+      "exact": {
+        "min_cards": 5,
+        "min_operations": 4,
+        "canonical_exact_solutions": 66,
+        "division_required": false,
+        "easiest_expression": "(((6+6)*75)-(25+4))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      "puzzle_id": 135,
+      "rules_version": 4,
+      "game_id": 7
+    },
+    {
+      "cards": [
+        1,
+        75,
+        6,
+        100,
+        4,
+        25
+      ],
+      "target": 705,
+      "witness": "((((1+100)+4)*6)+75)",
+      "hint": "Exact answer needs at least 4 cards.",
+      "difficulty": 2,
+      "source_puzzle_id": null,
+      "exact": {
+        "min_cards": 5,
+        "min_operations": 4,
+        "canonical_exact_solutions": 191,
+        "division_required": false,
+        "easiest_expression": "((((1+100)+4)*6)+75)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      "puzzle_id": 136,
+      "rules_version": 4,
+      "game_id": 7
+    },
+    {
+      "cards": [
+        7,
+        50,
+        75,
+        3,
+        100,
+        1
+      ],
+      "target": 215,
+      "witness": "(((75-1)*3)-7)",
+      "hint": "Exact answer needs at least 4 cards.",
+      "difficulty": 2,
+      "source_puzzle_id": null,
+      "exact": {
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 2064,
+        "division_required": false,
+        "easiest_expression": "(((75-1)*3)-7)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 2
+      },
+      "puzzle_id": 137,
+      "rules_version": 4,
+      "game_id": 7
+    },
+    {
+      "cards": [
+        50,
+        7,
+        3,
+        100,
+        75,
+        10
+      ],
+      "target": 806,
+      "witness": "(((100+3)*7)+(10+75))",
+      "hint": "Exact answer needs at least 4 cards.",
+      "difficulty": 2,
+      "source_puzzle_id": null,
+      "exact": {
+        "min_cards": 5,
+        "min_operations": 4,
+        "canonical_exact_solutions": 16,
+        "division_required": false,
+        "easiest_expression": "(((100+3)*7)+(10+75))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      "puzzle_id": 138,
+      "rules_version": 4,
+      "game_id": 7
+    },
+    {
+      "cards": [
+        5,
+        25,
+        75,
+        8,
+        5,
+        100
+      ],
+      "target": 850,
+      "witness": "(((5+5)*75)+100)",
+      "hint": "Exact answer needs at least 4 cards.",
+      "difficulty": 2,
+      "source_puzzle_id": null,
+      "exact": {
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 353,
+        "division_required": false,
+        "easiest_expression": "(((5+5)*75)+100)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      "puzzle_id": 139,
+      "rules_version": 4,
+      "game_id": 7
+    },
+    {
+      "cards": [
+        8,
+        25,
+        75,
+        7,
+        50,
+        5
+      ],
+      "target": 574,
+      "witness": "(((75-7)*8)+(25+5))",
+      "hint": "Exact answer needs at least 4 cards.",
+      "difficulty": 2,
+      "source_puzzle_id": null,
+      "exact": {
+        "min_cards": 5,
+        "min_operations": 4,
+        "canonical_exact_solutions": 71,
+        "division_required": false,
+        "easiest_expression": "(((75-7)*8)+(25+5))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      "puzzle_id": 140,
+      "rules_version": 4,
+      "game_id": 7
+    },
+    {
+      "cards": [
+        3,
+        50,
+        75,
+        6,
+        9,
+        25
+      ],
+      "target": 878,
+      "witness": "(((25-9)*50)+(3+75))",
+      "hint": "Exact answer needs at least 4 cards.",
+      "difficulty": 2,
+      "source_puzzle_id": null,
+      "exact": {
+        "min_cards": 5,
+        "min_operations": 4,
+        "canonical_exact_solutions": 61,
+        "division_required": false,
+        "easiest_expression": "(((25-9)*50)+(3+75))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      "puzzle_id": 141,
+      "rules_version": 4,
+      "game_id": 7
+    },
+    {
+      "cards": [
+        25,
+        50,
+        1,
+        100,
+        9,
+        10
+      ],
+      "target": 465,
+      "witness": "((25-10)+(50*9))",
+      "hint": "Exact answer needs at least 4 cards.",
+      "difficulty": 2,
+      "source_puzzle_id": null,
+      "exact": {
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 480,
+        "division_required": false,
+        "easiest_expression": "((25-10)+(50*9))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      "puzzle_id": 142,
+      "rules_version": 4,
+      "game_id": 7
+    },
+    {
+      "cards": [
+        25,
+        5,
+        50,
+        75,
+        3,
+        9
+      ],
+      "target": 546,
+      "witness": "(((50/25)+5)*(3+75))",
+      "hint": "Exact answer needs at least 4 cards.",
+      "difficulty": 2,
+      "source_puzzle_id": null,
+      "exact": {
+        "min_cards": 5,
+        "min_operations": 4,
+        "canonical_exact_solutions": 27,
+        "division_required": false,
+        "easiest_expression": "(((50/25)+5)*(3+75))",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 0
+      },
+      "puzzle_id": 143,
+      "rules_version": 4,
+      "game_id": 7
+    },
+    {
+      "cards": [
+        6,
+        4,
+        2,
+        100,
+        50,
+        25
+      ],
+      "target": 120,
+      "witness": "(((4+50)+6)*2)",
+      "hint": "Exact answer needs at least 4 cards.",
+      "difficulty": 2,
+      "source_puzzle_id": null,
+      "exact": {
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 431,
+        "division_required": false,
+        "easiest_expression": "(((4+50)+6)*2)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      "puzzle_id": 144,
+      "rules_version": 4,
+      "game_id": 7
+    },
+    {
+      "cards": [
+        4,
+        75,
+        25,
+        2,
+        8,
+        100
+      ],
+      "target": 379,
+      "witness": "(((100+4)+(25*8))+75)",
+      "hint": "Exact answer needs at least 4 cards.",
+      "difficulty": 2,
+      "source_puzzle_id": null,
+      "exact": {
+        "min_cards": 5,
+        "min_operations": 4,
+        "canonical_exact_solutions": 232,
+        "division_required": false,
+        "easiest_expression": "(((100+4)+(25*8))+75)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      "puzzle_id": 145,
+      "rules_version": 4,
+      "game_id": 7
+    },
+    {
+      "cards": [
+        8,
+        1,
+        100,
+        75,
+        10,
+        50
+      ],
+      "target": 244,
+      "witness": "(((50-10)*8)-(1+75))",
+      "hint": "Exact answer needs at least 4 cards.",
+      "difficulty": 2,
+      "source_puzzle_id": null,
+      "exact": {
+        "min_cards": 5,
+        "min_operations": 4,
+        "canonical_exact_solutions": 975,
+        "division_required": false,
+        "easiest_expression": "(((50-10)*8)-(1+75))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 2
+      },
+      "puzzle_id": 146,
+      "rules_version": 4,
+      "game_id": 7
+    },
+    {
+      "cards": [
+        9,
+        4,
+        50,
+        100,
+        5,
+        25
+      ],
+      "target": 384,
+      "witness": "(((25+50)*5)+9)",
+      "hint": "Exact answer needs at least 4 cards.",
+      "difficulty": 2,
+      "source_puzzle_id": null,
+      "exact": {
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 442,
+        "division_required": false,
+        "easiest_expression": "(((25+50)*5)+9)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      "puzzle_id": 147,
+      "rules_version": 4,
+      "game_id": 7
+    },
+    {
+      "cards": [
+        75,
+        25,
+        10,
+        8,
+        1,
+        50
+      ],
+      "target": 790,
+      "witness": "(((25+75)*8)-10)",
+      "hint": "Exact answer needs at least 4 cards.",
+      "difficulty": 2,
+      "source_puzzle_id": null,
+      "exact": {
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 145,
+        "division_required": false,
+        "easiest_expression": "(((25+75)*8)-10)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      "puzzle_id": 148,
+      "rules_version": 4,
+      "game_id": 7
+    },
+    {
+      "cards": [
+        100,
+        5,
+        5,
+        75,
+        10,
+        25
+      ],
+      "target": 160,
+      "witness": "(((25+5)*5)+10)",
+      "hint": "Exact answer needs at least 4 cards.",
+      "difficulty": 2,
+      "source_puzzle_id": null,
+      "exact": {
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 1875,
+        "division_required": false,
+        "easiest_expression": "(((25+5)*5)+10)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      "puzzle_id": 149,
+      "rules_version": 4,
+      "game_id": 7
+    }
+  ],
+  "countdown_audit": {
+    "before": [
+      {
+        "puzzle_id": 0,
+        "difficulty": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 92,
+        "division_required": false,
+        "easiest_expression": "(((100-5)*5)+8)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 1,
+        "difficulty": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 987,
+        "division_required": false,
+        "easiest_expression": "((10+2)*25)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 2,
+        "difficulty": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 113,
+        "division_required": false,
+        "easiest_expression": "((75-(2*8))*6)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 3,
+        "difficulty": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 617,
+        "division_required": false,
+        "easiest_expression": "((4+6)*25)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 4,
+        "difficulty": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 688,
+        "division_required": false,
+        "easiest_expression": "((25*7)+5)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 5,
+        "difficulty": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 213,
+        "division_required": false,
+        "easiest_expression": "((10*8)*(4+7))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 6,
+        "difficulty": 0,
+        "min_cards": 5,
+        "min_operations": 4,
+        "canonical_exact_solutions": 133,
+        "division_required": false,
+        "easiest_expression": "(((1+1)+7)*(7*8))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 7,
+        "difficulty": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 3605,
+        "division_required": false,
+        "easiest_expression": "((100+3)-2)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 8,
+        "difficulty": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 225,
+        "division_required": false,
+        "easiest_expression": "((10-7)+(100*6))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 9,
+        "difficulty": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 1728,
+        "division_required": false,
+        "easiest_expression": "((1+1)+100)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 10,
+        "difficulty": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 606,
+        "division_required": false,
+        "easiest_expression": "((50+6)*3)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 11,
+        "difficulty": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 226,
+        "division_required": false,
+        "easiest_expression": "(((1+25)*4)+9)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 12,
+        "difficulty": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 292,
+        "division_required": false,
+        "easiest_expression": "(((1+100)*2)+3)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 13,
+        "difficulty": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 95,
+        "division_required": false,
+        "easiest_expression": "((100*9)+(2*5))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 14,
+        "difficulty": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 112,
+        "division_required": false,
+        "easiest_expression": "((4-3)+(75*9))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 15,
+        "difficulty": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 51,
+        "division_required": false,
+        "easiest_expression": "(((7*7)*9)+3)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 16,
+        "difficulty": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 227,
+        "division_required": false,
+        "easiest_expression": "((10+4)*(6*8))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 17,
+        "difficulty": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 227,
+        "division_required": false,
+        "easiest_expression": "(((1+1)*100)-3)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 18,
+        "difficulty": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 440,
+        "division_required": false,
+        "easiest_expression": "((100*4)+5)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 19,
+        "difficulty": 0,
+        "min_cards": 2,
+        "min_operations": 1,
+        "canonical_exact_solutions": 6222,
+        "division_required": false,
+        "easiest_expression": "(100*4)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 20,
+        "difficulty": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 250,
+        "division_required": false,
+        "easiest_expression": "(((10*6)+75)*2)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 21,
+        "difficulty": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 226,
+        "division_required": false,
+        "easiest_expression": "(((25+8)*7)-5)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 22,
+        "difficulty": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 311,
+        "division_required": false,
+        "easiest_expression": "((10+100)-6)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 23,
+        "difficulty": 0,
+        "min_cards": 5,
+        "min_operations": 4,
+        "canonical_exact_solutions": 76,
+        "division_required": false,
+        "easiest_expression": "(((10+8)*25)+(4*7))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 24,
+        "difficulty": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 752,
+        "division_required": false,
+        "easiest_expression": "((2+7)*75)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 25,
+        "difficulty": 0,
+        "min_cards": 5,
+        "min_operations": 4,
+        "canonical_exact_solutions": 63,
+        "division_required": false,
+        "easiest_expression": "((((1+1)+3)*75)-8)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 26,
+        "difficulty": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 674,
+        "division_required": false,
+        "easiest_expression": "((3+3)*25)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 27,
+        "difficulty": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 202,
+        "division_required": false,
+        "easiest_expression": "((100+9)*8)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 28,
+        "difficulty": 0,
+        "min_cards": 2,
+        "min_operations": 1,
+        "canonical_exact_solutions": 501,
+        "division_required": false,
+        "easiest_expression": "(100+9)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 29,
+        "difficulty": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 652,
+        "division_required": false,
+        "easiest_expression": "((6+8)*25)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 30,
+        "difficulty": 1,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 106,
+        "division_required": false,
+        "easiest_expression": "((100*8)+1)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 31,
+        "difficulty": 1,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 112,
+        "division_required": false,
+        "easiest_expression": "((25+6)+75)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 32,
+        "difficulty": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 77,
+        "division_required": false,
+        "easiest_expression": "(((25+7)*9)+2)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 33,
+        "difficulty": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 1143,
+        "division_required": false,
+        "easiest_expression": "((75-(4+8))*3)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 34,
+        "difficulty": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 177,
+        "division_required": false,
+        "easiest_expression": "(((100+8)*2)+75)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 35,
+        "difficulty": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 191,
+        "division_required": false,
+        "easiest_expression": "((100-(25+8))*10)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 36,
+        "difficulty": 1,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 510,
+        "division_required": false,
+        "easiest_expression": "((100+25)-8)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 37,
+        "difficulty": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 11,
+        "division_required": false,
+        "easiest_expression": "(((7*9)+50)*6)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 38,
+        "difficulty": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 315,
+        "division_required": false,
+        "easiest_expression": "((50-(10+2))*8)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 39,
+        "difficulty": 1,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 455,
+        "division_required": false,
+        "easiest_expression": "((4*75)-25)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 40,
+        "difficulty": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 155,
+        "division_required": false,
+        "easiest_expression": "(((3+50)*6)+2)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 41,
+        "difficulty": 1,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 582,
+        "division_required": false,
+        "easiest_expression": "((100+50)-2)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 42,
+        "difficulty": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 425,
+        "division_required": false,
+        "easiest_expression": "((100+75)-(3+4))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 43,
+        "difficulty": 1,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 1623,
+        "division_required": false,
+        "easiest_expression": "((10*2)*6)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 44,
+        "difficulty": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 177,
+        "division_required": false,
+        "easiest_expression": "(((3*8)+9)*10)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 45,
+        "difficulty": 1,
+        "min_cards": 5,
+        "min_operations": 4,
+        "canonical_exact_solutions": 32,
+        "division_required": false,
+        "easiest_expression": "((((4*50)+8)*3)+25)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 46,
+        "difficulty": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 178,
+        "division_required": false,
+        "easiest_expression": "(((75*9)+1)-3)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 47,
+        "difficulty": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 341,
+        "division_required": false,
+        "easiest_expression": "((100*2)+(5-4))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 48,
+        "difficulty": 1,
+        "min_cards": 2,
+        "min_operations": 1,
+        "canonical_exact_solutions": 782,
+        "division_required": false,
+        "easiest_expression": "(100+9)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 49,
+        "difficulty": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 177,
+        "division_required": false,
+        "easiest_expression": "((50*6)+(75-6))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 50,
+        "difficulty": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 60,
+        "division_required": false,
+        "easiest_expression": "(((10+6)+7)*7)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 51,
+        "difficulty": 1,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 298,
+        "division_required": false,
+        "easiest_expression": "((100+75)-3)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 52,
+        "difficulty": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 386,
+        "division_required": false,
+        "easiest_expression": "((1+6)+(2*50))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 53,
+        "difficulty": 1,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 1218,
+        "division_required": false,
+        "easiest_expression": "((100+3)+50)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 54,
+        "difficulty": 1,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 265,
+        "division_required": false,
+        "easiest_expression": "((100+75)*3)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 55,
+        "difficulty": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 390,
+        "division_required": false,
+        "easiest_expression": "((100+25)+(9+9))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 56,
+        "difficulty": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 46,
+        "division_required": false,
+        "easiest_expression": "((100*8)+(6-5))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 57,
+        "difficulty": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 98,
+        "division_required": false,
+        "easiest_expression": "((100*6)+(5-3))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 58,
+        "difficulty": 1,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 202,
+        "division_required": false,
+        "easiest_expression": "((5+50)*3)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 59,
+        "difficulty": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 446,
+        "division_required": false,
+        "easiest_expression": "(((10*2)*9)-25)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 60,
+        "difficulty": 2,
+        "min_cards": 1,
+        "min_operations": 0,
+        "canonical_exact_solutions": 3879,
+        "division_required": false,
+        "easiest_expression": "100",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 61,
+        "difficulty": 2,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 363,
+        "division_required": false,
+        "easiest_expression": "((100+4)-3)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 62,
+        "difficulty": 2,
+        "min_cards": 2,
+        "min_operations": 1,
+        "canonical_exact_solutions": 6858,
+        "division_required": false,
+        "easiest_expression": "(2*75)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 63,
+        "difficulty": 2,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 933,
+        "division_required": false,
+        "easiest_expression": "((100+25)*5)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 64,
+        "difficulty": 2,
+        "min_cards": 5,
+        "min_operations": 4,
+        "canonical_exact_solutions": 142,
+        "division_required": false,
+        "easiest_expression": "((75*8)-((25+6)+9))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 65,
+        "difficulty": 2,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 678,
+        "division_required": false,
+        "easiest_expression": "((25*6)+(50-3))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 66,
+        "difficulty": 2,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 1743,
+        "division_required": false,
+        "easiest_expression": "((25+5)*4)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 67,
+        "difficulty": 2,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 222,
+        "division_required": false,
+        "easiest_expression": "((50+9)*10)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 68,
+        "difficulty": 2,
+        "min_cards": 5,
+        "min_operations": 4,
+        "canonical_exact_solutions": 47,
+        "division_required": false,
+        "easiest_expression": "(((50-4)*9)+(25*5))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 69,
+        "difficulty": 2,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 1749,
+        "division_required": false,
+        "easiest_expression": "((100+25)+(4-1))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 70,
+        "difficulty": 2,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 1514,
+        "division_required": false,
+        "easiest_expression": "((10+50)+75)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 71,
+        "difficulty": 2,
+        "min_cards": 1,
+        "min_operations": 0,
+        "canonical_exact_solutions": 948,
+        "division_required": false,
+        "easiest_expression": "100",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 72,
+        "difficulty": 2,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 60,
+        "division_required": false,
+        "easiest_expression": "(((7+75)*6)+10)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 73,
+        "difficulty": 2,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 990,
+        "division_required": false,
+        "easiest_expression": "((25+75)*6)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 74,
+        "difficulty": 2,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 631,
+        "division_required": false,
+        "easiest_expression": "((5*75)-25)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 75,
+        "difficulty": 2,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 17,
+        "division_required": false,
+        "easiest_expression": "(((100-4)*7)-10)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 2
+      },
+      {
+        "puzzle_id": 76,
+        "difficulty": 2,
+        "min_cards": 2,
+        "min_operations": 1,
+        "canonical_exact_solutions": 714,
+        "division_required": false,
+        "easiest_expression": "(100+3)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 77,
+        "difficulty": 2,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 554,
+        "division_required": false,
+        "easiest_expression": "((10+2)*50)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 78,
+        "difficulty": 2,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 343,
+        "division_required": false,
+        "easiest_expression": "((100+50)+(75-8))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 79,
+        "difficulty": 2,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 143,
+        "division_required": false,
+        "easiest_expression": "((25-2)+(50*7))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 80,
+        "difficulty": 2,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 781,
+        "division_required": false,
+        "easiest_expression": "((100+75)*2)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 81,
+        "difficulty": 2,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 2017,
+        "division_required": false,
+        "easiest_expression": "((100+25)+(5+50))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 82,
+        "difficulty": 2,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 41,
+        "division_required": false,
+        "easiest_expression": "((50*7)-6)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 83,
+        "difficulty": 2,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 50,
+        "division_required": false,
+        "easiest_expression": "((100*3)-(50/25))",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 84,
+        "difficulty": 2,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 78,
+        "division_required": false,
+        "easiest_expression": "((7*75)-(10*8))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 85,
+        "difficulty": 2,
+        "min_cards": 3,
+        "min_operations": 2,
+        "canonical_exact_solutions": 377,
+        "division_required": false,
+        "easiest_expression": "((100*8)+75)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 86,
+        "difficulty": 2,
+        "min_cards": 5,
+        "min_operations": 4,
+        "canonical_exact_solutions": 48,
+        "division_required": false,
+        "easiest_expression": "(((100+2)*8)+(25+7))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 87,
+        "difficulty": 2,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 696,
+        "division_required": false,
+        "easiest_expression": "(((1+25)*3)+75)",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 88,
+        "difficulty": 2,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 556,
+        "division_required": false,
+        "easiest_expression": "((10*8)+(25+75))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 89,
+        "difficulty": 2,
+        "min_cards": 4,
+        "min_operations": 3,
+        "canonical_exact_solutions": 57,
+        "division_required": false,
+        "easiest_expression": "((50+8)*(8-2))",
+        "easiest_divisions": 0,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 90,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 13,
+        "division_required": true,
+        "easiest_expression": "(((((7*75)+1)*25)/50)+8)",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 91,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 2,
+        "division_required": true,
+        "easiest_expression": "((((50-1)*(75/25))-8)*7)",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 2
+      },
+      {
+        "puzzle_id": 92,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 3,
+        "division_required": true,
+        "easiest_expression": "(((10+50)+7)*((100/25)+5))",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 93,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 2,
+        "division_required": true,
+        "easiest_expression": "((((50-10)*5)+7)*(100/25))",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 94,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 1,
+        "division_required": true,
+        "easiest_expression": "(((((10+4)*50)+8)*100)/75)",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 95,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 9,
+        "division_required": true,
+        "easiest_expression": "((((50+8)*75)/10)+(100+4))",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 96,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 11,
+        "division_required": true,
+        "easiest_expression": "((((2*7)+75)-(50/25))*9)",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 97,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 26,
+        "division_required": true,
+        "easiest_expression": "(((2+50)*9)+((75/25)+7))",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 98,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 30,
+        "division_required": true,
+        "easiest_expression": "(((2*50)/100)+((25*8)-4))",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 99,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 1,
+        "division_required": true,
+        "easiest_expression": "((2+25)*(50-((100+4)/8)))",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 100,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 4,
+        "division_required": true,
+        "easiest_expression": "((((100*9)/75)+10)*(25+6))",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 101,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 8,
+        "division_required": true,
+        "easiest_expression": "(((10+9)*6)*((100+75)/25))",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 102,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 1,
+        "division_required": true,
+        "easiest_expression": "((((25*75)+7)/(10-8))+50)",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 103,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 3,
+        "division_required": true,
+        "easiest_expression": "((((75-(50/25))*10)+7)-8)",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 2
+      },
+      {
+        "puzzle_id": 104,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 4,
+        "division_required": true,
+        "easiest_expression": "((((50*7)/25)+100)*(3+5))",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 105,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 42,
+        "division_required": true,
+        "easiest_expression": "(((100*50)/25)+((3*7)+5))",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 106,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 10,
+        "division_required": true,
+        "easiest_expression": "((((10+4)*(75-1))*25)/50)",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 107,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 3,
+        "division_required": true,
+        "easiest_expression": "(((((50/25)+75)*10)+1)-4)",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 108,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 3,
+        "division_required": true,
+        "easiest_expression": "(((1+2)*(5*50))+(100/25))",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 109,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 7,
+        "division_required": true,
+        "easiest_expression": "(((100-1)*(50/5))-(2+25))",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 2
+      },
+      {
+        "puzzle_id": 110,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 15,
+        "division_required": true,
+        "easiest_expression": "(((10/5)*(100+2))+(50+75))",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 111,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 1,
+        "division_required": true,
+        "easiest_expression": "(((((5+50)*10)-2)*75)/100)",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 112,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 3,
+        "division_required": true,
+        "easiest_expression": "(((100-75)*10)+((50/10)-1))",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 2
+      },
+      {
+        "puzzle_id": 113,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 26,
+        "division_required": true,
+        "easiest_expression": "(((1+50)+75)+((10+100)/10))",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 0
+      },
+      {
+        "puzzle_id": 114,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 2,
+        "division_required": true,
+        "easiest_expression": "(((100-6)/2)+((25-7)*50))",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 2
+      },
+      {
+        "puzzle_id": 115,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 2,
+        "division_required": true,
+        "easiest_expression": "((((50/25)+7)*(100-2))-6)",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 2
+      },
+      {
+        "puzzle_id": 116,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 2,
+        "division_required": true,
+        "easiest_expression": "((((100+75)*(25-3))/5)-1)",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 2
+      },
+      {
+        "puzzle_id": 117,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 40,
+        "division_required": true,
+        "easiest_expression": "(((100*3)*(75/25))-(1+5))",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 1
+      },
+      {
+        "puzzle_id": 118,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 3,
+        "division_required": true,
+        "easiest_expression": "((((75-50)*100)+(6-1))/3)",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 2
+      },
+      {
+        "puzzle_id": 119,
+        "difficulty": 3,
+        "min_cards": 6,
+        "min_operations": 5,
+        "canonical_exact_solutions": 1,
+        "division_required": true,
+        "easiest_expression": "((((100-1)*(50-3))+75)/6)",
+        "easiest_divisions": 1,
+        "easiest_subtractions": 2
+      }
+    ],
+    "retained_hard_content_ids": [
+      64,
+      65,
+      68,
+      69,
+      72,
+      75,
+      78,
+      79,
+      81,
+      83,
+      84,
+      86,
+      87,
+      88,
+      89
+    ],
+    "generation_attempts": 63,
+    "rejected_shortcuts": 1
+  }
+}

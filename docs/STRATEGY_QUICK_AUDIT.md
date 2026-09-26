@@ -14,7 +14,7 @@ Baseline is commit `4e7da73`. IDs 21–26 were rule-based games without a puzzle
 bank; IDs 27/28 generated solvable starts at runtime. All had only E/N/H behavior.
 The 6,382-byte AI policy table is state analysis, not a puzzle corpus.
 
-| ID | E/N/H retained behavior | MASTER content / distinct original starts |
+| ID | Current E/N/H behavior | MASTER content / distinct original starts |
 |---|---|---|
 |21 Nim|Random 3/3/4 piles, maxima 7/15/31|Four-pile tactical starts, 30 YOU FIRST + 30 CPU FIRST|
 |22 Wythoff|Two random piles, maxima 10/24/40|Long exact-play starts, 30 YOU FIRST + 12 CPU FIRST|
@@ -22,8 +22,8 @@ The 6,382-byte AI policy table is state analysis, not a puzzle corpus.
 |24 Make Fifteen|Empty 1..9 card board; CPU difficulty varies|Verified reachable midgames, 30 + 5 after Lo Shu symmetry removal|
 |25 Race|Targets 21/31/23, add maxima 3/3/4|Varied target/add-limit tactical starts, 30 + 30; equivalent remaining-distance positions removed|
 |26 2048|CLASSIC mode 0 unchanged; new TARGET mode 1 uses goals 512/1024/2048|TARGET 8192; no puzzle bank|
-|27 Sliding|3×3/4×4 legal 80/160/240-step shuffles|3×3: exactly two distance-31 boards; 4×4: 30 starts with Manhattan lower bound 48–52|
-|28 Lights|4×4/5×5 runtime legal press construction|30 D4-distinct starts per size; certified minimum 6 on 4×4 and 12–14 on 5×5|
+|27 Sliding|Revision4: 128 certified starts per size/level, exact distances 8–14/15–20/21–26; older runs keep legal shuffles|3×3: exactly two distance-31 boards; 4×4: 30 starts with Manhattan lower bound 48–52|
+|28 Lights|Revision3 4×4 exact minima 2/4/5; 5×5 runtime legal press construction|30 D4-distinct starts per size; certified minimum 6 on 4×4 and 12–14 on 5×5|
 
 CPU FIRST starts are losing for the CPU to move, so YOU can force a win; YOU
 FIRST starts are winning for YOU. Former LOCAL 2P bank sharing never counted
@@ -33,9 +33,12 @@ verified. The small Wythoff and Make Fifteen CPU-first banks are reported as
 symmetries; Euclid removes common-factor scaling; Nim sorts pile order; Race
 removes translated total/target pairs with the same maximum and remaining gap.
 
-The game-level supply classification is HYBRID for 21–25 and 27/28: rule-based
-or runtime E/N/H, host bank for MASTER. 2048 remains a rule-based game without a
-puzzle bank. There are 349 new bank records: 257 strategy + 32 Sliding + 60 Lights.
+The game-level supply classification is HYBRID for 21–25 and 27/28. Current
+Sliding levels all use host banks; its old revisions retain runtime E/N/H.
+The other hybrid games use rule-based or runtime E/N/H and host MASTER banks.
+2048 remains a rule-based game without a puzzle bank. The initial MASTER
+expansion has 349 records: 257 strategy + 32 Sliding + 60 Lights. Beta.4 adds
+768 Sliding E/N/H records, bringing these owned banks to 1,117 records.
 Each selected record has one runtime variant. Do not count mode sharing or a
 shuffle path as additional bases.
 
@@ -117,7 +120,8 @@ Tests of mode-separated record structures cover historical compatibility only.
 Exponents cap at 30 and scores saturate at UINT32_MAX.
 
 Existing revisions retain their E/N/H initialization and puzzle identities.
-The beta.3 Lights revision-3 change is detailed below. MASTER
+The beta.3 Lights revision-3 and beta.4 Sliding revision-4 changes are detailed
+below. MASTER
 Make Fifteen stores its even preplayed ply count separately from new player
 moves; ownership counts and alternating turns are validated. HELL is rejected
 by all these modules. Legacy 29/30 still reject difficulty above HARD.
@@ -314,7 +318,7 @@ unverified as described above. Native LCD clarity of the 8×8 legal dots and
 6×6 lock marks, physical controls, storage latency and MENU behavior remain
 **HARDWARE TEST REQUIRED**. This audit does not claim to resolve MENU flicker.
 
-## beta.3 difficulty audit
+## beta.3 difficulty audit — retained baseline
 
 The audit samples the actual native engines, rather than inferring difficulty
 from the menu label. `tests/test_strategyquick_difficulty.c` links the production
@@ -424,12 +428,142 @@ individual-frame measurements, not a linked-package delta or runtime RAM peak.
 cmake -S tests -B build-host -DNG_SANITIZE=ON -DNG_ASAN=OFF
 cmake --build build-host --target test_strategyquick_difficulty test_strategyquick test_strategyquick_extra -j8
 ctest --test-dir build-host -R '^strategyquick(_extra|_difficulty)?$' --output-on-failure
-python3 tools/generate/strategyquick_difficulty.py --sample-exe build-host/test_strategyquick_difficulty --output assets/strategyquick/difficulty-beta3.json
 ```
 
-The report embeds relative-source SHA256 values. Its metrics use fixed seeds
+The beta.3 JSON/CSV above are archived evidence. The current generator reads
+revision4 and must not be run with a beta.3 output path; use the beta.4
+reproduction steps below for current content. The archived report embeds
+relative-source SHA256 values. Its metrics use fixed seeds
 and no timestamps, private local paths or timing-based pass criteria. Hardware
 latency, display usability and MENU behavior remain **HARDWARE TEST REQUIRED**;
 the three owned C11/UBSan targets passed. The new ASan target compiled, but its
 20-second execution attempt timed out with zero stdout/stderr bytes; ASan is
 still unverified. No stronger claim follows from the host audit.
+
+## beta.4 Sliding: resolved exact-distance bands
+
+The existing Sliding difficulty finding is now **RESOLVED / EXACT DISTANCE
+BANDS**. Stable game ID27 and both board-size modes remain. Revision4 NEW
+uses finite host-certified E/N/H banks, while revisions 1–3 keep their original
+shuffle generator, puzzle IDs, RNG progression and INIT behavior. No other
+game content was changed by this work. The beta.3 JSON/CSV and baseline
+measurements remain unchanged in their original files.
+
+`tools/generate/strategyquick_sliding.py` constructs the complete 3×3 graph
+from the normal goal. It contains 181,440 states and has maximum distance 31.
+The proposed E/N/H bands contain 4,615 / 50,035 / 115,471 reachable states, so
+no band adjustment was needed. Each new bucket selects 128 distinct boards,
+spread almost evenly across its exact-distance layers. Selection starts from
+the complete layers rather than a single random path. MASTER's two existing
+distance 31 states fit the permitted27–31 band and retain their IDs/count.
+
+Both 3×3 and 4×4 now have the following E/N/H bank distributions:
+
+| Level | Count per size | Exact distance min / median / max | Histogram |
+|---|---|---|---|
+|EASY|128|8 / 11 / 14|8,9:19 each; 10–14:18 each|
+|NORMAL|128|15 / 17 / 20|15,16:22 each; 17–20:21 each|
+|HARD|128|21 / 23 / 26|21,22:22 each; 23–26:21 each|
+|MASTER 3×3|2|31 / 31 / 31|31:2|
+|MASTER 4×4|30|Exact optimum not computed|Manhattan lower bounds48–52; each has a legal400-move construction witness|
+
+Thus adjacent shortest-distance ranges cannot overlap for either size:
+14<15, 20<21, and26<31 for 3×3 or26<48 for 4×4. The 4×4 MASTER conclusion
+uses a certified lower bound, not a claim that its exact optimum is48. Its
+existing30 boards, IDs and cycle size remain unchanged. The400-step witness
+only proves reachability and an upper bound; it is not the difficulty rating.
+
+The before/after report preserves all exact histograms. Previous 3×3 E/N/H
+samples (seeds1–128) had min/median/max10/22/28, 12/22/28 and14/24/28.
+Old 4×4 E/N/H shortest paths were not exhaustively solved; their reported
+Manhattan distributions remain lower-bound measurements. The new 4×4 E/N/H
+optima are individually proved, so no old lower bound is presented as an
+exact before value.
+
+### Independent proofs and generation limits
+
+For 3×3, the generator's byte-key BFS is checked against a C test using
+factorial permutation ranks and a separate queue representation. Every old
+sample and every new 3×3 bank board is looked up in the independent full graph.
+For 4×4, candidate legal walks are never accepted merely because the witness
+is long. Host IDA* searches every smaller admissible threshold and accepts only
+the intended optimal distance. Its Manhattan heuristic is admissible; it
+prunes immediate reversal only. Candidates exceeding2,000,000 nodes would be
+excluded, not assigned an unproved grade.
+
+The generator's4×4 search orders moves by an incrementally updated Manhattan
+value. The independent C proof uses fixed direction order and recomputes the
+heuristic from every tile. All 384 new 4×4 boards agree. Generation considered
+1,020 candidates:549 failed the cheap Manhattan prefilter,5 were duplicates,
+82 had a shorter solution,384 were accepted, and0 exceeded the node budget.
+Generator IDA* visited 84,537 nodes including completed rejected searches. The
+independent verifier visited 111,355 nodes in total, at most2,766 for one board,
+well below its 2,000,000-node per-board assertion. These are deterministic host
+search-work counts, not elapsed calculator time or calibrated human ratings.
+
+All 768 new E/N/H boards have zero exact duplicates, zero raw-position D4
+duplicates, and zero duplicates under goal-preserving diagonal transpose plus
+tile relabeling, including cross-level comparisons within each size. Raw D4
+is a geometric comparison only: rotating numbered tiles does not generally
+preserve the fixed goal. The two retained 3×3 MASTER boards are different exact
+states but belong to **one goal-preserving reflection class**. They remain two
+stable playable IDs for compatibility, not two symmetry-independent puzzles.
+
+The independent verification command also decodes every packed native record,
+matches it against JSON and actual native initialization, replays every new
+shortest witness, and rechecks the original4×4 MASTER 400-move paths. Runtime
+completion still checks the ordinary ordered goal; it never compares a user's
+route with a witness. The calculator receives no BFS table, IDA* solver or host
+witness list:768 new records occupy exactly 5,760 packed bytes (nibbles plus one
+distance byte per record).
+
+### Save, cycle, renderer and build regression
+
+The C test preserves eight seed-stream digests captured from the unmodified
+beta.3 engine at commit `14aa932`, covering every tile, RNG, shuffle/distance
+fields, blank cursor and puzzle ID. Across revisions 1/2/3, 3,072 initialized
+starts match those digests. All 32 revision1–4/size/level combinations also
+pass actual v5 cold resume with progress and undo, compact codec round-trip,
+and application INIT back to the original board/RNG/revision. New revision4
+E/N/H metadata and out-of-bank IDs are rejected when corrupted.
+
+All eight current size/level banks pass two complete application-driven cycles,
+one additional cycle-boundary start, no within-cycle repeated ID, no immediate
+boundary repeat, and a mid-cycle cold save/resume. The original MASTER cycle
+sizes remain2 and30. In addition,1,156 independent shortest paths are played
+through the production action handler and reach its normal won state.
+
+The renderer labels new starts with their exact initial minimum and retains
+`START >=` for 4×4 MASTER. Root changed the old SCRAMBLE/"how much to shuffle"
+entry wording to a distance-based difficulty choice. The owned capture harness
+now accepts `OUTPUT_DIR sliding` and drives the actual entry→NEW flow for all
+eight size/level combinations. Its 16 entry/game PNGs were inspected for clipped
+tiles, distances and controls. Example host outputs:
+[3×3 EASY](../assets/strategyquick/sliding-beta4-3-easy.png),
+[3×3 MASTER](../assets/strategyquick/sliding-beta4-3-master.png),
+[4×4 HARD](../assets/strategyquick/sliding-beta4-4-hard.png),
+[4×4 MASTER entry](../assets/strategyquick/sliding-beta4-4-master-entry.png).
+These are actual host renderer rasters, not photographs of calculator hardware.
+
+Reproduction:
+
+```sh
+python3 tools/generate/strategyquick_sliding.py --verify
+cmake --build build-host --target test_strategyquick_sliding test_strategyquick_difficulty -j8
+ctest --test-dir build-host -R '^strategyquick(_extra|_difficulty|_sliding)?$' --output-on-failure
+python3 tools/generate/strategyquick_sliding_verify.py --sample-exe build-host/test_strategyquick_sliding --output assets/strategyquick/sliding-beta4-audit.json
+python3 tools/generate/strategyquick_difficulty.py --sample-exe build-host/test_strategyquick_difficulty --output assets/strategyquick/difficulty-beta4.json
+```
+
+Evidence: [new bank and host witnesses](../assets/strategyquick/sliding_bands.json),
+[independent before/after audit](../assets/strategyquick/sliding-beta4-audit.json),
+[current40-row family CSV](../assets/strategyquick/difficulty-beta4.csv),
+[family JSON](../assets/strategyquick/difficulty-beta4.json), and
+[strict SH measurements](../assets/strategyquick/sliding-beta4-native.json).
+The three changed owned objects add 6,132 bytes: 300 of code, 5,760 of packed
+read-only data and 72 of strings. Mutable `.data`/`.bss` remain unchanged;
+the quick initializer's individual frame remains 148 bytes. These are object
+measurements, not the final linked ELF/G3A delta or device RAM peak.
+Strict C11/UBSan checks and SH compilation pass; ASan remains unverified.
+No device search runs on NEW. Physical keys, old-save resume on hardware,
+perceived difficulty and MENU flicker remain **HARDWARE TEST REQUIRED**.

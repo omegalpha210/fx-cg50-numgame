@@ -1,0 +1,104 @@
+{
+  "scope": "Owned object sections compared with beta.3 source at 14aa932; excludes shared core, final linked ELF and package header",
+  "toolchain": "sh-elf-gcc 14.1.0",
+  "baseline_commit": "14aa932ae7ed1a3bb678641a953a5fa03262d8f4",
+  "flags": [
+    "-m4-nofpu",
+    "-mb",
+    "-std=c11",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-Wframe-larger-than=2048",
+    "-Os",
+    "-fstack-usage",
+    "-fcallgraph-info=su",
+    "-DFXCG50"
+  ],
+  "objects": {
+    "strategyquick_quick.c": {
+      "before": {
+        ".text": 7888,
+        ".rodata": 858,
+        ".rodata.str1.4": 1174,
+        ".data": 0,
+        ".bss": 0
+      },
+      "after": {
+        ".text": 8160,
+        ".rodata": 6618,
+        ".rodata.str1.4": 1210,
+        ".data": 0,
+        ".bss": 0
+      }
+    },
+    "strategyquick_strategy.c": {
+      "before": {
+        ".text": 5428,
+        ".rodata": 10011,
+        ".rodata.str1.4": 438,
+        ".data": 0,
+        ".bss": 0
+      },
+      "after": {
+        ".text": 5456,
+        ".rodata": 10011,
+        ".rodata.str1.4": 438,
+        ".data": 0,
+        ".bss": 0
+      }
+    },
+    "strategyquick_registry.c": {
+      "before": {
+        ".text": 0,
+        ".rodata": 560,
+        ".rodata.str1.4": 5119,
+        ".data": 0,
+        ".bss": 0
+      },
+      "after": {
+        ".text": 0,
+        ".rodata": 560,
+        ".rodata.str1.4": 5155,
+        ".data": 0,
+        ".bss": 0
+      }
+    }
+  },
+  "section_delta_bytes": {
+    ".text": 300,
+    ".rodata": 5760,
+    ".rodata.str1.4": 72,
+    ".data": 0,
+    ".bss": 0
+  },
+  "owned_payload_delta_bytes": 6132,
+  "new_packed_bank_bytes": 5760,
+  "frames_bytes": {
+    "sq_quick_init": 148,
+    "sq_quick_valid": 36,
+    "sq_quick_render": 184,
+    "sq_lights_solution": 236
+  },
+  "frame_delta_bytes": 0,
+  "device_generation": "Bounded bank index + at most16 nibble decodes; no BFS or IDA* on device",
+  "generator_IDA_nodes": 84537,
+  "independent_IDA_nodes": 111355,
+  "independent_IDA_max_per_board": 2766,
+  "host_C_BFS_static_array_bytes": 1814400,
+  "host_process_peak": "NOT MEASURED",
+  "device_peak_and_latency": "HARDWARE TEST REQUIRED",
+  "ASan": "UNVERIFIED",
+  "source_sha256": {
+    "src/games/strategyquick_quick.c": "c409fe4da71307046dccede2a622d7ea8e902575a75818eab190adc278d699fe",
+    "src/games/strategyquick_strategy.c": "71ad30bf9d36a6460591e159c8220323e8ef54602357337dde71aab97ce12308",
+    "src/games/strategyquick_registry.c": "fd88ad0398a5f4e070c6d3ddca8c3f3b90e43c30f919eee8af1104202d4d0674"
+  },
+  "ASan_attempt": {
+    "status": "NOT_VERIFIED_RUNTIME_TIMEOUT",
+    "returncode": null,
+    "timeout_seconds": 20,
+    "stdout_bytes": 0,
+    "stderr_bytes": 0
+  }
+}

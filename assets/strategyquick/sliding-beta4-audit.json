@@ -1,0 +1,893 @@
+{
+  "format": 1,
+  "milestone": "beta.4",
+  "decision": "RESOLVED / EXACT DISTANCE BANDS",
+  "game_id": 27,
+  "native_pack_bytes": 5760,
+  "new_states": 768,
+  "retained_master_states": 32,
+  "new_bucket_size": 128,
+  "distance_bands": {
+    "EASY": [
+      8,
+      14
+    ],
+    "NORMAL": [
+      15,
+      20
+    ],
+    "HARD": [
+      21,
+      26
+    ],
+    "MASTER_3x3": [
+      31,
+      31
+    ],
+    "MASTER_4x4_lower_bound": [
+      48,
+      null
+    ]
+  },
+  "certified_adjacent_shortest_distance_overlap": 0,
+  "methods": {
+    "3x3": "Generator byte-map BFS versus independent native-test factorial-rank BFS; 181440 states, diameter31",
+    "4x4_ENH": "Generator incremental-Manhattan ordered IDA* versus independent fixed-order recomputed-Manhattan C IDA*; every lower threshold exhausted",
+    "4x4_MASTER": "Original 30 boards retained; Manhattan>=48 and previously verified legal 400-move construction path. Exact optimum NOT computed.",
+    "symmetry": "Raw-position D4 counts are geometric only. Goal-preserving transpose plus tile relabeling is separately measured."
+  },
+  "candidate_work": {
+    "four_by_four_candidate_attempts": {
+      "0": 152,
+      "1": 245,
+      "2": 623
+    },
+    "four_by_four_generator_ida_nodes": {
+      "0": 3103,
+      "1": 15637,
+      "2": 65797
+    },
+    "four_by_four_rejections": {
+      "manhattan_filter": 549,
+      "duplicate": 5,
+      "node_budget": 0,
+      "shorter_solution": 82
+    }
+  },
+  "reference_IDA_nodes": {
+    "min": 9,
+    "median": 84.0,
+    "max": 2766,
+    "histogram": {
+      "9": 1,
+      "10": 1,
+      "11": 1,
+      "12": 4,
+      "13": 2,
+      "14": 4,
+      "15": 6,
+      "16": 5,
+      "17": 5,
+      "18": 12,
+      "19": 2,
+      "20": 10,
+      "21": 5,
+      "22": 6,
+      "23": 2,
+      "24": 5,
+      "25": 2,
+      "26": 3,
+      "27": 8,
+      "28": 2,
+      "29": 2,
+      "30": 8,
+      "31": 4,
+      "32": 4,
+      "33": 5,
+      "34": 2,
+      "35": 9,
+      "36": 2,
+      "37": 6,
+      "38": 4,
+      "39": 2,
+      "40": 4,
+      "41": 2,
+      "43": 3,
+      "44": 2,
+      "45": 5,
+      "46": 2,
+      "48": 2,
+      "49": 1,
+      "50": 1,
+      "51": 3,
+      "53": 3,
+      "54": 2,
+      "55": 2,
+      "56": 1,
+      "58": 1,
+      "59": 1,
+      "60": 3,
+      "61": 1,
+      "64": 2,
+      "65": 1,
+      "66": 2,
+      "67": 2,
+      "69": 1,
+      "71": 1,
+      "72": 1,
+      "74": 1,
+      "76": 1,
+      "77": 3,
+      "79": 1,
+      "81": 1,
+      "84": 3,
+      "86": 1,
+      "87": 1,
+      "88": 1,
+      "89": 1,
+      "90": 1,
+      "92": 1,
+      "96": 1,
+      "99": 2,
+      "101": 1,
+      "102": 1,
+      "103": 2,
+      "104": 1,
+      "106": 1,
+      "109": 1,
+      "111": 1,
+      "112": 1,
+      "114": 1,
+      "117": 1,
+      "120": 1,
+      "122": 1,
+      "130": 1,
+      "132": 2,
+      "134": 1,
+      "135": 1,
+      "142": 1,
+      "143": 1,
+      "145": 3,
+      "152": 2,
+      "156": 1,
+      "162": 2,
+      "163": 1,
+      "164": 1,
+      "167": 1,
+      "168": 1,
+      "175": 1,
+      "176": 1,
+      "177": 1,
+      "178": 1,
+      "186": 2,
+      "188": 1,
+      "190": 1,
+      "196": 1,
+      "197": 1,
+      "204": 1,
+      "207": 1,
+      "213": 1,
+      "220": 1,
+      "222": 2,
+      "224": 1,
+      "226": 1,
+      "227": 1,
+      "228": 1,
+      "233": 1,
+      "238": 1,
+      "250": 1,
+      "252": 1,
+      "253": 1,
+      "257": 1,
+      "264": 1,
+      "265": 1,
+      "268": 1,
+      "280": 2,
+      "292": 1,
+      "297": 1,
+      "299": 1,
+      "302": 1,
+      "303": 1,
+      "306": 1,
+      "311": 2,
+      "320": 2,
+      "326": 1,
+      "341": 1,
+      "347": 2,
+      "348": 2,
+      "349": 1,
+      "350": 1,
+      "353": 1,
+      "361": 1,
+      "367": 1,
+      "370": 1,
+      "371": 1,
+      "377": 1,
+      "379": 1,
+      "381": 1,
+      "383": 2,
+      "394": 1,
+      "418": 1,
+      "428": 1,
+      "429": 2,
+      "435": 1,
+      "438": 1,
+      "449": 1,
+      "452": 1,
+      "456": 1,
+      "472": 1,
+      "476": 1,
+      "488": 1,
+      "495": 2,
+      "524": 1,
+      "535": 2,
+      "547": 2,
+      "550": 1,
+      "554": 1,
+      "561": 2,
+      "568": 1,
+      "579": 1,
+      "588": 2,
+      "590": 1,
+      "591": 1,
+      "595": 1,
+      "601": 1,
+      "638": 1,
+      "643": 1,
+      "644": 1,
+      "645": 1,
+      "657": 1,
+      "677": 1,
+      "682": 1,
+      "704": 1,
+      "709": 1,
+      "720": 1,
+      "725": 1,
+      "733": 1,
+      "767": 1,
+      "768": 1,
+      "773": 1,
+      "776": 1,
+      "787": 1,
+      "796": 1,
+      "810": 1,
+      "824": 1,
+      "825": 1,
+      "857": 1,
+      "861": 1,
+      "883": 1,
+      "885": 1,
+      "886": 1,
+      "891": 1,
+      "904": 1,
+      "928": 1,
+      "936": 1,
+      "949": 1,
+      "964": 1,
+      "965": 1,
+      "981": 1,
+      "983": 1,
+      "1012": 1,
+      "1036": 1,
+      "1050": 1,
+      "1055": 1,
+      "1064": 1,
+      "1278": 1,
+      "1317": 1,
+      "1354": 1,
+      "1358": 1,
+      "1365": 1,
+      "1399": 1,
+      "1453": 1,
+      "1525": 1,
+      "1534": 2,
+      "1684": 1,
+      "1902": 1,
+      "1952": 1,
+      "2009": 1,
+      "2025": 1,
+      "2221": 1,
+      "2321": 1,
+      "2421": 1,
+      "2766": 1
+    }
+  },
+  "reference_IDA_total_nodes": 111355,
+  "generator_budget_per_candidate": 2000000,
+  "reference_budget_per_board": 2000000,
+  "compatibility": {
+    "legacy_identity_starts": 3072,
+    "baseline_commit": "14aa932",
+    "actual_resume_INIT_codec_cases": 32,
+    "cycle_groups": 8,
+    "cycles_per_group": 2,
+    "additional_boundary_start": true,
+    "midcycle_cold_resume": true
+  },
+  "production_completions": 1156,
+  "groups": [
+    {
+      "revision": 3,
+      "mode": 0,
+      "difficulty": 0,
+      "states": 128,
+      "scope": "seeds 1..128 runtime sample",
+      "optimal_distance": {
+        "min": 10,
+        "median": 22.0,
+        "max": 28,
+        "histogram": {
+          "10": 1,
+          "12": 1,
+          "14": 4,
+          "16": 3,
+          "18": 11,
+          "20": 23,
+          "22": 36,
+          "24": 28,
+          "26": 15,
+          "28": 6
+        }
+      },
+      "manhattan_lower_bound": {
+        "min": 6,
+        "median": 14.0,
+        "max": 20,
+        "histogram": {
+          "6": 1,
+          "8": 5,
+          "10": 7,
+          "12": 29,
+          "14": 42,
+          "16": 24,
+          "18": 16,
+          "20": 4
+        }
+      },
+      "exact_duplicates": 0,
+      "raw_position_D4_duplicates": 0,
+      "goal_preserving_reflection_duplicates": 0
+    },
+    {
+      "revision": 3,
+      "mode": 0,
+      "difficulty": 1,
+      "states": 128,
+      "scope": "seeds 1..128 runtime sample",
+      "optimal_distance": {
+        "min": 12,
+        "median": 22.0,
+        "max": 28,
+        "histogram": {
+          "12": 1,
+          "14": 3,
+          "16": 2,
+          "18": 12,
+          "20": 20,
+          "22": 34,
+          "24": 36,
+          "26": 17,
+          "28": 3
+        }
+      },
+      "manhattan_lower_bound": {
+        "min": 10,
+        "median": 14.0,
+        "max": 20,
+        "histogram": {
+          "10": 10,
+          "12": 31,
+          "14": 38,
+          "16": 26,
+          "18": 20,
+          "20": 3
+        }
+      },
+      "exact_duplicates": 0,
+      "raw_position_D4_duplicates": 0,
+      "goal_preserving_reflection_duplicates": 0
+    },
+    {
+      "revision": 3,
+      "mode": 0,
+      "difficulty": 2,
+      "states": 128,
+      "scope": "seeds 1..128 runtime sample",
+      "optimal_distance": {
+        "min": 14,
+        "median": 24.0,
+        "max": 28,
+        "histogram": {
+          "14": 1,
+          "16": 3,
+          "18": 5,
+          "20": 20,
+          "22": 25,
+          "24": 38,
+          "26": 23,
+          "28": 13
+        }
+      },
+      "manhattan_lower_bound": {
+        "min": 14,
+        "median": 16.0,
+        "max": 20,
+        "histogram": {
+          "14": 52,
+          "16": 43,
+          "18": 24,
+          "20": 9
+        }
+      },
+      "exact_duplicates": 0,
+      "raw_position_D4_duplicates": 0,
+      "goal_preserving_reflection_duplicates": 0
+    },
+    {
+      "revision": 3,
+      "mode": 0,
+      "difficulty": 3,
+      "states": 2,
+      "scope": "entire bank",
+      "optimal_distance": {
+        "min": 31,
+        "median": 31.0,
+        "max": 31,
+        "histogram": {
+          "31": 2
+        }
+      },
+      "manhattan_lower_bound": {
+        "min": 21,
+        "median": 21.0,
+        "max": 21,
+        "histogram": {
+          "21": 2
+        }
+      },
+      "exact_duplicates": 0,
+      "raw_position_D4_duplicates": 0,
+      "goal_preserving_reflection_duplicates": 1
+    },
+    {
+      "revision": 3,
+      "mode": 1,
+      "difficulty": 0,
+      "states": 128,
+      "scope": "seeds 1..128 runtime sample",
+      "optimal_distance": null,
+      "manhattan_lower_bound": {
+        "min": 18,
+        "median": 28.0,
+        "max": 40,
+        "histogram": {
+          "18": 5,
+          "20": 7,
+          "22": 13,
+          "24": 8,
+          "26": 20,
+          "28": 19,
+          "30": 16,
+          "32": 15,
+          "34": 11,
+          "36": 6,
+          "38": 3,
+          "40": 5
+        }
+      },
+      "exact_duplicates": 0,
+      "raw_position_D4_duplicates": 0,
+      "goal_preserving_reflection_duplicates": 0
+    },
+    {
+      "revision": 3,
+      "mode": 1,
+      "difficulty": 1,
+      "states": 128,
+      "scope": "seeds 1..128 runtime sample",
+      "optimal_distance": null,
+      "manhattan_lower_bound": {
+        "min": 20,
+        "median": 34.0,
+        "max": 46,
+        "histogram": {
+          "20": 1,
+          "24": 2,
+          "26": 8,
+          "28": 14,
+          "30": 15,
+          "32": 16,
+          "34": 18,
+          "36": 12,
+          "38": 17,
+          "40": 13,
+          "42": 5,
+          "44": 4,
+          "46": 3
+        }
+      },
+      "exact_duplicates": 0,
+      "raw_position_D4_duplicates": 0,
+      "goal_preserving_reflection_duplicates": 0
+    },
+    {
+      "revision": 3,
+      "mode": 1,
+      "difficulty": 2,
+      "states": 128,
+      "scope": "seeds 1..128 runtime sample",
+      "optimal_distance": null,
+      "manhattan_lower_bound": {
+        "min": 24,
+        "median": 36.0,
+        "max": 50,
+        "histogram": {
+          "24": 3,
+          "26": 2,
+          "28": 3,
+          "30": 12,
+          "32": 8,
+          "34": 18,
+          "36": 28,
+          "38": 18,
+          "40": 18,
+          "42": 8,
+          "44": 5,
+          "46": 3,
+          "48": 1,
+          "50": 1
+        }
+      },
+      "exact_duplicates": 0,
+      "raw_position_D4_duplicates": 0,
+      "goal_preserving_reflection_duplicates": 0
+    },
+    {
+      "revision": 3,
+      "mode": 1,
+      "difficulty": 3,
+      "states": 30,
+      "scope": "entire bank",
+      "optimal_distance": null,
+      "manhattan_lower_bound": {
+        "min": 48,
+        "median": 48.0,
+        "max": 52,
+        "histogram": {
+          "48": 19,
+          "50": 6,
+          "52": 5
+        }
+      },
+      "exact_duplicates": 0,
+      "raw_position_D4_duplicates": 0,
+      "goal_preserving_reflection_duplicates": 0
+    },
+    {
+      "revision": 4,
+      "mode": 0,
+      "difficulty": 0,
+      "states": 128,
+      "scope": "entire bank",
+      "optimal_distance": {
+        "min": 8,
+        "median": 11.0,
+        "max": 14,
+        "histogram": {
+          "8": 19,
+          "9": 19,
+          "10": 18,
+          "11": 18,
+          "12": 18,
+          "13": 18,
+          "14": 18
+        }
+      },
+      "manhattan_lower_bound": {
+        "min": 4,
+        "median": 9.0,
+        "max": 14,
+        "histogram": {
+          "4": 4,
+          "5": 3,
+          "6": 10,
+          "7": 8,
+          "8": 30,
+          "9": 27,
+          "10": 23,
+          "11": 13,
+          "12": 5,
+          "13": 4,
+          "14": 1
+        }
+      },
+      "exact_duplicates": 0,
+      "raw_position_D4_duplicates": 0,
+      "goal_preserving_reflection_duplicates": 0
+    },
+    {
+      "revision": 4,
+      "mode": 0,
+      "difficulty": 1,
+      "states": 128,
+      "scope": "entire bank",
+      "optimal_distance": {
+        "min": 15,
+        "median": 17.0,
+        "max": 20,
+        "histogram": {
+          "15": 22,
+          "16": 22,
+          "17": 21,
+          "18": 21,
+          "19": 21,
+          "20": 21
+        }
+      },
+      "manhattan_lower_bound": {
+        "min": 7,
+        "median": 12.0,
+        "max": 18,
+        "histogram": {
+          "7": 3,
+          "8": 3,
+          "9": 10,
+          "10": 15,
+          "11": 23,
+          "12": 18,
+          "13": 15,
+          "14": 20,
+          "15": 9,
+          "16": 7,
+          "17": 4,
+          "18": 1
+        }
+      },
+      "exact_duplicates": 0,
+      "raw_position_D4_duplicates": 0,
+      "goal_preserving_reflection_duplicates": 0
+    },
+    {
+      "revision": 4,
+      "mode": 0,
+      "difficulty": 2,
+      "states": 128,
+      "scope": "entire bank",
+      "optimal_distance": {
+        "min": 21,
+        "median": 23.0,
+        "max": 26,
+        "histogram": {
+          "21": 22,
+          "22": 22,
+          "23": 21,
+          "24": 21,
+          "25": 21,
+          "26": 21
+        }
+      },
+      "manhattan_lower_bound": {
+        "min": 6,
+        "median": 14.0,
+        "max": 20,
+        "histogram": {
+          "6": 1,
+          "8": 2,
+          "10": 1,
+          "11": 6,
+          "12": 11,
+          "13": 28,
+          "14": 23,
+          "15": 15,
+          "16": 17,
+          "17": 14,
+          "18": 8,
+          "19": 1,
+          "20": 1
+        }
+      },
+      "exact_duplicates": 0,
+      "raw_position_D4_duplicates": 0,
+      "goal_preserving_reflection_duplicates": 0
+    },
+    {
+      "revision": 4,
+      "mode": 0,
+      "difficulty": 3,
+      "states": 2,
+      "scope": "entire bank",
+      "optimal_distance": {
+        "min": 31,
+        "median": 31.0,
+        "max": 31,
+        "histogram": {
+          "31": 2
+        }
+      },
+      "manhattan_lower_bound": {
+        "min": 21,
+        "median": 21.0,
+        "max": 21,
+        "histogram": {
+          "21": 2
+        }
+      },
+      "exact_duplicates": 0,
+      "raw_position_D4_duplicates": 0,
+      "goal_preserving_reflection_duplicates": 1
+    },
+    {
+      "revision": 4,
+      "mode": 1,
+      "difficulty": 0,
+      "states": 128,
+      "scope": "entire bank",
+      "optimal_distance": {
+        "min": 8,
+        "median": 11.0,
+        "max": 14,
+        "histogram": {
+          "8": 19,
+          "9": 19,
+          "10": 18,
+          "11": 18,
+          "12": 18,
+          "13": 18,
+          "14": 18
+        }
+      },
+      "manhattan_lower_bound": {
+        "min": 5,
+        "median": 10.0,
+        "max": 14,
+        "histogram": {
+          "5": 3,
+          "6": 3,
+          "7": 2,
+          "8": 22,
+          "9": 22,
+          "10": 17,
+          "11": 16,
+          "12": 18,
+          "13": 12,
+          "14": 13
+        }
+      },
+      "exact_duplicates": 0,
+      "raw_position_D4_duplicates": 0,
+      "goal_preserving_reflection_duplicates": 0
+    },
+    {
+      "revision": 4,
+      "mode": 1,
+      "difficulty": 1,
+      "states": 128,
+      "scope": "entire bank",
+      "optimal_distance": {
+        "min": 15,
+        "median": 17.0,
+        "max": 20,
+        "histogram": {
+          "15": 22,
+          "16": 22,
+          "17": 21,
+          "18": 21,
+          "19": 21,
+          "20": 21
+        }
+      },
+      "manhattan_lower_bound": {
+        "min": 11,
+        "median": 16.0,
+        "max": 20,
+        "histogram": {
+          "11": 5,
+          "12": 4,
+          "13": 11,
+          "14": 13,
+          "15": 24,
+          "16": 28,
+          "17": 16,
+          "18": 15,
+          "19": 8,
+          "20": 4
+        }
+      },
+      "exact_duplicates": 0,
+      "raw_position_D4_duplicates": 0,
+      "goal_preserving_reflection_duplicates": 0
+    },
+    {
+      "revision": 4,
+      "mode": 1,
+      "difficulty": 2,
+      "states": 128,
+      "scope": "entire bank",
+      "optimal_distance": {
+        "min": 21,
+        "median": 23.0,
+        "max": 26,
+        "histogram": {
+          "21": 22,
+          "22": 22,
+          "23": 21,
+          "24": 21,
+          "25": 21,
+          "26": 21
+        }
+      },
+      "manhattan_lower_bound": {
+        "min": 17,
+        "median": 21.0,
+        "max": 26,
+        "histogram": {
+          "17": 13,
+          "18": 13,
+          "19": 19,
+          "20": 12,
+          "21": 21,
+          "22": 30,
+          "23": 9,
+          "24": 8,
+          "25": 2,
+          "26": 1
+        }
+      },
+      "exact_duplicates": 0,
+      "raw_position_D4_duplicates": 0,
+      "goal_preserving_reflection_duplicates": 0
+    },
+    {
+      "revision": 4,
+      "mode": 1,
+      "difficulty": 3,
+      "states": 30,
+      "scope": "entire bank",
+      "optimal_distance": null,
+      "manhattan_lower_bound": {
+        "min": 48,
+        "median": 48.0,
+        "max": 52,
+        "histogram": {
+          "48": 19,
+          "50": 6,
+          "52": 5
+        }
+      },
+      "exact_duplicates": 0,
+      "raw_position_D4_duplicates": 0,
+      "goal_preserving_reflection_duplicates": 0
+    }
+  ],
+  "cross_level_duplicates": [
+    {
+      "mode": 0,
+      "all_current_states": 386,
+      "exact_duplicates": 0,
+      "raw_position_D4_duplicates": 0,
+      "goal_preserving_reflection_duplicates": 1
+    },
+    {
+      "mode": 1,
+      "all_current_states": 414,
+      "exact_duplicates": 0,
+      "raw_position_D4_duplicates": 0,
+      "goal_preserving_reflection_duplicates": 0
+    }
+  ],
+  "samples_sha256": "83c7624dffe2beb42b7a543d1ff4069b5008e9d3767e49a91309af05fa476155",
+  "hardware": "HARDWARE TEST REQUIRED; no human difficulty or device timing claim",
+  "source_sha256": {
+    "src/games/strategyquick.h": "cc7d2c19801ed62ad6f83beb04a61208777ea95ebd4fe87faae9ee1fa9274f22",
+    "src/games/strategyquick_quick.c": "c409fe4da71307046dccede2a622d7ea8e902575a75818eab190adc278d699fe",
+    "src/games/strategyquick_strategy.c": "71ad30bf9d36a6460591e159c8220323e8ef54602357337dde71aab97ce12308",
+    "src/games/strategyquick_registry.c": "fd88ad0398a5f4e070c6d3ddca8c3f3b90e43c30f919eee8af1104202d4d0674",
+    "assets/strategyquick/sliding_bands.h": "88c2d82c1d454b7b2a67ef2e3f93c787d27cd6f78058af2af4b89f3d1bd2fdfc",
+    "assets/strategyquick/sliding_bands.json": "d5828d7e4d785054726d6af5e31ffe1e5f08daf97ef001665f62e4f1e9ac8323",
+    "assets/strategyquick/master_quick.h": "c0127b9ff1c1b00315f6f7befb9d3e8e3785ee36b0b55b2d6c8d26b6ccc88e4e",
+    "assets/strategyquick/master.json": "5b60b585d2d168c7041e971a096f1ccefc890cf51fa2cb1246305aef8cd6bdae",
+    "tests/test_strategyquick_sliding.c": "17a9e74e156d2401ecb8ab3348cee16db7e323a0266529bc5cf90fd38c275607",
+    "tools/generate/strategyquick_sliding.py": "9387cbeee0228180617c75f56525cb82860dd2038260bb199f0b361a1302c243",
+    "tools/generate/strategyquick_sliding_verify.py": "b51849f3fb50e15c083993d34d54972dfb208453e44c513305f450baba1cef31"
+  }
+}

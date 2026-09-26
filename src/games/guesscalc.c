@@ -4,6 +4,8 @@
 #include "guesscalc.h"
 #include "../../assets/guesscalc_packs.h"
 #include "../../assets/guesscalc_master.h"
+#include "../../assets/guesscalc_beta4.h"
+#include "../../assets/guesscalc_target_beta4.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -12,16 +14,21 @@ static const char *default_mode(unsigned mode){(void)mode;return "STANDARD";}
 static const char *equation_mode(unsigned mode){static const char *const m[]={"STANDARD","SHORT","LONG"};return mode<3?m[mode]:"?";}
 unsigned gc_bank_count(unsigned id,unsigned difficulty,unsigned mode){
  if(id<1||id>10||difficulty>3)return 0;
- if(id==1||id==6||id==10||(id==8&&difficulty<3))return 0;
- if(mode>=(id==2?3u:id==6?2u:1u))return 0;
+ if(id==1||id==10||(id==8&&difficulty<3))return 0;
+ if(mode>=(id==2?3u:1u))return 0;
+ if(id==6)return 2;
  return 30;
 }
 static unsigned bank_index(NgGame *g,unsigned legacy_modes){
+ if(g->pack_revision==4&&g->id==5&&g->difficulty<2)return 120+g->difficulty*30+ng_bank_pick(g,30);
+ if(g->pack_revision==4&&g->id==7&&g->difficulty==2)return 120+ng_bank_pick(g,30);
  if(g->difficulty==3)return legacy_modes*90+g->mode*30+ng_bank_pick(g,30);
  return g->mode*90+g->difficulty*30+ng_bank_pick(g,30);
 }
 static bool bank_valid(const NgGame *g,unsigned modes){
- if(g->difficulty>3||g->mode>=modes||(g->difficulty==3&&g->pack_revision!=2))return false;
+ if(g->difficulty>3||g->mode>=modes||(g->difficulty==3&&g->pack_revision!=2&&!(g->pack_revision==4&&(g->id==5||g->id==7))))return false;
+ if(g->pack_revision==4&&g->id==5&&g->difficulty<2)return g->puzzle_id>=120+g->difficulty*30u&&g->puzzle_id<150+g->difficulty*30u;
+ if(g->pack_revision==4&&g->id==7&&g->difficulty==2)return g->puzzle_id>=120&&g->puzzle_id<150;
  unsigned start=g->difficulty==3?modes*90+g->mode*30:g->mode*90u+g->difficulty*30u;
  return g->puzzle_id>=start&&g->puzzle_id<start+30;
 }
@@ -34,7 +41,7 @@ static MindView mind_pack(const NgGame *g){
  if(g->difficulty==3){const GcMasterMindPack *p=&gc_master_mind[g->puzzle_id-90];return (MindView){6,8,p->count,6,&p->clues[0][0],p->matches,p->solution};}
  const GcMindPack *p=&gc_mind_pack[g->puzzle_id];return (MindView){p->n,p->alphabet,p->count,5,&p->clues[0][0],p->matches,p->solution};
 }
-static const GcSequencePack *sequence_pack(const NgGame *g){return g->difficulty==3?&gc_master_sequence[g->puzzle_id-90]:&gc_sequence_pack[g->puzzle_id];}
+static const GcSequencePack *sequence_pack(const NgGame *g){if(g->pack_revision==4&&g->difficulty<2)return &gc_sequence_beta4[g->puzzle_id-120];return g->difficulty==3?&gc_master_sequence[g->puzzle_id-90]:&gc_sequence_pack[g->puzzle_id];}
 static const GcCrossPack *cross_pack(const NgGame *g){return g->difficulty==3?&gc_master_cross[g->puzzle_id-90]:&gc_cross_pack[g->puzzle_id];}
 static bool auxiliary(int key){return key==NGK_AUX||key==NGK_ANSWER||key==NGK_F4;}
 static bool submit(int key){return key==NGK_EXE||key==NGK_F6;}
@@ -298,6 +305,7 @@ static void render_sequence(const NgGame *g,NgCanvas *c){
  }else text_input(g,c,151);
 }
 static const GcCardPack *card_pack(const NgGame *g){
+ if(g->id==7&&g->pack_revision==4&&g->difficulty==2)return &gc_countdown_beta4[g->puzzle_id-120];
  if(g->difficulty==3)return g->id==6?&gc_master_target[g->puzzle_id-180]:&gc_master_countdown[g->puzzle_id-90];
  return g->id==6?&gc_target_pack[g->puzzle_id]:&gc_countdown_pack[g->puzzle_id];
 }
@@ -329,17 +337,54 @@ static uint32_t target_deck(uint32_t seed,unsigned difficulty,unsigned target,in
  for(unsigned i=n-1;i;i--){unsigned j=target_rand(&rng,i+1);int16_t tmp=cards[i];cards[i]=cards[j];cards[j]=tmp;}
  return rng;
 }
+/* Revision4 stores only host-verified candidate indices. Every index/target/
+ * level was exhaustively graded; this construction performs no device search. */
+static uint32_t target_deck_v4(unsigned index,unsigned difficulty,unsigned target,int16_t *cards,char *answer,char *tip){
+ uint32_t rng=UINT32_C(0xb4a61e37)^target*UINT32_C(0x9e3779b9)^difficulty*UINT32_C(0x85ebca6b)^index*UINT32_C(0xc2b2ae35);
+ if(!rng)rng=1;
+ if(!difficulty)return target_deck(rng,0,target,cards,answer,tip);
+ unsigned a,b,c,d,e=0,f=0,n=difficulty<2?4:difficulty+3;
+ if(difficulty==1){
+  unsigned limit=32767/target;if(limit>200)limit=200;
+  unsigned total=4+target_rand(&rng,limit-3);c=2+target_rand(&rng,total-3);d=total-c;
+  a=2+target_rand(&rng,target*total-3);b=target*total-a;
+  snprintf(answer,40,"(%u+%u)/(%u+%u)",a,b,c,d);
+  if(tip)snprintf(tip,64,"One first step: add %u and %u.",a,b);
+ }else if(difficulty==2){
+  unsigned limit=32767/target;if(limit>128)limit=128;
+  unsigned denominator=2+target_rand(&rng,limit-1);c=12+target_rand(&rng,52);d=12+target_rand(&rng,52);e=c*d-denominator;
+  a=1+target_rand(&rng,target*denominator-1);b=target*denominator-a;
+  snprintf(answer,40,"(%u+%u)/(%u*%u-%u)",a,b,c,d,e);
+  if(tip)snprintf(tip,64,"One first step: multiply %u by %u.",c,d);
+ }else{
+  unsigned unit=2+target_rand(&rng,30),gap=67+target_rand(&rng,133),factor=29+target_rand(&rng,99),k=2+target_rand(&rng,2);
+  unsigned low=factor*gap>32767/k?factor*gap-32767/k:1;
+  c=low+target_rand(&rng,factor*gap-low);if(c%gap==0)++c;
+  a=target*unit;b=unit+gap;d=factor;e=(factor*gap-c)*k;f=gap*k;
+  snprintf(answer,40,"%u/(%u-%u/(%u-%u/%u))",a,b,c,d,e,f);
+  if(tip)snprintf(tip,64,"One first step: divide %u by %u.",e,f);
+ }
+ cards[0]=(int16_t)a;cards[1]=(int16_t)b;cards[2]=(int16_t)c;cards[3]=(int16_t)d;
+ if(n>4)cards[4]=(int16_t)e;
+ if(n>5)cards[5]=(int16_t)f;
+ for(unsigned i=n-1;i;i--){unsigned j=target_rand(&rng,i+1);int16_t swap=cards[i];cards[i]=cards[j];cards[j]=swap;}
+ return rng;
+}
 bool gc_target_init(NgGame *g,unsigned target){
- if(!g||g->id!=6||g->difficulty>3||g->mode||g->pack_revision!=3||target<1||target>1000)return false;
+ if(!g||g->id!=6||g->difficulty>3||g->mode||(g->pack_revision!=3&&g->pack_revision!=4)||target<1||target>1000)return false;
  memset(g->board,0,sizeof(g->board));memset(g->data,0,sizeof(g->data));memset(g->fixed,0,sizeof(g->fixed));memset(g->notes,0,sizeof(g->notes));
  memset(g->history,0,sizeof(g->history));memset(g->input,0,sizeof(g->input));
  g->status=NG_PLAYING;g->phase=g->cursor=g->history_count=g->scroll=g->notes_mode=g->cpu_pending=0;
  g->moves=g->score=0;g->puzzle_id=g->seed;g->data[0]=(int32_t)target;g->data[1]=(int32_t)(g->difficulty<2?4:g->difficulty+3);g->data[3]=1000000000;
- char answer[40];g->rng=target_deck(g->seed,g->difficulty,target,g->board,answer,NULL);
+ char answer[40];
+ if(g->pack_revision==4){
+  g->rng=g->seed;unsigned ordinal=ng_bank_pick(g,2),record=(g->difficulty*1000+target-1)*2+ordinal;
+  g->puzzle_id=240+record;g->rng=target_deck_v4(gc_target_beta4_index[record],g->difficulty,target,g->board,answer,NULL);
+ }else g->rng=target_deck(g->seed,g->difficulty,target,g->board,answer,NULL);
  ng_message(g,"Use EVERY card exactly once. Fractions are allowed.");return true;
 }
 static void init_cards(NgGame *g){
- if(g->id==6&&g->pack_revision==3){(void)gc_target_init(g,24);return;}
+ if(g->id==6&&g->pack_revision>=3){(void)gc_target_init(g,24);return;}
  g->puzzle_id=bank_index(g,g->id==6?2:1);
  const GcCardPack *p=card_pack(g);unsigned n=g->id==6?4:6;for(unsigned i=0;i<n;i++)g->board[i]=p->cards[i];g->data[0]=p->target;g->data[1]=(int)n;g->data[3]=1000000000;
  ng_message(g,g->id==6?"Use every card exactly once.":"Cards at most once; positive integer steps only.");
@@ -347,7 +392,7 @@ static void init_cards(NgGame *g){
 static bool action_cards(NgGame *g,int key){
  if(g->status!=NG_PLAYING)return false;
  char answer[40],tip[64];const GcCardPack *p=NULL;
- if(g->id==6&&g->pack_revision==3){int16_t cards[6];(void)target_deck(g->seed,g->difficulty,(unsigned)g->data[0],cards,answer,tip);}
+ if(g->id==6&&g->pack_revision>=3){int16_t cards[6];if(g->pack_revision==4)(void)target_deck_v4(gc_target_beta4_index[g->puzzle_id-240],g->difficulty,(unsigned)g->data[0],cards,answer,tip);else (void)target_deck(g->seed,g->difficulty,(unsigned)g->data[0],cards,answer,tip);}
  else {p=card_pack(g);snprintf(answer,sizeof(answer),"%s",p->answer);snprintf(tip,sizeof(tip),"%s",p->hint);}
  if(hint(key)){ng_message(g,tip);g->assisted=1;return true;}
  if(auxiliary(key)){
@@ -370,10 +415,14 @@ static bool action_cards(NgGame *g,int key){
 static bool valid_cards(const NgGame *g){
  if(!input_ok(g,"0123456789+-*/()",96)||(g->id==6?g->status>NG_WON:(g->status!=NG_PLAYING&&g->status!=NG_WON&&g->status!=NG_DRAW)))return false;
  unsigned n=g->id==6?4:6;
- if(g->id==6&&g->pack_revision==3){
-  if(g->mode||g->difficulty>3||g->puzzle_id!=g->seed||g->data[0]<1||g->data[0]>1000)return false;
+ if(g->id==6&&g->pack_revision>=3){
+  if(g->mode||g->difficulty>3||g->data[0]<1||g->data[0]>1000)return false;
   n=g->difficulty<2?4:g->difficulty+3;int16_t cards[6]={0};char answer[40];
-  if(target_deck(g->seed,g->difficulty,(unsigned)g->data[0],cards,answer,NULL)!=g->rng)return false;
+  if(g->pack_revision==4){
+   unsigned first=240+(g->difficulty*1000+(unsigned)g->data[0]-1)*2;
+   if(g->puzzle_id<first||g->puzzle_id>=first+2)return false;
+   if(target_deck_v4(gc_target_beta4_index[g->puzzle_id-240],g->difficulty,(unsigned)g->data[0],cards,answer,NULL)!=g->rng)return false;
+  }else if(g->pack_revision!=3||g->puzzle_id!=g->seed||target_deck(g->seed,g->difficulty,(unsigned)g->data[0],cards,answer,NULL)!=g->rng)return false;
   for(unsigned i=0;i<NG_CELLS;i++)if(g->board[i]!=(i<n?cards[i]:0)||g->fixed[i]||g->notes[i])return false;
   for(unsigned i=2;i<NG_DATA;i++)if(g->data[i]!=(i==3?1000000000:0))return false;
   if(g->rows||g->cols||g->phase||g->cursor||g->history_count||g->scroll||g->notes_mode||g->cpu_pending||g->score)return false;
@@ -513,6 +562,11 @@ static void factor_answer(int value,char *out,size_t cap){
 
 static void init_factor(NgGame *g){
  if(g->difficulty==3){
+  if(g->pack_revision==4){
+   static const unsigned large[]={37,41,43,47,53,59,61,67,71,73},other[]={11,13,17,19,23,29,31};
+   unsigned target=108*large[ng_rand(g,10)]*other[ng_rand(g,7)];if(ng_rand(g,2))target*=2;
+   g->data[0]=(int32_t)target;g->puzzle_id=g->seed;ng_message(g,"Four primes; powers total 7..8; two primes >=11.");return;
+  }
   unsigned pool[]={2,3,5,7,11,13};for(unsigned i=6;i>1;i--){unsigned j=ng_rand(g,i),v=pool[i-1];pool[i-1]=pool[j];pool[j]=v;}unsigned target=pool[0]*pool[1]*pool[2]*pool[3];
   unsigned a=ng_rand(g,4),b=(a+1+ng_rand(g,3))%4;target*=pool[a]*pool[b];
   g->data[0]=(int32_t)target;g->puzzle_id=g->seed;ng_message(g,"Four distinct primes; two repeated prime powers.");return;
@@ -530,8 +584,16 @@ static bool action_factor(NgGame *g,int key){
 }
 
 static bool valid_factor(const NgGame *g){
- if(g->status>NG_WON||!input_ok(g,"0123456789*^",96)||g->mode||g->difficulty>3||(g->difficulty==3&&g->pack_revision!=2)||g->data[0]<4||g->data[0]>1000000||gc_is_prime((unsigned)g->data[0])||(g->status==NG_WON&&(!g->moves||!gc_factorization(g->input,g->data[0]))))return false;
+ if(g->status>NG_WON||!input_ok(g,"0123456789*^",96)||g->mode||g->difficulty>3||(g->difficulty==3&&g->pack_revision!=2&&g->pack_revision!=4)||g->data[0]<4||g->data[0]>1000000||gc_is_prime((unsigned)g->data[0])||(g->status==NG_WON&&(!g->moves||!gc_factorization(g->input,g->data[0]))))return false;
  if(g->difficulty==3){
+  if(g->pack_revision==4){
+   unsigned value=(unsigned)g->data[0],twos=0,threes=0;
+   while(value%2==0){value/=2;++twos;}while(value%3==0){value/=3;++threes;}
+   if((twos!=2&&twos!=3)||threes!=3)return false;
+   static const unsigned large[]={37,41,43,47,53,59,61,67,71,73},other[]={11,13,17,19,23,29,31};
+   for(unsigned a=0;a<10;a++)for(unsigned b=0;b<7;b++)if(value==large[a]*other[b])return true;
+   return false;
+  }
   unsigned value=(unsigned)g->data[0],distinct=0,repeated=0;
   for(unsigned p=2;p<=13;p++)if(value%p==0){unsigned exponent=0;do{value/=p;++exponent;}while(value%p==0);if(exponent>2)return false;++distinct;repeated+=exponent==2;}
   if(value!=1||distinct!=4||repeated!=2)return false;
@@ -549,10 +611,10 @@ const NgModule ng_guesscalc[10]={
  {2,"EQUATION GUESS","EQUATION","Find the hidden equation TEXT exactly.\nMatching its numeric value alone cannot win.\nUse digits + - * / and one =. RHS integer.\nNo parentheses or leading zeros. Unary minus\non the RHS only.\nStandard precedence. Green: exact. Yellow:\nexists elsewhere. Grey: absent. Duplicates\nconsume exact matches first. 7/6/8-char modes.\nEasy +-, Normal +-* , Hard +-*/ corpus.\nHard 7/8-char modes use two operators.\nMASTER STANDARD/SHORT/LONG: 9/8/10 chars,\nmixed precedence, 12 attempts.\nSHIFT+DOT enters =.\nEXE submits true equations. UP/DOWN history.",0,NULL,"SUBMIT",3,equation_mode,init_equation,action_equation,NULL,valid_equation,render_equation},
  {3,"NUMBER MIND","NUMBER MIND","Each clue gives exact-position matches only.\nDigits in wrong positions give no information.\nEasy: 4 digits 0..5. Normal: 4 digits 0..7.\nHard: 5 digits 0..7. MASTER: 6 digits 0..7.\nRepeats and initial 0 OK.\nAll published clues have one solution in that\nfinite domain. Digits: input. EXE: CHECK.\nUP/DOWN: clues. HINT lists values not excluded\nby visible zero-match clues, one spot at a time.",NGF_HINT,NULL,"CHECK",1,default_mode,init_mind,action_mind,NULL,valid_mind,render_mind},
  {4,"CLUE LOCK","CLUE LOCK","Find an integer satisfying EVERY shown clue.\nMOD is the remainder after division. Decimal\ndigit sum and contains ignore leading zeros.\nEasy domain 0..99, Normal 0..499, Hard 0..999.\nHard uses two modular / CRT conditions.\nMASTER: 0..9999, three MOD clues and digit\nsum. All four clues contribute to uniqueness.\nAll clues shown initially; one domain solution.\nHINT explains the first modular progression.\nDigits: enter. EXE: CHECK. DEL: erase.",NGF_HINT,NULL,"CHECK",1,default_mode,init_lock,action_lock,NULL,valid_lock,render_lock},
- {5,"SEQUENCE DETECTIVE","SEQUENCE","Find the next term in a FINITE rule grammar.\nA finite prefix is not universally unique!\nAllowed rules (n starts at 0):\na+bn: a=-9..9, b=-5..5, b nonzero.\na*b^n: a=1..5, b=-3,-2,2,3.\na+bn+cn*n: a=-5..5,b=-4..4,c=1..3.\nFibonacci sum: first two each 1..9.\nAlternating lanes: starts -6..9, step 1..5.\nx'=b*x+c: start -3..6,b=-2,-1,2,3,\nc=-3..3 nonzero. Both lanes share a step.\nMASTER adds x_next=a*x_last+b*x_before+c,\nfirst two -3..6; a,b,c each -2,-1,1,2;\nand alternating lanes with DIFFERENT steps,\nstarts -6..9; each step -5..5 nonzero.\nMASTER checks old and new rules together.\nOther levels use the six old rules only.\nPacks reject competing next answers across\ntheir level grammar. HINT reveals RULE FAMILY.\nEnter signed integer, EXE checks.",NGF_HINT,NULL,"CHECK",1,default_mode,init_sequence,action_sequence,NULL,valid_sequence,render_sequence},
- {6,"MAKE TARGET","MAKE TARGET","Choose a target 1..1000 on the entry screen.\nUse EVERY card exactly once to reach it.\nEASY/NORMAL/HARD/MASTER: 4/4/5/6 cards.\nUse + - * / and parentheses.\nExact rational intermediate values allowed.\nNo concatenation, powers or extra constants.\nEqual values are separate usable cards.\nEvery generated deck has a verified solution.\nType expression; DEL erases; EXE checks.\nHINT gives one first step; ANSWER copies one\nexample. Both mark assisted. All legal answers\nare accepted, not just that example.\n96 chars, nesting12, reduced values <= 1e9.\nOlder saved target10/24 decks remain playable.",NGF_HINT,"ANSWER","CHECK",1,default_mode,init_cards,action_cards,NULL,valid_cards,render_cards},
- {7,"COUNTDOWN","COUNTDOWN","Reach target 100..999 with up to six cards.\nEach card at most once; unused cards allowed.\nEvery intermediate result MUST be a positive\ninteger; division must be exact. + - * / ( ).\nSmall deck: two copies each of 1..10.\nLarge: 25,50,75,100, without repeats.\nEasy/Normal/Hard: 1/2/3 large cards.\nMASTER: 3 large cards; exact target requires\nall six cards and at least one division.\nUntimed practice. EXE checks each expression.\nExact=10 points, distance 1..5=7,6..10=5,\nelse 0. Best submitted distance is retained.\nFINISH keeps best result. No optimality claim.\nHINT gives first step of one exact solution.",NGF_HINT,"FINISH","CHECK",1,default_mode,init_cards,action_cards,NULL,valid_cards,render_cards},
+ {5,"SEQUENCE DETECTIVE","SEQUENCE","Find the next term in a FINITE rule grammar.\nA finite prefix is not universally unique!\nAllowed rules (n starts at 0):\na+bn: a=-9..9, b=-5..5, b nonzero.\na*b^n: a=1..5, b=-3,-2,2,3.\na+bn+cn*n: a=-5..5,b=-4..4,c=1..3.\nFibonacci sum: first two each 1..9.\nAlternating lanes: starts -6..9, step 1..5.\nx'=b*x+c: start -3..6,b=-2,-1,2,3,\nc=-3..3 nonzero. Both lanes share a step.\nMASTER adds x_next=a*x_last+b*x_before+c,\nfirst two -3..6; a,b,c each -2,-1,1,2;\nand alternating lanes with DIFFERENT steps,\nstarts -6..9; each step -5..5 nonzero.\nRevision4 EASY uses AP, GP, shared step.\nNORMAL: quadratic, Fibonacci, offset, and\nunequal lanes: starts1..9, steps1..3.\nHARD keeps the six old rules; MASTER uses\nall old and new rules together. Old saves\nkeep their original grammar.\nPacks reject competing next answers across\ntheir level grammar. HINT reveals RULE FAMILY.\nEnter signed integer, EXE checks.",NGF_HINT,NULL,"CHECK",1,default_mode,init_sequence,action_sequence,NULL,valid_sequence,render_sequence},
+ {6,"MAKE TARGET","MAKE TARGET","Choose a target 1..1000 on the entry screen.\nUse EVERY card exactly once to reach it.\nEASY/NORMAL/HARD/MASTER: 4/4/5/6 cards.\nUse + - * / and parentheses.\nExact rational intermediate values allowed.\nNo concatenation, powers or extra constants.\nEqual values are separate usable cards.\nRevision4: two exact-graded decks per target.\nE: no division needed. N/H: division needed.\nMASTER: every solution needs fractions.\nType expression; DEL erases; EXE checks.\nHINT gives one first step; ANSWER copies one\nexample. Both mark assisted. All legal answers\nare accepted, not just that example.\n96 chars, nesting12, reduced values <= 1e9.\nEarlier saved decks and targets stay playable.",NGF_HINT,"ANSWER","CHECK",1,default_mode,init_cards,action_cards,NULL,valid_cards,render_cards},
+ {7,"COUNTDOWN","COUNTDOWN","Reach target 100..999 with up to six cards.\nEach card at most once; unused cards allowed.\nEvery intermediate result MUST be a positive\ninteger; division must be exact. + - * / ( ).\nSmall deck: two copies each of 1..10.\nLarge: 25,50,75,100, without repeats.\nEasy/Normal/Hard: 1/2/3 large cards.\nNew HARD: every exact answer needs >=4 cards.\nMASTER: 3 large cards; exact target requires\nall six cards and at least one division.\nUntimed practice. EXE checks each expression.\nExact=10 points, distance 1..5=7,6..10=5,\nelse 0. Best submitted distance is retained.\nFINISH keeps best result. No optimality claim.\nHINT gives first step of one exact solution.",NGF_HINT,"FINISH","CHECK",1,default_mode,init_cards,action_cards,NULL,valid_cards,render_cards},
  {8,"MISSING OPERATORS","OPERATORS","Fill the missing + - * / operators.\nNumber order is fixed; no parentheses.\nStandard precedence: * / before + -.\nEqual precedence is evaluated left to right.\nAll valid operator combinations are accepted.\nEasy/Normal/Hard use 3/4/5 numbers.\nMASTER: 6 numbers; 1..3 solutions, each with\nat least three different operator kinds.\nArrows select slot; operation key sets it.\nDEL clears. EXE checks. REVEAL fills selected\nslot from one solution and marks assisted.",NGF_UNDO,"REVEAL","CHECK",1,default_mode,init_operators,action_operators,NULL,valid_operators,render_operators},
  {9,"CROSS MATH","CROSS MATH","Place 1..9 exactly once over the WHOLE board.\nSatisfy three horizontal and three vertical\nexpressions, reading left/right or top/down.\n* before + or -. No Latin-square rules.\nGrey fixed clues cannot be edited.\nEasy/Normal/Hard have 4/2/0 fixed numbers.\nMASTER has no fixed values and needs tighter\nrow/column coupling: more candidate boards.\nEach generated pack puzzle has one solution.\nArrows select; 1..9 enter; DEL/0 clear.\nEXE checks all rules. REVEAL selected number\nmarks the game assisted.",NGF_UNDO,"REVEAL","CHECK",1,default_mode,init_cross,action_cross,NULL,valid_cross,render_cross},
- {10,"PRIME FACTOR","PRIME FACTOR","Factor the composite target (4..1000000).\nUse prime bases with optional positive powers.\nExample 360: 2^3*3^2*5, or repeat factors.\nAny factor order is accepted. 1 is not prime\nor composite; composite bases are rejected.\nExponents 1..20; at most 16 written factors.\nMASTER: four distinct primes through 13;\ntwo of those primes appear squared.\nType digits, * and ^. DEL erases, EXE checks.\nHINT proves one prime divisor. ANSWER reveals\na factorization. Both mark assisted.",NGF_HINT,"ANSWER","CHECK",1,default_mode,init_factor,action_factor,NULL,valid_factor,render_factor}
+ {10,"PRIME FACTOR","PRIME FACTOR","Factor the composite target (4..1000000).\nUse prime bases with optional positive powers.\nExample 360: 2^3*3^2*5, or repeat factors.\nAny factor order is accepted. 1 is not prime\nor composite; composite bases are rejected.\nExponents 1..20; at most 16 written factors.\nNew MASTER: four distinct primes, Omega7..8;\ntwo repeated primes, two primes >=11,\nand largest prime >=37. Target <=488808.\nOlder saves retain their original factors.\nType digits, * and ^. DEL erases, EXE checks.\nHINT proves one prime divisor. ANSWER reveals\na factorization. Both mark assisted.",NGF_HINT,"ANSWER","CHECK",1,default_mode,init_factor,action_factor,NULL,valid_factor,render_factor}
 };

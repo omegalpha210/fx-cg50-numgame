@@ -96,7 +96,8 @@ def summarize(samples):
         elif game==27:
             item['manhattan_lower_bound']=spread([manhattan(r['board'],r['size']) for r in rows])
             if mode==0:item['exact_shortest_moves']=spread([distances[bytes(r['board'])] for r in rows])
-            item['shuffle_moves_or_master_witness_limit']=spread([r['knobs'][0] for r in rows])
+            if rows[0].get('revision',2)>=4 and level<3:item['certified_start_distance']=spread([r['knobs'][1] for r in rows])
+            else:item['shuffle_moves_or_master_witness_limit']=spread([r['knobs'][0] for r in rows])
         elif game==28:
             minima=[lights_minimum(r['board'],r['size']) for r in rows]
             item['exact_minimum_presses']=spread(minima)
@@ -154,6 +155,8 @@ def assessment(result):
                 row.update(mechanism='TARGET terminal goal; CLASSIC fixed rules',generator_params=f"TARGET={ [512,1024,2048,8192][level] }; CLASSIC keeps playing after 2048",AI_policy='None',rating_metric='Exact terminal goal, not altered spawn rate',observed_distribution='Identical initial board/RNG at equal seed across levels; 90% 2 / 10% 4 spawn rule unchanged',overlap='CLASSIC level is an intentional no-op; app hides level and starts NORMAL; old E/N/H preserved',meaningfully_distinct='TARGET YES; CLASSIC FIXED EXCEPTION',finding='FIXED EXCEPTION',fix='Removed stale rules claim that cumulative records persist')
             elif game==27:
                 row.update(mechanism='Solvable legal shuffle and Manhattan lower-bound acceptance' if level<3 else 'Certified long starts',generator_params=f"{[80,160,240][level]} shuffle steps, Manhattan threshold {[6,10,14][level]}, <=16 attempts" if level<3 else '3x3 exact 31; 4x4 400-step witness and lower bound >=48',AI_policy='None',rating_metric='3x3 exhaustive BFS distance; 4x4 Manhattan lower bound only',observed_distribution=json.dumps([{k:g[k] for k in ('mode','manhattan_lower_bound','exact_shortest_moves') if k in g} for g in groups],sort_keys=True),overlap='E/N/H shortest-distance ranges overlap strongly; shuffle count is not difficulty',meaningfully_distinct='Mechanism YES; E/N separation REVIEW REQUIRED',finding='REVIEW REQUIRED' if level<3 else 'PASS',fix='No calibration change; retain seeds and label evidence limitations')
+                if all(g['pack_revision']>=4 for g in groups):
+                    row.update(mechanism='Exact shortest-distance banks for both board sizes' if level<3 else 'Original certified MASTER starts retained',generator_params=f"128 originals per size, exact band {[(8,14),(15,20),(21,26)][level]}" if level<3 else '3x3 exact31 (2); 4x4 lower-bound>=48 (30); unchanged IDs/content',rating_metric='3x3 full BFS; 4x4 E/N/H independently certified IDA* optima; MASTER4x4 lower bound, not exact optimum',observed_distribution=json.dumps([{k:g[k] for k in ('mode','manhattan_lower_bound','exact_shortest_moves','certified_start_distance') if k in g} for g in groups],sort_keys=True),overlap='Zero: E8-14 / N15-20 / H21-26; M3x3=31, M4x4>=48',meaningfully_distinct='YES: certified disjoint shortest-distance ranges',finding='RESOLVED / EXACT DISTANCE BANDS',fix='Revision4 banks; revisions<=3 preserve old board/RNG/INIT; MASTER counts and identities retained')
             elif game==28:
                 row.update(mechanism='4x4 certified minimum presses; 5x5 constructive pressing' if level<3 else 'Certified minimum-press banks',generator_params=f"revision 3 4x4 minimum {[2,4,5][level]}; 5x5 {[4,8,18][level]} generating presses" if level<3 else '4x4 exact 6; 5x5 exact 12..14',AI_policy='No CPU; GF(2) hint does not promise fewest presses',rating_metric='Independent exhaustive first-row row-chasing minimum',observed_distribution=json.dumps([{k:g[k] for k in ('mode','exact_minimum_presses')} for g in groups],sort_keys=True),overlap='4x4 new E/N/H/M 2/4/5/6 do not overlap; 5x5 H/M ranges overlap',meaningfully_distinct='4x4 YES; 5x5 distribution YES, human ranking uncalibrated',finding='FIXED' if level<3 else 'PASS',fix='Revision 3 fixes 4x4 inverse grading; revision <=2 preserves initial boards and RNG; <=16 candidates plus verified fallback')
             elif game==37:
@@ -170,7 +173,7 @@ def main():
     parser.add_argument('--output',type=Path,required=True);args=parser.parse_args()
     raw=subprocess.check_output([str(args.sample_exe.resolve())]) if args.sample_exe else args.samples.read_bytes()
     rows=[row for line in raw.splitlines() if (row:=json.loads(line))['id'] in OWNED]
-    result={'schema':1,'milestone':'beta.3','sample_seed_policy':'Runtime seeds 1..128; full banks, supply_seed=1, ordinal 0..count-1. Strategy probes use reachable HARD/random positions; Reversi uses reachable EASY/random positions after >=8 placements.',
+    result={'schema':1,'milestone':'beta.4' if any(r['id']==27 and r.get('revision',0)>=4 for r in rows) else 'beta.3','sample_seed_policy':'Runtime seeds 1..128; full banks, supply_seed=1, ordinal 0..count-1. Strategy probes use reachable HARD/random positions; Reversi uses reachable EASY/random positions after >=8 placements.',
         'sample_rows':len(rows),'samples_sha256':hashlib.sha256(raw).hexdigest(),
         'independent_metrics':{'sliding_3x3':'Complete reverse BFS: 181440 reachable states, diameter 31',
            'lights':'Exhaustive first-row choices with forced row chasing, <=32 candidates per board',
@@ -178,7 +181,7 @@ def main():
         'limitations':['Host audit, not hardware timing.','No human difficulty calibration.','Strategy quality uses production exact values already independently exhaustively verified by test_strategyquick.','Reversi metrics measure work and changed choices, not stronger-play proof.','CLASSIC 2048 direct-API levels are compatibility probes; normal app selection is fixed NORMAL.'],
         **summarize(rows)}
     result['assessment']=assessment(result)
-    paths=['src/games/strategyquick_strategy.c','src/games/strategyquick_quick.c','src/games/strategyquick_extra.c','src/games/strategyquick_registry.c','src/games/boards.c','src/games/boards_pack.c','tests/test_strategyquick_difficulty.c','tools/generate/strategyquick_difficulty.py']
+    paths=['src/games/strategyquick_strategy.c','src/games/strategyquick_quick.c','src/games/strategyquick_extra.c','src/games/strategyquick_registry.c','src/games/boards.c','src/games/boards_pack.c','tests/test_strategyquick_difficulty.c','tools/generate/strategyquick_difficulty.py','assets/strategyquick/sliding_bands.h','tools/generate/strategyquick_sliding.py','tests/test_strategyquick_sliding.c']
     result['source_sha256']={p:hashlib.sha256((ROOT/p).read_bytes()).hexdigest() for p in paths}
     args.output.parent.mkdir(parents=True,exist_ok=True)
     args.output.write_text(json.dumps(result,indent=2)+'\n')

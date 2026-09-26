@@ -7,7 +7,26 @@ device symptom resolved. Use the exact `dist/SHA256SUMS.txt` before testing.
 Back up existing NG saves. NUM DIAG is a separate `NDSTATEA/B.dat` namespace
 and must be tested with disposable ND progress.
 
-For beta.3, check these interactions first on the physical LCD and flash:
+For beta.4, check these revised difficulty starts on the physical LCD:
+
+1. Start several new Countdown HARD puzzles and check that reaching the target
+   requires at least four cards. Compare with an old saved HARD run, which must
+   reopen and INIT its original puzzle unchanged.
+2. Compare new Sequence EASY arithmetic/geometric/simple alternating puzzles
+   with NORMAL quadratic/Fibonacci/interleaved puzzles. Check full prompt and
+   input readability in both banks.
+3. Play new Prime Factor MASTER starts, including the largest target, and
+   check every target digit fits the game panel and factors enter promptly.
+4. Open Sliding EASY, NORMAL, HARD and MASTER in both 3×3 and 4×4 modes.
+   Check tile contrast, current shortest-distance message and old saved-board
+   RESUME/INIT. The host-certified distance bands do not replace play testing.
+5. Try Make Target at targets 1, 24, 247 and 1000 in all four difficulties.
+   Check that each deck has a reachable solution, expression input, target
+   editor, cold RESUME, INIT and NEW after changing the target behave normally.
+6. Recheck the reported MENU flashing, BFile save latency, dim/APO and
+   SHIFT+AC/ON while switching among these new content banks.
+
+The earlier beta.3 UI and lifecycle checks remain relevant:
 
 1. The saved game's tile alone shows a legible blue RESUME badge; the selected
    border, icon and name remain distinguishable. Main F1 resumes that same run.

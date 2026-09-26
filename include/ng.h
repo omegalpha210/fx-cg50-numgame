@@ -61,7 +61,10 @@ unsigned ng_regular_difficulty_count(unsigned id);
 bool ng_has_hell(unsigned id);
 unsigned ng_generation_policy(unsigned id);
 unsigned ng_level_generation_policy(unsigned id,unsigned difficulty,unsigned mode);
+unsigned ng_level_generation_policy_version(unsigned id,unsigned difficulty,unsigned mode,unsigned revision);
 unsigned ng_bank_count(unsigned id,unsigned difficulty,unsigned mode);
+unsigned ng_bank_count_version(unsigned id,unsigned difficulty,unsigned mode,unsigned revision);
+unsigned ng_pack_revision(unsigned id,unsigned mode);
 const char *ng_level_name(unsigned difficulty);
 /* Ordinal within a bank; stable puzzle ID mapping belongs to the module. */
 unsigned ng_bank_pick(NgGame *g,unsigned count);

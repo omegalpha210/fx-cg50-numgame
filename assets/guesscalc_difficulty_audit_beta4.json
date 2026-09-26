@@ -1,0 +1,3722 @@
+{
+  "after": {
+    "10:0": {
+      "Omega": {
+        "max": 4,
+        "median": 4,
+        "min": 2
+      },
+      "count": 65,
+      "decimal_digits": {
+        "max": 4,
+        "median": 2,
+        "min": 1
+      },
+      "distinct_primes": {
+        "max": 4,
+        "median": 2,
+        "min": 1
+      },
+      "large_prime_count": {
+        "max": 0,
+        "median": 0,
+        "min": 0
+      },
+      "max_prime": {
+        "max": 7,
+        "median": 7,
+        "min": 2
+      },
+      "prime_check_trial_division_proxy": {
+        "max": 2,
+        "median": 1,
+        "min": 0
+      },
+      "repeated_prime_count": {
+        "max": 2,
+        "median": 1,
+        "min": 0
+      },
+      "target": {
+        "max": 2401,
+        "median": 90,
+        "min": 4
+      }
+    },
+    "10:1": {
+      "Omega": {
+        "max": 5,
+        "median": 5.0,
+        "min": 3
+      },
+      "count": 434,
+      "decimal_digits": {
+        "max": 6,
+        "median": 4.0,
+        "min": 1
+      },
+      "distinct_primes": {
+        "max": 5,
+        "median": 3.0,
+        "min": 1
+      },
+      "large_prime_count": {
+        "max": 2,
+        "median": 1.0,
+        "min": 0
+      },
+      "max_prime": {
+        "max": 13,
+        "median": 11.0,
+        "min": 2
+      },
+      "prime_check_trial_division_proxy": {
+        "max": 6,
+        "median": 3.0,
+        "min": 0
+      },
+      "repeated_prime_count": {
+        "max": 2,
+        "median": 1.0,
+        "min": 0
+      },
+      "target": {
+        "max": 371293,
+        "median": 2112.0,
+        "min": 8
+      }
+    },
+    "10:2": {
+      "Omega": {
+        "max": 6,
+        "median": 5.0,
+        "min": 4
+      },
+      "count": 6754,
+      "decimal_digits": {
+        "max": 6,
+        "median": 6.0,
+        "min": 2
+      },
+      "distinct_primes": {
+        "max": 6,
+        "median": 4.0,
+        "min": 1
+      },
+      "large_prime_count": {
+        "max": 4,
+        "median": 2.0,
+        "min": 0
+      },
+      "max_prime": {
+        "max": 31,
+        "median": 23.0,
+        "min": 2
+      },
+      "prime_check_trial_division_proxy": {
+        "max": 14,
+        "median": 7.0,
+        "min": 0
+      },
+      "repeated_prime_count": {
+        "max": 3,
+        "median": 1.0,
+        "min": 0
+      },
+      "target": {
+        "max": 999635,
+        "median": 102903.0,
+        "min": 16
+      }
+    },
+    "10:3": {
+      "Omega": {
+        "max": 8,
+        "median": 7.5,
+        "min": 7
+      },
+      "count": 140,
+      "decimal_digits": {
+        "max": 6,
+        "median": 6.0,
+        "min": 5
+      },
+      "distinct_primes": {
+        "max": 4,
+        "median": 4.0,
+        "min": 4
+      },
+      "large_prime_count": {
+        "max": 2,
+        "median": 2.0,
+        "min": 2
+      },
+      "max_prime": {
+        "max": 73,
+        "median": 56.0,
+        "min": 37
+      },
+      "prime_check_trial_division_proxy": {
+        "max": 11,
+        "median": 9.0,
+        "min": 7
+      },
+      "repeated_prime_count": {
+        "max": 2,
+        "median": 2.0,
+        "min": 2
+      },
+      "target": {
+        "max": 488808,
+        "median": 157626.0,
+        "min": 43956
+      }
+    },
+    "1:0": {
+      "code_domain": 10000,
+      "digits": 4,
+      "guess_limit": 16,
+      "samples_with_repeated_digit": 148,
+      "secret_space_per_attempt_exact": "10000/16"
+    },
+    "1:1": {
+      "code_domain": 100000,
+      "digits": 5,
+      "guess_limit": 12,
+      "samples_with_repeated_digit": 214,
+      "secret_space_per_attempt_exact": "100000/12"
+    },
+    "1:2": {
+      "code_domain": 1000000,
+      "digits": 6,
+      "guess_limit": 10,
+      "samples_with_repeated_digit": 238,
+      "secret_space_per_attempt_exact": "1000000/10"
+    },
+    "1:3": {
+      "code_domain": 10000000,
+      "digits": 7,
+      "guess_limit": 16,
+      "samples_with_repeated_digit": 251,
+      "secret_space_per_attempt_exact": "10000000/16"
+    },
+    "2:0": {
+      "by_mode": {
+        "0": {
+          "count": 30,
+          "division_puzzles": 0,
+          "length": {
+            "max": 7,
+            "median": 7.0,
+            "min": 7
+          },
+          "multiplication_puzzles": 0,
+          "operator_count": {
+            "max": 1,
+            "median": 1.0,
+            "min": 1
+          }
+        },
+        "1": {
+          "count": 30,
+          "division_puzzles": 0,
+          "length": {
+            "max": 6,
+            "median": 6.0,
+            "min": 6
+          },
+          "multiplication_puzzles": 0,
+          "operator_count": {
+            "max": 1,
+            "median": 1.0,
+            "min": 1
+          }
+        },
+        "2": {
+          "count": 30,
+          "division_puzzles": 0,
+          "length": {
+            "max": 8,
+            "median": 8.0,
+            "min": 8
+          },
+          "multiplication_puzzles": 0,
+          "operator_count": {
+            "max": 1,
+            "median": 1.0,
+            "min": 1
+          }
+        }
+      },
+      "guess_limit": 12,
+      "hidden_bank_candidates_per_mode": 30
+    },
+    "2:1": {
+      "by_mode": {
+        "0": {
+          "count": 30,
+          "division_puzzles": 0,
+          "length": {
+            "max": 7,
+            "median": 7.0,
+            "min": 7
+          },
+          "multiplication_puzzles": 5,
+          "operator_count": {
+            "max": 1,
+            "median": 1.0,
+            "min": 1
+          }
+        },
+        "1": {
+          "count": 30,
+          "division_puzzles": 0,
+          "length": {
+            "max": 6,
+            "median": 6.0,
+            "min": 6
+          },
+          "multiplication_puzzles": 16,
+          "operator_count": {
+            "max": 1,
+            "median": 1.0,
+            "min": 1
+          }
+        },
+        "2": {
+          "count": 30,
+          "division_puzzles": 0,
+          "length": {
+            "max": 8,
+            "median": 8.0,
+            "min": 8
+          },
+          "multiplication_puzzles": 3,
+          "operator_count": {
+            "max": 1,
+            "median": 1.0,
+            "min": 1
+          }
+        }
+      },
+      "guess_limit": 10,
+      "hidden_bank_candidates_per_mode": 30
+    },
+    "2:2": {
+      "by_mode": {
+        "0": {
+          "count": 30,
+          "division_puzzles": 8,
+          "length": {
+            "max": 7,
+            "median": 7.0,
+            "min": 7
+          },
+          "multiplication_puzzles": 11,
+          "operator_count": {
+            "max": 2,
+            "median": 2.0,
+            "min": 2
+          }
+        },
+        "1": {
+          "count": 30,
+          "division_puzzles": 6,
+          "length": {
+            "max": 6,
+            "median": 6.0,
+            "min": 6
+          },
+          "multiplication_puzzles": 10,
+          "operator_count": {
+            "max": 1,
+            "median": 1.0,
+            "min": 1
+          }
+        },
+        "2": {
+          "count": 30,
+          "division_puzzles": 5,
+          "length": {
+            "max": 8,
+            "median": 8.0,
+            "min": 8
+          },
+          "multiplication_puzzles": 21,
+          "operator_count": {
+            "max": 2,
+            "median": 2.0,
+            "min": 2
+          }
+        }
+      },
+      "guess_limit": 8,
+      "hidden_bank_candidates_per_mode": 30
+    },
+    "2:3": {
+      "by_mode": {
+        "0": {
+          "count": 30,
+          "division_puzzles": 17,
+          "length": {
+            "max": 9,
+            "median": 9.0,
+            "min": 9
+          },
+          "multiplication_puzzles": 16,
+          "operator_count": {
+            "max": 3,
+            "median": 3.0,
+            "min": 3
+          }
+        },
+        "1": {
+          "count": 30,
+          "division_puzzles": 3,
+          "length": {
+            "max": 8,
+            "median": 8.0,
+            "min": 8
+          },
+          "multiplication_puzzles": 27,
+          "operator_count": {
+            "max": 2,
+            "median": 2.0,
+            "min": 2
+          }
+        },
+        "2": {
+          "count": 30,
+          "division_puzzles": 10,
+          "length": {
+            "max": 10,
+            "median": 10.0,
+            "min": 10
+          },
+          "multiplication_puzzles": 23,
+          "operator_count": {
+            "max": 3,
+            "median": 3.0,
+            "min": 3
+          }
+        }
+      },
+      "guess_limit": 12,
+      "hidden_bank_candidates_per_mode": 30
+    },
+    "33:0": {
+      "atom_layout_domain": 2300,
+      "atoms": 3,
+      "board_side": 5,
+      "ports": 20,
+      "ray_checks": 5120,
+      "unique_hidden_layout_guarantee": false,
+      "unique_sample_D4_layouts": 171,
+      "unique_sample_full_ray_vectors": 244
+    },
+    "33:1": {
+      "atom_layout_domain": 58905,
+      "atoms": 4,
+      "board_side": 6,
+      "ports": 24,
+      "ray_checks": 6144,
+      "unique_hidden_layout_guarantee": false,
+      "unique_sample_D4_layouts": 250,
+      "unique_sample_full_ray_vectors": 256
+    },
+    "33:2": {
+      "atom_layout_domain": 1906884,
+      "atoms": 5,
+      "board_side": 7,
+      "ports": 28,
+      "ray_checks": 7168,
+      "unique_hidden_layout_guarantee": false,
+      "unique_sample_D4_layouts": 256,
+      "unique_sample_full_ray_vectors": 256
+    },
+    "33:3": {
+      "atom_layout_domain": 74974368,
+      "atoms": 6,
+      "board_side": 8,
+      "ports": 32,
+      "ray_checks": 8192,
+      "unique_hidden_layout_guarantee": false,
+      "unique_sample_D4_layouts": 256,
+      "unique_sample_full_ray_vectors": 256
+    },
+    "34:0": {
+      "addend_length": 2,
+      "carry_columns": {
+        "max": 2,
+        "median": 2.0,
+        "min": 1
+      },
+      "column_solver_nodes": {
+        "max": 119,
+        "median": 71.5,
+        "min": 4
+      },
+      "letters": {
+        "max": 4,
+        "median": 3.0,
+        "min": 3
+      },
+      "solution_count_declared_and_independently_verified": 1
+    },
+    "34:1": {
+      "addend_length": 3,
+      "carry_columns": {
+        "max": 3,
+        "median": 2.0,
+        "min": 1
+      },
+      "column_solver_nodes": {
+        "max": 385,
+        "median": 125.0,
+        "min": 19
+      },
+      "letters": {
+        "max": 6,
+        "median": 5.0,
+        "min": 5
+      },
+      "solution_count_declared_and_independently_verified": 1
+    },
+    "34:2": {
+      "addend_length": 4,
+      "carry_columns": {
+        "max": 4,
+        "median": 3.0,
+        "min": 1
+      },
+      "column_solver_nodes": {
+        "max": 2055,
+        "median": 535.5,
+        "min": 120
+      },
+      "letters": {
+        "max": 7,
+        "median": 7.0,
+        "min": 7
+      },
+      "solution_count_declared_and_independently_verified": 1
+    },
+    "34:3": {
+      "addend_length": 5,
+      "carry_columns": {
+        "max": 5,
+        "median": 3.0,
+        "min": 1
+      },
+      "column_solver_nodes": {
+        "max": 3190,
+        "median": 639.5,
+        "min": 142
+      },
+      "letters": {
+        "max": 10,
+        "median": 8.0,
+        "min": 8
+      },
+      "solution_count_declared_and_independently_verified": 1
+    },
+    "3:0": {
+      "clue_count": {
+        "max": 11,
+        "median": 8.0,
+        "min": 5
+      },
+      "domain": 1296,
+      "zero_match_clues": {
+        "max": 7,
+        "median": 4.0,
+        "min": 1
+      }
+    },
+    "3:1": {
+      "clue_count": {
+        "max": 13,
+        "median": 10.0,
+        "min": 6
+      },
+      "domain": 4096,
+      "zero_match_clues": {
+        "max": 9,
+        "median": 5.0,
+        "min": 2
+      }
+    },
+    "3:2": {
+      "clue_count": {
+        "max": 14,
+        "median": 11.5,
+        "min": 6
+      },
+      "domain": 32768,
+      "zero_match_clues": {
+        "max": 10,
+        "median": 5.0,
+        "min": 1
+      }
+    },
+    "3:3": {
+      "clue_count": {
+        "max": 13,
+        "median": 12.0,
+        "min": 8
+      },
+      "domain": 262144,
+      "zero_match_clues": {
+        "max": 7,
+        "median": 4.0,
+        "min": 1
+      }
+    },
+    "4:0": {
+      "domain": 100,
+      "modulus_values": [
+        3,
+        4,
+        5,
+        7,
+        9,
+        11,
+        13,
+        17
+      ],
+      "public_range_width": {
+        "max": 99,
+        "median": 72.5,
+        "min": 52
+      }
+    },
+    "4:1": {
+      "domain": 500,
+      "modulus_values": [
+        3,
+        4,
+        5,
+        7,
+        9,
+        11,
+        13,
+        17
+      ],
+      "public_range_width": {
+        "max": 471,
+        "median": 377.0,
+        "min": 242
+      }
+    },
+    "4:2": {
+      "domain": 1000,
+      "modulus_values": [
+        17,
+        19,
+        23,
+        29,
+        31,
+        37
+      ],
+      "public_range_width": {
+        "max": 973,
+        "median": 732.5,
+        "min": 573
+      }
+    },
+    "4:3": {
+      "domain": 10000,
+      "modulus_values": [
+        7,
+        11,
+        13,
+        17,
+        19
+      ],
+      "omit_one_clue_candidates": {
+        "max": 13,
+        "median": 4.0,
+        "min": 2
+      },
+      "public_range_width": {
+        "max": 10000,
+        "median": 10000.0,
+        "min": 10000
+      }
+    },
+    "5:0": {
+      "affine_E_N_overlap": 1,
+      "affine_unique": 9,
+      "ambiguity_rejects": 0,
+      "exact_E_N_overlap": 0,
+      "families": {
+        "0": 12,
+        "1": 9,
+        "4": 9
+      },
+      "max_absolute_term": {
+        "max": 3645,
+        "median": 17.5,
+        "min": 4
+      },
+      "percentages": {
+        "0": 40.0,
+        "1": 30.0,
+        "4": 30.0
+      },
+      "prefix_length": 6
+    },
+    "5:1": {
+      "affine_E_N_overlap": 1,
+      "affine_unique": 27,
+      "ambiguity_rejects": 0,
+      "exact_E_N_overlap": 0,
+      "families": {
+        "2": 9,
+        "3": 9,
+        "5": 4,
+        "7": 8
+      },
+      "max_absolute_term": {
+        "max": 2550,
+        "median": 49.0,
+        "min": 3
+      },
+      "percentages": {
+        "2": 30.0,
+        "3": 30.0,
+        "5": 13.333333333333334,
+        "7": 26.666666666666668
+      },
+      "prefix_length": 6
+    },
+    "5:2": {
+      "families": {
+        "2": 14,
+        "3": 4,
+        "5": 12
+      },
+      "max_absolute_term": {
+        "max": 3644,
+        "median": 82.5,
+        "min": 2
+      }
+    },
+    "5:3": {
+      "families": {
+        "6": 15,
+        "7": 15
+      },
+      "max_absolute_term": {
+        "max": 989,
+        "median": 17.5,
+        "min": 2
+      }
+    },
+    "6:0": {
+      "canonical_duplicates": 0,
+      "canonical_solution_count": {
+        "max": 10512,
+        "median": 432.0,
+        "min": 324
+      },
+      "cards": 4,
+      "complexity_score": {
+        "max": 8296,
+        "median": 8296.0,
+        "min": 69
+      },
+      "count": 2000,
+      "division_required": 0,
+      "division_steps": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      },
+      "fraction_required": 0,
+      "fractional_steps": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      },
+      "max_denominator": {
+        "max": 1,
+        "median": 1.0,
+        "min": 1
+      },
+      "records_per_target": 2,
+      "subtraction_steps": {
+        "max": 1,
+        "median": 1.0,
+        "min": 0
+      },
+      "targets": 1000,
+      "total_records": 2000,
+      "tree_depth": {
+        "max": 3,
+        "median": 3.0,
+        "min": 2
+      },
+      "unary_steps": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      }
+    },
+    "6:1": {
+      "canonical_duplicates": 0,
+      "canonical_solution_count": {
+        "max": 4320,
+        "median": 144.0,
+        "min": 96
+      },
+      "cards": 4,
+      "complexity_score": {
+        "max": 270410,
+        "median": 270409.0,
+        "min": 270404
+      },
+      "count": 2000,
+      "division_required": 2000,
+      "division_steps": {
+        "max": 1,
+        "median": 1.0,
+        "min": 1
+      },
+      "fraction_required": 0,
+      "fractional_steps": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      },
+      "max_denominator": {
+        "max": 1,
+        "median": 1.0,
+        "min": 1
+      },
+      "records_per_target": 2,
+      "subtraction_steps": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      },
+      "targets": 1000,
+      "total_records": 2000,
+      "tree_depth": {
+        "max": 2,
+        "median": 2.0,
+        "min": 2
+      },
+      "unary_steps": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      }
+    },
+    "6:2": {
+      "canonical_duplicates": 0,
+      "canonical_solution_count": {
+        "max": 27648,
+        "median": 576.0,
+        "min": 432
+      },
+      "cards": 5,
+      "complexity_score": {
+        "max": 278632,
+        "median": 278631.0,
+        "min": 270434
+      },
+      "count": 2000,
+      "division_required": 2000,
+      "division_steps": {
+        "max": 1,
+        "median": 1.0,
+        "min": 1
+      },
+      "fraction_required": 0,
+      "fractional_steps": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      },
+      "max_denominator": {
+        "max": 1,
+        "median": 1.0,
+        "min": 1
+      },
+      "records_per_target": 2,
+      "subtraction_steps": {
+        "max": 1,
+        "median": 1.0,
+        "min": 0
+      },
+      "targets": 1000,
+      "total_records": 2000,
+      "tree_depth": {
+        "max": 4,
+        "median": 3.0,
+        "min": 3
+      },
+      "unary_steps": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      }
+    },
+    "6:3": {
+      "canonical_duplicates": 0,
+      "canonical_solution_count": {
+        "max": 52992,
+        "median": 2304.0,
+        "min": 2304
+      },
+      "cards": 6,
+      "complexity_score": {
+        "max": 5014693,
+        "median": 5014693.0,
+        "min": 4472963
+      },
+      "count": 2000,
+      "division_required": 2000,
+      "division_steps": {
+        "max": 3,
+        "median": 3.0,
+        "min": 1
+      },
+      "fraction_required": 2000,
+      "fractional_steps": {
+        "max": 2,
+        "median": 2.0,
+        "min": 2
+      },
+      "max_denominator": {
+        "max": 199,
+        "median": 98.0,
+        "min": 2
+      },
+      "records_per_target": 2,
+      "subtraction_steps": {
+        "max": 2,
+        "median": 1.0,
+        "min": 0
+      },
+      "targets": 1000,
+      "total_records": 2000,
+      "tree_depth": {
+        "max": 5,
+        "median": 5.0,
+        "min": 4
+      },
+      "unary_steps": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      }
+    },
+    "7:0": {
+      "canonical_exact_solutions": {
+        "max": 6222,
+        "median": 238.5,
+        "min": 51
+      },
+      "division_required": 0,
+      "easiest_subtractions": {
+        "max": 1,
+        "median": 0.0,
+        "min": 0
+      },
+      "minimum_card_histogram": {
+        "2": 2,
+        "3": 12,
+        "4": 13,
+        "5": 3
+      },
+      "minimum_cards": {
+        "max": 5,
+        "median": 4.0,
+        "min": 2
+      },
+      "minimum_operations": {
+        "max": 4,
+        "median": 3.0,
+        "min": 1
+      },
+      "one_card_count": 0,
+      "problem_count": 30,
+      "three_card_count": 12,
+      "two_card_count": 2
+    },
+    "7:1": {
+      "canonical_exact_solutions": {
+        "max": 1623,
+        "median": 233.5,
+        "min": 11
+      },
+      "division_required": 0,
+      "easiest_subtractions": {
+        "max": 1,
+        "median": 0.0,
+        "min": 0
+      },
+      "minimum_card_histogram": {
+        "2": 1,
+        "3": 10,
+        "4": 18,
+        "5": 1
+      },
+      "minimum_cards": {
+        "max": 5,
+        "median": 4.0,
+        "min": 2
+      },
+      "minimum_operations": {
+        "max": 4,
+        "median": 3.0,
+        "min": 1
+      },
+      "one_card_count": 0,
+      "problem_count": 30,
+      "three_card_count": 10,
+      "two_card_count": 1
+    },
+    "7:2": {
+      "canonical_exact_solutions": {
+        "max": 2064,
+        "median": 168.0,
+        "min": 16
+      },
+      "division_required": 0,
+      "easiest_subtractions": {
+        "max": 2,
+        "median": 1.0,
+        "min": 0
+      },
+      "minimum_card_histogram": {
+        "4": 19,
+        "5": 11
+      },
+      "minimum_cards": {
+        "max": 5,
+        "median": 4.0,
+        "min": 4
+      },
+      "minimum_operations": {
+        "max": 4,
+        "median": 3.0,
+        "min": 3
+      },
+      "one_card_count": 0,
+      "problem_count": 30,
+      "three_card_count": 0,
+      "two_card_count": 0
+    },
+    "7:3": {
+      "canonical_exact_solutions": {
+        "max": 42,
+        "median": 3.0,
+        "min": 1
+      },
+      "division_required": 30,
+      "easiest_subtractions": {
+        "max": 2,
+        "median": 1.0,
+        "min": 0
+      },
+      "minimum_card_histogram": {
+        "6": 30
+      },
+      "minimum_cards": {
+        "max": 6,
+        "median": 6.0,
+        "min": 6
+      },
+      "minimum_operations": {
+        "max": 5,
+        "median": 5.0,
+        "min": 5
+      },
+      "one_card_count": 0,
+      "problem_count": 30,
+      "three_card_count": 0,
+      "two_card_count": 0
+    },
+    "8:0": {
+      "fallback": "128 attempts then fixed plus-only puzzle",
+      "fallback_observed": "not instrumented; not inferred from absence",
+      "numbers": 3,
+      "operator_assignments_per_puzzle": 16,
+      "operator_kinds_per_solution": {
+        "max": 2,
+        "median": 2.0,
+        "min": 1
+      },
+      "solution_count_exhaustive": {
+        "max": 4,
+        "median": 1.0,
+        "min": 1
+      }
+    },
+    "8:1": {
+      "fallback": "128 attempts then fixed plus-only puzzle",
+      "fallback_observed": "not instrumented; not inferred from absence",
+      "numbers": 4,
+      "operator_assignments_per_puzzle": 64,
+      "operator_kinds_per_solution": {
+        "max": 3,
+        "median": 2,
+        "min": 1
+      },
+      "solution_count_exhaustive": {
+        "max": 10,
+        "median": 1.0,
+        "min": 1
+      }
+    },
+    "8:2": {
+      "fallback": "128 attempts then fixed plus-only puzzle",
+      "fallback_observed": "not instrumented; not inferred from absence",
+      "numbers": 5,
+      "operator_assignments_per_puzzle": 256,
+      "operator_kinds_per_solution": {
+        "max": 4,
+        "median": 3,
+        "min": 1
+      },
+      "solution_count_exhaustive": {
+        "max": 21,
+        "median": 3.0,
+        "min": 1
+      }
+    },
+    "8:3": {
+      "fallback": "none; bank-backed",
+      "fallback_observed": "not applicable",
+      "numbers": 6,
+      "operator_assignments_per_puzzle": 1024,
+      "operator_kinds_per_solution": {
+        "max": 4,
+        "median": 3,
+        "min": 3
+      },
+      "solution_count_exhaustive": {
+        "max": 3,
+        "median": 1.0,
+        "min": 1
+      }
+    },
+    "9:0": {
+      "column_only_all_different_boards": {
+        "max": 6,
+        "median": 2.0,
+        "min": 1
+      },
+      "givens": {
+        "max": 4,
+        "median": 4.0,
+        "min": 4
+      },
+      "minimum_axis_candidates": {
+        "max": 4,
+        "median": 2.0,
+        "min": 1
+      },
+      "row_only_all_different_boards": {
+        "max": 6,
+        "median": 2.0,
+        "min": 1
+      }
+    },
+    "9:1": {
+      "column_only_all_different_boards": {
+        "max": 32,
+        "median": 7.0,
+        "min": 2
+      },
+      "givens": {
+        "max": 2,
+        "median": 2.0,
+        "min": 2
+      },
+      "minimum_axis_candidates": {
+        "max": 12,
+        "median": 4.0,
+        "min": 2
+      },
+      "row_only_all_different_boards": {
+        "max": 16,
+        "median": 4.0,
+        "min": 2
+      }
+    },
+    "9:2": {
+      "column_only_all_different_boards": {
+        "max": 288,
+        "median": 24.0,
+        "min": 8
+      },
+      "givens": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      },
+      "minimum_axis_candidates": {
+        "max": 168,
+        "median": 20.0,
+        "min": 8
+      },
+      "row_only_all_different_boards": {
+        "max": 576,
+        "median": 24.0,
+        "min": 8
+      }
+    },
+    "9:3": {
+      "column_only_all_different_boards": {
+        "max": 648,
+        "median": 216.0,
+        "min": 176
+      },
+      "givens": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      },
+      "minimum_axis_candidates": {
+        "max": 216,
+        "median": 216.0,
+        "min": 176
+      },
+      "row_only_all_different_boards": {
+        "max": 432,
+        "median": 216.0,
+        "min": 176
+      }
+    }
+  },
+  "baseline": "assets/guesscalc_difficulty_audit.json",
+  "before": {
+    "10:0": {
+      "Omega": {
+        "max": 4,
+        "median": 4,
+        "min": 2
+      },
+      "count": 65,
+      "decimal_digits": {
+        "max": 4,
+        "median": 2,
+        "min": 1
+      },
+      "distinct_primes": {
+        "max": 4,
+        "median": 2,
+        "min": 1
+      },
+      "large_prime_count": {
+        "max": 0,
+        "median": 0,
+        "min": 0
+      },
+      "max_prime": {
+        "max": 7,
+        "median": 7,
+        "min": 2
+      },
+      "prime_check_trial_division_proxy": {
+        "max": 2,
+        "median": 1,
+        "min": 0
+      },
+      "repeated_prime_count": {
+        "max": 2,
+        "median": 1,
+        "min": 0
+      },
+      "target": {
+        "max": 2401,
+        "median": 90,
+        "min": 4
+      }
+    },
+    "10:1": {
+      "Omega": {
+        "max": 5,
+        "median": 5.0,
+        "min": 3
+      },
+      "count": 434,
+      "decimal_digits": {
+        "max": 6,
+        "median": 4.0,
+        "min": 1
+      },
+      "distinct_primes": {
+        "max": 5,
+        "median": 3.0,
+        "min": 1
+      },
+      "large_prime_count": {
+        "max": 2,
+        "median": 1.0,
+        "min": 0
+      },
+      "max_prime": {
+        "max": 13,
+        "median": 11.0,
+        "min": 2
+      },
+      "prime_check_trial_division_proxy": {
+        "max": 6,
+        "median": 3.0,
+        "min": 0
+      },
+      "repeated_prime_count": {
+        "max": 2,
+        "median": 1.0,
+        "min": 0
+      },
+      "target": {
+        "max": 371293,
+        "median": 2112.0,
+        "min": 8
+      }
+    },
+    "10:2": {
+      "Omega": {
+        "max": 6,
+        "median": 5.0,
+        "min": 4
+      },
+      "count": 6754,
+      "decimal_digits": {
+        "max": 6,
+        "median": 6.0,
+        "min": 2
+      },
+      "distinct_primes": {
+        "max": 6,
+        "median": 4.0,
+        "min": 1
+      },
+      "large_prime_count": {
+        "max": 4,
+        "median": 2.0,
+        "min": 0
+      },
+      "max_prime": {
+        "max": 31,
+        "median": 23.0,
+        "min": 2
+      },
+      "prime_check_trial_division_proxy": {
+        "max": 14,
+        "median": 7.0,
+        "min": 0
+      },
+      "repeated_prime_count": {
+        "max": 3,
+        "median": 1.0,
+        "min": 0
+      },
+      "target": {
+        "max": 999635,
+        "median": 102903.0,
+        "min": 16
+      }
+    },
+    "10:3": {
+      "Omega": {
+        "max": 6,
+        "median": 6.0,
+        "min": 6
+      },
+      "count": 90,
+      "decimal_digits": {
+        "max": 6,
+        "median": 5.0,
+        "min": 4
+      },
+      "distinct_primes": {
+        "max": 4,
+        "median": 4.0,
+        "min": 4
+      },
+      "large_prime_count": {
+        "max": 2,
+        "median": 1.0,
+        "min": 0
+      },
+      "max_prime": {
+        "max": 13,
+        "median": 13.0,
+        "min": 7
+      },
+      "prime_check_trial_division_proxy": {
+        "max": 6,
+        "median": 4.0,
+        "min": 2
+      },
+      "repeated_prime_count": {
+        "max": 2,
+        "median": 2.0,
+        "min": 2
+      },
+      "target": {
+        "max": 715715,
+        "median": 30062.5,
+        "min": 1260
+      }
+    },
+    "1:0": {
+      "code_domain": 10000,
+      "digits": 4,
+      "guess_limit": 16,
+      "samples_with_repeated_digit": 148
+    },
+    "1:1": {
+      "code_domain": 100000,
+      "digits": 5,
+      "guess_limit": 12,
+      "samples_with_repeated_digit": 214
+    },
+    "1:2": {
+      "code_domain": 1000000,
+      "digits": 6,
+      "guess_limit": 10,
+      "samples_with_repeated_digit": 238
+    },
+    "1:3": {
+      "code_domain": 10000000,
+      "digits": 7,
+      "guess_limit": 16,
+      "samples_with_repeated_digit": 251
+    },
+    "2:0": {
+      "by_mode": {
+        "0": {
+          "count": 30,
+          "division_puzzles": 0,
+          "length": {
+            "max": 7,
+            "median": 7.0,
+            "min": 7
+          },
+          "multiplication_puzzles": 0,
+          "operator_count": {
+            "max": 1,
+            "median": 1.0,
+            "min": 1
+          }
+        },
+        "1": {
+          "count": 30,
+          "division_puzzles": 0,
+          "length": {
+            "max": 6,
+            "median": 6.0,
+            "min": 6
+          },
+          "multiplication_puzzles": 0,
+          "operator_count": {
+            "max": 1,
+            "median": 1.0,
+            "min": 1
+          }
+        },
+        "2": {
+          "count": 30,
+          "division_puzzles": 0,
+          "length": {
+            "max": 8,
+            "median": 8.0,
+            "min": 8
+          },
+          "multiplication_puzzles": 0,
+          "operator_count": {
+            "max": 1,
+            "median": 1.0,
+            "min": 1
+          }
+        }
+      },
+      "guess_limit": 12
+    },
+    "2:1": {
+      "by_mode": {
+        "0": {
+          "count": 30,
+          "division_puzzles": 0,
+          "length": {
+            "max": 7,
+            "median": 7.0,
+            "min": 7
+          },
+          "multiplication_puzzles": 5,
+          "operator_count": {
+            "max": 1,
+            "median": 1.0,
+            "min": 1
+          }
+        },
+        "1": {
+          "count": 30,
+          "division_puzzles": 0,
+          "length": {
+            "max": 6,
+            "median": 6.0,
+            "min": 6
+          },
+          "multiplication_puzzles": 16,
+          "operator_count": {
+            "max": 1,
+            "median": 1.0,
+            "min": 1
+          }
+        },
+        "2": {
+          "count": 30,
+          "division_puzzles": 0,
+          "length": {
+            "max": 8,
+            "median": 8.0,
+            "min": 8
+          },
+          "multiplication_puzzles": 3,
+          "operator_count": {
+            "max": 1,
+            "median": 1.0,
+            "min": 1
+          }
+        }
+      },
+      "guess_limit": 10
+    },
+    "2:2": {
+      "by_mode": {
+        "0": {
+          "count": 30,
+          "division_puzzles": 8,
+          "length": {
+            "max": 7,
+            "median": 7.0,
+            "min": 7
+          },
+          "multiplication_puzzles": 11,
+          "operator_count": {
+            "max": 2,
+            "median": 2.0,
+            "min": 2
+          }
+        },
+        "1": {
+          "count": 30,
+          "division_puzzles": 6,
+          "length": {
+            "max": 6,
+            "median": 6.0,
+            "min": 6
+          },
+          "multiplication_puzzles": 10,
+          "operator_count": {
+            "max": 1,
+            "median": 1.0,
+            "min": 1
+          }
+        },
+        "2": {
+          "count": 30,
+          "division_puzzles": 5,
+          "length": {
+            "max": 8,
+            "median": 8.0,
+            "min": 8
+          },
+          "multiplication_puzzles": 21,
+          "operator_count": {
+            "max": 2,
+            "median": 2.0,
+            "min": 2
+          }
+        }
+      },
+      "guess_limit": 8
+    },
+    "2:3": {
+      "by_mode": {
+        "0": {
+          "count": 30,
+          "division_puzzles": 17,
+          "length": {
+            "max": 9,
+            "median": 9.0,
+            "min": 9
+          },
+          "multiplication_puzzles": 16,
+          "operator_count": {
+            "max": 3,
+            "median": 3.0,
+            "min": 3
+          }
+        },
+        "1": {
+          "count": 30,
+          "division_puzzles": 3,
+          "length": {
+            "max": 8,
+            "median": 8.0,
+            "min": 8
+          },
+          "multiplication_puzzles": 27,
+          "operator_count": {
+            "max": 2,
+            "median": 2.0,
+            "min": 2
+          }
+        },
+        "2": {
+          "count": 30,
+          "division_puzzles": 10,
+          "length": {
+            "max": 10,
+            "median": 10.0,
+            "min": 10
+          },
+          "multiplication_puzzles": 23,
+          "operator_count": {
+            "max": 3,
+            "median": 3.0,
+            "min": 3
+          }
+        }
+      },
+      "guess_limit": 12
+    },
+    "33:0": {
+      "atom_layout_domain": 2300,
+      "atoms": 3,
+      "board_side": 5,
+      "ports": 20,
+      "ray_checks": 5120,
+      "unique_hidden_layout_guarantee": false,
+      "unique_sample_D4_layouts": 171,
+      "unique_sample_full_ray_vectors": 244
+    },
+    "33:1": {
+      "atom_layout_domain": 58905,
+      "atoms": 4,
+      "board_side": 6,
+      "ports": 24,
+      "ray_checks": 6144,
+      "unique_hidden_layout_guarantee": false,
+      "unique_sample_D4_layouts": 250,
+      "unique_sample_full_ray_vectors": 256
+    },
+    "33:2": {
+      "atom_layout_domain": 1906884,
+      "atoms": 5,
+      "board_side": 7,
+      "ports": 28,
+      "ray_checks": 7168,
+      "unique_hidden_layout_guarantee": false,
+      "unique_sample_D4_layouts": 256,
+      "unique_sample_full_ray_vectors": 256
+    },
+    "33:3": {
+      "atom_layout_domain": 74974368,
+      "atoms": 6,
+      "board_side": 8,
+      "ports": 32,
+      "ray_checks": 8192,
+      "unique_hidden_layout_guarantee": false,
+      "unique_sample_D4_layouts": 256,
+      "unique_sample_full_ray_vectors": 256
+    },
+    "34:0": {
+      "addend_length": 2,
+      "carry_columns": {
+        "max": 2,
+        "median": 2.0,
+        "min": 1
+      },
+      "column_solver_nodes": {
+        "max": 119,
+        "median": 71.5,
+        "min": 4
+      },
+      "letters": {
+        "max": 4,
+        "median": 3.0,
+        "min": 3
+      },
+      "solution_count_declared_and_independently_verified": 1
+    },
+    "34:1": {
+      "addend_length": 3,
+      "carry_columns": {
+        "max": 3,
+        "median": 2.0,
+        "min": 1
+      },
+      "column_solver_nodes": {
+        "max": 385,
+        "median": 125.0,
+        "min": 19
+      },
+      "letters": {
+        "max": 6,
+        "median": 5.0,
+        "min": 5
+      },
+      "solution_count_declared_and_independently_verified": 1
+    },
+    "34:2": {
+      "addend_length": 4,
+      "carry_columns": {
+        "max": 4,
+        "median": 3.0,
+        "min": 1
+      },
+      "column_solver_nodes": {
+        "max": 2055,
+        "median": 535.5,
+        "min": 120
+      },
+      "letters": {
+        "max": 7,
+        "median": 7.0,
+        "min": 7
+      },
+      "solution_count_declared_and_independently_verified": 1
+    },
+    "34:3": {
+      "addend_length": 5,
+      "carry_columns": {
+        "max": 5,
+        "median": 3.0,
+        "min": 1
+      },
+      "column_solver_nodes": {
+        "max": 3190,
+        "median": 639.5,
+        "min": 142
+      },
+      "letters": {
+        "max": 10,
+        "median": 8.0,
+        "min": 8
+      },
+      "solution_count_declared_and_independently_verified": 1
+    },
+    "3:0": {
+      "clue_count": {
+        "max": 11,
+        "median": 8.0,
+        "min": 5
+      },
+      "domain": 1296,
+      "zero_match_clues": {
+        "max": 7,
+        "median": 4.0,
+        "min": 1
+      }
+    },
+    "3:1": {
+      "clue_count": {
+        "max": 13,
+        "median": 10.0,
+        "min": 6
+      },
+      "domain": 4096,
+      "zero_match_clues": {
+        "max": 9,
+        "median": 5.0,
+        "min": 2
+      }
+    },
+    "3:2": {
+      "clue_count": {
+        "max": 14,
+        "median": 11.5,
+        "min": 6
+      },
+      "domain": 32768,
+      "zero_match_clues": {
+        "max": 10,
+        "median": 5.0,
+        "min": 1
+      }
+    },
+    "3:3": {
+      "clue_count": {
+        "max": 13,
+        "median": 12.0,
+        "min": 8
+      },
+      "domain": 262144,
+      "zero_match_clues": {
+        "max": 7,
+        "median": 4.0,
+        "min": 1
+      }
+    },
+    "4:0": {
+      "domain": 100,
+      "modulus_values": [
+        3,
+        4,
+        5,
+        7,
+        9,
+        11,
+        13,
+        17
+      ],
+      "public_range_width": {
+        "max": 99,
+        "median": 72.5,
+        "min": 52
+      }
+    },
+    "4:1": {
+      "domain": 500,
+      "modulus_values": [
+        3,
+        4,
+        5,
+        7,
+        9,
+        11,
+        13,
+        17
+      ],
+      "public_range_width": {
+        "max": 471,
+        "median": 377.0,
+        "min": 242
+      }
+    },
+    "4:2": {
+      "domain": 1000,
+      "modulus_values": [
+        17,
+        19,
+        23,
+        29,
+        31,
+        37
+      ],
+      "public_range_width": {
+        "max": 973,
+        "median": 732.5,
+        "min": 573
+      }
+    },
+    "4:3": {
+      "domain": 10000,
+      "modulus_values": [
+        7,
+        11,
+        13,
+        17,
+        19
+      ],
+      "omit_one_clue_candidates": {
+        "max": 13,
+        "median": 4.0,
+        "min": 2
+      },
+      "public_range_width": {
+        "max": 10000,
+        "median": 10000.0,
+        "min": 10000
+      }
+    },
+    "5:0": {
+      "families": {
+        "0": 5,
+        "4": 25
+      },
+      "max_absolute_term": {
+        "max": 39,
+        "median": 11.0,
+        "min": 3
+      }
+    },
+    "5:1": {
+      "families": {
+        "2": 2,
+        "3": 3,
+        "4": 25
+      },
+      "max_absolute_term": {
+        "max": 96,
+        "median": 11.0,
+        "min": 5
+      }
+    },
+    "5:2": {
+      "families": {
+        "2": 14,
+        "3": 4,
+        "5": 12
+      },
+      "max_absolute_term": {
+        "max": 3644,
+        "median": 82.5,
+        "min": 2
+      }
+    },
+    "5:3": {
+      "families": {
+        "6": 15,
+        "7": 15
+      },
+      "max_absolute_term": {
+        "max": 989,
+        "median": 17.5,
+        "min": 2
+      }
+    },
+    "6:0": {
+      "canonical_solution_count": {
+        "max": 12720,
+        "median": 1008.0,
+        "min": 576
+      },
+      "complexity_score": {
+        "max": 8295,
+        "median": 8295.0,
+        "min": 71
+      },
+      "count": 96,
+      "division_required": 0,
+      "division_steps": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      },
+      "fraction_required": 0,
+      "fractional_steps": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      },
+      "max_denominator": {
+        "max": 1,
+        "median": 1.0,
+        "min": 1
+      },
+      "subtraction_steps": {
+        "max": 1,
+        "median": 1.0,
+        "min": 0
+      },
+      "tree_depth": {
+        "max": 3,
+        "median": 3.0,
+        "min": 2
+      },
+      "unary_steps": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      }
+    },
+    "6:1": {
+      "canonical_solution_count": {
+        "max": 16368,
+        "median": 348.0,
+        "min": 72
+      },
+      "complexity_score": {
+        "max": 278634,
+        "median": 16488.5,
+        "min": 8259
+      },
+      "count": 96,
+      "division_required": 46,
+      "division_steps": {
+        "max": 1,
+        "median": 0.0,
+        "min": 0
+      },
+      "fraction_required": 0,
+      "fractional_steps": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      },
+      "max_denominator": {
+        "max": 1,
+        "median": 1.0,
+        "min": 1
+      },
+      "subtraction_steps": {
+        "max": 2,
+        "median": 1.0,
+        "min": 1
+      },
+      "tree_depth": {
+        "max": 3,
+        "median": 3.0,
+        "min": 2
+      },
+      "unary_steps": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      }
+    },
+    "6:2": {
+      "canonical_solution_count": {
+        "max": 738720,
+        "median": 22944.0,
+        "min": 384
+      },
+      "complexity_score": {
+        "max": 278632,
+        "median": 8290.5,
+        "min": 100
+      },
+      "count": 96,
+      "division_required": 30,
+      "division_steps": {
+        "max": 1,
+        "median": 0.0,
+        "min": 0
+      },
+      "fraction_required": 0,
+      "fractional_steps": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      },
+      "max_denominator": {
+        "max": 1,
+        "median": 1.0,
+        "min": 1
+      },
+      "subtraction_steps": {
+        "max": 2,
+        "median": 1.0,
+        "min": 0
+      },
+      "tree_depth": {
+        "max": 4,
+        "median": 3.0,
+        "min": 3
+      },
+      "unary_steps": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      }
+    },
+    "6:3": {
+      "canonical_solution_count": {
+        "max": 69009888,
+        "median": 4454736.0,
+        "min": 9216
+      },
+      "complexity_score": {
+        "max": 278691,
+        "median": 8288.0,
+        "min": 96
+      },
+      "count": 96,
+      "division_required": 12,
+      "division_steps": {
+        "max": 1,
+        "median": 0.0,
+        "min": 0
+      },
+      "fraction_required": 0,
+      "fractional_steps": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      },
+      "max_denominator": {
+        "max": 1,
+        "median": 1.0,
+        "min": 1
+      },
+      "subtraction_steps": {
+        "max": 3,
+        "median": 1.0,
+        "min": 0
+      },
+      "tree_depth": {
+        "max": 5,
+        "median": 3.0,
+        "min": 3
+      },
+      "unary_steps": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      }
+    },
+    "7:0": {
+      "canonical_exact_solutions": {
+        "max": 6222,
+        "median": 238.5,
+        "min": 51
+      },
+      "division_required": 0,
+      "easiest_subtractions": {
+        "max": 1,
+        "median": 0.0,
+        "min": 0
+      },
+      "minimum_card_histogram": {
+        "2": 2,
+        "3": 12,
+        "4": 13,
+        "5": 3
+      },
+      "minimum_cards": {
+        "max": 5,
+        "median": 4.0,
+        "min": 2
+      },
+      "minimum_operations": {
+        "max": 4,
+        "median": 3.0,
+        "min": 1
+      },
+      "one_card_count": 0,
+      "problem_count": 30,
+      "three_card_count": 12,
+      "two_card_count": 2
+    },
+    "7:1": {
+      "canonical_exact_solutions": {
+        "max": 1623,
+        "median": 233.5,
+        "min": 11
+      },
+      "division_required": 0,
+      "easiest_subtractions": {
+        "max": 1,
+        "median": 0.0,
+        "min": 0
+      },
+      "minimum_card_histogram": {
+        "2": 1,
+        "3": 10,
+        "4": 18,
+        "5": 1
+      },
+      "minimum_cards": {
+        "max": 5,
+        "median": 4.0,
+        "min": 2
+      },
+      "minimum_operations": {
+        "max": 4,
+        "median": 3.0,
+        "min": 1
+      },
+      "one_card_count": 0,
+      "problem_count": 30,
+      "three_card_count": 10,
+      "two_card_count": 1
+    },
+    "7:2": {
+      "canonical_exact_solutions": {
+        "max": 6858,
+        "median": 555.0,
+        "min": 17
+      },
+      "division_required": 0,
+      "easiest_subtractions": {
+        "max": 2,
+        "median": 0.0,
+        "min": 0
+      },
+      "minimum_card_histogram": {
+        "1": 2,
+        "2": 2,
+        "3": 11,
+        "4": 12,
+        "5": 3
+      },
+      "minimum_cards": {
+        "max": 5,
+        "median": 3.5,
+        "min": 1
+      },
+      "minimum_operations": {
+        "max": 4,
+        "median": 2.5,
+        "min": 0
+      },
+      "one_card_count": 2,
+      "problem_count": 30,
+      "three_card_count": 11,
+      "two_card_count": 2
+    },
+    "7:3": {
+      "canonical_exact_solutions": {
+        "max": 42,
+        "median": 3.0,
+        "min": 1
+      },
+      "division_required": 30,
+      "easiest_subtractions": {
+        "max": 2,
+        "median": 1.0,
+        "min": 0
+      },
+      "minimum_card_histogram": {
+        "6": 30
+      },
+      "minimum_cards": {
+        "max": 6,
+        "median": 6.0,
+        "min": 6
+      },
+      "minimum_operations": {
+        "max": 5,
+        "median": 5.0,
+        "min": 5
+      },
+      "one_card_count": 0,
+      "problem_count": 30,
+      "three_card_count": 0,
+      "two_card_count": 0
+    },
+    "8:0": {
+      "fallback": "128 attempts then fixed plus-only puzzle",
+      "fallback_observed": "not instrumented; not inferred from absence",
+      "numbers": 3,
+      "operator_assignments_per_puzzle": 16,
+      "operator_kinds_per_solution": {
+        "max": 2,
+        "median": 2.0,
+        "min": 1
+      },
+      "solution_count_exhaustive": {
+        "max": 4,
+        "median": 1.0,
+        "min": 1
+      }
+    },
+    "8:1": {
+      "fallback": "128 attempts then fixed plus-only puzzle",
+      "fallback_observed": "not instrumented; not inferred from absence",
+      "numbers": 4,
+      "operator_assignments_per_puzzle": 64,
+      "operator_kinds_per_solution": {
+        "max": 3,
+        "median": 2,
+        "min": 1
+      },
+      "solution_count_exhaustive": {
+        "max": 10,
+        "median": 1.0,
+        "min": 1
+      }
+    },
+    "8:2": {
+      "fallback": "128 attempts then fixed plus-only puzzle",
+      "fallback_observed": "not instrumented; not inferred from absence",
+      "numbers": 5,
+      "operator_assignments_per_puzzle": 256,
+      "operator_kinds_per_solution": {
+        "max": 4,
+        "median": 3,
+        "min": 1
+      },
+      "solution_count_exhaustive": {
+        "max": 21,
+        "median": 3.0,
+        "min": 1
+      }
+    },
+    "8:3": {
+      "fallback": "none; bank-backed",
+      "fallback_observed": "not applicable",
+      "numbers": 6,
+      "operator_assignments_per_puzzle": 1024,
+      "operator_kinds_per_solution": {
+        "max": 4,
+        "median": 3,
+        "min": 3
+      },
+      "solution_count_exhaustive": {
+        "max": 3,
+        "median": 1.0,
+        "min": 1
+      }
+    },
+    "9:0": {
+      "column_only_all_different_boards": {
+        "max": 6,
+        "median": 2.0,
+        "min": 1
+      },
+      "givens": {
+        "max": 4,
+        "median": 4.0,
+        "min": 4
+      },
+      "minimum_axis_candidates": {
+        "max": 4,
+        "median": 2.0,
+        "min": 1
+      },
+      "row_only_all_different_boards": {
+        "max": 6,
+        "median": 2.0,
+        "min": 1
+      }
+    },
+    "9:1": {
+      "column_only_all_different_boards": {
+        "max": 32,
+        "median": 7.0,
+        "min": 2
+      },
+      "givens": {
+        "max": 2,
+        "median": 2.0,
+        "min": 2
+      },
+      "minimum_axis_candidates": {
+        "max": 12,
+        "median": 4.0,
+        "min": 2
+      },
+      "row_only_all_different_boards": {
+        "max": 16,
+        "median": 4.0,
+        "min": 2
+      }
+    },
+    "9:2": {
+      "column_only_all_different_boards": {
+        "max": 288,
+        "median": 24.0,
+        "min": 8
+      },
+      "givens": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      },
+      "minimum_axis_candidates": {
+        "max": 168,
+        "median": 20.0,
+        "min": 8
+      },
+      "row_only_all_different_boards": {
+        "max": 576,
+        "median": 24.0,
+        "min": 8
+      }
+    },
+    "9:3": {
+      "column_only_all_different_boards": {
+        "max": 648,
+        "median": 216.0,
+        "min": 176
+      },
+      "givens": {
+        "max": 0,
+        "median": 0.0,
+        "min": 0
+      },
+      "minimum_axis_candidates": {
+        "max": 216,
+        "median": 216.0,
+        "min": 176
+      },
+      "row_only_all_different_boards": {
+        "max": 432,
+        "median": 216.0,
+        "min": 176
+      }
+    }
+  },
+  "countdown": {
+    "before": [
+      {
+        "canonical_exact_solutions": 92,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((100-5)*5)+8)",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 0
+      },
+      {
+        "canonical_exact_solutions": 987,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((10+2)*25)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 1
+      },
+      {
+        "canonical_exact_solutions": 113,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((75-(2*8))*6)",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 2
+      },
+      {
+        "canonical_exact_solutions": 617,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((4+6)*25)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 3
+      },
+      {
+        "canonical_exact_solutions": 688,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((25*7)+5)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 4
+      },
+      {
+        "canonical_exact_solutions": 213,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((10*8)*(4+7))",
+        "easiest_subtractions": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 5
+      },
+      {
+        "canonical_exact_solutions": 133,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((1+1)+7)*(7*8))",
+        "easiest_subtractions": 0,
+        "min_cards": 5,
+        "min_operations": 4,
+        "puzzle_id": 6
+      },
+      {
+        "canonical_exact_solutions": 3605,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100+3)-2)",
+        "easiest_subtractions": 1,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 7
+      },
+      {
+        "canonical_exact_solutions": 225,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((10-7)+(100*6))",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 8
+      },
+      {
+        "canonical_exact_solutions": 1728,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((1+1)+100)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 9
+      },
+      {
+        "canonical_exact_solutions": 606,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((50+6)*3)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 10
+      },
+      {
+        "canonical_exact_solutions": 226,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((1+25)*4)+9)",
+        "easiest_subtractions": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 11
+      },
+      {
+        "canonical_exact_solutions": 292,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((1+100)*2)+3)",
+        "easiest_subtractions": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 12
+      },
+      {
+        "canonical_exact_solutions": 95,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100*9)+(2*5))",
+        "easiest_subtractions": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 13
+      },
+      {
+        "canonical_exact_solutions": 112,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((4-3)+(75*9))",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 14
+      },
+      {
+        "canonical_exact_solutions": 51,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((7*7)*9)+3)",
+        "easiest_subtractions": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 15
+      },
+      {
+        "canonical_exact_solutions": 227,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((10+4)*(6*8))",
+        "easiest_subtractions": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 16
+      },
+      {
+        "canonical_exact_solutions": 227,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((1+1)*100)-3)",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 17
+      },
+      {
+        "canonical_exact_solutions": 440,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100*4)+5)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 18
+      },
+      {
+        "canonical_exact_solutions": 6222,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(100*4)",
+        "easiest_subtractions": 0,
+        "min_cards": 2,
+        "min_operations": 1,
+        "puzzle_id": 19
+      },
+      {
+        "canonical_exact_solutions": 250,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((10*6)+75)*2)",
+        "easiest_subtractions": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 20
+      },
+      {
+        "canonical_exact_solutions": 226,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((25+8)*7)-5)",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 21
+      },
+      {
+        "canonical_exact_solutions": 311,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((10+100)-6)",
+        "easiest_subtractions": 1,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 22
+      },
+      {
+        "canonical_exact_solutions": 76,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((10+8)*25)+(4*7))",
+        "easiest_subtractions": 0,
+        "min_cards": 5,
+        "min_operations": 4,
+        "puzzle_id": 23
+      },
+      {
+        "canonical_exact_solutions": 752,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((2+7)*75)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 24
+      },
+      {
+        "canonical_exact_solutions": 63,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((((1+1)+3)*75)-8)",
+        "easiest_subtractions": 1,
+        "min_cards": 5,
+        "min_operations": 4,
+        "puzzle_id": 25
+      },
+      {
+        "canonical_exact_solutions": 674,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((3+3)*25)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 26
+      },
+      {
+        "canonical_exact_solutions": 202,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100+9)*8)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 27
+      },
+      {
+        "canonical_exact_solutions": 501,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(100+9)",
+        "easiest_subtractions": 0,
+        "min_cards": 2,
+        "min_operations": 1,
+        "puzzle_id": 28
+      },
+      {
+        "canonical_exact_solutions": 652,
+        "difficulty": 0,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((6+8)*25)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 29
+      },
+      {
+        "canonical_exact_solutions": 106,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100*8)+1)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 30
+      },
+      {
+        "canonical_exact_solutions": 112,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((25+6)+75)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 31
+      },
+      {
+        "canonical_exact_solutions": 77,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((25+7)*9)+2)",
+        "easiest_subtractions": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 32
+      },
+      {
+        "canonical_exact_solutions": 1143,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((75-(4+8))*3)",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 33
+      },
+      {
+        "canonical_exact_solutions": 177,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((100+8)*2)+75)",
+        "easiest_subtractions": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 34
+      },
+      {
+        "canonical_exact_solutions": 191,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100-(25+8))*10)",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 35
+      },
+      {
+        "canonical_exact_solutions": 510,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100+25)-8)",
+        "easiest_subtractions": 1,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 36
+      },
+      {
+        "canonical_exact_solutions": 11,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((7*9)+50)*6)",
+        "easiest_subtractions": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 37
+      },
+      {
+        "canonical_exact_solutions": 315,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((50-(10+2))*8)",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 38
+      },
+      {
+        "canonical_exact_solutions": 455,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((4*75)-25)",
+        "easiest_subtractions": 1,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 39
+      },
+      {
+        "canonical_exact_solutions": 155,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((3+50)*6)+2)",
+        "easiest_subtractions": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 40
+      },
+      {
+        "canonical_exact_solutions": 582,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100+50)-2)",
+        "easiest_subtractions": 1,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 41
+      },
+      {
+        "canonical_exact_solutions": 425,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100+75)-(3+4))",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 42
+      },
+      {
+        "canonical_exact_solutions": 1623,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((10*2)*6)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 43
+      },
+      {
+        "canonical_exact_solutions": 177,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((3*8)+9)*10)",
+        "easiest_subtractions": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 44
+      },
+      {
+        "canonical_exact_solutions": 32,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((((4*50)+8)*3)+25)",
+        "easiest_subtractions": 0,
+        "min_cards": 5,
+        "min_operations": 4,
+        "puzzle_id": 45
+      },
+      {
+        "canonical_exact_solutions": 178,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((75*9)+1)-3)",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 46
+      },
+      {
+        "canonical_exact_solutions": 341,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100*2)+(5-4))",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 47
+      },
+      {
+        "canonical_exact_solutions": 782,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(100+9)",
+        "easiest_subtractions": 0,
+        "min_cards": 2,
+        "min_operations": 1,
+        "puzzle_id": 48
+      },
+      {
+        "canonical_exact_solutions": 177,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((50*6)+(75-6))",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 49
+      },
+      {
+        "canonical_exact_solutions": 60,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((10+6)+7)*7)",
+        "easiest_subtractions": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 50
+      },
+      {
+        "canonical_exact_solutions": 298,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100+75)-3)",
+        "easiest_subtractions": 1,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 51
+      },
+      {
+        "canonical_exact_solutions": 386,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((1+6)+(2*50))",
+        "easiest_subtractions": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 52
+      },
+      {
+        "canonical_exact_solutions": 1218,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100+3)+50)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 53
+      },
+      {
+        "canonical_exact_solutions": 265,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100+75)*3)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 54
+      },
+      {
+        "canonical_exact_solutions": 390,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100+25)+(9+9))",
+        "easiest_subtractions": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 55
+      },
+      {
+        "canonical_exact_solutions": 46,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100*8)+(6-5))",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 56
+      },
+      {
+        "canonical_exact_solutions": 98,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100*6)+(5-3))",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 57
+      },
+      {
+        "canonical_exact_solutions": 202,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((5+50)*3)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 58
+      },
+      {
+        "canonical_exact_solutions": 446,
+        "difficulty": 1,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((10*2)*9)-25)",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 59
+      },
+      {
+        "canonical_exact_solutions": 3879,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "100",
+        "easiest_subtractions": 0,
+        "min_cards": 1,
+        "min_operations": 0,
+        "puzzle_id": 60
+      },
+      {
+        "canonical_exact_solutions": 363,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100+4)-3)",
+        "easiest_subtractions": 1,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 61
+      },
+      {
+        "canonical_exact_solutions": 6858,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(2*75)",
+        "easiest_subtractions": 0,
+        "min_cards": 2,
+        "min_operations": 1,
+        "puzzle_id": 62
+      },
+      {
+        "canonical_exact_solutions": 933,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100+25)*5)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 63
+      },
+      {
+        "canonical_exact_solutions": 142,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((75*8)-((25+6)+9))",
+        "easiest_subtractions": 1,
+        "min_cards": 5,
+        "min_operations": 4,
+        "puzzle_id": 64
+      },
+      {
+        "canonical_exact_solutions": 678,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((25*6)+(50-3))",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 65
+      },
+      {
+        "canonical_exact_solutions": 1743,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((25+5)*4)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 66
+      },
+      {
+        "canonical_exact_solutions": 222,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((50+9)*10)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 67
+      },
+      {
+        "canonical_exact_solutions": 47,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((50-4)*9)+(25*5))",
+        "easiest_subtractions": 1,
+        "min_cards": 5,
+        "min_operations": 4,
+        "puzzle_id": 68
+      },
+      {
+        "canonical_exact_solutions": 1749,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100+25)+(4-1))",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 69
+      },
+      {
+        "canonical_exact_solutions": 1514,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((10+50)+75)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 70
+      },
+      {
+        "canonical_exact_solutions": 948,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "100",
+        "easiest_subtractions": 0,
+        "min_cards": 1,
+        "min_operations": 0,
+        "puzzle_id": 71
+      },
+      {
+        "canonical_exact_solutions": 60,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((7+75)*6)+10)",
+        "easiest_subtractions": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 72
+      },
+      {
+        "canonical_exact_solutions": 990,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((25+75)*6)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 73
+      },
+      {
+        "canonical_exact_solutions": 631,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((5*75)-25)",
+        "easiest_subtractions": 1,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 74
+      },
+      {
+        "canonical_exact_solutions": 17,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((100-4)*7)-10)",
+        "easiest_subtractions": 2,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 75
+      },
+      {
+        "canonical_exact_solutions": 714,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(100+3)",
+        "easiest_subtractions": 0,
+        "min_cards": 2,
+        "min_operations": 1,
+        "puzzle_id": 76
+      },
+      {
+        "canonical_exact_solutions": 554,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((10+2)*50)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 77
+      },
+      {
+        "canonical_exact_solutions": 343,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100+50)+(75-8))",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 78
+      },
+      {
+        "canonical_exact_solutions": 143,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((25-2)+(50*7))",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 79
+      },
+      {
+        "canonical_exact_solutions": 781,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100+75)*2)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 80
+      },
+      {
+        "canonical_exact_solutions": 2017,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100+25)+(5+50))",
+        "easiest_subtractions": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 81
+      },
+      {
+        "canonical_exact_solutions": 41,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((50*7)-6)",
+        "easiest_subtractions": 1,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 82
+      },
+      {
+        "canonical_exact_solutions": 50,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 1,
+        "easiest_expression": "((100*3)-(50/25))",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 83
+      },
+      {
+        "canonical_exact_solutions": 78,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((7*75)-(10*8))",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 84
+      },
+      {
+        "canonical_exact_solutions": 377,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((100*8)+75)",
+        "easiest_subtractions": 0,
+        "min_cards": 3,
+        "min_operations": 2,
+        "puzzle_id": 85
+      },
+      {
+        "canonical_exact_solutions": 48,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((100+2)*8)+(25+7))",
+        "easiest_subtractions": 0,
+        "min_cards": 5,
+        "min_operations": 4,
+        "puzzle_id": 86
+      },
+      {
+        "canonical_exact_solutions": 696,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "(((1+25)*3)+75)",
+        "easiest_subtractions": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 87
+      },
+      {
+        "canonical_exact_solutions": 556,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((10*8)+(25+75))",
+        "easiest_subtractions": 0,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 88
+      },
+      {
+        "canonical_exact_solutions": 57,
+        "difficulty": 2,
+        "division_required": false,
+        "easiest_divisions": 0,
+        "easiest_expression": "((50+8)*(8-2))",
+        "easiest_subtractions": 1,
+        "min_cards": 4,
+        "min_operations": 3,
+        "puzzle_id": 89
+      },
+      {
+        "canonical_exact_solutions": 13,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "(((((7*75)+1)*25)/50)+8)",
+        "easiest_subtractions": 0,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 90
+      },
+      {
+        "canonical_exact_solutions": 2,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "((((50-1)*(75/25))-8)*7)",
+        "easiest_subtractions": 2,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 91
+      },
+      {
+        "canonical_exact_solutions": 3,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "(((10+50)+7)*((100/25)+5))",
+        "easiest_subtractions": 0,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 92
+      },
+      {
+        "canonical_exact_solutions": 2,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "((((50-10)*5)+7)*(100/25))",
+        "easiest_subtractions": 1,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 93
+      },
+      {
+        "canonical_exact_solutions": 1,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "(((((10+4)*50)+8)*100)/75)",
+        "easiest_subtractions": 0,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 94
+      },
+      {
+        "canonical_exact_solutions": 9,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "((((50+8)*75)/10)+(100+4))",
+        "easiest_subtractions": 0,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 95
+      },
+      {
+        "canonical_exact_solutions": 11,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "((((2*7)+75)-(50/25))*9)",
+        "easiest_subtractions": 1,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 96
+      },
+      {
+        "canonical_exact_solutions": 26,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "(((2+50)*9)+((75/25)+7))",
+        "easiest_subtractions": 0,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 97
+      },
+      {
+        "canonical_exact_solutions": 30,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "(((2*50)/100)+((25*8)-4))",
+        "easiest_subtractions": 1,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 98
+      },
+      {
+        "canonical_exact_solutions": 1,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "((2+25)*(50-((100+4)/8)))",
+        "easiest_subtractions": 1,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 99
+      },
+      {
+        "canonical_exact_solutions": 4,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "((((100*9)/75)+10)*(25+6))",
+        "easiest_subtractions": 0,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 100
+      },
+      {
+        "canonical_exact_solutions": 8,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "(((10+9)*6)*((100+75)/25))",
+        "easiest_subtractions": 0,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 101
+      },
+      {
+        "canonical_exact_solutions": 1,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "((((25*75)+7)/(10-8))+50)",
+        "easiest_subtractions": 1,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 102
+      },
+      {
+        "canonical_exact_solutions": 3,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "((((75-(50/25))*10)+7)-8)",
+        "easiest_subtractions": 2,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 103
+      },
+      {
+        "canonical_exact_solutions": 4,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "((((50*7)/25)+100)*(3+5))",
+        "easiest_subtractions": 0,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 104
+      },
+      {
+        "canonical_exact_solutions": 42,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "(((100*50)/25)+((3*7)+5))",
+        "easiest_subtractions": 0,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 105
+      },
+      {
+        "canonical_exact_solutions": 10,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "((((10+4)*(75-1))*25)/50)",
+        "easiest_subtractions": 1,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 106
+      },
+      {
+        "canonical_exact_solutions": 3,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "(((((50/25)+75)*10)+1)-4)",
+        "easiest_subtractions": 1,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 107
+      },
+      {
+        "canonical_exact_solutions": 3,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "(((1+2)*(5*50))+(100/25))",
+        "easiest_subtractions": 0,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 108
+      },
+      {
+        "canonical_exact_solutions": 7,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "(((100-1)*(50/5))-(2+25))",
+        "easiest_subtractions": 2,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 109
+      },
+      {
+        "canonical_exact_solutions": 15,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "(((10/5)*(100+2))+(50+75))",
+        "easiest_subtractions": 0,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 110
+      },
+      {
+        "canonical_exact_solutions": 1,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "(((((5+50)*10)-2)*75)/100)",
+        "easiest_subtractions": 1,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 111
+      },
+      {
+        "canonical_exact_solutions": 3,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "(((100-75)*10)+((50/10)-1))",
+        "easiest_subtractions": 2,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 112
+      },
+      {
+        "canonical_exact_solutions": 26,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "(((1+50)+75)+((10+100)/10))",
+        "easiest_subtractions": 0,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 113
+      },
+      {
+        "canonical_exact_solutions": 2,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "(((100-6)/2)+((25-7)*50))",
+        "easiest_subtractions": 2,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 114
+      },
+      {
+        "canonical_exact_solutions": 2,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "((((50/25)+7)*(100-2))-6)",
+        "easiest_subtractions": 2,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 115
+      },
+      {
+        "canonical_exact_solutions": 2,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "((((100+75)*(25-3))/5)-1)",
+        "easiest_subtractions": 2,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 116
+      },
+      {
+        "canonical_exact_solutions": 40,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "(((100*3)*(75/25))-(1+5))",
+        "easiest_subtractions": 1,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 117
+      },
+      {
+        "canonical_exact_solutions": 3,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "((((75-50)*100)+(6-1))/3)",
+        "easiest_subtractions": 2,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 118
+      },
+      {
+        "canonical_exact_solutions": 1,
+        "difficulty": 3,
+        "division_required": true,
+        "easiest_divisions": 1,
+        "easiest_expression": "((((100-1)*(50-3))+75)/6)",
+        "easiest_subtractions": 2,
+        "min_cards": 6,
+        "min_operations": 5,
+        "puzzle_id": 119
+      }
+    ],
+    "generation_attempts": 63,
+    "rejected_shortcuts": 1,
+    "retained_hard_content_ids": [
+      64,
+      65,
+      68,
+      69,
+      72,
+      75,
+      78,
+      79,
+      81,
+      83,
+      84,
+      86,
+      87,
+      88,
+      89
+    ]
+  },
+  "native": {
+    "native_parser_expressions": 24000,
+    "native_records": 8000
+  },
+  "revision": 4,
+  "sequence": {
+    "affine_cross_level_overlap": 1,
+    "affine_unique": [
+      9,
+      27
+    ],
+    "ambiguity_rejects": [
+      0,
+      0
+    ]
+  },
+  "target_generation": {
+    "attempts_by_level": [
+      2010,
+      2005,
+      2002,
+      2056
+    ],
+    "duplicate_candidates_by_level": [
+      10,
+      0,
+      0,
+      0
+    ],
+    "rejects_by_level": [
+      0,
+      5,
+      2,
+      56
+    ]
+  }
+}

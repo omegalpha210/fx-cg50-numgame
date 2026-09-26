@@ -128,7 +128,7 @@
       "flags": 2,
       "aux": "",
       "primary": "CHECK",
-      "rules": "Find the next term in a FINITE rule grammar.\nA finite prefix is not universally unique!\nAllowed rules (n starts at 0):\na+bn: a=-9..9, b=-5..5, b nonzero.\na*b^n: a=1..5, b=-3,-2,2,3.\na+bn+cn*n: a=-5..5,b=-4..4,c=1..3.\nFibonacci sum: first two each 1..9.\nAlternating lanes: starts -6..9, step 1..5.\nx'=b*x+c: start -3..6,b=-2,-1,2,3,\nc=-3..3 nonzero. Both lanes share a step.\nMASTER adds x_next=a*x_last+b*x_before+c,\nfirst two -3..6; a,b,c each -2,-1,1,2;\nand alternating lanes with DIFFERENT steps,\nstarts -6..9; each step -5..5 nonzero.\nMASTER checks old and new rules together.\nOther levels use the six old rules only.\nPacks reject competing next answers across\ntheir level grammar. HINT reveals RULE FAMILY.\nEnter signed integer, EXE checks.",
+      "rules": "Find the next term in a FINITE rule grammar.\nA finite prefix is not universally unique!\nAllowed rules (n starts at 0):\na+bn: a=-9..9, b=-5..5, b nonzero.\na*b^n: a=1..5, b=-3,-2,2,3.\na+bn+cn*n: a=-5..5,b=-4..4,c=1..3.\nFibonacci sum: first two each 1..9.\nAlternating lanes: starts -6..9, step 1..5.\nx'=b*x+c: start -3..6,b=-2,-1,2,3,\nc=-3..3 nonzero. Both lanes share a step.\nMASTER adds x_next=a*x_last+b*x_before+c,\nfirst two -3..6; a,b,c each -2,-1,1,2;\nand alternating lanes with DIFFERENT steps,\nstarts -6..9; each step -5..5 nonzero.\nRevision4 EASY uses AP, GP, shared step.\nNORMAL: quadratic, Fibonacci, offset, and\nunequal lanes: starts1..9, steps1..3.\nHARD keeps the six old rules; MASTER uses\nall old and new rules together. Old saves\nkeep their original grammar.\nPacks reject competing next answers across\ntheir level grammar. HINT reveals RULE FAMILY.\nEnter signed integer, EXE checks.",
       "modes": [
         "STANDARD"
       ],
@@ -174,20 +174,20 @@
       "difficulties": 4,
       "regular_difficulties": 4,
       "has_hell": false,
-      "generation_policy": 0,
+      "generation_policy": 1,
       "flags": 2,
       "aux": "ANSWER",
       "primary": "CHECK",
-      "rules": "Choose a target 1..1000 on the entry screen.\nUse EVERY card exactly once to reach it.\nEASY/NORMAL/HARD/MASTER: 4/4/5/6 cards.\nUse + - * / and parentheses.\nExact rational intermediate values allowed.\nNo concatenation, powers or extra constants.\nEqual values are separate usable cards.\nEvery generated deck has a verified solution.\nType expression; DEL erases; EXE checks.\nHINT gives one first step; ANSWER copies one\nexample. Both mark assisted. All legal answers\nare accepted, not just that example.\n96 chars, nesting12, reduced values <= 1e9.\nOlder saved target10/24 decks remain playable.",
+      "rules": "Choose a target 1..1000 on the entry screen.\nUse EVERY card exactly once to reach it.\nEASY/NORMAL/HARD/MASTER: 4/4/5/6 cards.\nUse + - * / and parentheses.\nExact rational intermediate values allowed.\nNo concatenation, powers or extra constants.\nEqual values are separate usable cards.\nRevision4: two exact-graded decks per target.\nE: no division needed. N/H: division needed.\nMASTER: every solution needs fractions.\nType expression; DEL erases; EXE checks.\nHINT gives one first step; ANSWER copies one\nexample. Both mark assisted. All legal answers\nare accepted, not just that example.\n96 chars, nesting12, reduced values <= 1e9.\nOlder saved target10/24 decks remain playable.",
       "modes": [
         "STANDARD"
       ],
       "bank_counts_by_mode": [
         [
-          0,
-          0,
-          0,
-          0
+          2,
+          2,
+          2,
+          2
         ]
       ]
     },
@@ -203,7 +203,7 @@
       "flags": 2,
       "aux": "FINISH",
       "primary": "CHECK",
-      "rules": "Reach target 100..999 with up to six cards.\nEach card at most once; unused cards allowed.\nEvery intermediate result MUST be a positive\ninteger; division must be exact. + - * / ( ).\nSmall deck: two copies each of 1..10.\nLarge: 25,50,75,100, without repeats.\nEasy/Normal/Hard: 1/2/3 large cards.\nMASTER: 3 large cards; exact target requires\nall six cards and at least one division.\nUntimed practice. EXE checks each expression.\nExact=10 points, distance 1..5=7,6..10=5,\nelse 0. Best submitted distance is retained.\nFINISH keeps best result. No optimality claim.\nHINT gives first step of one exact solution.",
+      "rules": "Reach target 100..999 with up to six cards.\nEach card at most once; unused cards allowed.\nEvery intermediate result MUST be a positive\ninteger; division must be exact. + - * / ( ).\nSmall deck: two copies each of 1..10.\nLarge: 25,50,75,100, without repeats.\nEasy/Normal/Hard: 1/2/3 large cards.\nNew HARD: every exact answer needs >=4 cards.\nMASTER: 3 large cards; exact target requires\nall six cards and at least one division.\nUntimed practice. EXE checks each expression.\nExact=10 points, distance 1..5=7,6..10=5,\nelse 0. Best submitted distance is retained.\nFINISH keeps best result. No optimality claim.\nHINT gives first step of one exact solution.",
       "modes": [
         "STANDARD"
       ],
@@ -278,7 +278,7 @@
       "flags": 2,
       "aux": "ANSWER",
       "primary": "CHECK",
-      "rules": "Factor the composite target (4..1000000).\nUse prime bases with optional positive powers.\nExample 360: 2^3*3^2*5, or repeat factors.\nAny factor order is accepted. 1 is not prime\nor composite; composite bases are rejected.\nExponents 1..20; at most 16 written factors.\nMASTER: four distinct primes through 13;\ntwo of those primes appear squared.\nType digits, * and ^. DEL erases, EXE checks.\nHINT proves one prime divisor. ANSWER reveals\na factorization. Both mark assisted.",
+      "rules": "Factor the composite target (4..1000000).\nUse prime bases with optional positive powers.\nExample 360: 2^3*3^2*5, or repeat factors.\nAny factor order is accepted. 1 is not prime\nor composite; composite bases are rejected.\nExponents 1..20; at most 16 written factors.\nNew MASTER: four distinct primes, Omega7..8;\ntwo repeated primes, two primes >=11,\nand largest prime >=37. Target <=488808.\nOlder saves retain their original factors.\nType digits, * and ^. DEL erases, EXE checks.\nHINT proves one prime divisor. ANSWER reveals\na factorization. Both mark assisted.",
       "modes": [
         "STANDARD"
       ],
@@ -865,22 +865,22 @@
       "flags": 1,
       "aux": "",
       "primary": "",
-      "rules": "Put 1..8 or 1..15 in reading order,\nwith the blank in the bottom-right.\nArrows move the BLANK in that direction.\nChoose a 3x3 or 4x4 board in MODE.\nThe board is shuffled by legal moves,\nso every generated board is solvable.\nEasy/Normal/Hard use 80/160/240 moves\nand increasing Manhattan-distance checks.\nShuffle count is NOT shortest distance.\nMASTER 3x3: exact distance 31 (2 starts).\nMASTER 4x4: at least 48 moves (30 starts).\nUNDO reverses moves; size stays in MODE.",
+      "rules": "Put 1..8 or 1..15 in reading order,\nwith the blank in the bottom-right.\nArrows move the BLANK in that direction.\nChoose a 3x3 or 4x4 board in MODE.\nNew E/N/H starts have exact distances:\nEASY 8..14, NORMAL 15..20, HARD 21..26.\nEach size/level has 128 certified starts.\nMASTER 3x3: exact distance 31 (2 starts).\nMASTER 4x4: at least 48 moves (30 starts).\n4x4 MASTER distances are lower bounds.\nOlder runs keep their original shuffles.\nEvery start is solvable; UNDO reverses\nyour moves. Size stays in MODE.",
       "modes": [
         "3 x 3",
         "4 x 4"
       ],
       "bank_counts_by_mode": [
         [
-          0,
-          0,
-          0,
+          128,
+          128,
+          128,
           2
         ],
         [
-          0,
-          0,
-          0,
+          128,
+          128,
+          128,
           30
         ]
       ]

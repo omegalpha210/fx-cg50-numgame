@@ -93,8 +93,12 @@ MASTER adds x_next=a*x_last+b*x_before+c,
 first two -3..6; a,b,c each -2,-1,1,2;
 and alternating lanes with DIFFERENT steps,
 starts -6..9; each step -5..5 nonzero.
-MASTER checks old and new rules together.
-Other levels use the six old rules only.
+Revision4 EASY uses AP, GP, shared step.
+NORMAL: quadratic, Fibonacci, offset, and
+unequal lanes: starts1..9, steps1..3.
+HARD keeps the six old rules; MASTER uses
+all old and new rules together. Old saves
+keep their original grammar.
 Packs reject competing next answers across
 their level grammar. HINT reveals RULE FAMILY.
 Enter signed integer, EXE checks.
@@ -136,7 +140,9 @@ Use + - * / and parentheses.
 Exact rational intermediate values allowed.
 No concatenation, powers or extra constants.
 Equal values are separate usable cards.
-Every generated deck has a verified solution.
+Revision4: two exact-graded decks per target.
+E: no division needed. N/H: division needed.
+MASTER: every solution needs fractions.
 Type expression; DEL erases; EXE checks.
 HINT gives one first step; ANSWER copies one
 example. Both mark assisted. All legal answers
@@ -157,6 +163,7 @@ integer; division must be exact. + - * / ( ).
 Small deck: two copies each of 1..10.
 Large: 25,50,75,100, without repeats.
 Easy/Normal/Hard: 1/2/3 large cards.
+New HARD: every exact answer needs >=4 cards.
 MASTER: 3 large cards; exact target requires
 all six cards and at least one division.
 Untimed practice. EXE checks each expression.
@@ -214,8 +221,10 @@ Example 360: 2^3*3^2*5, or repeat factors.
 Any factor order is accepted. 1 is not prime
 or composite; composite bases are rejected.
 Exponents 1..20; at most 16 written factors.
-MASTER: four distinct primes through 13;
-two of those primes appear squared.
+New MASTER: four distinct primes, Omega7..8;
+two repeated primes, two primes >=11,
+and largest prime >=37. Target <=488808.
+Older saves retain their original factors.
 Type digits, * and ^. DEL erases, EXE checks.
 HINT proves one prime divisor. ANSWER reveals
 a factorization. Both mark assisted.
@@ -561,14 +570,15 @@ Put 1..8 or 1..15 in reading order,
 with the blank in the bottom-right.
 Arrows move the BLANK in that direction.
 Choose a 3x3 or 4x4 board in MODE.
-The board is shuffled by legal moves,
-so every generated board is solvable.
-Easy/Normal/Hard use 80/160/240 moves
-and increasing Manhattan-distance checks.
-Shuffle count is NOT shortest distance.
+New E/N/H starts have exact distances:
+EASY 8..14, NORMAL 15..20, HARD 21..26.
+Each size/level has 128 certified starts.
 MASTER 3x3: exact distance 31 (2 starts).
 MASTER 4x4: at least 48 moves (30 starts).
-UNDO reverses moves; size stays in MODE.
+4x4 MASTER distances are lower bounds.
+Older runs keep their original shuffles.
+Every start is solvable; UNDO reverses
+your moves. Size stays in MODE.
 ```
 
 Modes: 3 x 3 / 4 x 4.
