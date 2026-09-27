@@ -20,7 +20,7 @@ PUBLIC_DOCS={
     'GENERATION_AUDIT.md','GRID_AUDIT.md','GRID_MASTER_AUDIT.md',
     'GRID_LOGIC_REVIEW.md',
     'GUESS_CALC_AUDIT.md','HARDWARE_RETEST.md','MAKE_TARGET_READABILITY_AUDIT.md','MEMORY_AUDIT.md',
-    'MAKE_TARGET_COUNTDOWN_BETA6_AUDIT.md','PRIME_FACTOR_BETA6_AUDIT.md','BASEBALL_BETA6_AUDIT.md',
+    'MAKE_TARGET_COUNTDOWN_BETA6_AUDIT.md','MAKE_TARGET_PACKING_AUDIT.md','PRIME_FACTOR_BETA6_AUDIT.md','BASEBALL_BETA6_AUDIT.md',
     'MEMORY_METHOD.md','PERFORMANCE_AUDIT.md','PERFORMANCE_36.md','PERFORMANCE_BETA6.md','PERFORMANCE.md',
     'host-benchmark-normal.json','host-benchmark-diagnostic.json',
     'host-benchmark-36-normal.json','host-benchmark-36-diagnostic.json',
@@ -49,7 +49,7 @@ ASSET_JSON_ROOT={'guesscalc_packs.json','guesscalc_master.json','guesscalc_crypt
                  'guesscalc_difficulty_rows_beta4.json','guesscalc_difficulty_audit_beta4.json',
                  'guesscalc_difficulty_rows_beta5.json',
                  'guesscalc_beta4.json','guesscalc_target_beta4.json',
-                 'guesscalc_target_beta5.json','guesscalc_target_beta5_audit.json',
+    'guesscalc_target_beta5.json','guesscalc_target_beta5_audit.json',
                  'guesscalc_target_beta6.json','guesscalc_countdown_beta6.json','guesscalc_prime_beta6.json',
                  'guesscalc_beta6_content_audit.json','guesscalc_beta6_native_audit.json',
                  'guesscalc_target_beta5_complexity.csv',
@@ -57,8 +57,9 @@ ASSET_JSON_ROOT={'guesscalc_packs.json','guesscalc_master.json','guesscalc_crypt
                  'guesscalc_make_target_complexity.csv'}
 ASSET_HEADER_ROOT={'guesscalc_packs.h','guesscalc_master.h','guesscalc_cryptarithm.h',
                    'guesscalc_beta4.h','guesscalc_target_beta4.h',
-                   'guesscalc_target_beta5.h','guesscalc_target_beta6.h',
+                   'guesscalc_target_beta5.h','guesscalc_target_beta6.h','guesscalc_target_beta6_packed.h',
                    'guesscalc_countdown_beta6.h','guesscalc_prime_beta6.h'}
+ASSET_REFERENCE_ROOT={'guesscalc_target_beta6_manifest.jsonl'}
 ASSET_JSON_SUB={
     'boards':{'puzzles.json','verification.json','difficulty-beta3.json'},
     'strategyquick':{'metadata.json','master.json','master_verification.json','master-sh-metrics.json','extra-native-frames.json','extra-asan-attempt.json',
@@ -67,7 +68,7 @@ ASSET_JSON_SUB={
                      'sliding-beta4-audit.json','sliding-beta4-native.json'},
 }
 DIST_FILES={'NUMGAME.g3a','NUMGDIAG.g3a','SHA256SUMS.txt'}
-TEXT_SUFFIXES={'.c','.h','.S','.py','.sh','.md','.txt','.json','.csv','.cmake'}
+TEXT_SUFFIXES={'.c','.h','.S','.py','.sh','.md','.txt','.json','.jsonl','.csv','.cmake'}
 FORBIDDEN_PARTS={'.git','.local','.worktrees','__pycache__','.DS_Store','node_modules'}
 PATTERNS={
     'absolute_personal_home':re.compile(rb'(?:/(?:Users|home)/[^\s/"\x27]+|[A-Za-z]:[\\/]Users[\\/][^\s\\/"\x27]+)'),
@@ -108,7 +109,7 @@ def allowed(name,include_dist=False):
     if parts[0]=='tools':return p.suffix in {'.c','.h','.cpp','.py','.sh'} or name=='tools/toolchain-lock.json'
     if parts[0]=='assets':
         if p.suffix=='.png':return public_png(name)
-        if len(parts)==2:return p.name in ASSET_JSON_ROOT|ASSET_HEADER_ROOT
+        if len(parts)==2:return p.name in ASSET_JSON_ROOT|ASSET_HEADER_ROOT|ASSET_REFERENCE_ROOT
         if parts[1]=='grids':return bool(re.fullmatch(r'assets/grids/(?:(?:1[1-9]|20)|audit)\.json',name) or re.fullmatch(r'assets/grids/master/(?:(?:1[1-9]|20)(?:-generation)?|audit|legacy-sha256)\.json',name) or re.fullmatch(r'assets/grids/expanded/(?:(?:1[1-5]-[0-4]|1[6-9]-3|20-3)(?:-generation)?|audit|capture-selection|memory|seed-replay)\.json',name) or re.fullmatch(r'assets/grids/extra/(?:(?:35-[0-4]|36-[0-3])(?:-generation)?|audit|capture-selection|memory|difficulty-beta3)\.json',name) or re.fullmatch(r'assets/grids/extra/beta3/(?:asan|audit)\.json',name) or re.fullmatch(r'assets/grids/extra/review-20260926/(?:audit\.json|independent-validation\.txt|host-(?:ubsan|asan)\.txt)',name) or name=='assets/grids/extra/generate.py')
         if parts[1] in ASSET_JSON_SUB:
             return len(parts)==3 and (p.name in ASSET_JSON_SUB[parts[1]] or (parts[1]=='strategyquick' and p.name in {'tables.h','master_quick.h','master_strategy.h'}))
@@ -223,6 +224,7 @@ def required_findings(selected):
         'tools/generate/guesscalc_beta6_audit.py',
         'tools/generate/guesscalc_beta6_native_audit.py',
         'tools/generate/guesscalc_beta6_native.c',
+        'tools/pack_make_target.py',
         'tools/generate/guesscalc_prime_beta6.py',
         'tools/generate/guesscalc_exact.cpp',
         'tools/generate/guesscalc_exact.py','tools/generate/strategyquick_sliding.py',
@@ -233,6 +235,7 @@ def required_findings(selected):
         'assets/guesscalc_target_beta5.h','assets/guesscalc_target_beta5.json',
         'assets/guesscalc_target_beta5_audit.json','assets/guesscalc_difficulty_rows_beta5.json',
         'assets/guesscalc_target_beta6.h','assets/guesscalc_target_beta6.json',
+        'assets/guesscalc_target_beta6_packed.h','assets/guesscalc_target_beta6_manifest.jsonl',
         'assets/guesscalc_countdown_beta6.h','assets/guesscalc_countdown_beta6.json',
         'assets/guesscalc_prime_beta6.h','assets/guesscalc_prime_beta6.json',
         'assets/guesscalc_beta6_content_audit.json','assets/guesscalc_beta6_native_audit.json',
@@ -256,11 +259,11 @@ def required_findings(selected):
         'docs/DIFFICULTY_AUDIT_BETA3.csv','docs/DIFFICULTY_AUDIT_BETA4.csv',
         'docs/MAKE_TARGET_COMPLEXITY.csv','docs/MAKE_TARGET_COMPLEXITY_BETA5.csv',
         'docs/MAKE_TARGET_READABILITY_AUDIT.md','docs/UI_ALIGNMENT_AUDIT.md',
-        'docs/MAKE_TARGET_COUNTDOWN_BETA6_AUDIT.md','docs/PRIME_FACTOR_BETA6_AUDIT.md',
+        'docs/MAKE_TARGET_COUNTDOWN_BETA6_AUDIT.md','docs/MAKE_TARGET_PACKING_AUDIT.md','docs/PRIME_FACTOR_BETA6_AUDIT.md',
         'docs/BASEBALL_BETA6_AUDIT.md','docs/CONTENT_CYCLE.md',
         'docs/USER_GUIDE.md','docs/PERFORMANCE_BETA6.md','docs/captures/BETA6_README.md',
         'docs/CONTENT_INVENTORY_SETTINGS.csv',
-        'tests/test_beta6_supply.c','tests/test_baseball_beta6.c',
+        'tests/test_beta6_supply.c','tests/test_baseball_beta6.c','tests/test_make_target_pack.c',
         'tests/test_beta6_capture.c','tests/test_guesscalc_beta6_content.py',
         'tests/test_guesscalc_prime_beta6.py',
     }|{'docs/third_party/'+n for n in LICENSE_FILES}|{f'assets/grids/{n}.json' for n in range(11,21)}|{f'assets/grids/expanded/{n}-{d}.json' for n in range(11,21) for d in (range(5) if n<=15 else (3,))}

@@ -1,10 +1,12 @@
 {
   "target_native_records": 4000,
   "countdown_native_records": 800,
+  "target_logical_sha256": "1322ea82e3849b1bc38e5d831e7ddd3d02275a0bd414a86b440d2b23065c46ff",
   "native_expression_parser_accepts": 4800,
   "native_card_occurrence_validator_accepts": 4800,
   "c_header_size_bytes": {
     "guesscalc_target_beta6.h": 263408,
+    "guesscalc_target_beta6_packed.h": 323238,
     "guesscalc_countdown_beta6.h": 47879
   },
   "source_sha256": {

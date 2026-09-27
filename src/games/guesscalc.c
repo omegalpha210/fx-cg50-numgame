@@ -3,12 +3,12 @@
 #include "guesscalc_math.h"
 #include "guesscalc.h"
 #include "prime_beta6.h"
+#include "target_beta6_pack.h"
 #include "../../assets/guesscalc_packs.h"
 #include "../../assets/guesscalc_master.h"
 #include "../../assets/guesscalc_beta4.h"
 #include "../../assets/guesscalc_target_beta4.h"
 #include "../../assets/guesscalc_target_beta5.h"
-#include "../../assets/guesscalc_target_beta6.h"
 #include "../../assets/guesscalc_countdown_beta6.h"
 #include <stdio.h>
 #include <string.h>
@@ -515,26 +515,33 @@ static int target_beta6_slot(unsigned target)
  for(unsigned i=0;i<5;i++)if(choices[i]==target)return (int)i;
  return -1;
 }
+static void target_clear(NgGame *g,unsigned target)
+{
+ memset(g->board,0,sizeof(g->board));memset(g->data,0,sizeof(g->data));memset(g->fixed,0,sizeof(g->fixed));memset(g->notes,0,sizeof(g->notes));
+ memset(g->history,0,sizeof(g->history));memset(g->input,0,sizeof(g->input));
+ g->status=NG_PLAYING;g->phase=g->cursor=g->history_count=g->scroll=g->notes_mode=g->cpu_pending=0;
+ g->moves=g->score=0;g->puzzle_id=g->seed;g->data[0]=(int32_t)target;g->data[1]=(int32_t)(g->difficulty<2?4:g->difficulty+3);g->data[3]=1000000000;
+}
 bool gc_target_init(NgGame *g,unsigned target){
  if(!g||g->id!=6||g->difficulty>3||g->mode||(g->pack_revision<3||g->pack_revision>6))return false;
  int slot=target_beta6_slot(target);
  if(g->pack_revision==6){if(target!=NG_TARGET_RANDOM && slot<0)return false;}
  else if(target<1||target>1000)return false;
- memset(g->board,0,sizeof(g->board));memset(g->data,0,sizeof(g->data));memset(g->fixed,0,sizeof(g->fixed));memset(g->notes,0,sizeof(g->notes));
- memset(g->history,0,sizeof(g->history));memset(g->input,0,sizeof(g->input));
- g->status=NG_PLAYING;g->phase=g->cursor=g->history_count=g->scroll=g->notes_mode=g->cpu_pending=0;
- g->moves=g->score=0;g->puzzle_id=g->seed;g->data[0]=(int32_t)target;g->data[1]=(int32_t)(g->difficulty<2?4:g->difficulty+3);g->data[3]=1000000000;
  if(g->pack_revision==6){
   unsigned count=slot<0?1000u:200u;
+  uint32_t old_rng=g->rng;
   g->rng=g->seed;
   unsigned ordinal=ng_bank_pick(g,count);
   unsigned record=g->difficulty*1000u+(slot<0?ordinal:(unsigned)slot*200u+ordinal);
-  const GcBeta6CardRecord *p=&gc_target_beta6[record];
-  g->puzzle_id=16240u+record;g->data[0]=p->target;
+  GcTargetBeta6 p;
+  if(!gc_target_beta6_read(record,&p)){g->rng=old_rng;return false;}
+  target_clear(g,target);
+  g->puzzle_id=16240u+record;g->data[0]=p.target;
   g->data[2]=slot<0?1:0;g->data[4]=slot<0?0:(int32_t)target;
-  for(unsigned i=0;i<(unsigned)g->data[1];i++)g->board[i]=p->cards[i];
+  for(unsigned i=0;i<(unsigned)g->data[1];i++)g->board[i]=p.cards[i];
   ng_message(g,"Use EVERY card exactly once. Fractions are allowed.");return true;
  }
+ target_clear(g,target);
  char answer[40];
  if(g->pack_revision>=4){
   g->rng=g->seed;unsigned ordinal=ng_bank_pick(g,2),record=(g->difficulty*1000+target-1)*2+ordinal;
@@ -562,9 +569,12 @@ static bool action_cards(NgGame *g,int key){
  char answer[97],tip[64];const GcCardPack *p=NULL;
  if(g->id==6&&g->pack_revision>=3){
   if(g->pack_revision==6){
-   const GcBeta6CardRecord *r=&gc_target_beta6[g->puzzle_id-16240u];
-   snprintf(answer,sizeof answer,"%s",gc_target_beta6_answer[g->difficulty]+r->answer_offset);
-   snprintf(tip,sizeof tip,"One first step: %d %c %d.",g->board[r->hint_a],r->hint_op,g->board[r->hint_b]);
+   if(hint(key)){
+    GcTargetBeta6 r;
+    if(!gc_target_beta6_read(g->puzzle_id-16240u,&r))return false;
+    snprintf(tip,sizeof tip,"One first step: %d %c %d.",g->board[r.hint_a],r.hint_op,g->board[r.hint_b]);
+   }else if(auxiliary(key) &&
+            !gc_target_beta6_answer_text(g->puzzle_id-16240u,answer,sizeof answer))return false;
   }else{int16_t cards[6];if(g->pack_revision==5)(void)target_deck_v5(gc_target_beta5_index[g->puzzle_id-8240],g->difficulty,(unsigned)g->data[0],cards,answer,tip);else if(g->pack_revision==4)(void)target_deck_v4(gc_target_beta4_index[g->puzzle_id-240],g->difficulty,(unsigned)g->data[0],cards,answer,tip);else (void)target_deck(g->seed,g->difficulty,(unsigned)g->data[0],cards,answer,tip);}
  }
  else if(g->id==7&&g->pack_revision>=5){
@@ -601,13 +611,14 @@ static bool valid_cards(const NgGame *g){
    unsigned first=16240u+g->difficulty*1000u;
    if(g->puzzle_id<first||g->puzzle_id>=first+1000u)return false;
    unsigned local=g->puzzle_id-first;
-   const GcBeta6CardRecord *p=&gc_target_beta6[g->puzzle_id-16240u];
-   if(g->data[0]!=p->target||g->data[2]<0||g->data[2]>1)return false;
+   GcTargetBeta6 p;
+   if(!gc_target_beta6_read(g->puzzle_id-16240u,&p)||
+      g->data[0]!=p.target||g->data[2]<0||g->data[2]>1)return false;
    if(g->data[2]){if(g->data[4]||g->supply_index>=1000u)return false;}
    else {int slot=target_beta6_slot((unsigned)g->data[4]);
     if(slot<0||local/200u!=(unsigned)slot||g->supply_index>=200u)return false;
    }
-   for(unsigned i=0;i<n;i++)cards[i]=p->cards[i];
+   for(unsigned i=0;i<n;i++)cards[i]=p.cards[i];
   }else if(g->pack_revision>=4){
    unsigned base=g->pack_revision==5?8240:240;
    unsigned first=base+(g->difficulty*1000+(unsigned)g->data[0]-1)*2;

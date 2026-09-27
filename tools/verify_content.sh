@@ -17,6 +17,7 @@ mkdir -p "$NUMGAME_VERIFY_OUTPUT"
 "$NUMGAME_PYTHON" tools/generate/guesscalc_beta5_rows.py --check
 "$NUMGAME_PYTHON" tools/generate/guesscalc_beta6_target.py --check
 "$NUMGAME_PYTHON" tools/generate/guesscalc_beta6_refine.py --check
+"$NUMGAME_PYTHON" tools/pack_make_target.py --check
 "$NUMGAME_PYTHON" tools/generate/guesscalc_beta6_target.py --verify --jobs 5
 "$NUMGAME_PYTHON" tools/generate/guesscalc_beta6_countdown.py --verify
 "$NUMGAME_PYTHON" tools/generate/guesscalc_beta6_audit.py

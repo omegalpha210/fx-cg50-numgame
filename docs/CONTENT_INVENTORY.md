@@ -296,7 +296,7 @@ A rule/runtime row may have no source puzzle asset. `BANK` denotes an embedded c
 | 4 | BANK | src/games/guesscalc.c | assets/guesscalc_master.h; assets/guesscalc_master.json; assets/guesscalc_packs.h; assets/guesscalc_packs.json |
 | 5 | BANK | src/games/guesscalc.c | assets/guesscalc_beta4.h; assets/guesscalc_beta4.json; assets/guesscalc_master.h; assets/guesscalc_master.json; assets/guesscalc_packs.h; assets/guesscalc_packs.json |
 | 33 | RUNTIME | src/games/guesscalc_extra.c | None: runtime/rules |
-| 6 | BANK | src/games/guesscalc.c | assets/guesscalc_master.h; assets/guesscalc_master.json; assets/guesscalc_packs.h; assets/guesscalc_packs.json; assets/guesscalc_target_beta4.h; assets/guesscalc_target_beta4.json; assets/guesscalc_target_beta5.h; assets/guesscalc_target_beta5.json; assets/guesscalc_target_beta6.h; assets/guesscalc_target_beta6.json |
+| 6 | BANK | src/games/guesscalc.c | assets/guesscalc_master.h; assets/guesscalc_master.json; assets/guesscalc_packs.h; assets/guesscalc_packs.json; assets/guesscalc_target_beta4.h; assets/guesscalc_target_beta4.json; assets/guesscalc_target_beta5.h; assets/guesscalc_target_beta5.json; assets/guesscalc_target_beta6.h; assets/guesscalc_target_beta6.json; assets/guesscalc_target_beta6_packed.h; src/games/target_beta6_pack.c |
 | 7 | BANK | src/games/guesscalc.c | assets/guesscalc_beta4.h; assets/guesscalc_beta4.json; assets/guesscalc_countdown_beta6.h; assets/guesscalc_countdown_beta6.json; assets/guesscalc_master.h; assets/guesscalc_master.json; assets/guesscalc_packs.h; assets/guesscalc_packs.json |
 | 8 | HYBRID | src/games/guesscalc.c | assets/guesscalc_master.h; assets/guesscalc_master.json; assets/guesscalc_packs.h; assets/guesscalc_packs.json |
 | 9 | BANK | src/games/guesscalc.c | assets/guesscalc_master.h; assets/guesscalc_master.json; assets/guesscalc_packs.h; assets/guesscalc_packs.json |
@@ -403,6 +403,7 @@ A rule/runtime row may have no source puzzle asset. `BANK` denotes an embedded c
 | assets/guesscalc_target_beta5.json | 10934785 | 19a76651ea8377d71cc1e2b06e439a825d72a9fe571712a564d669a99dec5595 |
 | assets/guesscalc_target_beta6.h | 263408 | 1cf90de41a990f1d881cd2bb86027729975808b0ffb98347b91577b963c29401 |
 | assets/guesscalc_target_beta6.json | 5593807 | ce87eafaecdd3fe48e183cccf926cb10fa204b9830688c498aa8184b8111f70e |
+| assets/guesscalc_target_beta6_packed.h | 323238 | 25378c9518f1f691c123a52c1456d45c2e13fb866aa5da757ee1f4597394d2dd |
 | assets/strategyquick/master.json | 205742 | 5b60b585d2d168c7041e971a096f1ccefc890cf51fa2cb1246305aef8cd6bdae |
 | assets/strategyquick/master_quick.h | 2313 | c0127b9ff1c1b00315f6f7befb9d3e8e3785ee36b0b55b2d6c8d26b6ccc88e4e |
 | assets/strategyquick/master_strategy.h | 9190 | cdfccf30e23634a1d10e24d44919fcfb0f69063971290cc3dd08d148497946a5 |
@@ -414,6 +415,7 @@ A rule/runtime row may have no source puzzle asset. `BANK` denotes an embedded c
 | src/games/grids_pack_data.h | 402 | c17e84d42dbfa2e78622e8e6e0e74abffbff66476523151057e54a3ddf5ad094 |
 | src/games/guesscalc_extra.c | 17189 | e1c336b1cf19390773d54599c6f0ef1f0755a0de324e44aa95a0d3d7e0ce8f78 |
 | src/games/prime_beta6.c | 1544 | 0f71d224401ed8308aabbed74f204476bf702c5371c2075fd54a5a6df9c25d32 |
+| src/games/target_beta6_pack.c | 3485 | c15d2a41d31063e613e73621f3b22024845da036a1ed9106e3eb1c2d6830e4ee |
 
 ## Reproduce
 

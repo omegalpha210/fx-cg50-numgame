@@ -2,7 +2,7 @@
   "tool": "tools/public_snapshot.py",
   "policy_version": 1,
   "include_dist": true,
-  "tree_sha256": "024508b4afef9c5b2c1689dbd13e2cc4bed0c9feba2436bcbbc557b88cc05a47",
+  "tree_sha256": "16d3205a6045e3f6c4da7a7af6bbd5f1530cef54a82ce45a3113003677b31bd2",
   "files": [
     {
       "file": ".gitignore",
@@ -24,14 +24,14 @@
     },
     {
       "file": "README.md",
-      "bytes": 5737,
-      "sha256": "882780f7e650a2fc9d514acc93b3ffa59b29380838004c72789f680b6465b87f",
+      "bytes": 6090,
+      "sha256": "c27213a91d0e1c39a0564a44b0ceeadf153505fde696d9e8903d930894a1f2eb",
       "mode": "0644"
     },
     {
       "file": "README_KO.md",
-      "bytes": 6647,
-      "sha256": "1c327ddc2a42bc6bedee09e9d3a51f756fb0a2b14fdd8668fcd8cb72a7098a76",
+      "bytes": 7006,
+      "sha256": "b52ef300c93326463293f284e9f13ba413cae1391a252c8f1288390021df8aaf",
       "mode": "0644"
     },
     {
@@ -1242,8 +1242,8 @@
     },
     {
       "file": "assets/guesscalc_beta6_native_audit.json",
-      "bytes": 514,
-      "sha256": "32a481212914df9f5a09277871584d536210a262537f4537717878c0ce5d24f0",
+      "bytes": 656,
+      "sha256": "ac86169588dc4061fff334af3db56780aa9c040715f1276dbdf74096c082c748",
       "mode": "0644"
     },
     {
@@ -1394,6 +1394,18 @@
       "file": "assets/guesscalc_target_beta6.json",
       "bytes": 5593807,
       "sha256": "ce87eafaecdd3fe48e183cccf926cb10fa204b9830688c498aa8184b8111f70e",
+      "mode": "0644"
+    },
+    {
+      "file": "assets/guesscalc_target_beta6_manifest.jsonl",
+      "bytes": 794994,
+      "sha256": "1322ea82e3849b1bc38e5d831e7ddd3d02275a0bd414a86b440d2b23065c46ff",
+      "mode": "0644"
+    },
+    {
+      "file": "assets/guesscalc_target_beta6_packed.h",
+      "bytes": 323238,
+      "sha256": "25378c9518f1f691c123a52c1456d45c2e13fb866aa5da757ee1f4597394d2dd",
       "mode": "0644"
     },
     {
@@ -1662,26 +1674,26 @@
     },
     {
       "file": "dist/NUMGAME.g3a",
-      "bytes": 664788,
-      "sha256": "af46892f48be8ff4ca9099f6ef0deef0dde858c36c85dbb7a65fd83142586e4b",
+      "bytes": 559380,
+      "sha256": "67bb68195cc0b870fbe5f018c2a788c452faabe99a7d41db303ecb488aa785b6",
       "mode": "0644"
     },
     {
       "file": "dist/NUMGDIAG.g3a",
-      "bytes": 692116,
-      "sha256": "0a4fc021e3e5acd6973922e0d9cc9b6782e43c4f6264acc720eef3a56711ede3",
+      "bytes": 586884,
+      "sha256": "7607e62626ae6904132469cdb0b64af5c49ed90d85efd824abdc221c7a9048b5",
       "mode": "0644"
     },
     {
       "file": "dist/SHA256SUMS.txt",
       "bytes": 161,
-      "sha256": "ad533f756443dc1150ab4e64d34833419cfc62f40c8c3260b42ee30ab814aa9f",
+      "sha256": "7ea36b2f63f8ef76b9dd0ae4d3a36feba2afb8ca196b0982f7205add9b44a2cd",
       "mode": "0644"
     },
     {
       "file": "docs/ACCEPTANCE.md",
-      "bytes": 4666,
-      "sha256": "f019cdde8a2d071e9455874769bfb701b42f5df5911c31e73ae738d549b3d378",
+      "bytes": 5116,
+      "sha256": "531d544f98f88e3fd6e06c456ee17bc224f990a90f0ef3dc061e1c3a30b0572f",
       "mode": "0644"
     },
     {
@@ -1722,14 +1734,14 @@
     },
     {
       "file": "docs/CONTENT_INVENTORY.csv",
-      "bytes": 9828,
-      "sha256": "42647ee62c70df328467df2a67e8eac1329036c2b9d55241905d63771c8382ee",
+      "bytes": 9905,
+      "sha256": "a43de438540df49416e47ddcd677f366b518a530ebce2622d321dbd7ee1a17c0",
       "mode": "0644"
     },
     {
       "file": "docs/CONTENT_INVENTORY.md",
-      "bytes": 36165,
-      "sha256": "d7834c3e23ad2db39de44fcad62d07c5144486fd3a3ff7bfb88d765a914b051b",
+      "bytes": 36463,
+      "sha256": "bb472a2b42e1b71a0b9e539978828f68cf848d94118fcb75001789ee3f0e5987",
       "mode": "0644"
     },
     {
@@ -1812,8 +1824,8 @@
     },
     {
       "file": "docs/HARDWARE_RETEST.md",
-      "bytes": 9932,
-      "sha256": "cb15a704d1f2f5e6946c90fd3652daf1528d4e595a0192de0f22e677fbdfa11e",
+      "bytes": 10332,
+      "sha256": "f91d5b59c0f311aba5b06efcae1db68c334121f9815653f840ec349725743fa0",
       "mode": "0644"
     },
     {
@@ -1835,6 +1847,12 @@
       "mode": "0644"
     },
     {
+      "file": "docs/MAKE_TARGET_PACKING_AUDIT.md",
+      "bytes": 9248,
+      "sha256": "800e4e51b8ccf4692668b5e0855ce6a5213e1c34603a100f5144af7db3535014",
+      "mode": "0644"
+    },
+    {
       "file": "docs/MAKE_TARGET_READABILITY_AUDIT.md",
       "bytes": 4757,
       "sha256": "9a023601c73ceb28542601a95a34fbad5e919de010df7cf416099647b6cb50e5",
@@ -1842,8 +1860,8 @@
     },
     {
       "file": "docs/MEMORY_AUDIT.md",
-      "bytes": 9615,
-      "sha256": "7951564ec1fdda816a8ef2396035bbea2ba10a2ca4ff8c910d7755f87272bd09",
+      "bytes": 9332,
+      "sha256": "094355838e3048d5b09a4d8c247064af9bb58fc624659febe57dadcfa03d32e6",
       "mode": "0644"
     },
     {
@@ -1884,8 +1902,8 @@
     },
     {
       "file": "docs/PUBLIC_SOURCE_AUDIT.md",
-      "bytes": 8917,
-      "sha256": "db5c76d5c15eb9a73957e122e28dda62fd6624a81e425bb1677a2ed5532560b3",
+      "bytes": 9110,
+      "sha256": "445931d8f19103011846473f6a84e3f7b0817bb422d1fa13c88cc2cf8f124b9f",
       "mode": "0644"
     },
     {
@@ -1974,8 +1992,8 @@
     },
     {
       "file": "docs/build-metrics.json",
-      "bytes": 160522,
-      "sha256": "78a3a898fa39a3b12c0fcfacf5e1e3075e51e6f05471134af23175c9b9855193",
+      "bytes": 159954,
+      "sha256": "86cebaf0d0b92b4f3c90625b8be71726ea5d3c41003cbfdae010c01b5603d814",
       "mode": "0644"
     },
     {
@@ -4710,8 +4728,8 @@
     },
     {
       "file": "docs/diagnostic-build-metrics.json",
-      "bytes": 204574,
-      "sha256": "25217330a62bbf921ae2f8987c258eff7f11faca18dc04d5084995fb017dd70c",
+      "bytes": 204211,
+      "sha256": "184e6af17e349c2d2fd81ead0a1f7404996518669f5a164129573d5f54132e14",
       "mode": "0644"
     },
     {
@@ -4962,8 +4980,8 @@
     },
     {
       "file": "src/games/guesscalc.c",
-      "bytes": 63029,
-      "sha256": "7ecc4087c6f1a1d8927b0c824c4e3adb561023ad0e3ca4629ddfde143ea6aa95",
+      "bytes": 63246,
+      "sha256": "732a112e6ed6588c4fdc653563131c080f4036bd71751776b01a70471721b10d",
       "mode": "0644"
     },
     {
@@ -5030,6 +5048,18 @@
       "file": "src/games/strategyquick_strategy.c",
       "bytes": 12696,
       "sha256": "71ad30bf9d36a6460591e159c8220323e8ef54602357337dde71aab97ce12308",
+      "mode": "0644"
+    },
+    {
+      "file": "src/games/target_beta6_pack.c",
+      "bytes": 3485,
+      "sha256": "c15d2a41d31063e613e73621f3b22024845da036a1ed9106e3eb1c2d6830e4ee",
+      "mode": "0644"
+    },
+    {
+      "file": "src/games/target_beta6_pack.h",
+      "bytes": 469,
+      "sha256": "9149719490b08dbe04cb82074d8c49257c95f6fb4be179c53b5aac73c1559692",
       "mode": "0644"
     },
     {
@@ -5100,8 +5130,8 @@
     },
     {
       "file": "tests/CMakeLists.txt",
-      "bytes": 3306,
-      "sha256": "81592484df4fca6090a9715fb7a3e4c8060529dcbcdf8239243fbfe2ab0b9298",
+      "bytes": 3323,
+      "sha256": "47ede696cdc54c55098f657bd59e7b42cff4becc5bbbb7101e4da4f45f31a2fe",
       "mode": "0644"
     },
     {
@@ -5351,6 +5381,12 @@
       "mode": "0644"
     },
     {
+      "file": "tests/test_make_target_pack.c",
+      "bytes": 1350,
+      "sha256": "4576b93f639eb9c67cdfc7fd0bb1a26300aff4813c75218247174eb797556776",
+      "mode": "0644"
+    },
+    {
       "file": "tests/test_make_target_reference.py",
       "bytes": 20959,
       "sha256": "84eb1e8efea86f246a557eb01f54e62eb1139dba68ff166641c82119dbe2c826",
@@ -5435,6 +5471,18 @@
       "mode": "0644"
     },
     {
+      "file": "tools/benchmark_make_target_app.c",
+      "bytes": 3632,
+      "sha256": "54492f4e5a8caa5d9f8f851af579a7b933c34fe541f6acf136ab3763d7b0bece",
+      "mode": "0644"
+    },
+    {
+      "file": "tools/benchmark_make_target_pack.c",
+      "bytes": 2308,
+      "sha256": "6ddc491c25aedb1bb704709098b5079f76f3ee5270a33313017fde0a7d5c5c71",
+      "mode": "0644"
+    },
+    {
       "file": "tools/benchmark_report.py",
       "bytes": 26142,
       "sha256": "dd891e52d11c27c1663f4fc9f170469c54ef697ede8e42b7e213289e0db87664",
@@ -5444,6 +5492,12 @@
       "file": "tools/build.sh",
       "bytes": 208,
       "sha256": "2c9774b06c655af1bda82f5a9bd9695413c2debca717198f86760719c4d3946e",
+      "mode": "0644"
+    },
+    {
+      "file": "tools/capture_make_target_pack.c",
+      "bytes": 1812,
+      "sha256": "f33a56ec54f9e3b9c33973738f3799898a78bfb54de12514e9c17ea55204702a",
       "mode": "0644"
     },
     {
@@ -5465,6 +5519,12 @@
       "mode": "0644"
     },
     {
+      "file": "tools/check_make_target_pack_resume.c",
+      "bytes": 1233,
+      "sha256": "5767b86ba413c4170bc7fd89576c5308ace9139a2037278d7a584ee4c53b38f2",
+      "mode": "0644"
+    },
+    {
       "file": "tools/clean_build.sh",
       "bytes": 883,
       "sha256": "ea9d6dcec6108e1b885c5ebcda3eb2a6a6d592c511904d652145c286d01e0991",
@@ -5472,8 +5532,8 @@
     },
     {
       "file": "tools/content_inventory.py",
-      "bytes": 25262,
-      "sha256": "cff7f049a0982896309530a69cba7b83d614b7808f47a123b827b1c98ae54f20",
+      "bytes": 25431,
+      "sha256": "fbd22e4f55b4324740593a96ba95f945ffee57ea715e581353f6296f6ab9845c",
       "mode": "0644"
     },
     {
@@ -5604,8 +5664,8 @@
     },
     {
       "file": "tools/generate/guesscalc_beta4_audit.py",
-      "bytes": 11267,
-      "sha256": "266a8eefd54cfeeb1621836274f8d77c4ea8aebebc909814e1e2a764118ea28c",
+      "bytes": 11300,
+      "sha256": "2e73cb70413322f100c0370753f1bb44ecf54a953e0f83085afd0fb5c3e4d34c",
       "mode": "0644"
     },
     {
@@ -5622,8 +5682,8 @@
     },
     {
       "file": "tools/generate/guesscalc_beta5_audit.py",
-      "bytes": 4468,
-      "sha256": "437bd887d645a843f623a558e692dedbc0ae146b3f54ac6249ed5ac33203109b",
+      "bytes": 4500,
+      "sha256": "f42da847e68953a955907f2aa4db25fd7dce3bb80d2e4a0f3f342f475b34efbf",
       "mode": "0644"
     },
     {
@@ -5658,14 +5718,14 @@
     },
     {
       "file": "tools/generate/guesscalc_beta6_native.c",
-      "bytes": 1854,
-      "sha256": "02a3d3107c00ab1c5d3e33926ebe1668b6febb3aa5741e62d7266ba64169820a",
+      "bytes": 2877,
+      "sha256": "91a35a218ab05c1b6cb4f659afaa38031301602cdbda9afbdd9466ca173753d8",
       "mode": "0644"
     },
     {
       "file": "tools/generate/guesscalc_beta6_native_audit.py",
-      "bytes": 2948,
-      "sha256": "ecc2993059e0f9c33673e426b04b7e36dd34df9cf87d256e9804424c91c734f8",
+      "bytes": 3870,
+      "sha256": "92a8ee12057634ad89cfe71fbb982be00b7fffe73455fd3e458dd650a3cf9aa8",
       "mode": "0644"
     },
     {
@@ -5688,8 +5748,8 @@
     },
     {
       "file": "tools/generate/guesscalc_difficulty_audit.py",
-      "bytes": 29800,
-      "sha256": "2191832764705074172649bdcc88bdf1a1b1876538a198e57ea8a9fdc2115f7f",
+      "bytes": 29833,
+      "sha256": "19e8de4fef27c2c4cefe8473f2f0c646ed718db4d09f5e1606f944d96a5abdda",
       "mode": "0644"
     },
     {
@@ -5795,9 +5855,21 @@
       "mode": "0644"
     },
     {
+      "file": "tools/pack_make_target.py",
+      "bytes": 6908,
+      "sha256": "3957017b47ebd53c6ee58fa05e0e26bf236df573dfa3888e53b00fb852138155",
+      "mode": "0644"
+    },
+    {
       "file": "tools/public_snapshot.py",
-      "bytes": 34498,
-      "sha256": "c22de401885506f5d5f3f7c8ee3c35f7a222e451a1f45e9c4677931ce6484993",
+      "bytes": 34845,
+      "sha256": "fb826cb005da9fc1b20193b995af5ea3ee248666fc4d1e9ef12a8f82b253802e",
+      "mode": "0644"
+    },
+    {
+      "file": "tools/replay_make_target_pack.c",
+      "bytes": 1913,
+      "sha256": "66a2081dda2c400b2f6182b3c1d0d6111e16f4aafebc251955e800509907c395",
       "mode": "0644"
     },
     {
@@ -5820,8 +5892,8 @@
     },
     {
       "file": "tools/verify_content.sh",
-      "bytes": 3861,
-      "sha256": "e83a322c8bc62d6caddfa882577b8c66ca66f7bed8cb2bbeda7571a47212d086",
+      "bytes": 3913,
+      "sha256": "27c389c1867396bc503313fcab820fb71e81b5757c247468d5822b6d3cebba61",
       "mode": "0644"
     },
     {

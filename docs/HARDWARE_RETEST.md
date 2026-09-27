@@ -1,5 +1,12 @@
 # Physical fx-CG50 retest — HARDWARE TEST REQUIRED
 
+For beta.7, compare Make Target FIXED and RANDOM puzzle starts, HINT, ANSWER,
+cold RESUME and repeated NEW with beta.6. Time the first and repeated problem
+loads and HINT/ANSWER decode on the calculator; the beta.7 host byte-equality
+and timing checks do not measure SH device latency. The saved state and
+MENU/OFF behavior remain unchanged, so the earlier flashing MENU report is
+still unresolved.
+
 The previously reported persistent flashing MENU has not been reproduced or
 explained on a calculator here. Host tests fixed a separate timed-transition
 MENU/OFF boundary, but neither that fix nor the smaller v5 save proves the

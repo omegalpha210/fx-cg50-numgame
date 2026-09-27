@@ -25,6 +25,8 @@ Number Baseball은 반복 숫자를 허용하며 EASY/NORMAL/HARD/MASTER가 각�
 
 beta.6에서는 Make Target·Countdown의 문제 수를 늘리면서 기존 카드 규칙과 정확한 풀이 난도 검증을 유지했습니다. Prime Factor를 자릿수와 소인수 구조로 재구성하고, Baseball의 시도 횟수·기록을 늘렸으며 긴 추측·단서 목록에 스크롤 위치를 표시합니다. NEW는 다음 문제를 선택하고 RESUME은 출제 순서를 소비하지 않고 현재 문제를 복원합니다. 이전 미완료 게임은 기존 문제 리비전을 유지합니다. [출제 순환](docs/CONTENT_CYCLE.md) · [카드 가독성](docs/MAKE_TARGET_READABILITY_AUDIT.md) · [화면 정렬](docs/UI_ALIGNMENT_AUDIT.md).
 
+beta.7은 **동일한 Make Target 4,000문제**의 내장 저장 표현만 줄였습니다. 카드와 순서, HINT·ANSWER 문구, 문제 ID, RANDOM 순서와 기존 저장은 그대로이며 별도 문제 파일도 필요하지 않습니다. [압축 감사](docs/MAKE_TARGET_PACKING_AUDIT.md)에 전수 비교와 실제 용량 감소를 기록했습니다.
+
 앱 전체에서 **미완료 게임 하나**만 이어할 수 있습니다. NEW GAME은 새 게임을 안전하게 저장한 뒤 기존 이어하기를 확인창 없이 교체합니다. 완료 후에는 이어하기가 사라지고, 완료 창에서 EXIT을 누르면 최종 화면을 수정할 수 없는 상태로 볼 수 있습니다. 여기서 EXIT은 게임 시작 화면으로, F6 NEW는 다음 판으로 갑니다. `NGSTATEA/B.dat` 두 파일은 하나의 논리 저장을 위한 복구 사본입니다. 빈 파일 둘은 총 252바이트, 새 게임 저장 둘은 총 3,996바이트입니다. 기존 최근 5개·구형 아카이브에서는 가장 최근의 유효한 미완료 게임 하나와 설정을 이관합니다. [저장 형식](docs/STORAGE_FORMAT.md), [이어하기 정책](docs/RESUME_POLICY.md), [문제 순환](docs/CONTENT_CYCLE.md).
 
 일반판과 진단판은 `NG`/`ND` 저장 파일을 따로 사용합니다. 진단판은 Main→F2 SET→F3 DIAG에서 RAM/시간 계측, 1,000회 stress, `NDDIAG.txt` 내보내기를 제공합니다. 실기 지연·메모리 최대치는 아직 **HARDWARE TEST REQUIRED**입니다. [beta.6 호스트 측정](docs/PERFORMANCE_BETA6.md) · [진단 안내](docs/DIAGNOSTICS.md).

@@ -1,4 +1,4 @@
-# Public source snapshot audit — beta.6
+# Public source snapshot audit — beta.7
 
 Public source is assembled with `tools/public_snapshot.py` into a separate
 allowlisted directory. The working repository and its original Git history stay
@@ -15,10 +15,12 @@ documented public audits, native-renderer captures, runtime icons and attributed
 font atlases. Generated data and compiled pack sources are both retained so that
 their correspondence can be checked independently.
 
-The current beta.6 content is the [4,000-record Make Target bank and 800-record
+The current beta.6 logical content is the [4,000-record Make Target bank and 800-record
 Countdown bank](MAKE_TARGET_COUNTDOWN_BETA6_AUDIT.md), plus the [896-target Prime
-Factor table](PRIME_FACTOR_BETA6_AUDIT.md). Their JSON audit records and compact
-native headers are selected together. The Make Target exact-rational C++ tool is
+Factor table](PRIME_FACTOR_BETA6_AUDIT.md). Beta.7 links only the 63,000-byte
+[packed Make Target representation](MAKE_TARGET_PACKING_AUDIT.md); the original
+uncompressed header and logical manifest are selected as host-only references.
+Their JSON audit records and native headers are selected together. The Make Target exact-rational C++ tool is
 host-only source under `tools/generate`; it is not linked into either calculator
 package. The beta.6 target generator, deterministic MASTER refinement, Countdown
 generator, native C/JSON parity check and independent content tests are selected

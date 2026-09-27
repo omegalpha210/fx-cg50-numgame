@@ -169,6 +169,9 @@ def make_records(source):
     active[6] = target["records"]
     declared(source.text("assets/guesscalc_target_beta6.h", 6),
              "gc_target_beta6", len(active[6]))
+    declared(source.text("assets/guesscalc_target_beta6_packed.h", 6),
+             "gc_target_beta6_packed", 63000)
+    source.text("src/games/target_beta6_pack.c", 6)
     countdown = source.json("assets/guesscalc_countdown_beta6.json", 7)
     active[7] = countdown["records"]
     declared(source.text("assets/guesscalc_countdown_beta6.h", 7),

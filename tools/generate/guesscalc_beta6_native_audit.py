@@ -17,7 +17,8 @@ def run():
     subprocess.run(['clang','-std=c11','-Wall','-Wextra','-Werror','-O1',
                     '-fsanitize=undefined','-fno-sanitize-recover=all',
                     '-Isrc/games','tools/generate/guesscalc_beta6_native.c',
-                    'src/games/guesscalc_math.c','-o',str(executable)],
+                    'src/games/guesscalc_math.c','src/games/target_beta6_pack.c',
+                    '-o',str(executable)],
                    cwd=ROOT,check=True)
     result=subprocess.run([str(executable)],cwd=ROOT,capture_output=True,text=True,check=True)
     actual=[json.loads(line) for line in result.stdout.splitlines()]
@@ -33,12 +34,25 @@ def run():
         assert ((got['game_id'],got['puzzle_id'],got['difficulty'],got['target'],
                  got['cards'],got['answer'],got['hint']) ==
                 (7,want['puzzle_id'],want['difficulty'],want['target'],
-                 want['cards'],want['answer'],want['hint']))
+                want['cards'],want['answer'],want['hint']))
+    native_rows=[]
+    for got in actual[:4000]:
+        cards=got['cards']
+        a,b,op=got['hint']
+        native_rows.append(dict(puzzle_id=got['puzzle_id'],difficulty=got['difficulty'],
+                                target=got['target'],card_count=len(cards),
+                                cards=cards+[0]*(6-len(cards)),hint_a=a,hint_b=b,
+                                hint_op=op,hint_text=f'One first step: {cards[a]} {op} {cards[b]}.',
+                                answer=got['answer']))
+    native_manifest=''.join(json.dumps(row,sort_keys=True,separators=(',',':'))+'\n'
+                            for row in native_rows)
+    assert native_manifest==(ROOT/'assets/guesscalc_target_beta6_manifest.jsonl').read_text()
     return dict(target_native_records=4000,countdown_native_records=800,
+                target_logical_sha256=hashlib.sha256(native_manifest.encode('ascii')).hexdigest(),
                 native_expression_parser_accepts=4800,
                 native_card_occurrence_validator_accepts=4800,
                 c_header_size_bytes={name:(ROOT/'assets'/name).stat().st_size for name in
-                                     ('guesscalc_target_beta6.h','guesscalc_countdown_beta6.h')},
+                                     ('guesscalc_target_beta6.h','guesscalc_target_beta6_packed.h','guesscalc_countdown_beta6.h')},
                 source_sha256={name:hashlib.sha256((ROOT/'assets'/name).read_bytes()).hexdigest() for name in
                                ('guesscalc_target_beta6.json','guesscalc_countdown_beta6.json')})
 

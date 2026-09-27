@@ -1,17 +1,17 @@
 {
   "schema_version": 2,
-  "build_directory": "build-clean-gdvSH1",
+  "build_directory": "build-clean-JRyEFE",
   "elf_file": "numgame",
-  "elf_sha256": "ee9c686a5cf2ae9a9b76b1de9bc9ccb68cd9998c4809c46a63d243903f799799",
+  "elf_sha256": "018e2c26f1ac362c6fe63f86e87dbdf08a84322da6848e4ac1ab28123f7df372",
   "compiler": "sh-elf-gcc (GCC) 14.1.0",
-  "native_text": 635588,
+  "native_text": 530180,
   "native_data": 512,
   "native_bss": 46096,
   "berkeley_size_caution": "Legacy size aggregates: text includes readonly data/ILRAM; data can include ROM metadata. These are not RAM peak categories.",
   "elf_sections": [
     {
       "name": ".text",
-      "bytes": 145588,
+      "bytes": 146740,
       "vma": "0x00300000",
       "lma": "0x00300000",
       "flags": [
@@ -25,8 +25,8 @@
     {
       "name": ".gint.blocks",
       "bytes": 352,
-      "vma": "0x003238c0",
-      "lma": "0x003238c0",
+      "vma": "0x00323d40",
+      "lma": "0x00323d40",
       "flags": [
         "CONTENTS",
         "ALLOC",
@@ -38,8 +38,8 @@
     {
       "name": ".gint.drivers",
       "bytes": 432,
-      "vma": "0x00323a20",
-      "lma": "0x00323a20",
+      "vma": "0x00323ea0",
+      "lma": "0x00323ea0",
       "flags": [
         "CONTENTS",
         "ALLOC",
@@ -49,9 +49,9 @@
     },
     {
       "name": ".rodata",
-      "bytes": 489520,
-      "vma": "0x00323bd0",
-      "lma": "0x00323bd0",
+      "bytes": 382960,
+      "vma": "0x00324050",
+      "lma": "0x00324050",
       "flags": [
         "CONTENTS",
         "ALLOC",
@@ -73,7 +73,7 @@
       "name": ".data",
       "bytes": 80,
       "vma": "0x0810c7a0",
-      "lma": "0x0039b400",
+      "lma": "0x00381840",
       "flags": [
         "CONTENTS",
         "ALLOC",
@@ -97,7 +97,7 @@
       "name": ".ilram",
       "bytes": 128,
       "vma": "0xe5200000",
-      "lma": "0x0039b450",
+      "lma": "0x00381890",
       "flags": [
         "CONTENTS",
         "ALLOC",
@@ -126,7 +126,7 @@
     },
     {
       "name": ".debug_info",
-      "bytes": 314386,
+      "bytes": 315927,
       "vma": "0x00000000",
       "lma": "0x00000000",
       "flags": [
@@ -138,7 +138,7 @@
     },
     {
       "name": ".debug_abbrev",
-      "bytes": 43507,
+      "bytes": 43972,
       "vma": "0x00000000",
       "lma": "0x00000000",
       "flags": [
@@ -150,7 +150,7 @@
     },
     {
       "name": ".debug_loclists",
-      "bytes": 112564,
+      "bytes": 113582,
       "vma": "0x00000000",
       "lma": "0x00000000",
       "flags": [
@@ -162,7 +162,7 @@
     },
     {
       "name": ".debug_aranges",
-      "bytes": 1160,
+      "bytes": 1192,
       "vma": "0x00000000",
       "lma": "0x00000000",
       "flags": [
@@ -174,7 +174,7 @@
     },
     {
       "name": ".debug_rnglists",
-      "bytes": 16832,
+      "bytes": 17143,
       "vma": "0x00000000",
       "lma": "0x00000000",
       "flags": [
@@ -186,7 +186,7 @@
     },
     {
       "name": ".debug_line",
-      "bytes": 187911,
+      "bytes": 189705,
       "vma": "0x00000000",
       "lma": "0x00000000",
       "flags": [
@@ -198,7 +198,7 @@
     },
     {
       "name": ".debug_str",
-      "bytes": 29811,
+      "bytes": 29907,
       "vma": "0x00000000",
       "lma": "0x00000000",
       "flags": [
@@ -210,7 +210,7 @@
     },
     {
       "name": ".debug_frame",
-      "bytes": 32352,
+      "bytes": 32624,
       "vma": "0x00000000",
       "lma": "0x00000000",
       "flags": [
@@ -236,7 +236,7 @@
   "allocated_sections": [
     {
       "name": ".text",
-      "bytes": 145588,
+      "bytes": 146740,
       "vma": "0x00300000",
       "lma": "0x00300000",
       "flags": [
@@ -250,8 +250,8 @@
     {
       "name": ".gint.blocks",
       "bytes": 352,
-      "vma": "0x003238c0",
-      "lma": "0x003238c0",
+      "vma": "0x00323d40",
+      "lma": "0x00323d40",
       "flags": [
         "CONTENTS",
         "ALLOC",
@@ -263,8 +263,8 @@
     {
       "name": ".gint.drivers",
       "bytes": 432,
-      "vma": "0x00323a20",
-      "lma": "0x00323a20",
+      "vma": "0x00323ea0",
+      "lma": "0x00323ea0",
       "flags": [
         "CONTENTS",
         "ALLOC",
@@ -274,9 +274,9 @@
     },
     {
       "name": ".rodata",
-      "bytes": 489520,
-      "vma": "0x00323bd0",
-      "lma": "0x00323bd0",
+      "bytes": 382960,
+      "vma": "0x00324050",
+      "lma": "0x00324050",
       "flags": [
         "CONTENTS",
         "ALLOC",
@@ -298,7 +298,7 @@
       "name": ".data",
       "bytes": 80,
       "vma": "0x0810c7a0",
-      "lma": "0x0039b400",
+      "lma": "0x00381840",
       "flags": [
         "CONTENTS",
         "ALLOC",
@@ -322,7 +322,7 @@
       "name": ".ilram",
       "bytes": 128,
       "vma": "0xe5200000",
-      "lma": "0x0039b450",
+      "lma": "0x00381890",
       "flags": [
         "CONTENTS",
         "ALLOC",
@@ -341,24 +341,24 @@
       ]
     }
   ],
-  "non_allocated_section_bytes": 742795,
-  "initialized_load_section_bytes": 636100,
-  "project_object_count": 30,
+  "non_allocated_section_bytes": 748324,
+  "initialized_load_section_bytes": 530692,
+  "project_object_count": 31,
   "project_object_sections": {
-    ".text": 119484,
+    ".text": 120644,
     ".data": 12,
     ".bss": 45014,
-    ".rodata.str1.4": 33094,
-    ".rodata": 453439,
-    ".debug_info": 219295,
-    ".debug_abbrev": 23109,
-    ".debug_loclists": 95718,
-    ".debug_aranges": 904,
-    ".debug_rnglists": 13302,
-    ".debug_line": 158347,
-    ".debug_str": 53803,
-    ".comment": 551,
-    ".debug_frame": 26188,
+    ".rodata.str1.4": 33099,
+    ".rodata": 346879,
+    ".debug_info": 220836,
+    ".debug_abbrev": 23574,
+    ".debug_loclists": 96736,
+    ".debug_aranges": 936,
+    ".debug_rnglists": 13613,
+    ".debug_line": 160141,
+    ".debug_str": 54557,
+    ".comment": 570,
+    ".debug_frame": 26460,
     ".text.startup": 1788
   },
   "project_object_bss": 45014,
@@ -366,7 +366,7 @@
   "linker_map": {
     "status": "PARSED",
     "file": "numgame.map",
-    "sha256": "7111825665b69067d8578bf551d72148018c6cb58cccd18f803c46c950d29dc1",
+    "sha256": "70190c6a7c820c75878e3d27d6ea4bd2d671c35da78eaf10acb85c221910ff3a",
     "allocated_sections_match": true,
     "section_checks": {
       ".text": true,
@@ -380,23 +380,22 @@
       ".gint.bss": true
     },
     "project_input_sections": {
-      ".comment": 551,
-      ".text": 119484,
+      ".comment": 570,
+      ".text": 120644,
       ".text.startup": 1788,
-      ".rodata": 453439,
+      ".rodata": 346879,
       ".bss": 45014,
       ".data": 12,
-      ".debug_info": 219295,
-      ".debug_abbrev": 23109,
-      ".debug_line": 158347,
-      ".debug_str": 79565,
-      ".debug_frame": 26188
+      ".debug_info": 220836,
+      ".debug_abbrev": 23574,
+      ".debug_line": 160141,
+      ".debug_str": 80415,
+      ".debug_frame": 26460
     }
   },
   "symbols": {
     "_cache_id.1": 4,
     "_sq_master_start_count": 10,
-    "_gc_target_beta6_answer": 16,
     "_sq_master_sliding3": 18,
     "_sq_master_lights_min": 60,
     "_grids_bank_groups": 200,
@@ -437,12 +436,8 @@
     "_gc_target_beta4_index": 16000,
     "_gc_target_beta5_index": 16000,
     "_gc_target_pack": 16920,
-    "_gc_target_beta6_answer_1": 17306,
-    "_gc_target_beta6_answer_0": 17713,
-    "_gc_target_beta6_answer_2": 24091,
-    "_gc_target_beta6_answer_3": 30476,
-    "_grids_pack_bytes": 79658,
-    "_gc_target_beta6": 80000
+    "_gc_target_beta6_packed": 63000,
+    "_grids_pack_bytes": 79658
   },
   "symbol_details": [
     {
@@ -454,12 +449,6 @@
     {
       "name": "_sq_master_start_count",
       "bytes": 10,
-      "type": "r",
-      "section": ".rodata"
-    },
-    {
-      "name": "_gc_target_beta6_answer",
-      "bytes": 16,
       "type": "r",
       "section": ".rodata"
     },
@@ -704,26 +693,8 @@
       "section": ".rodata"
     },
     {
-      "name": "_gc_target_beta6_answer_1",
-      "bytes": 17306,
-      "type": "r",
-      "section": ".rodata"
-    },
-    {
-      "name": "_gc_target_beta6_answer_0",
-      "bytes": 17713,
-      "type": "r",
-      "section": ".rodata"
-    },
-    {
-      "name": "_gc_target_beta6_answer_2",
-      "bytes": 24091,
-      "type": "r",
-      "section": ".rodata"
-    },
-    {
-      "name": "_gc_target_beta6_answer_3",
-      "bytes": 30476,
+      "name": "_gc_target_beta6_packed",
+      "bytes": 63000,
       "type": "r",
       "section": ".rodata"
     },
@@ -732,15 +703,9 @@
       "bytes": 79658,
       "type": "R",
       "section": ".rodata"
-    },
-    {
-      "name": "_gc_target_beta6",
-      "bytes": 80000,
-      "type": "r",
-      "section": ".rodata"
     }
   ],
-  "stack_frame_count": 416,
+  "stack_frame_count": 419,
   "largest_frames": [
     {
       "function": "src/core/app.c:99:13:start",
@@ -803,8 +768,8 @@
       "kind": "static"
     },
     {
-      "function": "src/games/guesscalc.c:560:13:action_cards.part.0",
-      "bytes": 288,
+      "function": "src/games/guesscalc.c:567:13:action_cards",
+      "bytes": 284,
       "kind": "static"
     },
     {
@@ -878,8 +843,8 @@
   "skipped_stack_reports": [],
   "static_callgraph": {
     "status": "PARTIAL STATIC ANALYSIS",
-    "project_definitions": 416,
-    "direct_project_edges": 982,
+    "project_definitions": 419,
+    "direct_project_edges": 989,
     "unresolved_edges": [
       {
         "caller": "gc_baseball",
@@ -917,7 +882,17 @@
         "kind": "library/assembly/missing-unit"
       },
       {
-        "caller": "gc_target_init",
+        "caller": "gc_target_beta6_answer_text",
+        "target": "memcpy",
+        "kind": "library/assembly/missing-unit"
+      },
+      {
+        "caller": "gc_target_beta6_read",
+        "target": "memcpy",
+        "kind": "library/assembly/missing-unit"
+      },
+      {
+        "caller": "gc_target_beta6_read",
         "target": "memset",
         "kind": "library/assembly/missing-unit"
       },
@@ -1522,7 +1497,7 @@
         "kind": "library/assembly/missing-unit"
       },
       {
-        "caller": "src/games/guesscalc.c:action_cards.part.0",
+        "caller": "src/games/guesscalc.c:action_cards",
         "target": "snprintf",
         "kind": "library/assembly/missing-unit"
       },
@@ -1644,6 +1619,11 @@
       {
         "caller": "src/games/guesscalc.c:render_sequence",
         "target": "strlen",
+        "kind": "library/assembly/missing-unit"
+      },
+      {
+        "caller": "src/games/guesscalc.c:target_clear",
+        "target": "memset",
         "kind": "library/assembly/missing-unit"
       },
       {
@@ -2225,21 +2205,14 @@
         "entry": [
           "src/games/guesscalc.c:action_cards"
         ],
-        "known_project_path_bytes": 3332,
+        "known_project_path_bytes": 3328,
         "components": [
           {
             "functions": [
               "src/games/guesscalc.c:action_cards"
             ],
             "recursive": false,
-            "component_bytes": 0
-          },
-          {
-            "functions": [
-              "src/games/guesscalc.c:action_cards.part.0"
-            ],
-            "recursive": false,
-            "component_bytes": 288
+            "component_bytes": 284
           },
           {
             "functions": [
@@ -2515,14 +2488,14 @@
         "entry": [
           "src/games/guesscalc.c:valid_cards"
         ],
-        "known_project_path_bytes": 3196,
+        "known_project_path_bytes": 3200,
         "components": [
           {
             "functions": [
               "src/games/guesscalc.c:valid_cards"
             ],
             "recursive": false,
-            "component_bytes": 152
+            "component_bytes": 156
           },
           {
             "functions": [
@@ -2566,7 +2539,7 @@
         "entry": [
           "main"
         ],
-        "known_project_path_bytes": 1888,
+        "known_project_path_bytes": 1896,
         "components": [
           {
             "functions": [
@@ -2601,7 +2574,7 @@
               "gc_target_init"
             ],
             "recursive": false,
-            "component_bytes": 76
+            "component_bytes": 84
           },
           {
             "functions": [
@@ -4045,7 +4018,7 @@
         "entry": [
           "src/games/guesscalc.c:init_cards"
         ],
-        "known_project_path_bytes": 260,
+        "known_project_path_bytes": 268,
         "components": [
           {
             "functions": [
@@ -4059,7 +4032,7 @@
               "gc_target_init"
             ],
             "recursive": false,
-            "component_bytes": 76
+            "component_bytes": 84
           },
           {
             "functions": [
@@ -6346,7 +6319,7 @@
       "Compiler inlining is reflected in the emitted frame. The build source and compiler options must match the analyzed artifacts.",
       "BSS, heap and the largest frame/path are never summed into an alleged device RAM peak."
     ],
-    "compiler_callgraph_files": 29,
+    "compiler_callgraph_files": 30,
     "skipped_callgraph_files": [],
     "recursive_bound_evidence": [
       {
@@ -6366,16 +6339,16 @@
   "g3a": {
     "status": "SUPPLIED ARTIFACT",
     "file": "NUMGAME.g3a",
-    "bytes": 664788,
-    "sha256": "af46892f48be8ff4ca9099f6ef0deef0dde858c36c85dbb7a65fd83142586e4b",
-    "elf_payload_bytes": 636112,
+    "bytes": 559380,
+    "sha256": "67bb68195cc0b870fbe5f018c2a788c452faabe99a7d41db303ecb488aa785b6",
+    "elf_payload_bytes": 530704,
     "elf_payload_match": true,
     "target_1000000_pass": true,
     "hard_limit_1200000_pass": true,
     "container_validation": "Separate tools/verify_g3a.py check required; payload equality is not hardware execution."
   },
-  "g3a_bytes": 664788,
-  "sha256": "af46892f48be8ff4ca9099f6ef0deef0dde858c36c85dbb7a65fd83142586e4b",
+  "g3a_bytes": 559380,
+  "sha256": "67bb68195cc0b870fbe5f018c2a788c452faabe99a7d41db303ecb488aa785b6",
   "framebuffer_bytes": 177408,
   "platform_accounting": {
     "framebuffer_payload_bytes": 177408,

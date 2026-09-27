@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "guesscalc_math.h"
+#include "target_beta6_pack.h"
 #include "../../assets/guesscalc_target_beta6.h"
 #include "../../assets/guesscalc_countdown_beta6.h"
 
@@ -26,13 +27,29 @@ static void emit(unsigned game,unsigned id,unsigned level,const GcBeta6CardRecor
 int main(void){
  for(unsigned d=0;d<4;d++)for(unsigned t=0;t<5;t++)for(unsigned slot=0;slot<200;slot++){
   unsigned ordinal=(d*5+t)*200+slot;
-  const GcBeta6CardRecord *r=&gc_target_beta6[ordinal];
+  const GcBeta6CardRecord *original=&gc_target_beta6[ordinal];
+  GcTargetBeta6 decoded;
+  GcBeta6CardRecord row={0};
+  char answer[40],old_hint[64],new_hint[64];
+  assert(gc_target_beta6_read(ordinal,&decoded));
+  assert(gc_target_beta6_answer_text(ordinal,answer,sizeof answer));
+  assert(decoded.target==original->target);
+  assert(decoded.hint_a==original->hint_a&&decoded.hint_b==original->hint_b&&decoded.hint_op==original->hint_op);
+  for(unsigned i=0;i<6;i++){
+   assert(decoded.cards[i]==original->cards[i]);
+   row.cards[i]=decoded.cards[i];
+  }
+  assert(strcmp(answer,gc_target_beta6_answer[d]+original->answer_offset)==0);
+  snprintf(old_hint,sizeof old_hint,"One first step: %d %c %d.",original->cards[original->hint_a],original->hint_op,original->cards[original->hint_b]);
+  snprintf(new_hint,sizeof new_hint,"One first step: %d %c %d.",decoded.cards[decoded.hint_a],decoded.hint_op,decoded.cards[decoded.hint_b]);
+  assert(strcmp(old_hint,new_hint)==0);
+  row.target=decoded.target;row.hint_a=decoded.hint_a;row.hint_b=decoded.hint_b;row.hint_op=decoded.hint_op;
   static const unsigned targets[]={10,24,50,100,200};
-  assert(r->target==targets[t]);
+  assert(row.target==targets[t]);
   unsigned n=d<2?4:d+3;
-  for(unsigned i=0;i<n;i++)assert(r->cards[i]>=1&&r->cards[i]<=999);
-  for(unsigned i=n;i<6;i++)assert(r->cards[i]==0);
-  emit(6,16240+ordinal,d,r,gc_target_beta6_answer[d]+r->answer_offset,n);
+  for(unsigned i=0;i<n;i++)assert(row.cards[i]>=1&&row.cards[i]<=999);
+  for(unsigned i=n;i<6;i++)assert(row.cards[i]==0);
+  emit(6,16240+ordinal,d,&row,answer,n);
  }
  for(unsigned d=0;d<4;d++)for(unsigned slot=0;slot<200;slot++){
   unsigned ordinal=d*200+slot;
