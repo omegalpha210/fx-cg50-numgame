@@ -28,6 +28,12 @@ static void game(Codec *c,NgGame *g,bool modern)
  for(unsigned i=0;i<NG_DATA;i++){uint32_t v=(uint32_t)g->data[i];u32(c,&v);if(!c->out)g->data[i]=v<=INT32_MAX?(int32_t)v:-1-(int32_t)(UINT32_MAX-v);}
  bytes(c,g->input,sizeof(g->input));bytes(c,g->message,sizeof(g->message));
  for(unsigned i=0;i<NG_HISTORY;i++)bytes(c,g->history[i],sizeof(g->history[i]));
+ if(!c->out && c->ok &&
+    (g->id==2 || g->id==6 || g->id==7 || g->id==10)){
+  /* Runtime caret is deliberately absent from every wire revision. */
+  const char *end=memchr(g->input,0,sizeof g->input);
+  g->edit_cursor=end?(uint8_t)(end-g->input):0;
+ }
 }
 static bool supplies(Codec *c,NgSession *s)
 {

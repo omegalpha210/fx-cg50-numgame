@@ -27,21 +27,22 @@ F2 UNDO appears only with supported history, F3 HINT/REVEAL only for modules
 that supply it, F4 is listed below, F5 RULES, F6 mirrors the displayed primary
 EXE action. F1/F2/F3 assistance is marked on the current run. INIT,
 reveal and answer do not silently become NEW. Unsupported softkeys are blank.
-Turn/edit actions ignore HOLD. Menu selectors, RULES scrolling and UP/DOWN
-on long Baseball, Equation Guess and Number Mind lists can repeat while held.
+Turn actions and character insertion ignore HOLD. Menu selectors, RULES
+scrolling, LEFT/RIGHT formula caret movement and UP/DOWN on long Baseball,
+Equation Guess and Number Mind lists can repeat while held.
 
 | ID / Game | Arrows | Digits/operators | EXE / F6 | DEL | F4 |
 |---|---|---|---|---|---|
 | 01 Baseball | UP/DOWN history | Numeric code, preserving initial0 | Submit guess | Backspace | — |
-| 02 Equation | UP/DOWN history | Digits,+−*/=; RHS unary− only | Submit true equation text | Backspace | — |
+| 02 Equation | LEFT/RIGHT caret; UP/DOWN history | Digits,+−*/=; RHS unary− only; SHIFT+DOT is = | Submit true equation text | Delete before caret | — |
 | 03 Number Mind | UP/DOWN clues | EASY0–5, other0–7 | Check code | Backspace | — |
 | 04 Clue Lock | — | Up to3 digits; MASTER4 digits | Check all conditions | Backspace | — |
 | 05 Sequence | — | Signed integer | Check next term | Backspace | — |
-| 06 Make Target | — | Digits,+−*/() | Check every card once | Backspace | ANSWER copies an example; EXE still needed |
-| 07 Countdown | — | Digits,+−*/() | Check legal positive-integer steps; retain best | Backspace | FINISH submitted best; prompts if none yet |
+| 06 Make Target | LEFT/RIGHT caret | Digits,+−*/(); no powers | Check every card once | Delete before caret | ANSWER copies an example; EXE still needed |
+| 07 Countdown | LEFT/RIGHT caret | Digits,+−*/(); no powers | Check legal positive-integer steps; retain best | Delete before caret | FINISH submitted best; prompts if none yet |
 | 08 Missing Operators | LEFT/RIGHT slot | +−*/ only | Check expression | Clear slot | REVEAL selected example operator |
 | 09 Cross Math | Wrapped cell selection | 1–9;0 clears | Check six equations and whole-board1–9 | Clear editable cell | REVEAL editable selected cell; fixed clue gives notice |
-| 10 Prime Factor | — | Digits,* and^ | Check prime bases and product | Backspace | ANSWER copies factorization |
+| 10 Prime Factor | LEFT/RIGHT caret | Digits,* and^; physical x² inserts ^2 | Check prime bases and product | Delete before caret | ANSWER copies factorization |
 | 11 Sudoku | Wrapped cell selection | 1–9; NOTES toggles candidates | Check board | Clear notes first, otherwise value | NOTES |
 | 12 Calcudoku | Wrapped cell selection | 1–N | Check board | Clear value | — |
 | 13 Kakuro | Wrapped selection skipping black cells | 1–9 in white cells | Check board | Clear value | — |

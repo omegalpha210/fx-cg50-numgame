@@ -181,12 +181,38 @@ void ng_input(NgCanvas *c,int x,int y,int w,const char *value)
  ng_text(c,x+6,y+5,start,NG_BLUE,1);
  int cursor=x+6+ng_text_width(start,1)+2;ng_rect(c,cursor,y+4,1,12,NG_BLUE);
 }
+void ng_input_expression_at(NgCanvas *c,int x,int y,int w,
+ const char *value,unsigned cursor)
+{
+ ng_rect(c,x,y,w,21,NG_WHITE);ng_border(c,x,y,w,21,NG_BLUE,1);
+ size_t length=strlen(value),start=0;
+ if(cursor>length)cursor=(unsigned)length;
+ int available=w-16,prefix=0;
+ for(size_t i=0;i<cursor;i++)prefix+=(int)normal_width[glyph((unsigned char)value[i])]+1;
+ while(prefix>available && start<cursor){
+  prefix-=(int)normal_width[glyph((unsigned char)value[start])]+1;
+  start++;
+ }
+ char visible[NG_INPUT];size_t end=start;int width=0;
+ while(end<length && end-start+1<sizeof visible){
+  int advance=(int)normal_width[glyph((unsigned char)value[end])]+1;
+  if(width+advance-1>available)break;
+  visible[end-start]=value[end];width+=advance;end++;
+ }
+ visible[end-start]=0;
+ expression_span(c,x+6,y+5,visible,NG_BLUE,1,false,value,start,end-start);
+ int caret=x+8+prefix;
+ if(caret>x+w-6)caret=x+w-6;
+ ng_rect(c,caret,y+4,1,12,NG_BLUE);
+}
 void ng_input_expression(NgCanvas *c,int x,int y,int w,const char *value)
 {
  ng_rect(c,x,y,w,21,NG_WHITE);ng_border(c,x,y,w,21,NG_BLUE,1);
  const char *start=value;while(*start && ng_text_width(start,1)>w-14)start++;
- expression_span(c,x+6,y+5,start,NG_BLUE,1,false,value,(size_t)(start-value),strlen(start));
- int cursor=x+6+ng_text_width(start,1)+2;ng_rect(c,cursor,y+4,1,12,NG_BLUE);
+ expression_span(c,x+6,y+5,start,NG_BLUE,1,false,value,
+                 (size_t)(start-value),strlen(start));
+ int cursor=x+6+ng_text_width(start,1)+2;
+ ng_rect(c,cursor,y+4,1,12,NG_BLUE);
 }
 void ng_card(NgCanvas *c,int x,int y,int w,int h,const char *label,bool selected,bool used)
 {

@@ -160,6 +160,13 @@ int main(void)
   app.settings.difficulty[4]=(uint8_t)d;open_game(&app,5);
   char name[40];snprintf(name,sizeof name,"72-sequence-%u",d);capture(name);
  }
+ open_game(&app,10);tap(&app,'2');tap(&app,'*');tap(&app,'3');
+ tap(&app,NGK_LEFT);tap(&app,NGK_LEFT);tap(&app,NGK_SQUARE);
+ capture("73-prime-editor-middle");
+ open_game(&app,10);tap(&app,NGK_F4);tap(&app,NGK_EXE);
+ assert(app.modal==NG_MODAL_RESULT && app.session.game.status==NG_WON);
+ capture("74-prime-result");tap(&app,NGK_EXIT);
+ assert(app.result_view);capture("75-prime-view-result");
  assert(!fclose(manifest));
  puts("Renderer capture: main +6 categories +36 games +inline options +edge states PASS");return 0;
 }

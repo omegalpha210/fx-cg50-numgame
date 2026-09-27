@@ -150,24 +150,6 @@ static void play(NgCanvas *c,const NgApp *a)
  const char *keys[6]={"INIT",(m->flags&NGF_UNDO) && a->session.undo_count?"UNDO":"",!cpu_wait && (m->flags&NGF_HINT)?((g->id>=11 && g->id<=20) || g->id==38?"REVEAL":"HINT"):"",cpu_wait?"":m->aux_label,"RULES",primary};
  soft(c,keys,true);
 }
-static void stats(NgCanvas *c,const NgApp *a)
-{
- unsigned cat=a->stats_category==6?a->stats_page:a->stats_category;
- header(c,"STATISTICS",categories[cat]);
- uint64_t played=0,finished=0,time=0;
- for(unsigned i=0;i<NG_GAME_COUNT;i++)if(a->stats_category==6 || i/5==cat){const NgSummary *v=&a->summary[ng_visible_id(i)-1];played+=v->played;finished+=v->completed+v->assisted;time+=v->active_ms;}
- char b[96];snprintf(b,sizeof(b),"PLAYS %llu   FINISHED %llu   TIME %llum",(unsigned long long)played,(unsigned long long)finished,(unsigned long long)(time/60000));
- ng_text_fit(c,10,34,376,b,NG_INK,1);
- ng_small(c,205,55,"PLAYS",NG_MUTED);ng_small(c,267,55,"NORMAL",NG_MUTED);ng_small(c,329,55,"ASSIST",NG_MUTED);
- for(unsigned i=0;i<5;i++) {
-  unsigned id=ng_visible_id(cat*5+i);const NgSummary *s=&a->summary[id-1];int y=70+(int)i*23;
-  ng_rect(c,7,y-5,382,23,i%2?NG_PAPER:NG_WHITE);ng_text_fit(c,12,y,184,ng_module(id)->short_name,NG_INK,1);
-  uint32_t values[3]={s->played,s->completed,s->assisted};
-  for(unsigned j=0;j<3;j++){snprintf(b,sizeof(b),"%lu",(unsigned long)values[j]);ng_small(c,264+(int)j*62-ng_small_width(b),y+1,b,NG_BLUE);}
- }
- ng_small(c,12,192,a->stats_category==6?"LEFT/RIGHT: CATEGORY     EXIT: MAIN":"EXIT: CATEGORY",NG_MUTED);
- const char *keys[6]={"","","","","",""};soft(c,keys,false);
-}
 static void settings(NgCanvas *c,const NgApp *a)
 {
  header(c,"SETTINGS",NULL);ng_text(c,16,48,"1  FIRST GAME RULES",NG_INK,1);ng_text(c,287,48,a->settings.first_help?"ON":"OFF",NG_BLUE,1);
@@ -266,24 +248,6 @@ static void dialog(NgCanvas *c,const NgApp *a)
 #endif
  }
  if(a->modal==NG_MODAL_RULES){rules(c,a);return;}
- if(a->modal==NG_MODAL_RECORDS) {
-  const NgModule *m=ng_module(a->selected_id);
-  const NgBest *b=&a->session.stats.best[a->record_mode][a->record_difficulty][a->record_assisted];
-  ng_rect(c,0,0,396,204,NG_PAPER);header(c,m->short_name,"RECORDS");char text[80];
-  snprintf(text,sizeof(text),"%s / %s",a->record_assisted?"ASSISTED":"UNASSISTED",levels[a->record_difficulty]);ng_text(c,12,34,text,NG_BLUE,1);
-  ng_text(c,12,54,m->mode_name?m->mode_name(a->record_mode):"STANDARD",NG_MUTED,1);
-  snprintf(text,sizeof(text),"FINISHED %lu   W %lu / L %lu / D %lu",(unsigned long)b->completed,(unsigned long)b->wins,(unsigned long)b->losses,(unsigned long)b->draws);ng_wrap(c,12,81,372,13,2,text,NG_INK,false);
-  if(b->completed) {
-   if(a->selected_id==26)snprintf(text,sizeof(text),"BEST SCORE %lu / TILE %lu",(unsigned long)b->best_score,tile_value(b->best_aux));
-   else if(a->selected_id>=21 && a->selected_id<=25)snprintf(text,sizeof(text),"Completed games by outcome above");
-   else if(a->selected_id==29 || a->selected_id==30)snprintf(text,sizeof(text),"BEST SCORE %lu",(unsigned long)b->best_score);
-   else snprintf(text,sizeof(text),"BEST %s %lu",a->selected_id<=5?"TRIES":"MOVES",(unsigned long)b->best_moves);
-   ng_text_fit(c,12,113,372,text,NG_INK,1);
-   if(b->wins){snprintf(text,sizeof(text),"FASTEST CLEAR %lu.%03lu s",(unsigned long)(b->best_ms/1000),(unsigned long)(b->best_ms%1000));ng_text_fit(c,12,139,372,text,NG_INK,1);}
-  }else ng_text(c,12,113,"No finished run in this category.",NG_MUTED,1);
-  ng_small(c,12,182,"Separate records per game, mode, difficulty and assistance.",NG_MUTED);
-  const char *keys[6]={"NORMAL","ASSIST",m->modes>1?"MODE":"","LEVEL","","OK"};soft(c,keys,false);return;
- }
  if(a->modal==NG_MODAL_PAUSE)ng_rect(c,0,25,396,179,NG_PAPER);
  int x=61,y=63,w=274,h=104;
  if(a->modal==NG_MODAL_RESULT){x=27;y=40;w=342;h=150;}
@@ -320,14 +284,8 @@ static void dialog(NgCanvas *c,const NgApp *a)
   if(g->id>=21 && g->id<=25)title=g->status==NG_DRAW?"DRAW":g->mode==2?(g->turn==0?"PLAYER 1 WINS":"PLAYER 2 WINS"):(g->status==NG_WON?"YOU WIN":"CPU WINS");
   if(g->id==37)title=g->status==NG_DRAW?"DRAW":g->status==NG_WON?"YOU WIN":"CPU WINS";
   ng_center(c,x+12,y+17,w-24,title,NG_INK,2);
-  char b[96];
-  if(g->id<=5)snprintf(b,sizeof(b),"TRIES %lu    %s",(unsigned long)g->moves,g->assisted?"ASSISTED":"NORMAL");
-  else if(g->id>=21 && g->id<=25)snprintf(b,sizeof(b),"TURNS %lu    %s / %s",(unsigned long)g->moves,levels[g->difficulty],g->assisted?"ASSISTED":"NORMAL");
-  else if(g->id==37)snprintf(b,sizeof(b),"TURNS %lu    %s / %s",(unsigned long)g->moves,levels[g->difficulty],g->assisted?"ASSISTED":"UNASSISTED");
-  else if(g->id==29)snprintf(b,sizeof(b),"CORRECT %ld/%lu    SCORE %lu",(long)g->data[5],(unsigned long)g->moves,(unsigned long)g->score);
-  else if(g->id==30)snprintf(b,sizeof(b),"ROUNDS %lu/20    SCORE %lu",(unsigned long)g->moves,(unsigned long)g->score);
-  else snprintf(b,sizeof(b),"MOVES %lu    SCORE %lu    %s",(unsigned long)g->moves,(unsigned long)g->score,g->assisted?"ASSISTED":"NORMAL");
-  ng_center(c,x+12,y+48,w-24,b,NG_MUTED,1);
+  char b[96];ng_result_summary(g,a->settings.show_time!=0,b);
+  if(b[0])ng_center(c,x+12,y+48,w-24,b,NG_MUTED,1);
   char first[80]="",second[80]="";
   if(g->id==30) {
    char actual[32];unsigned count=(unsigned)g->data[0];if(count>20)count=20;
@@ -337,11 +295,11 @@ static void dialog(NgCanvas *c,const NgApp *a)
   }
   if(g->id==26) {
    snprintf(first,sizeof(first),"MAX TILE %lu",tile_value((uint32_t)g->data[0]));
-   snprintf(second,sizeof(second),"SCORE %lu",(unsigned long)g->score);
+   snprintf(second,sizeof(second),"%s",g->message);
   }
   if(g->id==26 || g->id==30){ng_center(c,x+12,y+72,w-24,first,NG_INK,1);ng_center(c,x+12,y+87,w-24,second,NG_INK,1);}
-  else if(arithmetic_message(g->id))ng_wrap_expression(c,x+12,y+70,w-24,12,3,g->message,NG_INK,false);
-  else ng_wrap(c,x+12,y+70,w-24,12,3,g->message,NG_INK,false);
+  else if(arithmetic_message(g->id))ng_wrap_expression(c,x+12,y+(b[0]?70:49),w-24,12,3,g->message,NG_INK,false);
+  else ng_wrap(c,x+12,y+(b[0]?70:49),w-24,12,3,g->message,NG_INK,false);
   ng_center(c,x,y+111,w,"EXE: NEW GAME",NG_BLUE,1);ng_center(c,x,y+129,w,"EXIT: VIEW RESULT",NG_INK,1);return;
  }
  default:break;
@@ -352,7 +310,7 @@ void ng_render(const NgApp *a,NgCanvas *c)
 {
  ng_rect(c,0,0,396,224,NG_PAPER);
  switch(a->screen){case NG_MAIN:case NG_CATEGORY:menu(c,a);break;case NG_ENTRY:entry(c,a);break;
- case NG_PLAY:play(c,a);break;case NG_STATS:stats(c,a);break;case NG_SETTINGS:settings(c,a);break;}
+ case NG_PLAY:play(c,a);break;case NG_SETTINGS:settings(c,a);break;}
  if(a->notice[0] && a->screen==NG_MAIN)ng_small_fit(c,8,196,380,a->notice,NG_RED);
  if(a->modal)dialog(c,a);
 }

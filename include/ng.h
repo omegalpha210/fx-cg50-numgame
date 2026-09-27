@@ -23,8 +23,9 @@ enum { NG_SUPPLY_RUNTIME, NG_SUPPLY_BANK, NG_SUPPLY_TRANSFORMS,
 enum { NGK_UP=256, NGK_RIGHT, NGK_DOWN, NGK_LEFT, NGK_EXE,
  NGK_DEL, NGK_HINT, NGK_AUX, NGK_CPU, NGK_ANSWER,
  NGK_F1, NGK_F2, NGK_F3, NGK_F4, NGK_F5, NGK_F6,
- NGK_EXIT, NGK_MENU, NGK_SHIFT, NGK_ALPHA, NGK_ACON };
-enum { NGF_UNDO=1, NGF_HINT=2, NGF_CPU=4, NGF_TIMED=8 };
+ NGK_EXIT, NGK_MENU, NGK_SHIFT, NGK_ALPHA, NGK_ACON, NGK_SQUARE };
+enum { NGF_UNDO=1, NGF_HINT=2, NGF_CPU=4, NGF_TIMED=8,
+ NGF_EDIT_EXPR=16 };
 typedef struct {
  uint8_t id, difficulty, mode, status;
  uint8_t phase, assisted, recorded, turn;
@@ -39,6 +40,8 @@ typedef struct {
  char input[NG_INPUT];
  char message[128];
  char history[NG_HISTORY][40];
+ /* Runtime-only insertion point; the v5 save codec persists input, not this. */
+ uint8_t edit_cursor;
 } NgGame;
 struct NgCanvas;
 typedef struct {
@@ -81,6 +84,9 @@ void ng_new_supply_version(NgGame *g,unsigned id,unsigned difficulty,unsigned mo
  uint32_t seed,uint32_t run_id,uint32_t supply_seed,uint32_t supply_index,unsigned revision);
 bool ng_valid(const NgGame *g);
 bool ng_edit(NgGame *g,int key,const char *allowed,unsigned limit);
+bool ng_edit_expression(NgGame *g,int key,const char *allowed,unsigned limit);
+bool ng_editor_move(NgGame *g,int key);
+void ng_editor_reset(NgGame *g);
 void ng_message(NgGame *g,const char *message);
 void ng_history(NgGame *g,const char *line);
 /* Shared wrapping grid cursor. Returns true only for arrow keys. */

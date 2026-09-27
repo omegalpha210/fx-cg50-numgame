@@ -1,7 +1,9 @@
 # In-app game rules
 
 Exported from the same `NgModule.rules` strings compiled into NUMGAME.g3a.
-See README for physical key mapping (`SHIFT+DOT` = `=`; DOT alone = `.`, power key = `^`).
+Physical `SHIFT+DOT` = `=`; DOT alone = `.`, power key = `^`.
+Formula drafts in Equation Guess, Make Target, Countdown and Prime Factor
+use LEFT/RIGHT caret editing; physical x2 inserts `^2` only in Prime Factor.
 All games use F1 INIT, F5 RULES, EXIT checkpoint, MENU checkpoint and
 SHIFT+AC/ON checkpoint. NEW is separate from INIT.
 Long RULES scroll one wrapped line per UP/DOWN event; the right rail
@@ -41,7 +43,8 @@ Hard 7/8-char modes use two operators.
 MASTER STANDARD/SHORT/LONG: 9/8/10 chars,
 mixed precedence, 12 attempts.
 SHIFT+DOT enters =.
-EXE submits true equations. UP/DOWN history.
+LEFT/RIGHT edit the draft; DEL deletes before
+the caret. EXE submits. UP/DOWN history.
 ```
 
 Modes: STANDARD / SHORT / LONG.
@@ -149,7 +152,8 @@ RANDOM shares those 1,000 decks per level.
 Every input card is 1..999 (at most 3 digits).
 E: no division needed. N/H: division needed.
 MASTER: every solution needs fractions.
-Type expression; DEL erases; EXE checks.
+LEFT/RIGHT move the insertion caret. DEL
+erases before it. EXE checks the draft.
 HINT gives one first step; ANSWER copies one
 example. Both mark assisted. All legal answers
 are accepted, not just that example.
@@ -173,7 +177,8 @@ New: 200 verified decks in each difficulty.
 HARD: every exact answer needs >=4 cards.
 MASTER: 3 large cards; exact target requires
 all six cards and at least one division.
-Untimed practice. EXE checks each expression.
+Untimed practice. LEFT/RIGHT edit the draft.
+DEL erases before caret; EXE checks.
 Exact=10 points, distance 1..5=7,6..10=5,
 else 0. Best submitted distance is retained.
 FINISH keeps best result. No optimality claim.
@@ -232,7 +237,9 @@ New targets: EASY 3 digits; NORMAL 3/4;
 HARD 4/5; MASTER 5/6. Largest prime <=97.
 Structure, not digit count alone, sets levels.
 Older saves retain their original factors.
-Type digits, * and ^. DEL erases, EXE checks.
+Type digits, * and ^. x2 inserts ^2.
+LEFT/RIGHT edit; DEL erases before caret.
+EXE checks.
 HINT proves one prime divisor. ANSWER reveals
 a factorization. Both mark assisted.
 ```

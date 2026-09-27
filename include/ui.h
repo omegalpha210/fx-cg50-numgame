@@ -26,6 +26,8 @@ void ng_expression(NgCanvas *c,int x,int y,const char *text,int color,int scale)
 void ng_wrap_expression(NgCanvas *c,int x,int y,int width,int spacing,unsigned lines,const char *text,int color,bool small);
 void ng_small_expression(NgCanvas *c,int x,int y,const char *text,int color);
 void ng_input_expression(NgCanvas *c,int x,int y,int w,const char *value);
+void ng_input_expression_at(NgCanvas *c,int x,int y,int w,
+ const char *value,unsigned cursor);
 int ng_small_width(const char *text);
 void ng_text_fit(NgCanvas *c,int x,int y,int width,const char *text,int color,int scale);
 void ng_small_fit(NgCanvas *c,int x,int y,int width,const char *text,int color);
@@ -36,6 +38,8 @@ void ng_2048_colors(unsigned exponent,int *background,int *foreground);
 void ng_game_icon(NgCanvas *c,int x,int y,unsigned id,int accent);
 void ng_number(NgCanvas *c,int x,int y,int value,int color,int scale);
 void ng_input(NgCanvas *c,int x,int y,int w,const char *value);
+/* Presentation only: never changes game counters or serialized state. */
+void ng_result_summary(const NgGame *g,bool show_time,char out[96]);
 void ng_card(NgCanvas *c,int x,int y,int w,int h,const char *label,bool selected,bool used);
 /* A shared rail for lists longer than their visible rows. */
 void ng_list_scrollbar(NgCanvas *c,unsigned total,unsigned visible,unsigned offset,

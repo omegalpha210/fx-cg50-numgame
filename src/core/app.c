@@ -30,7 +30,7 @@ int ng_key_index(int key)
  if(key>='0' && key<='9')return key-'0';
  const char *symbols="+-*/()=^.";const char *p=strchr(symbols,key);
  if(key>0 && key<128 && p)return 10+(int)(p-symbols);
- if(key>=NGK_UP && key<=NGK_ACON)return 19+key-NGK_UP;
+ if(key>=NGK_UP && key<=NGK_SQUARE)return 19+key-NGK_UP;
  return -1;
 }
 static void resume_setting(NgSettings *s,unsigned id)
@@ -68,6 +68,8 @@ void ng_app_init(NgApp *a,NgHooks hooks,uint32_t seed)
   if(!a->resumable)memset(&a->session,0,sizeof a->session);
  }
  for(unsigned i=0;i<NG_ID_MAX;i++)if(a->settings.difficulty[i]<NG_HELL)a->previous_level[i]=a->settings.difficulty[i];
+ if(a->active && (ng_module(a->session.game.id)->flags&NGF_EDIT_EXPR))
+  ng_editor_reset(&a->session.game);
 }
 bool ng_checkpoint(NgApp *a)
 {
@@ -246,6 +248,8 @@ static bool perform(NgApp *a,int key)
  a->before=*g;NgDiagScope scope=ng_diag_begin(key==NGK_CPU?NGOP_CPU:key==NGK_HINT?NGOP_HINT:NGOP_INPUT,g->id);
  bool changed=m->action(g,key);ng_diag_end(scope);
  if(!changed)return false;
+ if((m->flags&NGF_EDIT_EXPR) && g->edit_cursor>strlen(g->input))
+  ng_editor_reset(g);
  /* Modules mark only a consumed hint/reveal as assisted, not an error prompt. */
  if((m->flags&NGF_UNDO) && oldmoves!=g->moves && key!=NGK_CPU && !a->before.cpu_pending) {
   if(a->session.undo_count==NG_UNDO){memmove(a->session.undo,a->session.undo+1,(NG_UNDO-1)*sizeof(NgGame));a->session.undo_count--;}
@@ -333,15 +337,6 @@ static bool dispatch(NgApp *a,int key)
 #endif
    return true;
   }
-  if(a->modal==NG_MODAL_RECORDS) {
-   if(key==NGK_EXIT || key==NGK_EXE || key==NGK_F6)modal(a,NG_MODAL_NONE);
-   else if(key==NGK_F1)a->record_assisted=0;
-   else if(key==NGK_F2)a->record_assisted=1;
-   else if(key==NGK_F3 && ng_module(a->selected_id)->modes>1){a->record_mode=(uint8_t)((a->record_mode+1)%ng_module(a->selected_id)->modes);if(a->selected_id==26 && !a->record_mode && a->record_difficulty>NG_HARD)a->record_difficulty=NG_NORMAL;}
-   else if(key==NGK_F4 || key==NGK_RIGHT){unsigned n=a->selected_id==26 && !a->record_mode?3:ng_difficulty_count(a->selected_id);a->record_difficulty=(uint8_t)((a->record_difficulty+1)%n);}
-   else if(key==NGK_LEFT){unsigned n=a->selected_id==26 && !a->record_mode?3:ng_difficulty_count(a->selected_id);a->record_difficulty=(uint8_t)((a->record_difficulty+n-1)%n);}
-   return true;
-  }
   if(a->modal==NG_MODAL_RULES) {
    if(key==NGK_DOWN && a->rules_scroll<ng_rules_max_scroll(a->selected_id))a->rules_scroll++;
    else if(key==NGK_UP && a->rules_scroll)a->rules_scroll--;
@@ -415,12 +410,6 @@ static bool dispatch(NgApp *a,int key)
   }
   return true;
  }
- if(a->screen==NG_STATS) {
-  if(key==NGK_EXIT){a->screen=a->stats_category==6?NG_MAIN:NG_CATEGORY;barrier(a);}
-  else if(key==NGK_RIGHT || key==NGK_DOWN)a->stats_page=(uint8_t)((a->stats_page+1)%6);
-  else if(key==NGK_LEFT || key==NGK_UP)a->stats_page=(uint8_t)((a->stats_page+5)%6);
-  return true;
- }
  if(a->screen==NG_SETTINGS) {
   if(key=='1' || key==NGK_F1){a->settings.first_help^=1;a->settings_dirty=true;}
   else if(key=='2' || key==NGK_F2){a->settings.show_time^=1;a->settings_dirty=true;}
@@ -449,6 +438,9 @@ static bool dispatch(NgApp *a,int key)
    else if(key==NGK_F5)modal(a,NG_MODAL_RULES);
    return true;
   }
+  /* Cursor navigation changes presentation only; no save, move or undo. */
+  if((m->flags&NGF_EDIT_EXPR) && (key==NGK_LEFT || key==NGK_RIGHT))
+   return ng_editor_move(&a->session.game,key);
   if(key==NGK_EXIT) {
    if(a->session.game.id==31 && a->session.game.phase==1)return perform(a,key);
    if(ng_checkpoint(a)){a->screen=NG_ENTRY;a->entry_selection=(uint8_t)ng_entry_row(a,NG_ENTRY_RESUME);barrier(a);}
@@ -485,13 +477,17 @@ bool ng_app_event(NgApp *a,int key,int type)
  }
  if(type==NG_HOLD) {
   bool list=a->screen==NG_PLAY && !a->modal && (a->session.game.id==1 || a->session.game.id==2 || a->session.game.id==3) && (key==NGK_UP || key==NGK_DOWN);
-  if(key<NGK_UP || key>NGK_LEFT || (a->screen!=NG_MAIN && a->screen!=NG_CATEGORY && a->modal!=NG_MODAL_RULES && !list))return false;
+  bool editor=a->screen==NG_PLAY && !a->modal && !a->session.game.status &&
+   (ng_module(a->session.game.id)->flags&NGF_EDIT_EXPR) &&
+   (key==NGK_LEFT || key==NGK_RIGHT);
+  if(key<NGK_UP || key>NGK_LEFT || (a->screen!=NG_MAIN && a->screen!=NG_CATEGORY && a->modal!=NG_MODAL_RULES && !list && !editor))return false;
  } else {
   uint64_t modifiers=a->held&~a->blocked;
   bool shift=a->shift_pending || (modifiers&(UINT64_C(1)<<ng_key_index(NGK_SHIFT)));
   bool alpha=a->alpha_pending || (modifiers&(UINT64_C(1)<<ng_key_index(NGK_ALPHA)));
   a->shift_pending=false;a->alpha_pending=false;
   if(key==NGK_ACON && (!shift || alpha))return false;
+  if(key==NGK_SQUARE && (shift || alpha))return false;
   if(key=='.' && shift && !alpha)key='=';
  }
  return dispatch(a,key);

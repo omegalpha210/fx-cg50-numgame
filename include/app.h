@@ -2,8 +2,10 @@
 #define NUMGAME_APP_H
 #include "storage.h"
 #include "ui.h"
+/* NG_STATS keeps its former screen number for diagnostic trace stability. */
 enum { NG_MAIN,NG_CATEGORY,NG_ENTRY,NG_PLAY,NG_STATS,NG_SETTINGS };
 enum { NG_MODAL_NONE,NG_MODAL_INIT,NG_MODAL_NEW,NG_MODAL_RULES,
+ /* NG_MODAL_RECORDS likewise reserves its former modal number. */
  NG_MODAL_RESULT,NG_MODAL_PAUSE,NG_MODAL_SAVE_ERROR,NG_MODAL_RECORDS,NG_MODAL_DIAGNOSTICS,NG_MODAL_MODE,NG_MODAL_EVICT,NG_MODAL_LAST_TRY };
 enum { NG_DOWN,NG_UP,NG_HOLD };
 typedef struct {
@@ -22,13 +24,11 @@ typedef struct {
  NgSession session;
  NgGame before;
  NgSettings settings;
- NgSummary summary[NG_ID_MAX];
  NgHooks hooks;
  uint64_t held,blocked;
  uint32_t epoch,seed;
  uint8_t screen,modal,category,selection,entry_selection,selected_id;
- uint8_t stats_category,stats_page,rules_scroll;
- uint8_t record_mode,record_difficulty,record_assisted;
+ uint8_t rules_scroll;
  uint8_t previous_level[NG_ID_MAX],mode_choice,diag_page;
  bool shift_pending,alpha_pending,dirty,settings_dirty,active,resumable,result_view,save_failed;
  bool start_failed,start_failed_result;

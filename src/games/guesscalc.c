@@ -72,7 +72,8 @@ static bool scroll_history(NgGame *g,int key,unsigned visible){
  return false;
 }
 static void text_input(const NgGame *g,NgCanvas *c,int y){
- if(g->id==2||g->id==6||g->id==7||g->id==10)ng_input_expression(c,10,y,376,g->input);
+ if(g->id==2||g->id==6||g->id==7||g->id==10)
+  ng_input_expression_at(c,10,y,376,g->input,g->edit_cursor);
  else ng_input(c,10,y,376,g->input);
 }
 static void center_expression(NgCanvas *c,int x,int y,int width,const char *text,int color,int scale){
@@ -182,13 +183,13 @@ static void render_baseball(const NgGame *g,NgCanvas *c){
  char line[64];snprintf(line,sizeof(line),"%d DIGITS %s   TRY %u/%d",(int)g->data[0],baseball_unique(g)?"UNIQUE":"REPEAT",(unsigned)g->moves,(int)g->data[1]);ng_text(c,12,31,line,NG_BLUE,1);
  unsigned count=g->pack_revision>=4?g->moves:g->history_count;
  for(unsigned i=0;i<5&&g->scroll+i<count;i++){
-  const char *record=g->history[g->scroll+i];
+  const char *record;
   if(g->pack_revision>=4){
    uint32_t packed=(uint32_t)g->data[2+g->scroll+i];char guess[8];
    baseball_guess(packed,(unsigned)g->data[0],guess);
    snprintf(line,sizeof line,"%2u  %.7s     %uS  %uB",(unsigned)g->scroll+i+1,guess,
     (unsigned)(packed>>24&15u),(unsigned)(packed>>28&15u));record=line;
-  }
+  }else record=g->history[g->scroll+i];
   ng_text(c,22,53+(int)i*18,record,NG_INK,1);
  }
  if(!count)ng_text(c,22,83,"Your attempts appear here.",NG_MUTED,1);
@@ -204,7 +205,7 @@ static void init_equation(NgGame *g){
 static bool action_equation(NgGame *g,int key){
  if(scroll_history(g,key,4))return true;
  if(g->status!=NG_PLAYING)return false;
- if(!submit(key))return ng_edit(g,key,"0123456789+-*/=",(unsigned)g->data[0]);
+ if(!submit(key))return ng_edit_expression(g,key,"0123456789+-*/=",(unsigned)g->data[0]);
  unsigned n=(unsigned)g->data[0];if(strlen(g->input)!=n){ng_message(g,"Equation must have the exact character count.");return true;}
  if(!gc_equation(g->input)){ng_message(g,"Use a true equation; no leading zeros.");return true;}
  char secret[11],line[40];uint8_t feedback[10];secret_text(g,secret,n);gc_feedback(secret,g->input,n,feedback);
@@ -585,12 +586,12 @@ static bool action_cards(NgGame *g,int key){
  else {p=card_pack(g);snprintf(answer,sizeof(answer),"%s",p->answer);snprintf(tip,sizeof(tip),"%s",p->hint);}
  if(hint(key)){ng_message(g,tip);g->assisted=1;return true;}
  if(auxiliary(key)){
-  if(g->id==6||key==NGK_ANSWER){snprintf(g->input,sizeof(g->input),"%s",answer);g->assisted=1;ng_message(g,"Example answer copied. EXE checks it.");}
+  if(g->id==6||key==NGK_ANSWER){snprintf(g->input,sizeof(g->input),"%s",answer);ng_editor_reset(g);g->assisted=1;ng_message(g,"Example answer copied. EXE checks it.");}
   else if(g->data[3]==1000000000)ng_message(g,"CHECK a valid expression before FINISH.");
   else {g->status=g->data[3]?NG_DRAW:NG_WON;snprintf(g->message,sizeof(g->message),"Best submitted distance: %d. Score: %u.",(int)g->data[3],(unsigned)g->score);}
   return true;
  }
- if(!submit(key))return ng_edit(g,key,"0123456789+-*/()",96);
+ if(!submit(key))return ng_edit_expression(g,key,"0123456789+-*/()",96);
  GcExpression e;if(!gc_expression(g->input,g->id==7,&e)){ng_message(g,g->id==7?"Invalid: every step must be a positive integer.":"Invalid or oversized expression / zero divisor.");return true;}
  if(!gc_cards(&e,g->board,(unsigned)g->data[1],g->id==6)){ng_message(g,g->id==6?"Use ALL card values exactly once each.":"Use each card at most once; no extra constants.");return true;}
  ++g->moves;
@@ -798,8 +799,8 @@ static void init_factor(NgGame *g){
 static bool action_factor(NgGame *g,int key){
  if(g->status!=NG_PLAYING)return false;
  if(hint(key)){unsigned p=2;while((unsigned)g->data[0]%p)p++;snprintf(g->message,sizeof(g->message),"A prime divisor is %u: %d / %u = %u.",p,(int)g->data[0],p,(unsigned)(int)g->data[0]/p);g->assisted=1;return true;}
- if(auxiliary(key)){factor_answer(g->data[0],g->input,sizeof(g->input));g->assisted=1;ng_message(g,"Prime factorization revealed; EXE checks.");return true;}
- if(!submit(key))return ng_edit(g,key,"0123456789*^",96);
+ if(auxiliary(key)){factor_answer(g->data[0],g->input,sizeof(g->input));ng_editor_reset(g);g->assisted=1;ng_message(g,"Prime factorization revealed; EXE checks.");return true;}
+ if(!submit(key))return ng_edit_expression(g,key,"0123456789*^",96);
  ++g->moves;if(gc_factorization(g->input,g->data[0])){g->status=NG_WON;ng_message(g,"All bases prime; their powers give the target.");}else ng_message(g,"Need prime bases, positive powers, exact product.");return true;
 }
 
@@ -831,18 +832,25 @@ static void render_factor(const NgGame *g,NgCanvas *c){
  int x=PRIME_TARGET_X+(PRIME_TARGET_W-ng_text_width(target,scale))/2;
  int y=PRIME_TARGET_Y+(PRIME_TARGET_H-11*scale)/2;
  ng_center(c,10,31,376,"PRIME FACTORIZATION",NG_BLUE,1);ng_text(c,x,y,target,NG_INK,scale);
- ng_center(c,10,110,376,"Prime bases, positive exponents",NG_MUTED,1);center_expression(c,10,129,376,"Example: 2^3*3^2*5  or  2*2*2*3*3*5",NG_MUTED,1);text_input(g,c,151);
+ ng_center(c,10,110,376,"Prime bases, positive exponents",NG_MUTED,1);
+ if(g->status==NG_WON){
+  ng_center(c,10,129,376,"YOUR FACTORIZATION",NG_MUTED,1);
+  ng_wrap_expression(c,12,143,372,14,3,g->input,NG_BLUE,false);
+ }else{
+  center_expression(c,10,129,376,"Example: 2^3*3^2*5  or  2*2*2*3*3*5",NG_MUTED,1);
+  text_input(g,c,151);
+ }
 }
 
 const NgModule ng_guesscalc[10]={
  {1,"NUMBER BASEBALL","BASEBALL","Find the hidden digit sequence.\nEASY/NORMAL/HARD/MASTER: 4/5/6/7 digits.\nRepeated digits and leading zero are allowed.\nS = correct digit and position.\nB = correct digit, wrong position.\nExact matches are consumed before counting B.\nTotal attempts by level: 20/30/40/50.\nThe last try is included in that total.\nDigits enter; DEL erases; EXE submits.\nUP/DOWN scroll attempts. No guess undo.\nOlder saved games retain their original rules.",0,NULL,"SUBMIT",1,default_mode,init_baseball,action_baseball,NULL,valid_baseball,render_baseball},
- {2,"EQUATION GUESS","EQUATION","Find the hidden equation TEXT exactly.\nMatching its numeric value alone cannot win.\nUse digits + - * / and one =. RHS integer.\nNo parentheses or leading zeros. Unary minus\non the RHS only.\nStandard precedence. Green: exact. Yellow:\nexists elsewhere. Grey: absent. Duplicates\nconsume exact matches first. 7/6/8-char modes.\nEasy +-, Normal +-* , Hard +-*/ corpus.\nHard 7/8-char modes use two operators.\nMASTER STANDARD/SHORT/LONG: 9/8/10 chars,\nmixed precedence, 12 attempts.\nSHIFT+DOT enters =.\nEXE submits true equations. UP/DOWN history.",0,NULL,"SUBMIT",3,equation_mode,init_equation,action_equation,NULL,valid_equation,render_equation},
+ {2,"EQUATION GUESS","EQUATION","Find the hidden equation TEXT exactly.\nMatching its numeric value alone cannot win.\nUse digits + - * / and one =. RHS integer.\nNo parentheses or leading zeros. Unary minus\non the RHS only.\nStandard precedence. Green: exact. Yellow:\nexists elsewhere. Grey: absent. Duplicates\nconsume exact matches first. 7/6/8-char modes.\nEasy +-, Normal +-* , Hard +-*/ corpus.\nHard 7/8-char modes use two operators.\nMASTER STANDARD/SHORT/LONG: 9/8/10 chars,\nmixed precedence, 12 attempts.\nSHIFT+DOT enters =.\nLEFT/RIGHT edit the draft; DEL deletes before\nthe caret. EXE submits. UP/DOWN history.",NGF_EDIT_EXPR,NULL,"SUBMIT",3,equation_mode,init_equation,action_equation,NULL,valid_equation,render_equation},
  {3,"NUMBER MIND","NUMBER MIND","Each clue gives exact-position matches only.\nDigits in wrong positions give no information.\nEasy: 4 digits 0..5. Normal: 4 digits 0..7.\nHard: 5 digits 0..7. MASTER: 6 digits 0..7.\nRepeats and initial 0 OK.\nAll published clues have one solution in that\nfinite domain. Digits: input. EXE: CHECK.\nUP/DOWN: clues. HINT lists values not excluded\nby visible zero-match clues, one spot at a time.",NGF_HINT,NULL,"CHECK",1,default_mode,init_mind,action_mind,NULL,valid_mind,render_mind},
  {4,"CLUE LOCK","CLUE LOCK","Find an integer satisfying EVERY shown clue.\nMOD is the remainder after division. Decimal\ndigit sum and contains ignore leading zeros.\nEasy domain 0..99, Normal 0..499, Hard 0..999.\nHard uses two modular / CRT conditions.\nMASTER: 0..9999, three MOD clues and digit\nsum. All four clues contribute to uniqueness.\nAll clues shown initially; one domain solution.\nHINT explains the first modular progression.\nDigits: enter. EXE: CHECK. DEL: erase.",NGF_HINT,NULL,"CHECK",1,default_mode,init_lock,action_lock,NULL,valid_lock,render_lock},
  {5,"SEQUENCE DETECTIVE","SEQUENCE","Find the next term in a FINITE rule grammar.\nA finite prefix is not universally unique!\nAllowed rules (n starts at 0):\na+bn: a=-9..9, b=-5..5, b nonzero.\na*b^n: a=1..5, b=-3,-2,2,3.\na+bn+cn*n: a=-5..5,b=-4..4,c=1..3.\nFibonacci sum: first two each 1..9.\nAlternating lanes: starts -6..9, step 1..5.\nx'=b*x+c: start -3..6,b=-2,-1,2,3,\nc=-3..3 nonzero. Both lanes share a step.\nMASTER adds x_next=a*x_last+b*x_before+c,\nfirst two -3..6; a,b,c each -2,-1,1,2;\nand alternating lanes with DIFFERENT steps,\nstarts -6..9; each step -5..5 nonzero.\nRevision4 EASY uses AP, GP, shared step.\nNORMAL: quadratic, Fibonacci, offset, and\nunequal lanes: starts1..9, steps1..3.\nHARD keeps the six old rules; MASTER uses\nall old and new rules together. Old saves\nkeep their original grammar.\nPacks reject competing next answers across\ntheir level grammar. HINT reveals RULE FAMILY.\nEnter signed integer, EXE checks.",NGF_HINT,NULL,"CHECK",1,default_mode,init_sequence,action_sequence,NULL,valid_sequence,render_sequence},
- {6,"MAKE TARGET","MAKE TARGET","Choose 10/24/50/100/200/RANDOM at entry.\nRANDOM mixes the five targets in your level.\nUse EVERY card exactly once to reach target.\nEASY/NORMAL/HARD/MASTER: 4/4/5/6 cards.\nUse + - * / and parentheses.\nExact rational intermediate values allowed.\nNo concatenation, powers or extra constants.\nEqual values are separate usable cards.\nNew: 200 verified decks per target and level;\nRANDOM shares those 1,000 decks per level.\nEvery input card is 1..999 (at most 3 digits).\nE: no division needed. N/H: division needed.\nMASTER: every solution needs fractions.\nType expression; DEL erases; EXE checks.\nHINT gives one first step; ANSWER copies one\nexample. Both mark assisted. All legal answers\nare accepted, not just that example.\n96 chars, nesting12, reduced values <= 1e9.\nEarlier saved decks and targets stay playable.",NGF_HINT,"ANSWER","CHECK",1,default_mode,init_cards,action_cards,NULL,valid_cards,render_cards},
- {7,"COUNTDOWN","COUNTDOWN","Reach target 100..999 with up to six cards.\nEach card at most once; unused cards allowed.\nEvery intermediate result MUST be a positive\ninteger; division must be exact. + - * / ( ).\nSmall deck: two copies each of 1..10.\nLarge: 25,50,75,100, without repeats.\nEasy/Normal/Hard: 1/2/3 large cards.\nNew: 200 verified decks in each difficulty.\nHARD: every exact answer needs >=4 cards.\nMASTER: 3 large cards; exact target requires\nall six cards and at least one division.\nUntimed practice. EXE checks each expression.\nExact=10 points, distance 1..5=7,6..10=5,\nelse 0. Best submitted distance is retained.\nFINISH keeps best result. No optimality claim.\nHINT gives first step of one exact solution.",NGF_HINT,"FINISH","CHECK",1,default_mode,init_cards,action_cards,NULL,valid_cards,render_cards},
+ {6,"MAKE TARGET","MAKE TARGET","Choose 10/24/50/100/200/RANDOM at entry.\nRANDOM mixes the five targets in your level.\nUse EVERY card exactly once to reach target.\nEASY/NORMAL/HARD/MASTER: 4/4/5/6 cards.\nUse + - * / and parentheses.\nExact rational intermediate values allowed.\nNo concatenation, powers or extra constants.\nEqual values are separate usable cards.\nNew: 200 verified decks per target and level;\nRANDOM shares those 1,000 decks per level.\nEvery input card is 1..999 (at most 3 digits).\nE: no division needed. N/H: division needed.\nMASTER: every solution needs fractions.\nLEFT/RIGHT move the insertion caret. DEL\nerases before it. EXE checks the draft.\nHINT gives one first step; ANSWER copies one\nexample. Both mark assisted. All legal answers\nare accepted, not just that example.\n96 chars, nesting12, reduced values <= 1e9.\nEarlier saved decks and targets stay playable.",NGF_HINT|NGF_EDIT_EXPR,"ANSWER","CHECK",1,default_mode,init_cards,action_cards,NULL,valid_cards,render_cards},
+ {7,"COUNTDOWN","COUNTDOWN","Reach target 100..999 with up to six cards.\nEach card at most once; unused cards allowed.\nEvery intermediate result MUST be a positive\ninteger; division must be exact. + - * / ( ).\nSmall deck: two copies each of 1..10.\nLarge: 25,50,75,100, without repeats.\nEasy/Normal/Hard: 1/2/3 large cards.\nNew: 200 verified decks in each difficulty.\nHARD: every exact answer needs >=4 cards.\nMASTER: 3 large cards; exact target requires\nall six cards and at least one division.\nUntimed practice. LEFT/RIGHT edit the draft.\nDEL erases before caret; EXE checks.\nExact=10 points, distance 1..5=7,6..10=5,\nelse 0. Best submitted distance is retained.\nFINISH keeps best result. No optimality claim.\nHINT gives first step of one exact solution.",NGF_HINT|NGF_EDIT_EXPR,"FINISH","CHECK",1,default_mode,init_cards,action_cards,NULL,valid_cards,render_cards},
  {8,"MISSING OPERATORS","OPERATORS","Fill the missing + - * / operators.\nNumber order is fixed; no parentheses.\nStandard precedence: * / before + -.\nEqual precedence is evaluated left to right.\nAll valid operator combinations are accepted.\nEasy/Normal/Hard use 3/4/5 numbers.\nMASTER: 6 numbers; 1..3 solutions, each with\nat least three different operator kinds.\nArrows select slot; operation key sets it.\nDEL clears. EXE checks. REVEAL fills selected\nslot from one solution and marks assisted.",NGF_UNDO,"REVEAL","CHECK",1,default_mode,init_operators,action_operators,NULL,valid_operators,render_operators},
  {9,"CROSS MATH","CROSS MATH","Place 1..9 exactly once over the WHOLE board.\nSatisfy three horizontal and three vertical\nexpressions, reading left/right or top/down.\n* before + or -. No Latin-square rules.\nGrey fixed clues cannot be edited.\nEasy/Normal/Hard have 4/2/0 fixed numbers.\nMASTER has no fixed values and needs tighter\nrow/column coupling: more candidate boards.\nEach generated pack puzzle has one solution.\nArrows select; 1..9 enter; DEL/0 clear.\nEXE checks all rules. REVEAL selected number\nmarks the game assisted.",NGF_UNDO,"REVEAL","CHECK",1,default_mode,init_cross,action_cross,NULL,valid_cross,render_cross},
- {10,"PRIME FACTOR","PRIME FACTOR","Factor the composite target into primes.\nUse prime bases with optional positive powers.\nExample 360: 2^3*3^2*5, or repeat factors.\nAny factor order is accepted. 1 is not prime\nor composite; composite bases are rejected.\nExponents 1..20; at most 16 written factors.\nNew targets: EASY 3 digits; NORMAL 3/4;\nHARD 4/5; MASTER 5/6. Largest prime <=97.\nStructure, not digit count alone, sets levels.\nOlder saves retain their original factors.\nType digits, * and ^. DEL erases, EXE checks.\nHINT proves one prime divisor. ANSWER reveals\na factorization. Both mark assisted.",NGF_HINT,"ANSWER","CHECK",1,default_mode,init_factor,action_factor,NULL,valid_factor,render_factor}
+ {10,"PRIME FACTOR","PRIME FACTOR","Factor the composite target into primes.\nUse prime bases with optional positive powers.\nExample 360: 2^3*3^2*5, or repeat factors.\nAny factor order is accepted. 1 is not prime\nor composite; composite bases are rejected.\nExponents 1..20; at most 16 written factors.\nNew targets: EASY 3 digits; NORMAL 3/4;\nHARD 4/5; MASTER 5/6. Largest prime <=97.\nStructure, not digit count alone, sets levels.\nOlder saves retain their original factors.\nType digits, * and ^. x2 inserts ^2.\nLEFT/RIGHT edit; DEL erases before caret.\nEXE checks.\nHINT proves one prime divisor. ANSWER reveals\na factorization. Both mark assisted.",NGF_HINT|NGF_EDIT_EXPR,"ANSWER","CHECK",1,default_mode,init_factor,action_factor,NULL,valid_factor,render_factor}
 };

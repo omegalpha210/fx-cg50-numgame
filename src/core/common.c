@@ -31,6 +31,47 @@ bool ng_edit(NgGame *g,int key,const char *allowed,unsigned limit)
  }
  return false;
 }
+void ng_editor_reset(NgGame *g)
+{
+ size_t length=strlen(g->input);
+ g->edit_cursor=(uint8_t)(length<NG_INPUT?length:NG_INPUT-1);
+}
+bool ng_editor_move(NgGame *g,int key)
+{
+ size_t length=strlen(g->input);
+ if(g->edit_cursor>length)ng_editor_reset(g);
+ if(key==NGK_LEFT && g->edit_cursor){g->edit_cursor--;return true;}
+ if(key==NGK_RIGHT && g->edit_cursor<length){g->edit_cursor++;return true;}
+ return false;
+}
+/* Cursor-only navigation lives in app.c; this helper edits one bounded draft. */
+bool ng_edit_expression(NgGame *g,int key,const char *allowed,unsigned limit)
+{
+ size_t length=strlen(g->input);
+ if(g->edit_cursor>length)ng_editor_reset(g);
+ if(key==NGK_DEL){
+  if(!g->edit_cursor)return false;
+  memmove(g->input+g->edit_cursor-1,g->input+g->edit_cursor,
+          length-g->edit_cursor+1);
+  g->edit_cursor--;
+  return true;
+ }
+ char square[2]={'^','2'};
+ const char *insert=NULL;
+ size_t count=0;
+ char single=(char)key;
+ if(key==NGK_SQUARE && strchr(allowed,'^')){insert=square;count=2;}
+ else if(key>0 && key<128 && strchr(allowed,key)){insert=&single;count=1;}
+ if(!insert)return false;
+ if(limit>=NG_INPUT)limit=NG_INPUT-1;
+ if(length+count>limit){ng_message(g,"Input limit reached");return true;}
+ memmove(g->input+g->edit_cursor+count,g->input+g->edit_cursor,
+         length-g->edit_cursor+1);
+ memcpy(g->input+g->edit_cursor,insert,count);
+ g->edit_cursor=(uint8_t)(g->edit_cursor+count);
+ g->message[0]=0;
+ return true;
+}
 void ng_history(NgGame *g,const char *line)
 {
  if(g->history_count==NG_HISTORY) {

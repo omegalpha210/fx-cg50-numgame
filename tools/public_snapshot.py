@@ -34,7 +34,7 @@ PUBLIC_DOCS={
     'MAKE_TARGET_COMPLEXITY.csv','MAKE_TARGET_COMPLEXITY_BETA5.csv',
     'RUNTIME_AUDIT.md','STORAGE_ARCHIVE_AUDIT.md','STORAGE_FORMAT.md',
     'STRATEGY_QUICK_AUDIT.md','UI_ALIGNMENT_AUDIT.md','UI_CONVENTIONS.md','UI_LAYOUT_KO.md',
-    'USER_GUIDE.md',
+    'USER_GUIDE.md','CODE_CLEANUP_AUDIT.md','GALLERY.md',
     'UI_REFRESH_KO.md','acceptance-matrix.csv','asset-manifest.json',
     'build-metrics.json','diagnostic-build-metrics.json','game-registry.json',
     'performance-metrics.json',
@@ -84,6 +84,7 @@ class SnapshotError(ValueError):
     """Fixed, safe descriptions that never interpolate inspected content."""
 
 def public_png(name):
+    if re.fullmatch(r'docs/images/(?:icon-2x|main|baseball|make-target|prime-editor|prime-result|prime-view-result|cryptarithm|sudoku|kakuro|nonogram|magic-square|reversi|2048|shikaku|slitherlink)\.png',name):return True
     if name in {'assets/icon-sel.png','assets/icon-uns.png','assets/font/font5x7.png','assets/font/font8x9.png','assets/strategyquick/master-contact.png'}:return True
     if re.fullmatch(r'assets/grids/(?:(?:1[1-9]|20)|contact(?:-2x)?)\.png',name):return True
     if re.fullmatch(r'assets/grids/master/(?:capture-\d+|contact)\.png',name):return True
@@ -117,6 +118,7 @@ def allowed(name,include_dist=False):
     if parts[0]=='docs':
         if len(parts)==2:return p.name in PUBLIC_DOCS
         if parts[1]=='third_party':return len(parts)==3 and p.name in LICENSE_FILES
+        if parts[1]=='images':return len(parts)==3 and public_png(name)
         if parts[1]=='captures':return public_png(name) or name in {'docs/captures/README.md','docs/captures/BETA6_README.md'}
     return bool(include_dist and len(parts)==2 and parts[0]=='dist' and p.name in DIST_FILES)
 
@@ -387,6 +389,7 @@ def self_test():
     assert allowed('docs/third_party/GPL-3.0.txt') and allowed('tools/generate/grids_master_verify.py')
     assert allowed('tools/benchmark_report.py') and allowed('docs/PERFORMANCE_AUDIT.md')
     assert allowed('docs/build-metrics.json') and allowed('docs/diagnostic-build-metrics.json')
+    assert allowed('docs/images/prime-editor.png') and not allowed('docs/images/private.png')
     assert all(allowed('docs/'+name+'.json') for name in ('host-benchmark-normal','host-benchmark-diagnostic','host-benchmark-build-evidence'))
     assert all(allowed('assets/grids/expanded/'+name+'.json') for name in ('audit','capture-selection','memory','seed-replay'))
     for name in ('AGENTS.md','docs/HANDOFF.md','docs/FINAL_REPORT_KO.md','docs/REQUIREMENTS_KO.txt','assets/grids/asan-sample.txt','docs/validation/run.txt','test.dat','private.pdf','.git/config','src/../private.c','src/build-leak/a.c','assets/boards/a.dat'):

@@ -1,44 +1,92 @@
-# NUM GAME
+English | [한국어](README_KO.md)
 
-**36 native games for the CASIO fx-CG50**, written in C with fxSDK/gint. The calculator runs offline; Python is used only to generate and independently verify assets during development.
+<p align="center"><img src="docs/images/icon-2x.png" width="184" height="128" alt="Original NUM GAME fx-CG50 add-in icon, enlarged by an exact 2× nearest-neighbor scale"></p>
 
-This is an **experimental prerelease**. Host tests and SH builds pass, but physical fx-CG50 acceptance is pending. The previously reported persistent MENU flashing remains unreproduced on hardware and its cause is unknown; see the [hardware procedure](docs/HARDWARE_RETEST.md).
+# NUM GAME for CASIO fx-CG50
 
-Copy [NUMGAME.g3a](dist/NUMGAME.g3a) to calculator USB storage, disconnect safely, and open **NUM GAME**. Verify [SHA256SUMS.txt](dist/SHA256SUMS.txt). [NUMGDIAG.g3a](dist/NUMGDIAG.g3a) is a separate instrumented app with its own ND saves. No external puzzle files are required.
+**36 native number games** in one offline `.g3a` add-in. Pick a category, set up a game, and play without a separate puzzle file. The original icons and screens below come from the app itself.
 
-![Main menu](docs/captures/00-main.png)
+**Experimental prerelease · v0.2.0-beta.8 · [MIT License](LICENSE)**
+
+**[Download NUM GAME](https://github.com/omegalpha210/fx-cg50-numgame/releases/download/v0.2.0-beta.8/NUMGAME.g3a)** (regular play) · [NUM DIAG](https://github.com/omegalpha210/fx-cg50-numgame/releases/download/v0.2.0-beta.8/NUMGDIAG.g3a) (instrumented troubleshooting) · [Checksums](https://github.com/omegalpha210/fx-cg50-numgame/releases/download/v0.2.0-beta.8/SHA256SUMS.txt) · [Release notes](https://github.com/omegalpha210/fx-cg50-numgame/releases/tag/v0.2.0-beta.8) · [Report an issue](https://github.com/omegalpha210/fx-cg50-numgame/issues/new)
+
+Host tests and strict SH builds pass. Physical fx-CG50 acceptance is still pending, including the previously reported MENU flashing, LCD readability, BFile latency and memory peaks. [Hardware retest procedure](docs/HARDWARE_RETEST.md).
+
+![NUM GAME main menu with six colored category tiles](docs/images/main.png)
+
+*Every screen on this page is a 396×224 capture from the current common-C renderer on a host. These are not photographs of the calculator or CPU-emulator output. Open an image for its full-size view, especially on a phone.*
+
+## Choose from six categories
 
 | Category | Six games |
 |---|---|
-| GUESS | Number Baseball, Equation Guess, Number Mind, Clue Lock, Sequence, Black Box |
-| CALC | Make Target, Countdown, Missing Operators, Cross Math, Prime Factor, Cryptarithm |
-| LOGIC | Sudoku, Calcudoku, Kakuro, Futoshiki, Skyscrapers, Hashi |
-| PUZZLE | Hitori, Binary, Numbrix, Magic Square, Sum Grid, Nonogram |
-| STRATEGY | Nim, Wythoff, Euclid, Make Fifteen, Race to Target, Reversi |
-| BOARD | 2048, Sliding, Lights Out, Shikaku, Slitherlink, Net |
+| **GUESS** | Number Baseball · Equation Guess · Number Mind · Clue Lock · Sequence Detective · Black Box |
+| **CALC** | Make Target · Countdown · Missing Operators · Cross Math · Prime Factor · Cryptarithm |
+| **LOGIC** | Sudoku · Calcudoku · Kakuro · Futoshiki · Skyscrapers · Hashi |
+| **PUZZLE** | Hitori · Binary Puzzle · Numbrix · Magic Square · Sum Grid · Nonogram |
+| **STRATEGY** | Nim · Wythoff · Euclid · Make Fifteen · Race to Target · Reversi |
+| **BOARD** | 2048 · Sliding Puzzle · Lights Out · Shikaku · Slitherlink · Net |
 
-All 36 games have EASY/NORMAL/HARD/MASTER; the six LOGIC games also have HELL. Each added game has its own icon, rules, playable UI and save support. Difficulty labels reflect rules or independently checked solving metrics, not certified human ratings. See the [Korean user guide](docs/USER_GUIDE.md), [catalog](docs/GAME_CATALOG.md), [in-app rules](docs/RULES.md), and [renderer captures](docs/captures/README.md).
+Each has EASY, NORMAL, HARD and MASTER. The six LOGIC games also have HELL. The labels follow game rules or checked solver metrics, not measured human difficulty. [All game rules](docs/RULES.md) · [content inventory](docs/CONTENT_INVENTORY.md) · [difficulty audit](docs/DIFFICULTY_AUDIT.md).
 
-Navigate the two-by-three main and category grids with arrows or 1–6; EXE/F6 OPEN selects a tile. The single unfinished run has a small RESUME badge on its game tile, and Main F1 RESUME opens it directly. Before a game, use UP/DOWN to select **NEW GAME**, difficulty, or an applicable setting. The same game's entry adds a focused RESUME row. LEFT/RIGHT changes the selected setting and the footer explains the row. F6 OPEN starts the selected action; F5 opens RULES. There is no STATS screen or separate MODE popup. F3 toggles LOGIC HELL and shows a colored ENHM key when selected. Strategy FIRST selects YOU or CPU.
+## Take a closer look
 
-Number Baseball allows repeated digits, with 4/5/6/7 digits and **20/30/40/50 total guesses** for EASY/NORMAL/HARD/MASTER. Before the final guess, ONE LAST TRY appears once and can be dismissed to continue. Its complete attempt list scrolls. Make Target uses every card (four/four/five/six by level). Its TARGET row cycles, without wrapping, through **10, 24, 50, 100, 200, RANDOM**; EXE or F6 OPEN starts the selected setting. Each fixed target has 200 distinct decks per level. RANDOM selects from their shared 1,000-deck union at that level. Countdown may leave cards unused and now has 200 decks per level. Prime Factor's new bank contains composite targets with 3/3–4/4–5/5–6-digit bands by level. Magic Square FREE has blank 3×3/4×4/5×5/6×6 boards for EASY/NORMAL/HARD/MASTER. Nonogram completes when precisely the required black cells are filled; empty cells may remain blank or be marked X. 2048 tile colors progress from gray through lime, cyan, blue, yellow, orange and magenta to red. See [controls](docs/CONTROLS.md), [36-game content inventory](docs/CONTENT_INVENTORY.md), and the [difficulty audit](docs/DIFFICULTY_AUDIT.md).
+| GUESS: Number Baseball | CALC: Make Target |
+|---|---|
+| ![Baseball attempt history and input on the native game screen](docs/images/baseball.png) | ![Make Target cards and arithmetic expression input](docs/images/make-target.png) |
+| Repeated digits are allowed; 4–7 digits by difficulty. | Use every card exactly once; choose 10, 24, 50, 100, 200 or RANDOM. |
 
-Beta.6 expands the Make Target and Countdown banks while retaining exact legal-solution grading and the previous card rules. It rebalances Prime Factor by digit length and factor structure, extends Baseball attempts and history, and shows scroll position on long guessing/clue lists. NEW consumes a bank ordinal; RESUME restores the current puzzle without consuming one. Earlier unfinished games keep their original puzzle revisions. See the [cycle policy](docs/CONTENT_CYCLE.md), [card readability](docs/MAKE_TARGET_READABILITY_AUDIT.md), and [UI alignment](docs/UI_ALIGNMENT_AUDIT.md) audits.
+| CALC: Prime Factor editor | CALC: Cryptarithm |
+|---|---|
+| ![Prime Factor formula with x squared inserted in the middle](docs/images/prime-editor.png) | ![Cryptarithm letter and number puzzle](docs/images/cryptarithm.png) |
+| LEFT/RIGHT moves the caret; physical x² inserts `^2` here only. | Resolve letters under the displayed arithmetic constraints. |
 
-Beta.7 stores the **same 4,000 Make Target problems** in a smaller, directly addressable ROM format. Cards, displayed order, HINT/ANSWER text, IDs, RANDOM order and existing saves are unchanged; no external puzzle file is needed. The [packing audit](docs/MAKE_TARGET_PACKING_AUDIT.md) records the byte-for-byte comparisons and measured package saving.
+| LOGIC: Sudoku | LOGIC: Kakuro |
+|---|---|
+| ![Sudoku board with selected cell and keypad](docs/images/sudoku.png) | ![Kakuro grid and clue sums](docs/images/kakuro.png) |
+| Fill the grid under row, column and box rules. | Match the across and down sums. |
 
-The app retains **one unfinished run**. NEW GAME replaces it without a confirmation prompt, after the new run is safely committed. Completion removes RESUME; EXIT on the completion dialog shows the frozen final result, then EXIT returns to that game's entry or F6 NEW starts the next run. Two exact-length `NGSTATEA/B.dat` files protect the one logical save. A fresh empty pair is 252 bytes total; a fresh active pair is 3,996 bytes. Existing recent-five and older archive records migrate by keeping the most recent valid unfinished run. See [storage format](docs/STORAGE_FORMAT.md), [resume policy](docs/RESUME_POLICY.md) and [puzzle cycle](docs/CONTENT_CYCLE.md).
+| PUZZLE: Nonogram | PUZZLE: Magic Square |
+|---|---|
+| ![Nonogram grid with row and column clues](docs/images/nonogram.png) | ![Magic Square number grid](docs/images/magic-square.png) |
+| Mark the black cells described by the clues. | Balance the required rows, columns and diagonals. |
 
-Normal and diagnostic apps use separate NG/ND save namespaces. NUM DIAG provides memory/runtime measurements, a bounded 1,000-iteration stress test and explicit `NDDIAG.txt` export. Actual device flash latency and memory peaks remain **HARDWARE TEST REQUIRED**; see the [beta.6 host sample](docs/PERFORMANCE_BETA6.md) and [diagnostic guide](docs/DIAGNOSTICS.md).
+| STRATEGY: Reversi | BOARD: 2048 |
+|---|---|
+| ![Reversi board against the CPU](docs/images/reversi.png) | ![2048 colored tile grid](docs/images/2048.png) |
+| Play the CPU; choose who moves first. | CLASSIC has fixed rules; optional target modes add a finish condition. |
 
-Build with an installed fxSDK/gint 2.11, SH GCC 14.1, CMake, fxgxa and Python 3. Set `NUMGAME_SDK_ROOT` if the SDK is elsewhere.
+| BOARD: Shikaku | BOARD: Slitherlink |
+|---|---|
+| ![Shikaku rectangle partition puzzle](docs/images/shikaku.png) | ![Slitherlink edge and clue puzzle](docs/images/slitherlink.png) |
+| Partition the grid into clue-sized rectangles. | Draw one closed loop satisfying the clues. |
+
+[More actual renderer captures](docs/captures/README.md) · [Curated gallery](docs/GALLERY.md).
+
+## From menu to a finished run
+
+**Category → Game → Difficulty and applicable settings → NEW GAME → Play.** Use arrows or 1–6 on the menus, then EXE or F6 OPEN. On the game-entry screen, UP/DOWN selects NEW GAME, difficulty or a relevant setting; LEFT/RIGHT changes the selected setting. F5 opens RULES. The same game's unfinished run appears as RESUME, and Main F1 opens it directly. F3 toggles LOGIC HELL when applicable. Strategy FIRST selects YOU or CPU.
+
+In Equation Guess, Make Target, Countdown and Prime Factor, LEFT/RIGHT moves within a draft formula, DEL removes the character before the caret, and new characters insert at the caret. Long expressions scroll within the input box. The physical `^` key remains `^`; **x² inserts `^2` only in Prime Factor**, whose rules permit powers. SHIFT+DOT still enters `=` in Equation Guess. Grid navigation, card selection and UP/DOWN history scrolling retain their own controls. [Full controls](docs/CONTROLS.md).
+
+HINT or ANSWER marks a run assisted where offered. An invalid submitted formula remains editable. Completion shows game-specific results; Prime Factor shows time (when enabled) and ASSISTED only when used, without calling its submission counter MOVES or displaying SCORE 0. EXIT from the completion dialog opens the frozen final view; EXE or F6 NEW starts another game.
+
+![Prime Factor completion panel with time and assisted status](docs/images/prime-result.png)
+
+## Saves, content and builds
+
+The app keeps **one unfinished run**. Starting NEW safely replaces it; completing a game removes its RESUME entry. Two exact-length `NGSTATEA/B.dat` copies protect the one logical save (252 bytes together when empty, 3,996 bytes for a new active run). The diagnostic app uses separate ND files. Old supported saves still load, including earlier Make Target packs. [Save format](docs/STORAGE_FORMAT.md) · [resume policy](docs/RESUME_POLICY.md).
+
+Make Target uses 4/4/5/6 cards by difficulty and every card exactly once; Countdown may leave cards unused. Make Target's same 4,000 verified beta.6 problems occupy a 63,000-byte packed bank in beta.7 and later, with unchanged cards, hints, answers, IDs and draw order. The bank and other content are independently checked, but this is not a claim of certified human difficulty or hardware validation. [Packing audit](docs/MAKE_TARGET_PACKING_AUDIT.md) · [user guide](docs/USER_GUIDE.md).
+
+Copy the regular `.g3a` to the calculator's USB storage and disconnect safely. NUM DIAG is for explicit runtime/memory investigation and can export `NDDIAG.txt`; it is not required for play. Building from source needs the installed fxSDK/gint 2.11, SH GCC 14.1, CMake, fxgxa and Python 3. Set `NUMGAME_SDK_ROOT` if the SDK is elsewhere:
 
 ```sh
 bash tools/test.sh
 bash tools/verify_content.sh
 bash tools/clean_build.sh
 bash tools/clean_build.sh --diagnostic
-python3 tools/captures.py
+python3 tools/curate_readme.py
 ```
 
-ASan is **not verified** because the available macOS runtime stalls before `main` even for a minimal program. UBSan, host mocks and SH builds do not replace hardware acceptance. Original code, puzzles and icons use [MIT](LICENSE); retained font/runtime and adapted infrastructure notices are in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+ASan is unverified because its runtime stalls before `main` on the available macOS host. Host tests, UBSan and SH builds cannot establish device latency or resolve the reported MENU issue. [Development and diagnostic notes](docs/DIAGNOSTICS.md) · [code cleanup audit](docs/CODE_CLEANUP_AUDIT.md) · [third-party notices](THIRD_PARTY_NOTICES.md).

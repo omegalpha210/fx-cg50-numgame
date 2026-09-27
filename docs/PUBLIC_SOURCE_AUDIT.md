@@ -1,4 +1,4 @@
-# Public source snapshot audit — beta.7
+# Public source snapshot audit — beta.8
 
 Public source is assembled with `tools/public_snapshot.py` into a separate
 allowlisted directory. The working repository and its original Git history stay
@@ -31,7 +31,9 @@ the new-game content count. The [content inventory](CONTENT_INVENTORY.md),
 and [Korean user guide](USER_GUIDE.md) are included.
 
 The [beta.6 capture guide](captures/BETA6_README.md), its 396×224 renderer frames
-and contact sheets, and the source harness that produced them are selected.
+and contact sheets, the current [curated beta.8 gallery](GALLERY.md), and the
+source harness that produced them are selected. The new README images come from
+the current host renderer; the launcher icon is the original pixel art at 2×.
 These are host-renderer evidence, not physical LCD photographs. Nine small,
 path-checked host benchmark JSON files retain historical baseline, 36-game,
 v5 and [beta.6](PERFORMANCE_BETA6.md) normal/diagnostic summaries with
@@ -110,6 +112,9 @@ The beta.6 target, Countdown and Prime validators, native parity check, supply
 and Baseball host regressions, and renderer capture harness are source material
 for separate execution; inclusion in the snapshot does not itself certify a
 passing build or content audit.
+Beta.8 also includes the bounded editor and result formatter tests and the
+[code cleanup audit](CODE_CLEANUP_AUDIT.md). These retain save readers and golden
+problem banks while removing only unreachable presentation code.
 ASan remains unverified until a complete successful run is recorded; compiler
 success alone is not an ASan pass. Physical calculator checks remain
 **HARDWARE TEST REQUIRED**.

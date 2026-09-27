@@ -177,8 +177,9 @@ static void test_common_idle(void){
 }
 static void test_switch_stress(void){
  reset();
+ static const unsigned digits[]={0,KEY_1,KEY_2,KEY_3,KEY_4,KEY_5,KEY_6};
  for(unsigned i=0;i<1000;i++){
-  unsigned index=i%NG_GAME_COUNT;begin(native_keys[index/6+1],native_keys[index%6+1]);
+  unsigned index=i%NG_GAME_COUNT;begin(digits[index/6+1],digits[index%6+1]);
   add(0,KEYEV_NONE,32,NULL);tap(KEY_F5);tap(KEY_EXIT);tap(KEY_EXIT);
   tap(KEY_F4);tap(KEY_EXIT);tap(KEY_EXIT);tap(KEY_EXIT);tap(KEY_MENU);
  }
@@ -319,6 +320,29 @@ static void test_physical_equals(void)
  reset();begin(KEY_2,KEY_1);tap(KEY_SHIFT);tap(KEY_DOT);add(0,KEYEV_NONE,0,check_no_equal);run_script();
  puts("Native SHIFT+DOT: latched/held modifiers, exactly one equal, DOT grammar unchanged, consumed modifier, alpha conflict, removed FD alias PASS");
 }
+static void square_after_two(void)
+{assert(app.session.game.id==10&&!strcmp(app.session.game.input,"2^2")&&app.session.game.edit_cursor==3);}
+static void square_in_middle(void)
+{assert(app.session.game.id==10&&!strcmp(app.session.game.input,"2^2*3")&&app.session.game.edit_cursor==3);}
+static void square_unsupported(void)
+{assert(app.session.game.id==6&&!app.session.game.input[0]);}
+static void test_physical_square(void)
+{
+ assert(ng_native_key_lookup(KEY_SQUARE)==NGK_SQUARE);
+ assert(ng_native_key_lookup(KEY_POWER)=='^');
+ assert(ng_key_index(NGK_SQUARE)!=ng_key_index('^'));
+ reset();begin(KEY_2,KEY_5);tap(KEY_2);
+ add(KEY_SQUARE,KEYEV_DOWN,0,NULL);
+ add(KEY_SQUARE,KEYEV_HOLD,0,square_after_two);
+ add(KEY_SQUARE,KEYEV_UP,0,square_after_two);
+ add(0,KEYEV_NONE,0,square_after_two);run_script();
+ reset();begin(KEY_2,KEY_5);tap(KEY_2);tap(KEY_MUL);tap(KEY_3);
+ tap(KEY_LEFT);tap(KEY_LEFT);add(KEY_SQUARE,KEYEV_DOWN,0,NULL);
+ add(KEY_SQUARE,KEYEV_UP,0,square_in_middle);run_script();
+ reset();begin(KEY_2,KEY_1);tap(KEY_SQUARE);
+ add(0,KEYEV_NONE,0,square_unsupported);run_script();
+ puts("Native x2: physical mapping, one-shot insertion, middle edit, unsupported grammar PASS");
+}
 
 static bool fail_settings_save(void *context,NgSettings *settings){(void)context;(void)settings;return false;}
 static void direct_press(NgApp *state,int key){ng_app_event(state,key,NG_DOWN);ng_app_event(state,key,NG_UP);}
@@ -405,4 +429,4 @@ static void test_v5_migration(void)
  puts("V4 recent-five -> V5 single-resume migration: 5/1 records, corrupt newest/slot, A-only/B-only, completed-only and failed-write retry PASS");
 }
 
-int main(void){setvbuf(stdout,NULL,_IONBF,0);test_native_storage();test_global_screens();test_physical_equals();test_archive_migration();test_migration_five_choice();test_v5_migration();test_global_phase_boundary();test_native_keys();test_failed_power_checkpoint();test_native_memory();test_native_hold();test_native_clock();test_timer_fallback();test_common_idle();test_switch_stress();test_review_transitions();test_malformed_compact();return 0;}
+int main(void){setvbuf(stdout,NULL,_IONBF,0);test_native_storage();test_global_screens();test_physical_equals();test_physical_square();test_archive_migration();test_migration_five_choice();test_v5_migration();test_global_phase_boundary();test_native_keys();test_failed_power_checkpoint();test_native_memory();test_native_hold();test_native_clock();test_timer_fallback();test_common_idle();test_switch_stress();test_review_transitions();test_malformed_compact();return 0;}

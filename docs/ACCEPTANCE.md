@@ -1,16 +1,17 @@
-# Current 36-game host and package acceptance — beta.7
+# Current 36-game host and package acceptance — beta.8
 
 The visible catalog has 36 complete games, stable IDs 1–28 and 31–38. Legacy
-29/30 remain decodable but are not selection tiles. Beta.7 changes only the
-physical representation of beta.6 Make Target; its 4,000 logical problems
-and all other game behavior are unchanged. The
+29/30 remain decodable but are not selection tiles. Beta.8 adds bounded
+formula-caret editing and game-specific result presentation, and removes
+unreachable statistics UI. Its 4,000 Make Target logical problems and game
+rules are unchanged. The
 v5 single-resume A/B save layout remains compatible with earlier unfinished
 runs. The persistent flashing MENU reported on a calculator has **not** been
 reproduced or resolved on hardware.
 
 | Check | Executed evidence | Result |
 |---|---|---|
-| C11 host/UBSan | 27 CTest targets, strict `-Wall -Wextra -Werror`, including packed random-access bounds, migration, lifecycle, renderer, legacy revisions, Baseball warning/history and 200/1,000-item supply cycles | PASS |
+| C11 host/UBSan | 28 CTest targets, strict `-Wall -Wextra -Werror`, including caret/x² editing, packed random-access bounds, migration, lifecycle, renderer, legacy revisions, Baseball warning/history and 200/1,000-item supply cycles | PASS |
 | Native main and BFile mock | Release and diagnostic variants; v4→v5 migration, A/B recovery, failed-write retry, exactly two files after 1,000+ game switches | PASS on host |
 | Make Target content | 4,000/4,000 original-vs-packed logical records and native parser/card validation; 4,000 distinct target/card multisets; 200 per target/level, RANDOM shares 1,000 per level; unchanged thresholds and 1–999 cards | PASS |
 | Make Target replay | Same-seed 200 fixed + 1,000 RANDOM starts, both v5 save payloads, original beta.6 FIXED/RANDOM cold decode, and representative HINT/ANSWER host-rendered frames match prior public source | PASS on host |
@@ -21,10 +22,10 @@ reproduced or resolved on hardware.
 | Supply and compatibility | Fixed 200/RANDOM 1,000 no-repeat cycles, 255/256/999/1000 boundaries, immediate-boundary duplicate prevention, cold future order, result NEW policy and old arbitrary-target RESUME/INIT | PASS on host |
 | Other game regressions | 36-game entry, completion, INIT, RULES, VIEW RESULT, recent six, Sliding exact distances, Nonogram/Magic and MENU/OFF mock paths | PASS on host |
 | Content inventory | 36 games, 218 setting rows, 150 difficulty rows; 10,063 active base records and 16,224 distinct legacy-only bases are counted separately | PASS for public base identities |
-| Renderer | 57 new actual 396×224 beta.6 frames and four contact sheets; production draw callback checks canvas bounds, with reviewed target/cards, Prime digits, Baseball 50 rows and long-list rails | PASS for host bounds; LCD pending |
-| SH normal | Fresh strict C11/fxSDK/gint build, `NUMGAME.g3a` 559,380 bytes, 16 container checks, ELF payload match | PASS |
-| SH diagnostic | Fresh strict build, `NUMGDIAG.g3a` 586,884 bytes, 15 container checks, ELF payload match | PASS |
-| Static memory | Normal native text/data/BSS 530,180/512/46,096 B; `.text` 146,740 B and `.rodata` 382,960 B; largest single frame 1,392 B. Diagnostic text/data/BSS 557,684/512/50,016 B. Two-copy v5 save 252–18,732 logical bytes | MEASURED; device peaks unknown |
+| Renderer | Current 396×224 host captures include a middle-caret Prime Factor draft, its completion dialog and frozen final view; production draw callback checks canvas bounds. The 15 selected current frames are in `docs/images` | PASS for host bounds; LCD pending |
+| SH normal | Fresh strict C11/fxSDK/gint build, `NUMGAME.g3a` 558,236 bytes, 16 container checks, ELF payload match | PASS |
+| SH diagnostic | Fresh strict build, `NUMGDIAG.g3a` 585,900 bytes, 15 container checks, ELF payload match | PASS |
+| Static memory | Normal native text/data/BSS 529,036/512/45,328 B; `.text` 145,796 B and `.rodata` 382,760 B; largest single frame 1,392 B. Diagnostic text/data/BSS 556,700/512/49,248 B. Two-copy v5 save 252–18,732 logical bytes | MEASURED; device peaks unknown |
 | Host workload | 12,672 init/validate/render samples per variant, 1,000 codec fixtures, 128 maximum-undo v5 saves; normal save p95 1.434 ms under concurrent host load | MEASURED on host only |
 | ASan | Available macOS runtime stalled before completion; attempt terminated and not counted as a pass | **UNVERIFIED** |
 | Physical fx-CG50 | MENU flashing, LCD legibility, actual BFile latency/space, power-cut and arena/stack peaks | **HARDWARE TEST REQUIRED** |

@@ -1,5 +1,16 @@
 # Physical fx-CG50 retest — HARDWARE TEST REQUIRED
 
+For beta.8, type a long formula in Equation Guess, Make Target, Countdown and
+Prime Factor. Move LEFT/RIGHT at both ends, insert and DEL in the middle, and
+verify that the caret and colored operators stay within the input rectangle.
+Press the physical x² key once in Prime Factor and confirm exactly `^2` is
+inserted; it must have no effect in Make Target or Countdown. Also verify
+SHIFT+DOT `=`, held caret movement, cold RESUME at the text end and an invalid
+draft retained for repair. Complete Prime Factor with and without HINT/ANSWER
+and with time display both on and off; inspect its completion panel and frozen
+VIEW RESULT. Compare the twelve README gallery views with the LCD. Host
+captures do not establish LCD legibility or key-matrix behavior on a device.
+
 For beta.7, compare Make Target FIXED and RANDOM puzzle starts, HINT, ANSWER,
 cold RESUME and repeated NEW with beta.6. Time the first and repeated problem
 loads and HINT/ANSWER decode on the calculator; the beta.7 host byte-equality

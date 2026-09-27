@@ -336,12 +336,15 @@ static void expression_render_tests(void){
  for(unsigned i=0;i<4;i++){
   start(&g,ids[i],0,0,51);gc_test_type(&g,press,drafts[i]);
   NgCanvas actual=probe_canvas(&actual_view),expected=probe_canvas(&expected_view);module(&g)->render(&g,&actual);
-  int y=ids[i]==2?150:151;ng_input_expression(&expected,10,y,376,g.input);compare_region(10,y,376,21);
+  int y=ids[i]==2?150:151;
+  ng_input_expression_at(&expected,10,y,376,g.input,g.edit_cursor);
+  compare_region(10,y,376,21);
  }
  /* Long input is cropped once by the same width/cursor path as the common input. */
  start(&g,6,0,0,51);memset(g.input,'1',96);g.input[95]='+';g.input[96]=0;
  NgCanvas actual=probe_canvas(&actual_view),expected=probe_canvas(&expected_view);module(&g)->render(&g,&actual);
- ng_input_expression(&expected,10,151,376,g.input);compare_region(10,151,376,21);
+ ng_input_expression_at(&expected,10,151,376,g.input,g.edit_cursor);
+ compare_region(10,151,376,21);
  /* Feedback result tiles retain positional colors, including an operator. */
  start(&g,2,0,0,31);gc_test_type(&g,press,"12+7=19");press(&g,NGK_EXE);
  actual=probe_canvas(&actual_view);expected=probe_canvas(&expected_view);module(&g)->render(&g,&actual);

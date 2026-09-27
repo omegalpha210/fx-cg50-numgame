@@ -1,6 +1,7 @@
 #include "app.h"
 #include "runtime.h"
 #include "diagnostics.h"
+#include "native_keys.h"
 #include <gint/display.h>
 #include <gint/keyboard.h>
 #include <gint/drivers/keydev.h>
@@ -21,13 +22,6 @@ static bool timer_active,rtc_active;
 static uint16_t saved_brightness;
 static bool brightness_saved;
 static uint32_t idle_last,idle_fraction;
-static const int native_keys[]={KEY_0,KEY_1,KEY_2,KEY_3,KEY_4,KEY_5,KEY_6,KEY_7,KEY_8,KEY_9,
- KEY_ADD,KEY_SUB,KEY_MUL,KEY_DIV,KEY_LEFTP,KEY_RIGHTP,KEY_DOT,KEY_POWER,
- KEY_UP,KEY_RIGHT,KEY_DOWN,KEY_LEFT,KEY_EXE,KEY_DEL,
- KEY_F1,KEY_F2,KEY_F3,KEY_F4,KEY_F5,KEY_F6,KEY_EXIT,KEY_MENU,KEY_SHIFT,KEY_ALPHA,KEY_ACON,KEY_NEG};
-static const int logical_keys[]={'0','1','2','3','4','5','6','7','8','9',
- '+','-','*','/','(',')','.','^',NGK_UP,NGK_RIGHT,NGK_DOWN,NGK_LEFT,NGK_EXE,NGK_DEL,
- NGK_F1,NGK_F2,NGK_F3,NGK_F4,NGK_F5,NGK_F6,NGK_EXIT,NGK_MENU,NGK_SHIFT,NGK_ALPHA,NGK_ACON,'-'};
 static void rect(void *ctx,int x,int y,int w,int h,uint16_t color)
 {(void)ctx;drect(x,y,x+w-1,y+h-1,color);}
 static int load_state(void *ctx,NgSettings *settings,NgSession *session,bool *active)
@@ -71,8 +65,10 @@ static int repeat(int key,int duration,int count)
 static void barrier(void)
 {
  clearevents();app.held=0;app.blocked=0;
- for(unsigned i=0;i<sizeof(native_keys)/sizeof(native_keys[0]);i++)if(keydown(native_keys[i])) {
-  int bit=ng_key_index(logical_keys[i]);if(bit>=0)app.held|=UINT64_C(1)<<(unsigned)bit;
+ for(unsigned i=0;i<sizeof ng_native_keys/sizeof ng_native_keys[0];i++)
+  if(keydown(ng_native_keys[i].native)) {
+  int bit=ng_key_index(ng_native_keys[i].logical);
+  if(bit>=0)app.held|=UINT64_C(1)<<(unsigned)bit;
  }
  ng_app_barrier(&app);
 }
@@ -145,7 +141,7 @@ int main(void)
    if(global){uint64_t bit=UINT64_C(1)<<ng_key_index(e.key==KEY_MENU?NGK_MENU:NGK_ACON);app.held&=~bit;app.blocked&=~bit;app.shift_pending=global_shift;app.alpha_pending=global_alpha;}else e.type=KEYEV_NONE;
   }
   epoch=app.epoch;
-  int key=0;for(unsigned i=0;i<sizeof(native_keys)/sizeof(native_keys[0]);i++)if(e.key==(unsigned)native_keys[i]){key=logical_keys[i];break;}
+  int key=ng_native_key_lookup(e.key);
 #ifdef NG_DIAGNOSTIC
   bool ready_candidate=app.screen==NG_ENTRY;
   uint32_t ready_start=rtc_ticks(),previous_seed=app.session.game.seed,previous_run=app.session.game.run_id;
