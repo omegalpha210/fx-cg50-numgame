@@ -12,6 +12,8 @@ English | [한국어](README_KO.md)
 
 Host tests and strict SH builds pass. Physical fx-CG50 acceptance is still pending, including the previously reported MENU flashing, LCD readability, BFile latency and memory peaks. [Hardware retest procedure](docs/HARDWARE_RETEST.md).
 
+The current source and screenshots include a [caret spacing fix](docs/UI_CONVENTIONS.md); the downloadable beta.8 packages predate this source update.
+
 ![NUM GAME main menu with six colored category tiles](docs/images/main.png)
 
 *Every screen on this page is a 396×224 capture from the current common-C renderer on a host. These are not photographs of the calculator or CPU-emulator output. Open an image for its full-size view, especially on a phone.*

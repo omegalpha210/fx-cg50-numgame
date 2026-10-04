@@ -200,8 +200,14 @@ void ng_input_expression_at(NgCanvas *c,int x,int y,int w,
   visible[end-start]=value[end];width+=advance;end++;
  }
  visible[end-start]=0;
- expression_span(c,x+6,y+5,visible,NG_BLUE,1,false,value,start,end-start);
- int caret=x+8+prefix;
+ /* The font advance already leaves one blank column after the prefix.
+    Reserve two columns before the suffix so the caret has a 1px gap on
+    both sides. Only raster placement changes; cursor/scroll indices do not. */
+ size_t split=cursor-start;char next=visible[split];visible[split]=0;
+ expression_span(c,x+6,y+5,visible,NG_BLUE,1,false,value,start,split);
+ visible[split]=next;
+ int caret=x+6+prefix;
+ expression_span(c,caret+2,y+5,visible+split,NG_BLUE,1,false,value,cursor,end-cursor);
  if(caret>x+w-6)caret=x+w-6;
  ng_rect(c,caret,y+4,1,12,NG_BLUE);
 }

@@ -8,6 +8,15 @@ All 36 games have original 40×32 menu pictograms and 2×3 category tiles.
 [Actual menu captures](captures/menus-native.png) use the same renderer as the
 SH build, through a host RGB565 backend.
 
+The shared editable-expression renderer (Make Target, Prime Factor, Countdown,
+Equation Guess) places its 1px caret at `x + 6 + prefix_advance`, 2px left of
+the old `x + 8 + prefix_advance`. It reserves 2px before the displayed suffix,
+leaving one blank pixel column on each side of the caret. Logical cursor indices,
+font advances, operator colors and scrolling thresholds are unchanged.
+[Caret captures](captures/caret-native.png) and 21 `76-caret-*` frames cover
+real app-key editing, powers, operators and long drafts; host raster tests check
+glyph separation and panel bounds. These are renderer captures, not LCD photos.
+
 Main F1 shows **RESUME** only for the one unfinished run; F2 SET and F6 OPEN
 remain. Exactly that run's game tile carries a small blue RESUME badge below
 its icon/name. Category tiles have no badge or RESUME softkey. Opening a different game's

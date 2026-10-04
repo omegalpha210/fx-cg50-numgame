@@ -2,7 +2,7 @@
   "tool": "tools/public_snapshot.py",
   "policy_version": 1,
   "include_dist": true,
-  "tree_sha256": "f16ee6ef0d3192194469f4f0c0cd05c51a7030a0faa2429c305676f450b4ccff",
+  "tree_sha256": "2be463e967853ec612a15d17fbc992a917a2fe800f7c0534901422b942374796",
   "files": [
     {
       "file": ".gitignore",
@@ -24,14 +24,14 @@
     },
     {
       "file": "README.md",
-      "bytes": 7737,
-      "sha256": "c757e31f17b1b1351770fbc224554f311f45b9fda3628baa48c5fd5a303e9752",
+      "bytes": 7889,
+      "sha256": "dce3c4a861fa0281d7e8b2add1b6d4b91f2f2f6293d32690bc4e7d4f0f9cbf47",
       "mode": "0644"
     },
     {
       "file": "README_KO.md",
-      "bytes": 9016,
-      "sha256": "5269b49d7539da1093f094e055842caa1fef86befe67dfb0abd01ec1b088b38d",
+      "bytes": 9232,
+      "sha256": "97cf5ba403cc2308933272d15153d4e3924c34f0851be11eb82f965da3586f8d",
       "mode": "0644"
     },
     {
@@ -1968,8 +1968,8 @@
     },
     {
       "file": "docs/UI_CONVENTIONS.md",
-      "bytes": 5061,
-      "sha256": "2584ffe0dd07d285d2d46e8d7ca4024cd4ee567e5e2b016ed2b2a13c33e6a519",
+      "bytes": 5689,
+      "sha256": "140f14e04528acf5eb535769fd1653a2676714bb94b80c7c358286dc6150ff1b",
       "mode": "0644"
     },
     {
@@ -2304,8 +2304,8 @@
     },
     {
       "file": "docs/captures/06-play.png",
-      "bytes": 2699,
-      "sha256": "3b9b539ffe61cc951f4295356a807bdc3d6d3b8c2af78160bf444855c1ddd7f6",
+      "bytes": 2616,
+      "sha256": "07acb76f69022fc75e2828560b5026be491d164fc213eceaa77c12cb25adab86",
       "mode": "0644"
     },
     {
@@ -4241,6 +4241,138 @@
       "mode": "0644"
     },
     {
+      "file": "docs/captures/73-prime-editor-middle.png",
+      "bytes": 3204,
+      "sha256": "d33f0c8ad689c570571304788a56accb83d52e6a64ec19e689e4d03f5e77fdf4",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/76-caret-countdown-after-plus.png",
+      "bytes": 2975,
+      "sha256": "2352a185dc470f807e0991dd1f506f9c939de48c51e96287f0417466aa87c248",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/76-caret-countdown-before-plus.png",
+      "bytes": 2992,
+      "sha256": "b0f37f5ec46b8d682b50d9c5ccb4df4bf4d020d27fcc5400d839f6f56f0eb6e7",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/76-caret-equation-after-equals.png",
+      "bytes": 2861,
+      "sha256": "b44a266b1c4faa6a034718977455519b5d38b40d8e0685b10a3167249517c56e",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/76-caret-equation-before-equals.png",
+      "bytes": 2857,
+      "sha256": "d56714f5ffb51efca2277da8c049f83a1881ce157c4d205842ba9c64e836d3cf",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/76-caret-prime-after-digit.png",
+      "bytes": 3257,
+      "sha256": "e4c6c87388494d55f015e3043bb5f0d2955adbbbd10fa306e36b5e656fdd7314",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/76-caret-prime-after-exponent.png",
+      "bytes": 3231,
+      "sha256": "d9871181d7b14b3c49b49e6b3142c2980f867ce353bc6b63329e7aa6feab6b39",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/76-caret-prime-after-power.png",
+      "bytes": 3250,
+      "sha256": "803b6e9f2b6d78bc96ca5810dd0cecffa2d4bc60083ded62e2ce976e2e5f21ab",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/76-caret-prime-after-times.png",
+      "bytes": 3269,
+      "sha256": "073d4629d6a340561a3ccf35714eeebdd12580d9d6168b243ecff52f55779c46",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/76-caret-prime-end.png",
+      "bytes": 3244,
+      "sha256": "dbaf8c59bb2e116b0dee11b9c9e98fc630dffd17913540c750d54efc24e9e1be",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/76-caret-prime-left.png",
+      "bytes": 3235,
+      "sha256": "702a67e7d36791b43a80ba1b119e7dc7347bb9b5da0987801eb53ce072f74e45",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/76-caret-prime-middle.png",
+      "bytes": 3224,
+      "sha256": "ddd9c44bfc7a7c628d3cae2eb99920affc3aaf2233b2ae61cb92d3d6eacb3352",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/76-caret-prime-square-shortcut.png",
+      "bytes": 3190,
+      "sha256": "6c01d2b76edfa6ebf6003884485c852d0706e9c25e45f92367b678f5fe4a5adb",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/76-caret-target-after-plus.png",
+      "bytes": 2906,
+      "sha256": "3128bf441c2cf2a5a6d4a8240c603a54394a8e8438841bc1e19627e548d1d058",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/76-caret-target-before-parenthesis.png",
+      "bytes": 2850,
+      "sha256": "82f35827d776e49df178fe9fdcc6f7cc4149df7e55c3becf6414ec3029fd2616",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/76-caret-target-before-plus.png",
+      "bytes": 2815,
+      "sha256": "49c855db93c09e3f22941f5fc547d3b87379f8b16a36dc00f1c607f13a156306",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/76-caret-target-between-digits.png",
+      "bytes": 2872,
+      "sha256": "3c68bafce11467a0eca158ff1f4cb9721e6c9a55e8884a64468c646b1dda7d4b",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/76-caret-target-empty.png",
+      "bytes": 2984,
+      "sha256": "21d4e73580f6a9a0990054e586bd3c8dc8c3484234c8e6b760f3891a590040c8",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/76-caret-target-end.png",
+      "bytes": 2844,
+      "sha256": "174cdeabd3928f18e05612ff273abbc55390a27db2d2e1805a352b0d6ec77b3e",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/76-caret-target-left.png",
+      "bytes": 2814,
+      "sha256": "c8be2b79aecb46e080cc5299baddc6076a33027ff22696dbeba241b2964d7026",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/76-caret-target-long-end.png",
+      "bytes": 2678,
+      "sha256": "0e86bf070e2ff14ce55eaa7b8865ec4ee4c4b90c13fc14fc3fa68e9a6d934c8a",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/captures/76-caret-target-long-middle.png",
+      "bytes": 2702,
+      "sha256": "51b1447b7cf8479b1a0ee81cfa5ea2ddfe61f0bf35d911a5e248183e642fc6f6",
+      "mode": "0644"
+    },
+    {
       "file": "docs/captures/BETA6_README.md",
       "bytes": 5204,
       "sha256": "a3fdc8f9dee675d989e69671c55409ff9fdf9d9a4edf6206af16e968149e4d0d",
@@ -4637,6 +4769,12 @@
       "mode": "0644"
     },
     {
+      "file": "docs/captures/caret-native.png",
+      "bytes": 21300,
+      "sha256": "1f074d9bd08a0bf1f8eb98b0c8f1660699e168d226eb66b70678aada86ab2891",
+      "mode": "0644"
+    },
+    {
       "file": "docs/captures/category-1-2x.png",
       "bytes": 35257,
       "sha256": "f32190cb6a0fcf53aae7181b904410639acd06863b96bc27276e2139419116e3",
@@ -4848,8 +4986,8 @@
     },
     {
       "file": "docs/images/make-target.png",
-      "bytes": 2678,
-      "sha256": "df9c74a345b97acd1f7d21591c3d2a9225a6a265e229d22af023152672506394",
+      "bytes": 2616,
+      "sha256": "07acb76f69022fc75e2828560b5026be491d164fc213eceaa77c12cb25adab86",
       "mode": "0644"
     },
     {
@@ -4860,8 +4998,8 @@
     },
     {
       "file": "docs/images/prime-editor.png",
-      "bytes": 3281,
-      "sha256": "6f23843dd9748a24da80d1b1c8b6aacf7be12355a14901e2a5116585a4d9bcfb",
+      "bytes": 3204,
+      "sha256": "d33f0c8ad689c570571304788a56accb83d52e6a64ec19e689e4d03f5e77fdf4",
       "mode": "0644"
     },
     {
@@ -5208,8 +5346,8 @@
     },
     {
       "file": "src/ui/draw.c",
-      "bytes": 11166,
-      "sha256": "dc241f2074fb1d10cddf1d92dd8fa860e72713b0ce84b1df32a4514ce93a83ea",
+      "bytes": 11564,
+      "sha256": "3e7207c08baf97aa8585022ead3c0d9e52a141339eba79d868eab000c061fc51",
       "mode": "0644"
     },
     {
@@ -5382,8 +5520,8 @@
     },
     {
       "file": "tests/test_capture.c",
-      "bytes": 12116,
-      "sha256": "65846e47280671c54ff9cd0f112b00c63e4fb63606f6bcf02e717a4c4848daad",
+      "bytes": 14107,
+      "sha256": "05e2e55a2068595608350dd74818788797d55c2a5dadf70ac7d1d0b6b751497f",
       "mode": "0644"
     },
     {
@@ -5394,8 +5532,8 @@
     },
     {
       "file": "tests/test_editor.c",
-      "bytes": 4781,
-      "sha256": "1aa0bacadcddd68d6d71617b27e8dea25d70dd334da683f5ce0e458ceb6488b4",
+      "bytes": 6470,
+      "sha256": "70321c3583c2c2c9082d049eff39b62985eb0a42a8d6d5ea108f04da182991d3",
       "mode": "0644"
     },
     {

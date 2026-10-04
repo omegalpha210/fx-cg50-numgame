@@ -68,21 +68,59 @@ static void app_editor(void)
  assert(cold.session.game.edit_cursor!=app.session.game.edit_cursor);
  key(NGK_F4);assert(app.session.game.edit_cursor==strlen(app.session.game.input));
 }
-typedef struct {int x,y,w,h,caret,ink;} Draw;
+typedef struct {
+ int x,y,w,h,caret,ink;
+ unsigned char glyphs[21][376];
+ unsigned colors[5];
+} Draw;
 static void paint(void *ctx,int x,int y,int w,int h,uint16_t color)
 {
  Draw *d=ctx;assert(x>=d->x&&x+w<=d->x+d->w&&y>=d->y&&y+h<=d->y+d->h);
  if(w==1&&h==12&&color==NG_BLUE)d->caret=x;
+ if(w==1&&h==1){
+  d->glyphs[y-d->y][x-d->x]=1;
+  const int symbols[]={0,'+','-','*','/'};
+  for(unsigned i=0;i<5;i++)if(color==ng_operator_color(symbols[i],NG_BLUE))d->colors[i]++;
+ }
  d->ink++;
 }
 static void visual(void)
 {
- Draw d={.x=50,.y=30,.w=74,.h=21,.caret=-1};NgCanvas canvas={&d,paint};
+ static Draw d;d=(Draw){.x=50,.y=30,.w=74,.h=21,.caret=-1};NgCanvas canvas={&d,paint};
  ng_input_expression_at(&canvas,d.x,d.y,d.w,"1234567890+1234567890",21);
  assert(d.ink&&d.caret>=d.x+6&&d.caret<d.x+d.w-5);
  int right=d.caret;d.caret=-1;
  ng_input_expression_at(&canvas,d.x,d.y,d.w,"1234567890+1234567890",3);
  assert(d.caret>=d.x+6&&d.caret<d.x+d.w-5&&d.caret!=right);
+}
+static void visual_gap(void)
+{
+ static Draw d;
+ static const char *const values[]={"","0","1","12","123","999","2^2","12+34",
+  "(12+34)/(5-6)","2^3*3^2*5","12+34=46","0123456789+-*/()^=",
+  "999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999"};
+ unsigned cases=0;
+ for(unsigned width=0;width<2;width++)for(unsigned v=0;v<sizeof values/sizeof values[0];v++){
+  const char *value=values[v];unsigned length=(unsigned)strlen(value);
+  unsigned colors[5]={0};
+  for(unsigned cursor=0;cursor<=length+1;cursor++){
+   d=(Draw){.x=10,.y=30,.w=width?376:74,.h=21,.caret=-1};NgCanvas canvas={&d,paint};
+   ng_input_expression_at(&canvas,d.x,d.y,d.w,value,cursor);
+   assert(d.caret>=d.x+6&&d.caret<d.x+d.w-5);
+   /* The actual glyph raster must leave a blank column on BOTH sides of
+      the one-pixel caret, including when the input has scrolled. */
+   for(int row=4;row<16;row++)for(int col=d.caret-d.x-1;col<=d.caret-d.x+1;col++){
+    if(d.glyphs[row][col])fprintf(stderr,"Caret/glyph gap: value=%s cursor=%u width=%d x=%d\n",value,cursor,d.w,d.caret);
+    assert(!d.glyphs[row][col]);
+   }
+   if(width&&ng_text_width(value,1)<=d.w-16){
+    if(!cursor)memcpy(colors,d.colors,sizeof colors);
+    else assert(!memcmp(colors,d.colors,sizeof colors));
+   }
+   cases++;
+  }
+ }
+ printf("Caret raster: %u start/middle/end/clamped/scroll cases, 1px gaps and token colors PASS\n",cases);
 }
 static void result(void)
 {
@@ -101,4 +139,4 @@ static void result(void)
  g.id=3;ng_result_summary(&g,true,text);assert(!strcmp(text,"TIME 2:05"));
 }
 int main(void)
-{editing();app_editor();visual();result();puts("Editor cursor/square, clipping, save and result policies PASS");return 0;}
+{editing();app_editor();visual();visual_gap();result();puts("Editor cursor/square, clipping, save and result policies PASS");return 0;}

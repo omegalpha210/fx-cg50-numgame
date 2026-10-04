@@ -167,6 +167,41 @@ int main(void)
  assert(app.modal==NG_MODAL_RESULT && app.session.game.status==NG_WON);
  capture("74-prime-result");tap(&app,NGK_EXIT);
  assert(app.result_view);capture("75-prime-view-result");
+ /* Caret placement fixtures type drafts and move through real app keys.
+    Drafts are renderer inputs, not claimed puzzle solutions. */
+ static const struct {unsigned id,cursor;const char *name,*value;} caret_cases[]={
+  {6,0,"76-caret-target-empty",""},
+  {6,0,"76-caret-target-left","999+12*(34-5)"},
+  {6,1,"76-caret-target-between-digits","999+12*(34-5)"},
+  {6,3,"76-caret-target-before-plus","999+12*(34-5)"},
+  {6,4,"76-caret-target-after-plus","999+12*(34-5)"},
+  {6,7,"76-caret-target-before-parenthesis","999+12*(34-5)"},
+  {6,13,"76-caret-target-end","999+12*(34-5)"},
+  {6,95,"76-caret-target-long-end","999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999"},
+  {6,47,"76-caret-target-long-middle","999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999+999"},
+  {10,0,"76-caret-prime-left","2^3*3^2*5"},
+  {10,1,"76-caret-prime-after-digit","2^3*3^2*5"},
+  {10,2,"76-caret-prime-after-power","2^3*3^2*5"},
+  {10,3,"76-caret-prime-after-exponent","2^3*3^2*5"},
+  {10,4,"76-caret-prime-after-times","2^3*3^2*5"},
+  {10,6,"76-caret-prime-middle","2^3*3^2*5"},
+  {10,9,"76-caret-prime-end","2^3*3^2*5"},
+  {7,2,"76-caret-countdown-before-plus","12+34"},
+  {7,3,"76-caret-countdown-after-plus","12+34"},
+  {2,4,"76-caret-equation-before-equals","12+3=15"},
+  {2,5,"76-caret-equation-after-equals","12+3=15"}
+ };
+ for(unsigned i=0;i<sizeof caret_cases/sizeof caret_cases[0];i++){
+  open_game(&app,caret_cases[i].id);
+  gc_test_type(&app,press_capture,caret_cases[i].value);
+  while(app.session.game.edit_cursor>caret_cases[i].cursor)tap(&app,NGK_LEFT);
+  assert(app.session.game.edit_cursor==caret_cases[i].cursor);
+  capture(caret_cases[i].name);
+ }
+ open_game(&app,10);tap(&app,'2');tap(&app,NGK_SQUARE);tap(&app,'*');tap(&app,'3');
+ tap(&app,NGK_LEFT);tap(&app,NGK_LEFT);
+ assert(!strcmp(app.session.game.input,"2^2*3")&&app.session.game.edit_cursor==3);
+ capture("76-caret-prime-square-shortcut");
  assert(!fclose(manifest));
  puts("Renderer capture: main +6 categories +36 games +inline options +edge states PASS");return 0;
 }
