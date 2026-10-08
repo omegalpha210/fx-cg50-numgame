@@ -6,8 +6,8 @@ sys.path.insert(0,str(ROOT/'tools/generate'))
 def module(name):
     spec=importlib.util.spec_from_file_location(name,ROOT/'tools/generate'/f'{name}.py')
     obj=importlib.util.module_from_spec(spec);spec.loader.exec_module(obj);return obj
-(ROOT/'build-host').mkdir(exist_ok=True)
-with tempfile.TemporaryDirectory(prefix='embedded-',dir=ROOT/'build-host') as directory:
+(ROOT/'build/host').mkdir(parents=True,exist_ok=True)
+with tempfile.TemporaryDirectory(prefix='embedded-',dir=ROOT/'build/host') as directory:
     tmp=pathlib.Path(directory)
     gc=module('guesscalc_generate');gc.OUT=tmp
     gc.write_header(json.loads((ROOT/'assets/guesscalc_packs.json').read_text()))

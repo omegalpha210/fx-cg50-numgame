@@ -1,4 +1,4 @@
-/* Host-only renderer fixtures. Link with build-host/libnumgame_core.a.
+/* Host-only renderer fixtures. Link with build/host/libnumgame_core.a.
    Usage: guesscalc_capture existing-output-directory
    These are deterministic logical-input/renderer examples, not hardware proof. */
 #include "app.h"

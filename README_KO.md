@@ -91,4 +91,6 @@ bash tools/clean_build.sh --diagnostic
 python3 tools/curate_readme.py
 ```
 
+빌드 중간 파일은 `build/host/`, `build/clean/normal/`, `build/clean/diagnostic/`에 모이고, 사용자용 G3A 파일은 `dist/`에 보관합니다.
+
 사용 가능한 macOS 환경에서는 ASan이 `main`에 들어가기 전에 멈춰 **미검증**입니다. 호스트 테스트·UBSan·SH 빌드만으로 실기 지연 시간이나 MENU 이슈의 해결 여부를 판단할 수 없습니다. [진단 안내](docs/DIAGNOSTICS.md) · [코드 정리 감사](docs/CODE_CLEANUP_AUDIT.md) · [외부 출처 고지](THIRD_PARTY_NOTICES.md).

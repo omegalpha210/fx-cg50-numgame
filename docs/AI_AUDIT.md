@@ -32,7 +32,7 @@ allows OS keys before one CPU event. The CPU uses the same apply function as
 human/local play. Checkpoint/cold load preserves turn, pending flag and RNG.
 Undo restores the pre-human state for a full human+CPU round and marks assistance.
 
-Run `build-host/test_strategyquick` after `bash tools/test.sh`. See
+Run `build/host/test_strategyquick` after `bash tools/test.sh`. See
 [detailed audit](STRATEGY_QUICK_AUDIT.md) for all seeds and quick-game tests.
 Real SH response latency and input responsiveness on a physical device remain
 **HARDWARE TEST REQUIRED**; no host timing is substituted for device timing.

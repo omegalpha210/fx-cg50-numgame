@@ -22,7 +22,7 @@ SOURCE = ROOT/'tools/generate/guesscalc_exact.cpp'
 
 def executable():
     digest = hashlib.sha256(SOURCE.read_bytes()).hexdigest()[:16]
-    path = ROOT/'build-host/guesscalc-beta4'/('exact-'+digest)
+    path = ROOT/'build/host/guesscalc-beta4'/('exact-'+digest)
     if not path.exists():
         path.parent.mkdir(parents=True, exist_ok=True)
         temporary = path.with_name(path.name+f'-{os.getpid()}.tmp')

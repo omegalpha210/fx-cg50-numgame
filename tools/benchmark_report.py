@@ -234,8 +234,8 @@ def render(normal, diagnostic, normal_sha, diagnostic_sha, evidence):
          'Original diagnostic JSON limit statement: '+diagnostic['limits'],
          '## Regeneration and validation',
          'Run the existing normal and diagnostic host benchmark executables from their respective build directories to create complete JSON files. Do not read a redirected file while its benchmark is still running. Then:',
-         '```sh\npython3 tools/benchmark_report.py --normal docs/host-benchmark-normal.json --diagnostic docs/host-benchmark-diagnostic.json --build-evidence docs/host-benchmark-build-evidence.json --output docs/PERFORMANCE_AUDIT.md --check\n# Rerun the host workloads first to make new measurements:\n(cd build-host && ./benchmark_host > host-benchmark.json)\n(cd build-host-diagnostic && ./benchmark_host > host-benchmark.json)\npython3 tools/benchmark_report.py --output docs/PERFORMANCE_AUDIT.md\n```',
-         'The three copied JSON inputs in `docs/` preserve the measured summaries and adjacent build-flag evidence for checking this published report. The default inputs for a new measurement are `build-host/host-benchmark.json` and `build-host-diagnostic/host-benchmark.json`. `--source-root` changes that default root. `--build-evidence` accepts `{ "normal": {...}, "diagnostic": {...} }` with captured flag evidence; `--write-build-evidence PATH` exports the currently observed adjacent metadata for portable reproduction. The script rejects truncated JSON, nonfinite/negative/unordered timing values, missing/duplicate game IDs, changed scopes/sample coverage or swapped instrumentation labels. `--check` compares the entire generated document without modifying it. It does not rerun workloads or assert physical performance.']
+         '```sh\npython3 tools/benchmark_report.py --normal docs/host-benchmark-normal.json --diagnostic docs/host-benchmark-diagnostic.json --build-evidence docs/host-benchmark-build-evidence.json --output docs/PERFORMANCE_AUDIT.md --check\n# Rerun the host workloads first to make new measurements:\nbash tools/test.sh\ncmake -S tests -B build/host/diagnostic -DCMAKE_C_COMPILER=clang -DNG_SANITIZE=ON -DNG_DIAGNOSTIC=ON\ncmake --build build/host/diagnostic --target benchmark_host -j8\n(cd build/host && ./benchmark_host > host-benchmark.json)\n(cd build/host/diagnostic && ./benchmark_host > host-benchmark.json)\npython3 tools/benchmark_report.py --output docs/PERFORMANCE_AUDIT.md\n```',
+         'The three copied JSON inputs in `docs/` preserve the measured summaries and adjacent build-flag evidence for checking this published report. The default inputs for a new measurement are `build/host/host-benchmark.json` and `build/host/diagnostic/host-benchmark.json`. `--source-root` changes that default root. `--build-evidence` accepts `{ "normal": {...}, "diagnostic": {...} }` with captured flag evidence; `--write-build-evidence PATH` exports the currently observed adjacent metadata for portable reproduction. The script rejects truncated JSON, nonfinite/negative/unordered timing values, missing/duplicate game IDs, changed scopes/sample coverage or swapped instrumentation labels. `--check` compares the entire generated document without modifying it. It does not rerun workloads or assert physical performance.']
     return '\n\n'.join(out)+'\n'
 
 
@@ -251,8 +251,8 @@ def main():
     args=parser.parse_args()
     if args.check and not args.output:parser.error('--check requires --output')
     if args.check and args.write_build_evidence:parser.error('--check cannot write build evidence')
-    npath=args.normal or args.source_root/'build-host/host-benchmark.json'
-    dpath=args.diagnostic or args.source_root/'build-host-diagnostic/host-benchmark.json'
+    npath=args.normal or args.source_root/'build/host/host-benchmark.json'
+    dpath=args.diagnostic or args.source_root/'build/host/diagnostic/host-benchmark.json'
     try:
         normal=validate(read_json(npath),False); diagnostic=validate(read_json(dpath),True)
         evidence=read_json(args.build_evidence) if args.build_evidence else {'normal':build_evidence(npath),'diagnostic':build_evidence(dpath)}

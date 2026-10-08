@@ -3,7 +3,7 @@
 import json,subprocess
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-catalog=json.loads(subprocess.check_output([ROOT/'build-host/export_catalog'],text=True))
+catalog=json.loads(subprocess.check_output([ROOT/'build/host/export_catalog'],text=True))
 games=catalog['games'];assert sorted(g['id'] for g in games)==list(range(1,29))+list(range(31,39))
 rows=['# Game catalog and acceptance matrix','',
       'Stable IDs1–28,31–38; legacy IDs29/30 are archived, never reused. All 36 have an engine, playable UI,',

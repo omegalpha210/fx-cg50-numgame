@@ -2,6 +2,8 @@
 #include "runtime.h"
 #include "diagnostics.h"
 #include "native_keys.h"
+#include "usb_lifecycle.h"
+#include "usb_native.h"
 #include <gint/display.h>
 #include <gint/keyboard.h>
 #include <gint/drivers/keydev.h>
@@ -17,8 +19,9 @@
 static NgApp app;
 static volatile int wakeup;
 static NgRuntime runtime;
+static UsbLifecycle usb;
 static int scheduler=-1;
-static bool timer_active,rtc_active;
+static bool timer_active,rtc_active,system_requested;
 static uint16_t saved_brightness;
 static bool brightness_saved;
 static uint32_t idle_last,idle_fraction;
@@ -41,6 +44,12 @@ static void suspend_clock(void)
  if(rtc_active){rtc_periodic_disable();rtc_active=false;ng_diag_emit(NGD_TIMER_STOP,0,1);}
  wakeup=0;
 }
+#if !defined(NG_NATIVE_TEST_GINT_H)
+#include <gint/cpu.h>
+int ng_os_enable_menu_return(void);
+static int enable_menu_return(void *unused)
+{ (void)unused; return ng_os_enable_menu_return(); }
+#endif
 static int read_power_settings(void *unused)
 {(void)unused;ng_runtime_init(&runtime,rtc_ticks(),ng_os_backlight_duration(),ng_os_apo_minutes());return 0;}
 static void power_settings(void)
@@ -51,12 +60,29 @@ static void power_settings(void)
 }
 static void world_action(bool power)
 {
+ system_requested=true;
+ if(!usb_handoff_begin(&usb,usb_native_sample()))return;
  suspend_clock();restore_light();
- if(!ng_storage_cleanup())snprintf(app.notice,sizeof app.notice,"Storage close failed; unsaved RAM retained.");
+ if(!ng_storage_cleanup()){
+  snprintf(app.notice,sizeof app.notice,"Storage close failed; unsaved RAM retained.");
+  usb_handoff_end(&usb,usb_native_sample());return;
+ }
  clearevents();ng_diag_emit(power?NGD_OFF_ENTER:NGD_MENU_ENTER,rtc_ticks(),0);
+#if !defined(NG_NATIVE_TEST_GINT_H)
+ /* Safe OS Parking Rule (KhiCAS pattern):
+    When user presses SHIFT+AC/ON or APO occurs,
+    commit save above, wait for key releases, call Syscall 0x1EA6,
+    and cleanly park into Casio OS Main Menu via gint_osmenu(). */
+ while (keydown(KEY_ACON) || keydown(KEY_SHIFT) || keydown(KEY_MENU) || keydown(KEY_EXIT)) sleep();
+ clearevents();
+ (void)gint_world_switch(GINT_CALL(enable_menu_return,(void *)NULL));
+ gint_osmenu();
+#else
  if(power)gint_poweroff(true);else gint_osmenu();
+#endif
  ng_diag_emit(power?NGD_OFF_RETURN:NGD_MENU_RETURN,rtc_ticks(),0);
  power_settings();ng_runtime_rebase(&runtime,rtc_ticks());
+ usb_handoff_end(&usb,usb_native_sample());
 }
 static void osmenu(void *ctx){(void)ctx;world_action(false);}
 static void off(void *ctx){(void)ctx;world_action(true);}
@@ -104,7 +130,7 @@ int main(void)
  uint32_t seed=rtc_ticks()^((uint32_t)time.year<<16)^((uint32_t)time.month_day<<8)^time.month;
  ng_app_init(&app,hooks,seed);keydev_set_transform(keydev_std(),(keydev_transform_t){KEYDEV_TR_REPEATS,repeat});
  scheduler=timer_configure(TIMER_ANY,250000,GINT_CALL(pulse));
- timer_active=rtc_active=brightness_saved=false;power_settings();barrier();draw();ng_runtime_rebase(&runtime,rtc_ticks());
+ timer_active=rtc_active=brightness_saved=false;power_settings();usb_initialize(&usb,usb_native_sample());barrier();draw();ng_runtime_rebase(&runtime,rtc_ticks());
  for(;;) {
   sample();
   if(!timer_active && scheduler>=0){timer_start(scheduler);timer_active=true;ng_diag_emit(NGD_TIMER_START,0,0);}
@@ -120,7 +146,14 @@ int main(void)
   bool cpu=app.screen==NG_PLAY && !app.modal && app.session.game.cpu_pending;
   bool stress=app.modal==NG_MODAL_DIAGNOSTICS && ng_diag_stress_active();
   key_event_t e=keydev_read(keydev_std(),!cpu && !stress,app.power_available?&wakeup:NULL);
+  usb_observe(&usb,usb_native_sample());
+  if(usb_take_request(&usb)){
+   /* Synchronous CPU/generator steps are atomic; service at their next
+      boundary before starting another step. No partial game is persisted. */
+   ng_app_osmenu(&app);barrier();draw();runtime.last=rtc_ticks();continue;
+  }
   uint32_t now=rtc_ticks(),dt=ng_runtime_elapsed(&runtime,now);
+  system_requested=false;
   uint32_t idle_ticks=now>=idle_last?now-idle_last:NG_RTC_DAY-idle_last+now;idle_last=now;
   /* Only actual key DOWN/HOLD resets idle; wake flags, draws and saves do not. */
   bool input=e.type==KEYEV_DOWN || e.type==KEYEV_HOLD;
@@ -152,7 +185,7 @@ int main(void)
    changed=event_changed||changed;
   }else if(stress && !(power&NG_POWER_OFF)){bool progress=ng_diag_stress_step();if(progress)hud_only=false;changed=progress||changed;}
   else if(cpu && !(power&NG_POWER_OFF)){bool moved=ng_app_cpu(&app);if(moved)hud_only=false;changed=moved||changed;}
-  if(power&NG_POWER_OFF){ng_app_poweroff(&app);changed=true;hud_only=false;}
+  if((power&NG_POWER_OFF) && !system_requested){ng_app_poweroff(&app);changed=true;hud_only=false;}
   if(app.epoch!=epoch){barrier();runtime.fraction=0;}
   /* World-switch/OS/off, drawing and storage duration never inflate active time. */
   if(changed){if(hud_only)draw_hud();else draw();}

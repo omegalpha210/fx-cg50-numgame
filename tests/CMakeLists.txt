@@ -67,3 +67,7 @@ foreach(name guesscalc grids strategyquick boards)
   add_test(NAME ${name} COMMAND test_${name})
  endif()
 endforeach()
+
+add_executable(test_usb test_usb.c)
+target_include_directories(test_usb PRIVATE native ../include)
+add_test(NAME usb_lifecycle COMMAND test_usb)

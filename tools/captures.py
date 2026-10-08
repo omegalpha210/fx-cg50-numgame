@@ -5,16 +5,16 @@ from PIL import Image, ImageDraw
 ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'docs/captures'
 OUT.mkdir(parents=True,exist_ok=True)
-capture_root=ROOT/'build-host/captures'
+capture_root=ROOT/'build/host/captures'
 paths=[capture_root/name for name in (capture_root/'manifest.txt').read_text().splitlines()]
 assert all(p.parent==capture_root and p.suffix=='.ppm' for p in paths)
 assert len(set(paths))==len(paths)
-assert paths,'Run test_capture from build-host first'
+assert paths,'Run test_capture from build/host first'
 for p in paths:
     im=Image.open(p)
     assert im.size==(396,224)
     im.save(OUT/(p.stem+'.png'))
-diagnostic_root=ROOT/'build-host-diagnostic/captures'
+diagnostic_root=ROOT/'build/host/diagnostic/captures'
 diagnostic_names=('54-diagnostics-memory','54-diagnostics-runtime')
 for name in diagnostic_names:
     diagnostic_file=diagnostic_root/(name+'.ppm')
@@ -41,11 +41,11 @@ def sheet(items,name,scale,columns):
         im.paste(capture,(x,y+caption))
     im.save(OUT/name)
 sheet(games,'contact-native.png',1,3)
-menus=[ROOT/'build-host/captures/00-main.ppm']+[ROOT/'build-host/captures'/f'00-category-{i}.ppm' for i in range(1,7)]
+menus=[ROOT/'build/host/captures/00-main.ppm']+[ROOT/'build/host/captures'/f'00-category-{i}.ppm' for i in range(1,7)]
 sheet(menus,'menus-native.png',1,2)
 sheet(menus,'menus-2x.png',2,2)
 for group in range(6):
-    category=ROOT/'build-host/captures'/f'00-category-{group+1}.ppm'
+    category=ROOT/'build/host/captures'/f'00-category-{group+1}.ppm'
     items=[category]+games[group*6:group*6+6]
     sheet(items,f'category-{group+1}-2x.png',2,2)
 sheet([p for p in paths if p.stem.endswith('-hard')],'hard-grids-native.png',1,2)

@@ -39,7 +39,7 @@ def bank_metrics(records):
 
 
 def native_parity(records):
-    folder = ROOT/'build-host/guesscalc-beta5';folder.mkdir(parents=True,exist_ok=True)
+    folder = ROOT/'build/host/guesscalc-beta5';folder.mkdir(parents=True,exist_ok=True)
     executable = folder/'audit-native'
     subprocess.run(['clang','-std=c11','-Wall','-Wextra','-Werror','-g','-fsanitize=undefined',
                     '-fno-sanitize-recover=all','-Iinclude','-Isrc/games',

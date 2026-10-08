@@ -2,6 +2,9 @@
 #define main numgame_native_main
 #include "../src/main.c"
 #undef main
+MockUsbCpg mock_usb_cpg;
+MockUsbPower mock_usb_power;
+MockUsbRegisters mock_usb_registers={.SYSCFG={1}};
 #include <gint/bfile.h>
 #include <assert.h>
 #include <setjmp.h>
@@ -29,6 +32,8 @@ static int fail_after_create,created_open_failure;
 static int close_failures,close_fail_write_once,write_budget=-1,read_failure,zero_write,corrupt_on_close;
 static uint32_t mock_ticks;
 static bool timer_unavailable,rtc_unavailable,expect_save_failure;
+static bool usb_plug_on_write;
+static unsigned usb_moves_at_menu;
 static unsigned rtc_starts,rtc_stops;
 static bool physical[256];
 static keydev_t mock_device;
@@ -67,10 +72,10 @@ int BFile_Open(const uint16_t *path,int mode){assert(world_depth==1);open_calls+
 int BFile_Close(int handle){MockFD *d=fd(handle);close_calls++;if(close_failures){if(close_failures>0)close_failures--;return -5;}if(d->writing&&close_fail_write_once){close_fail_write_once--;return -5;}if(d->writing&&corrupt_on_close&&files[d->index].size){files[d->index].bytes[d->position-1]^=1;corrupt_on_close=0;}d->open=false;return 0;}
 int BFile_Seek(int handle,int offset){MockFD *d=fd(handle);assert(offset>=0);d->position=(size_t)offset;return offset;}
 int BFile_Size(int handle){MockFD *d=fd(handle);return (int)files[d->index].size;}
-int BFile_Write(int handle,const void *data,int size){MockFD *d=fd(handle);assert(d->writing);write_calls++;if(zero_write)return 0;if(write_budget==0)return -5;if(write_budget>0&&size>write_budget)size=write_budget;assert(size>=0&&d->position+(size_t)size<=NG_ARCHIVE_BYTES);if(d->index>=MOCK_COMPACT_BASE)assert(d->position+(size_t)size<=files[d->index].size);memcpy(files[d->index].bytes+d->position,data,(size_t)size);d->position+=(size_t)size;if(d->position>files[d->index].size)files[d->index].size=d->position;if(write_budget>0)write_budget-=size;return size;}
+int BFile_Write(int handle,const void *data,int size){MockFD *d=fd(handle);assert(d->writing);if(usb_plug_on_write)mock_usb_registers.INTSTS0.VBSTS=1;write_calls++;if(zero_write)return 0;if(write_budget==0)return -5;if(write_budget>0&&size>write_budget)size=write_budget;assert(size>=0&&d->position+(size_t)size<=NG_ARCHIVE_BYTES);if(d->index>=MOCK_COMPACT_BASE)assert(d->position+(size_t)size<=files[d->index].size);memcpy(files[d->index].bytes+d->position,data,(size_t)size);d->position+=(size_t)size;if(d->position>files[d->index].size)files[d->index].size=d->position;if(write_budget>0)write_budget-=size;return size;}
 int BFile_Read(int handle,void *data,int size,int offset){MockFD *d=fd(handle);read_calls++;if(read_failure)return -5;assert(offset>=0&&size>=0);/* Fugue would return requested length even past EOF. Adapter MUST clamp. */assert((size_t)offset+(size_t)size<=files[d->index].size);memcpy(data,files[d->index].bytes+offset,(size_t)size);return size;}
 int gint_world_switch(gint_call_t call){assert(!world_depth);assert(call.argfn);world_calls++;world_depth++;int result=call.argfn(call.arg);world_depth--;return result;}
-void gint_osmenu(void){assert(!world_depth && !timer_active && !rtc_active && !brightness_saved);if(expect_save_failure || ng_catalog_index(app.session.game.id)<0){os_calls++;return;}assert(!app.dirty&&!app.settings_dirty);checkpoint_write_marker=write_calls;NgSession loaded;NgSettings options;bool active=false;int rc=ng_state_load(&options,&loaded,&active);assert(rc==NG_LOAD_OK||rc==NG_LOAD_RECOVERED);assert(active==app.resumable);if(active)assert(!memcmp(&loaded.game,&app.session.game,sizeof(NgGame)));os_calls++;mock_ticks=(mock_ticks+128u*36000u)%MOCK_DAY;}
+void gint_osmenu(void){usb_moves_at_menu=app.session.game.moves;for(unsigned i=0;i<MOCK_FDS;i++)assert(!descriptors[i].open);assert(!world_depth && !timer_active && !rtc_active && !brightness_saved);if(expect_save_failure || ng_catalog_index(app.session.game.id)<0){os_calls++;return;}assert(!app.dirty&&!app.settings_dirty);checkpoint_write_marker=write_calls;NgSession loaded;NgSettings options;bool active=false;int rc=ng_state_load(&options,&loaded,&active);assert(rc==NG_LOAD_OK||rc==NG_LOAD_RECOVERED);assert(active==app.resumable);if(active)assert(!memcmp(&loaded.game,&app.session.game,sizeof(NgGame)));os_calls++;mock_ticks=(mock_ticks+128u*36000u)%MOCK_DAY;}
 void gint_poweroff(bool show_message){assert(show_message&&!world_depth && !timer_active && !rtc_active && !brightness_saved);if(expect_save_failure || ng_catalog_index(app.session.game.id)<0){off_calls++;return;}assert(!app.dirty&&!app.settings_dirty);off_calls++;mock_ticks=(mock_ticks+128u*3600u)%MOCK_DAY;}
 static uint16_t brightness=120;
 static unsigned dim_calls,restore_calls,hud_calls;
@@ -106,7 +111,7 @@ key_event_t keydev_read(keydev_t *device,bool wait,volatile int *timeout){
 static void add(unsigned key,unsigned type,uint32_t ticks,void (*check)(void)){assert(script_count<65536);script[script_count++]=(Step){key,type,ticks,check};}
 static void tap(unsigned key){add(key,KEYEV_DOWN,0,NULL);add(key,KEYEV_UP,0,NULL);}
 static void begin(unsigned category,unsigned game){tap(category);tap(game);tap(KEY_F6);}
-static void reset(void){memset(files,0,sizeof files);memset(descriptors,0,sizeof descriptors);memset(physical,0,sizeof physical);close_failures=close_fail_write_once=read_failure=zero_write=corrupt_on_close=fail_after_create=created_open_failure=0;write_budget=-1;script_count=script_at=0;os_calls=off_calls=timer_starts=timer_pauses=0;checkpoint_write_marker=write_calls;mock_ticks=1000;timer_unavailable=rtc_unavailable=expect_save_failure=false;rtc_starts=rtc_stops=0;dim_calls=restore_calls=hud_calls=0;brightness=120;}
+static void reset(void){mock_usb_cpg.USBCLKCR.CLKSTP=0;mock_usb_power.MSTPCR2.USB0=0;mock_usb_registers.SYSCFG.SCKE=1;mock_usb_registers.INTSTS0.VBSTS=0;usb_plug_on_write=false;usb_moves_at_menu=0;memset(files,0,sizeof files);memset(descriptors,0,sizeof descriptors);memset(physical,0,sizeof physical);close_failures=close_fail_write_once=read_failure=zero_write=corrupt_on_close=fail_after_create=created_open_failure=0;write_budget=-1;script_count=script_at=0;os_calls=off_calls=timer_starts=timer_pauses=0;checkpoint_write_marker=write_calls;mock_ticks=1000;timer_unavailable=rtc_unavailable=expect_save_failure=false;rtc_starts=rtc_stops=0;dim_calls=restore_calls=hud_calls=0;brightness=120;}
 static void run_script(void){if(!setjmp(exit_loop))(void)numgame_native_main();assert(script_at==script_count);assert(!world_depth);}
 static void check_nim_play(void){assert(app.screen==NG_PLAY&&app.session.game.id==21&&!app.modal);}
 static void check_cpu_done(void){assert(app.session.game.moves==2&&!app.session.game.cpu_pending);}
@@ -429,4 +434,43 @@ static void test_v5_migration(void)
  puts("V4 recent-five -> V5 single-resume migration: 5/1 records, corrupt newest/slot, A-only/B-only, completed-only and failed-write retry PASS");
 }
 
-int main(void){setvbuf(stdout,NULL,_IONBF,0);test_native_storage();test_global_screens();test_physical_equals();test_physical_square();test_archive_migration();test_migration_five_choice();test_v5_migration();test_global_phase_boundary();test_native_keys();test_failed_power_checkpoint();test_native_memory();test_native_hold();test_native_clock();test_timer_fallback();test_common_idle();test_switch_stress();test_review_transitions();test_malformed_compact();return 0;}
+static void usb_plug(void){mock_usb_registers.INTSTS0.VBSTS=1;}
+static void usb_unplug(void){mock_usb_registers.INTSTS0.VBSTS=0;}
+static void usb_once(void){assert(os_calls==1 && !off_calls && timer_active && !ng_diagnostics.handles);}
+static void usb_arm_write(void){usb_plug_on_write=true;}
+static void usb_fail_close(void){close_failures=-1;expect_save_failure=true;}
+static void test_usb_native(void)
+{
+ for(unsigned scene=0;scene<5;scene++){
+  reset();if(scene)begin(KEY_5,KEY_1);
+  if(scene==2)tap(KEY_F4);
+  if(scene==3){tap(KEY_1);tap(KEY_EXE);}
+  if(scene==4)add(0,KEYEV_NONE,60u*128u,NULL);
+  add(0,KEYEV_NONE,0,usb_plug);
+  add(0,KEYEV_NONE,0,usb_once);add(0,KEYEV_NONE,0,usb_once);
+  run_script();assert(timer_pauses==1 && timer_starts==2 && ng_diagnostics.peak_timers==1);
+  if(scene==3)assert(usb_moves_at_menu==1); /* CPU move not started before handoff. */
+  if(scene==4)assert(dim_calls==1 && restore_calls==1 && brightness==120);
+ }
+ reset();add(0,KEYEV_NONE,0,usb_plug);add(0,KEYEV_NONE,0,usb_once);
+ add(0,KEYEV_NONE,0,usb_unplug);add(0,KEYEV_NONE,0,usb_plug);run_script();assert(os_calls==2);
+ for(unsigned off=0;off<2;off++){
+  reset();begin(KEY_5,KEY_1);if(off)tap(KEY_SHIFT);
+  add(off?KEY_ACON:KEY_MENU,KEYEV_DOWN,0,usb_plug);
+  add(off?KEY_ACON:KEY_MENU,KEYEV_HOLD,0,usb_once);
+  add(off?KEY_ACON:KEY_MENU,KEYEV_UP,0,usb_once);run_script();assert(os_calls==1&&!off_calls);
+ }
+ reset();begin_legacy(30);add(0,KEYEV_NONE,128,NULL);add(0,KEYEV_NONE,0,remember_exposure);
+ add(0,KEYEV_NONE,0,usb_plug);run_script();assert(os_calls==1 && app.session.game.data[2]==exposure_left);
+ /* Insertion during save cannot make a second checkpoint/OS transition. */
+ reset();begin(KEY_5,KEY_1);add(KEY_MENU,KEYEV_DOWN,0,usb_arm_write);
+ add(KEY_MENU,KEYEV_UP,0,usb_once);add(0,KEYEV_NONE,0,usb_once);run_script();assert(os_calls==1);
+ reset();begin(KEY_5,KEY_1);add(0,KEYEV_NONE,128,NULL);add(0,KEYEV_NONE,0,fail_writes);add(0,KEYEV_NONE,0,usb_plug);
+ add(0,KEYEV_NONE,0,check_failed_menu);add(0,KEYEV_NONE,0,check_failed_menu);run_script();assert(os_calls==1);
+ reset();begin(KEY_5,KEY_1);add(0,KEYEV_NONE,128,NULL);add(0,KEYEV_NONE,0,usb_fail_close);add(0,KEYEV_NONE,0,usb_plug);
+ add(0,KEYEV_NONE,0,NULL);add(0,KEYEV_NONE,0,NULL);run_script();
+ assert(!os_calls && !off_calls && timer_active && ng_diagnostics.handles==1);
+ unsigned closed=close_calls;close_failures=0;assert(ng_storage_cleanup());assert(close_calls==closed+1);
+ puts("USB native: idle/modal/dirty/CPU boundary/timed phase/dim, MENU/OFF and save races, finite write/close failure, closed descriptors, rearm and one timer PASS");
+}
+int main(void){setvbuf(stdout,NULL,_IONBF,0);test_native_storage();test_global_screens();test_physical_equals();test_physical_square();test_archive_migration();test_migration_five_choice();test_v5_migration();test_global_phase_boundary();test_native_keys();test_failed_power_checkpoint();test_native_memory();test_native_hold();test_native_clock();test_timer_fallback();test_common_idle();test_switch_stress();test_review_transitions();test_malformed_compact();test_usb_native();return 0;}

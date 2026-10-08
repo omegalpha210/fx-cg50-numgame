@@ -27,7 +27,7 @@ icon = Image.open(root / 'assets/icon-sel.png').convert('RGBA')
 assert icon.size == (92, 64)
 icon.resize((184, 128), Image.Resampling.NEAREST).save(output / 'icon-2x.png')
 for name, frame in sources.items():
-    image = Image.open(root / 'build-host/captures' / f'{frame}.ppm')
+    image = Image.open(root / 'build/host/captures' / f'{frame}.ppm')
     assert image.size == (396, 224) and image.mode == 'RGB'
     image.save(output / f'{name}.png')
 print(f'{len(sources)} current 396x224 renderer frames and original 2x icon in {output}')

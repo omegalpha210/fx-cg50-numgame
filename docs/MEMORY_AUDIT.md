@@ -1,6 +1,6 @@
 # Memory and build audit
 
-Measured native build: `build-clean-bKBgAx`. ELF SHA256 `a927747651a164b4fd34f7b1823af91f7991c74038f3e1dfaa8dfe7e3eb82936`.
+Measured native build: `build/clean/normal`. ELF SHA256 `fedb70333f435599b9ba4d292c7f348b5b9a5a563a136d0f4fabca7164cc9317`.
 This report separates ELF placement, compiler static analysis, host observations
 and device observations. **No total runtime RAM peak is inferred.**
 Method and measurement limits: [MEMORY_METHOD.md](MEMORY_METHOD.md).
@@ -159,7 +159,7 @@ Container checksum/identity validation remains a separate check; neither proves 
 
 ```sh
 source tools/env.sh
-python3 tools/memory_report.py --build-dir <fresh-native-build> --g3a dist/NUMGAME.g3a
+python3 tools/memory_report.py --build-dir build/clean/normal --g3a dist/NUMGAME.g3a
 python3 tools/stack_callgraph.py --self-test
 python3 tools/memory_report.py --self-test
 ```

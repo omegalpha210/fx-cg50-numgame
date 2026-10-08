@@ -49,6 +49,8 @@ int ng_key_index(int key);
 void ng_render(const NgApp *a,NgCanvas *c);
 void ng_render_hud(const NgApp *a,NgCanvas *c);
 void ng_app_poweroff(NgApp *a);
+/* Foreground system request independent of the physical key-held mask. */
+void ng_app_osmenu(NgApp *a);
 /* Visible entry rows; shared by presentation and its navigation only. */
 enum {NG_ENTRY_RESUME,NG_ENTRY_NEW,NG_ENTRY_LEVEL,NG_ENTRY_MODE,NG_ENTRY_TARGET};
 bool ng_entry_level(const NgApp *a);

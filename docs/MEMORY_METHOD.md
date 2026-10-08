@@ -140,7 +140,8 @@ From the repository root after a fresh native build:
 source tools/env.sh
 python3 tools/memory_report.py --self-test
 python3 tools/stack_callgraph.py --self-test
-python3 tools/memory_report.py --build-dir build-cg --g3a dist/NUMGAME.g3a
+python3 tools/memory_report.py --build-dir build/clean/normal --g3a dist/NUMGAME.g3a
+python3 tools/memory_report.py --build-dir build/clean/diagnostic --g3a dist/NUMGDIAG.g3a --json-out docs/diagnostic-build-metrics.json --markdown-out build/clean/diagnostic/MEMORY_AUDIT.md
 ```
 
 Use `--source-root`, `--json-out` and `--markdown-out` when analyzing a separate

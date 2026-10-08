@@ -11,7 +11,7 @@ OUT=ROOT/'assets/guesscalc_beta6_native_audit.json'
 
 
 def run():
-    folder=ROOT/'build-host/guesscalc-beta6'
+    folder=ROOT/'build/host/guesscalc-beta6'
     folder.mkdir(parents=True,exist_ok=True)
     executable=folder/'native-audit'
     subprocess.run(['clang','-std=c11','-Wall','-Wextra','-Werror','-O1',

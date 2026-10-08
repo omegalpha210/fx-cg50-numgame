@@ -35,7 +35,7 @@ def contact_sheet(paths: list[Path], output: Path, columns: int = 3) -> None:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--build-dir", type=Path, default=ROOT / "build-host")
+    parser.add_argument("--build-dir", type=Path, default=ROOT / "build/host")
     args = parser.parse_args()
     source = args.build_dir / "captures/beta6"
     output = ROOT / "docs/captures/beta6"
@@ -65,9 +65,9 @@ def main() -> None:
         "frames come from entries, games, submissions, and scroll actions. The "
         "harness checks game validity at generation/submission milestones and "
         "rejects draw primitives outside the canvas.\n\n"
-        "Reproduce with `cmake -S tests -B build-host`, "
-        "`cmake --build build-host --target test_beta6_capture`, "
-        "`(cd build-host && ./test_beta6_capture)`, then "
+        "Reproduce with `cmake -S tests -B build/host`, "
+        "`cmake --build build/host --target test_beta6_capture`, "
+        "`(cd build/host && ./test_beta6_capture)`, then "
         "`python3 tools/captures_beta6.py`.\n\n"
         "Contact sheets: [Make Target](beta6/make-target-contact.png), "
         "[Countdown and Prime](beta6/countdown-prime-contact.png), "

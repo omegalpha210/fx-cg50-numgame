@@ -50,7 +50,7 @@ def old_target_sample():
 
 
 def native_parity(records):
-    directory = ROOT/'build-host/guesscalc-beta4';directory.mkdir(parents=True, exist_ok=True)
+    directory = ROOT/'build/host/guesscalc-beta4';directory.mkdir(parents=True, exist_ok=True)
     executable = directory/'audit-native'
     subprocess.run(['clang', '-std=c11', '-Wall', '-Wextra', '-Werror', '-g', '-fsanitize=undefined',
                     '-fno-sanitize-recover=all', '-Iinclude', '-Isrc/games',

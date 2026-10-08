@@ -34,7 +34,7 @@ PUBLIC_DOCS={
     'MAKE_TARGET_COMPLEXITY.csv','MAKE_TARGET_COMPLEXITY_BETA5.csv',
     'RUNTIME_AUDIT.md','STORAGE_ARCHIVE_AUDIT.md','STORAGE_FORMAT.md',
     'STRATEGY_QUICK_AUDIT.md','UI_ALIGNMENT_AUDIT.md','UI_CONVENTIONS.md','UI_LAYOUT_KO.md',
-    'USER_GUIDE.md','CODE_CLEANUP_AUDIT.md','GALLERY.md',
+    'USER_GUIDE.md','CODE_CLEANUP_AUDIT.md','GALLERY.md','BUILD_WORKSPACE_AUDIT.md',
     'UI_REFRESH_KO.md','acceptance-matrix.csv','asset-manifest.json',
     'build-metrics.json','diagnostic-build-metrics.json','game-registry.json',
     'performance-metrics.json',

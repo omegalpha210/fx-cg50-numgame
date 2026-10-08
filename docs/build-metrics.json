@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "build_directory": "build-clean-bKBgAx",
+  "build_directory": "build/clean/normal",
   "elf_file": "numgame",
-  "elf_sha256": "a927747651a164b4fd34f7b1823af91f7991c74038f3e1dfaa8dfe7e3eb82936",
+  "elf_sha256": "fedb70333f435599b9ba4d292c7f348b5b9a5a563a136d0f4fabca7164cc9317",
   "compiler": "sh-elf-gcc (GCC) 14.1.0",
   "native_text": 529036,
   "native_data": 512,
@@ -366,7 +366,7 @@
   "linker_map": {
     "status": "PARSED",
     "file": "numgame.map",
-    "sha256": "7db7fbb443bce5a0f48b3f2692d3ecd953dd3fe17b776d9287fa12722740c4cc",
+    "sha256": "fcdf5f2b048afb4cc16ec7384c77739cec2520b7020b7a6197932cbb760217df",
     "allocated_sections_match": true,
     "section_checks": {
       ".text": true,

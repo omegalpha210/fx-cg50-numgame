@@ -91,4 +91,6 @@ bash tools/clean_build.sh --diagnostic
 python3 tools/curate_readme.py
 ```
 
+Build outputs stay under `build/host/`, `build/clean/normal/` and `build/clean/diagnostic/`; `dist/` holds the user-facing G3A packages.
+
 ASan is unverified because its runtime stalls before `main` on the available macOS host. Host tests, UBSan and SH builds cannot establish device latency or resolve the reported MENU issue. [Development and diagnostic notes](docs/DIAGNOSTICS.md) · [code cleanup audit](docs/CODE_CLEANUP_AUDIT.md) · [third-party notices](THIRD_PARTY_NOTICES.md).

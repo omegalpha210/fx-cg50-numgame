@@ -164,9 +164,12 @@ Run the existing normal and diagnostic host benchmark executables from their res
 ```sh
 python3 tools/benchmark_report.py --normal docs/host-benchmark-normal.json --diagnostic docs/host-benchmark-diagnostic.json --build-evidence docs/host-benchmark-build-evidence.json --output docs/PERFORMANCE_AUDIT.md --check
 # Rerun the host workloads first to make new measurements:
-(cd build-host && ./benchmark_host > host-benchmark.json)
-(cd build-host-diagnostic && ./benchmark_host > host-benchmark.json)
+bash tools/test.sh
+cmake -S tests -B build/host/diagnostic -DCMAKE_C_COMPILER=clang -DNG_SANITIZE=ON -DNG_DIAGNOSTIC=ON
+cmake --build build/host/diagnostic --target benchmark_host -j8
+(cd build/host && ./benchmark_host > host-benchmark.json)
+(cd build/host/diagnostic && ./benchmark_host > host-benchmark.json)
 python3 tools/benchmark_report.py --output docs/PERFORMANCE_AUDIT.md
 ```
 
-The three copied JSON inputs in `docs/` preserve the measured summaries and adjacent build-flag evidence for checking this published report. The default inputs for a new measurement are `build-host/host-benchmark.json` and `build-host-diagnostic/host-benchmark.json`. `--source-root` changes that default root. `--build-evidence` accepts `{ "normal": {...}, "diagnostic": {...} }` with captured flag evidence; `--write-build-evidence PATH` exports the currently observed adjacent metadata for portable reproduction. The script rejects truncated JSON, nonfinite/negative/unordered timing values, missing/duplicate game IDs, changed scopes/sample coverage or swapped instrumentation labels. `--check` compares the entire generated document without modifying it. It does not rerun workloads or assert physical performance.
+The three copied JSON inputs in `docs/` preserve the measured summaries and adjacent build-flag evidence for checking this published report. The default inputs for a new measurement are `build/host/host-benchmark.json` and `build/host/diagnostic/host-benchmark.json`. `--source-root` changes that default root. `--build-evidence` accepts `{ "normal": {...}, "diagnostic": {...} }` with captured flag evidence; `--write-build-evidence PATH` exports the currently observed adjacent metadata for portable reproduction. The script rejects truncated JSON, nonfinite/negative/unordered timing values, missing/duplicate game IDs, changed scopes/sample coverage or swapped instrumentation labels. `--check` compares the entire generated document without modifying it. It does not rerun workloads or assert physical performance.

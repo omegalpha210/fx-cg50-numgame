@@ -2,7 +2,7 @@
   "tool": "tools/public_snapshot.py",
   "policy_version": 1,
   "include_dist": true,
-  "tree_sha256": "2be463e967853ec612a15d17fbc992a917a2fe800f7c0534901422b942374796",
+  "tree_sha256": "2b711a52f69ff2e90da35e62c78f121d6a5535aff8a84a433224a46ccbe2d375",
   "files": [
     {
       "file": ".gitignore",
@@ -24,14 +24,14 @@
     },
     {
       "file": "README.md",
-      "bytes": 7889,
-      "sha256": "dce3c4a861fa0281d7e8b2add1b6d4b91f2f2f6293d32690bc4e7d4f0f9cbf47",
+      "bytes": 8027,
+      "sha256": "a52ddaeb2c2412b9b9aeb5efb22057cba2018df40b0075ca5e108bcdc416d0ea",
       "mode": "0644"
     },
     {
       "file": "README_KO.md",
-      "bytes": 9232,
-      "sha256": "97cf5ba403cc2308933272d15153d4e3924c34f0851be11eb82f965da3586f8d",
+      "bytes": 9390,
+      "sha256": "3dc9ad1f2e575c6cec58d95b9e7371e38618828aec098aa69cfec28b376ff3bb",
       "mode": "0644"
     },
     {
@@ -1674,20 +1674,20 @@
     },
     {
       "file": "dist/NUMGAME.g3a",
-      "bytes": 558236,
-      "sha256": "94dff9816330da84a4ba8843d2aa3ad2959c7fc369cf7059cba9bfbf6232f649",
+      "bytes": 558700,
+      "sha256": "10254035c6b9b93ab3c3639580d5364c4443b4f43d81ae0fff1342ff7d4fe0d4",
       "mode": "0644"
     },
     {
       "file": "dist/NUMGDIAG.g3a",
-      "bytes": 585900,
-      "sha256": "bed9b7fe9cd608b993db86e937f4d3f8c116e265b2a85a678ce728b1feefc2b7",
+      "bytes": 586748,
+      "sha256": "3baca20256151805a3f228a4f94230deb803a004f08bf8c79064f6b2b6aab428",
       "mode": "0644"
     },
     {
       "file": "dist/SHA256SUMS.txt",
       "bytes": 161,
-      "sha256": "2a26ad10e71d002cfbf613be6c37628587471dabc51d4d656532cc7abf5901f0",
+      "sha256": "943f95ed29fa5a975cc53dd4ddd002c3625c857c2712895e1f2855bf391b63ca",
       "mode": "0644"
     },
     {
@@ -1699,7 +1699,7 @@
     {
       "file": "docs/AI_AUDIT.md",
       "bytes": 3120,
-      "sha256": "e01ab419bc6a67c22f50f6e1a4d858c40f34f5804491f987e058bd524873e34f",
+      "sha256": "6318e92e6c38622019c74d13c021840591ba0b76653d53f3a80c3d5959c384f2",
       "mode": "0644"
     },
     {
@@ -1718,6 +1718,12 @@
       "file": "docs/BOARD_AUDIT.md",
       "bytes": 9987,
       "sha256": "da223e826869b42e26dbbf3159f1b94e5bdf11cfaa2256f75a8707575149d661",
+      "mode": "0644"
+    },
+    {
+      "file": "docs/BUILD_WORKSPACE_AUDIT.md",
+      "bytes": 14551,
+      "sha256": "9e74937778f40491111f10ab881dba1df370eadc415c98ddc9bc8bcbd5e55449",
       "mode": "0644"
     },
     {
@@ -1795,7 +1801,7 @@
     {
       "file": "docs/GALLERY.md",
       "bytes": 1465,
-      "sha256": "c404424d931865140be1fa210da10f1e15723bdc56928040028434a5e0124967",
+      "sha256": "18822c55001f668ebb32b4d487bd27d1142ec36a1e0d8872d5a1c5b843524f42",
       "mode": "0644"
     },
     {
@@ -1872,14 +1878,14 @@
     },
     {
       "file": "docs/MEMORY_AUDIT.md",
-      "bytes": 9364,
-      "sha256": "97957d592800948bb3526e2eec394d04ba874897f7777f27c611893301a2fd24",
+      "bytes": 9362,
+      "sha256": "d8c113f60969d12ca03c9de0cc294c0068ebb21dd38e63dd9879bdf97a34efd7",
       "mode": "0644"
     },
     {
       "file": "docs/MEMORY_METHOD.md",
-      "bytes": 8785,
-      "sha256": "1ccba09f192742191055a689ea0390e5e66edfaa9f66903441c89d32c1ab001c",
+      "bytes": 8985,
+      "sha256": "99b12648744f16abc13f568577a178ef50515f6c54764590dcb9b6bcd0882490",
       "mode": "0644"
     },
     {
@@ -1890,8 +1896,8 @@
     },
     {
       "file": "docs/PERFORMANCE_AUDIT.md",
-      "bytes": 18898,
-      "sha256": "d4d4905ccd1e7cb25e2ec892cb9ab5f8edf225d243dc6551b8c17bf538bf1021",
+      "bytes": 19082,
+      "sha256": "c0f75235786d8fc4df449b2314bea98b3a58616ac3287cb645f8ff82ef408e43",
       "mode": "0644"
     },
     {
@@ -2005,7 +2011,7 @@
     {
       "file": "docs/build-metrics.json",
       "bytes": 162454,
-      "sha256": "099c92da02133ad984fd4ecfd514198e4303fffcd2042baff8d1b374ecf0529b",
+      "sha256": "770e6af73ec8dc39a2cf828b3abc1e17db3de3d9e16c8a1452ea2f63646d9eaa",
       "mode": "0644"
     },
     {
@@ -4375,7 +4381,7 @@
     {
       "file": "docs/captures/BETA6_README.md",
       "bytes": 5204,
-      "sha256": "a3fdc8f9dee675d989e69671c55409ff9fdf9d9a4edf6206af16e968149e4d0d",
+      "sha256": "d1a6de3b69674ad4eacc9ad2a1ad1471867f7937f93321494e33957967d14b50",
       "mode": "0644"
     },
     {
@@ -4878,8 +4884,8 @@
     },
     {
       "file": "docs/diagnostic-build-metrics.json",
-      "bytes": 206130,
-      "sha256": "eae8fb2277f7578cf9ccd7c979c5ae8a9818a49d98acd2aae32def4d3abbe582",
+      "bytes": 206134,
+      "sha256": "2a90e8a2d6884bb2a73e7fe5b087d574bd039207f26e3a7a081f0da8546c3dd7",
       "mode": "0644"
     },
     {
@@ -5094,8 +5100,8 @@
     },
     {
       "file": "include/app.h",
-      "bytes": 2330,
-      "sha256": "a6f333d3f4f7843127e810d567090b5c4f352a00e0db7cea0f9aec3eaa1fc636",
+      "bytes": 2435,
+      "sha256": "b69f47c3c918b169fd2db1a15be0e33b119becd993110a12ec4a1392a65ff1a2",
       "mode": "0644"
     },
     {
@@ -5129,9 +5135,21 @@
       "mode": "0644"
     },
     {
+      "file": "include/usb_lifecycle.h",
+      "bytes": 1208,
+      "sha256": "ed7da63fc48b0a30a25febbdb79ae40c0a349884f2d0fb42c9fe45616e69f023",
+      "mode": "0644"
+    },
+    {
+      "file": "include/usb_native.h",
+      "bytes": 703,
+      "sha256": "8c0b91630cf7c168d7b4db1f65f71eeb1bc311f763775575b3d5a198c521ee83",
+      "mode": "0644"
+    },
+    {
       "file": "src/core/app.c",
-      "bytes": 24703,
-      "sha256": "52358dfa452e8e8c9e83333aa65ac8657ba331dc39ed033b702564c4b1026052",
+      "bytes": 24761,
+      "sha256": "33d50ef41d19864400563b50d8176e50ca72bae7c923cd2efc6b78f6b8a14321",
       "mode": "0644"
     },
     {
@@ -5310,8 +5328,8 @@
     },
     {
       "file": "src/main.c",
-      "bytes": 8773,
-      "sha256": "7ffe807fbeb4ab08bac363108c51d6792d4faf99c4b80b158e766a19d7341bb5",
+      "bytes": 10115,
+      "sha256": "430b9ddffe1cf9b431d7890cfa78e4805b63f6b76783aea636b20f3c9a1bb53d",
       "mode": "0644"
     },
     {
@@ -5322,8 +5340,8 @@
     },
     {
       "file": "src/power_syscalls.S",
-      "bytes": 430,
-      "sha256": "27b01abc1fecb103df7872ab000b63c76a31399634f91b51fe94e2f77a40588d",
+      "bytes": 565,
+      "sha256": "e0b9656d7f4a7e6396a446f4598bade80448109a47e48a6492a7233269d01eb6",
       "mode": "0644"
     },
     {
@@ -5388,8 +5406,8 @@
     },
     {
       "file": "tests/CMakeLists.txt",
-      "bytes": 3330,
-      "sha256": "4997e2ffb7674cd5eef4098ac3a8f4567ff308c4ea05833972fa0bc59809672d",
+      "bytes": 3476,
+      "sha256": "9d6cd396c10925e490b582f01486a42f431ca856bf03d955520fc3b51c92252b",
       "mode": "0644"
     },
     {
@@ -5447,6 +5465,24 @@
       "mode": "0644"
     },
     {
+      "file": "tests/native/gint/mpu/cpg.h",
+      "bytes": 186,
+      "sha256": "0e13cc988faa81f6f9bf4a8532f45d901c91d5dd6602a1fb4bcd722242a4c788",
+      "mode": "0644"
+    },
+    {
+      "file": "tests/native/gint/mpu/power.h",
+      "bytes": 197,
+      "sha256": "ccbd0119390919e02091f5f7e04d9c18493a000be2313d1f3237dc48289f1fb5",
+      "mode": "0644"
+    },
+    {
+      "file": "tests/native/gint/mpu/usb.h",
+      "bytes": 254,
+      "sha256": "861944d5ecba0f184433e2829869cd2100fcfb9ba00c68d0f74f597a3c27d3de",
+      "mode": "0644"
+    },
+    {
       "file": "tests/native/gint/rtc.h",
       "bytes": 390,
       "sha256": "0179d2ef1488749bf800a06ba694a04962aa8da65d555210339ca0c23b563bf6",
@@ -5460,8 +5496,8 @@
     },
     {
       "file": "tests/native/run.sh",
-      "bytes": 792,
-      "sha256": "9c44060a492df50a4164b96c17c49f8aa40e918cbf48688089da9eb7e684f693",
+      "bytes": 789,
+      "sha256": "f06746bdcd2e5cfec8ad331cb2295ce53ea95599ca8a881af09b220f92780503",
       "mode": "0755"
     },
     {
@@ -5670,8 +5706,8 @@
     },
     {
       "file": "tests/test_native.c",
-      "bytes": 37002,
-      "sha256": "799fc591f2a938625b28c0635962d402fdf154170abcb160187dcbe5e969cc8f",
+      "bytes": 40134,
+      "sha256": "24e08c3f1f0eaca7b5aa38becdeb593c56f1da76883f22d5fb9607aa79c8d359",
       "mode": "0644"
     },
     {
@@ -5729,6 +5765,12 @@
       "mode": "0644"
     },
     {
+      "file": "tests/test_usb.c",
+      "bytes": 1968,
+      "sha256": "936b806efd6c971164f1a0764775b1db70715ffcbf9925496d0527370a449775",
+      "mode": "0644"
+    },
+    {
       "file": "tools/benchmark_host.c",
       "bytes": 8852,
       "sha256": "8d4ecda41a852b0dad9dc0a1278a5be66ab8ccabe1955fbeac2644ec2fc9f341",
@@ -5748,14 +5790,14 @@
     },
     {
       "file": "tools/benchmark_report.py",
-      "bytes": 26142,
-      "sha256": "dd891e52d11c27c1663f4fc9f170469c54ef697ede8e42b7e213289e0db87664",
+      "bytes": 26329,
+      "sha256": "46f3b85c2bc5fccac39a422c42cfcb5c6beb45f406d3fc2fc986372c361887b6",
       "mode": "0644"
     },
     {
       "file": "tools/build.sh",
-      "bytes": 208,
-      "sha256": "2c9774b06c655af1bda82f5a9bd9695413c2debca717198f86760719c4d3946e",
+      "bytes": 93,
+      "sha256": "21fc686cc99e74448fc19d265356f06dd5ce2c8c4ecbc3b4e65788d42533cf39",
       "mode": "0644"
     },
     {
@@ -5767,19 +5809,19 @@
     {
       "file": "tools/captures.py",
       "bytes": 5844,
-      "sha256": "47d215b461213462073005fac4b8e87cb5e737b180b6d696a1a3f90a9df98fcb",
+      "sha256": "525bfe1afba421180f7835f29e4c1a3f449295787b4b4b2c48a7ca5a8e34f54e",
       "mode": "0644"
     },
     {
       "file": "tools/captures_beta6.py",
       "bytes": 4169,
-      "sha256": "8882af11ae1552d1360850fa7687798ceedc98e35576d7122426e36efdffbe9a",
+      "sha256": "8bdff954145058ffaa1c8b43bfa4802ce19b966d7a8b8943c67288327eec7ff1",
       "mode": "0644"
     },
     {
       "file": "tools/check_embedded.py",
-      "bytes": 3038,
-      "sha256": "766ea3dc2f442a139b94faa9d61cc84f71052cd3e2fbf2fdfc6eaa0eb718803d",
+      "bytes": 3051,
+      "sha256": "af78d94f50fadcb76991d399a02834d99a979679a37c59a50f5a31c7e0676236",
       "mode": "0644"
     },
     {
@@ -5790,8 +5832,8 @@
     },
     {
       "file": "tools/clean_build.sh",
-      "bytes": 883,
-      "sha256": "ea9d6dcec6108e1b885c5ebcda3eb2a6a6d592c511904d652145c286d01e0991",
+      "bytes": 1797,
+      "sha256": "f8907774cc9d8250158e4646d68fff9bedbdb9d979cd304ca7f46e5aed5668eb",
       "mode": "0644"
     },
     {
@@ -5803,7 +5845,7 @@
     {
       "file": "tools/curate_readme.py",
       "bytes": 1190,
-      "sha256": "2bd5470995de82da45fba932b83e8577725d493e5a47d9f0dc0752749ed272fa",
+      "sha256": "565053f8abed84cc2861cfcd29ef8dd9e35d6de1730a629c93cb20ff59d9278c",
       "mode": "0644"
     },
     {
@@ -5935,7 +5977,7 @@
     {
       "file": "tools/generate/guesscalc_beta4_audit.py",
       "bytes": 11300,
-      "sha256": "2e73cb70413322f100c0370753f1bb44ecf54a953e0f83085afd0fb5c3e4d34c",
+      "sha256": "193488f9cb6a04ee6e8400c985ea7991bfa3637f0fe88b45c0ebe2041e2673c3",
       "mode": "0644"
     },
     {
@@ -5953,7 +5995,7 @@
     {
       "file": "tools/generate/guesscalc_beta5_audit.py",
       "bytes": 4500,
-      "sha256": "f42da847e68953a955907f2aa4db25fd7dce3bb80d2e4a0f3f342f475b34efbf",
+      "sha256": "c3df9e1f5f6bbb5f62dcbbb596f2678a3e91a15f79b8f065668fd1f710c98355",
       "mode": "0644"
     },
     {
@@ -5995,7 +6037,7 @@
     {
       "file": "tools/generate/guesscalc_beta6_native_audit.py",
       "bytes": 3870,
-      "sha256": "92a8ee12057634ad89cfe71fbb982be00b7fffe73455fd3e458dd650a3cf9aa8",
+      "sha256": "3bc8beeac9a8d930f9c1869abd9002b85ac09f761054cb2186238416062ac0c4",
       "mode": "0644"
     },
     {
@@ -6013,13 +6055,13 @@
     {
       "file": "tools/generate/guesscalc_capture.c",
       "bytes": 3257,
-      "sha256": "0ff995f7b68f0c139da27f3436f7449eb8713fc36f8fc8b7ae203193179f4cb3",
+      "sha256": "1f5c5340989a3ee0357103dfaaae7faaa42c0f9f99d7438c028e6c586da141c9",
       "mode": "0644"
     },
     {
       "file": "tools/generate/guesscalc_difficulty_audit.py",
       "bytes": 29833,
-      "sha256": "19e8de4fef27c2c4cefe8473f2f0c646ed718db4d09f5e1606f944d96a5abdda",
+      "sha256": "90fc38504ba0efc8f7da60053e8e56757b0b9dcfbd044b77fdc91bcde763f6d7",
       "mode": "0644"
     },
     {
@@ -6037,7 +6079,7 @@
     {
       "file": "tools/generate/guesscalc_exact.py",
       "bytes": 9214,
-      "sha256": "c2abe928d990b1b7a1c4f25836fdb738e75686a7b53deb61851dc2834c6f8c16",
+      "sha256": "9b097a8289356d74cc90ac1b72577e4d5b7ceb8297a87978d5cebeaaf74eeafa",
       "mode": "0644"
     },
     {
@@ -6115,13 +6157,13 @@
     {
       "file": "tools/make_docs.py",
       "bytes": 5122,
-      "sha256": "fb98686c6ddb25f513f57e2d707a82641c4305598f8b98e2cffdccc6a2caa89b",
+      "sha256": "7393d6694843806058186fab9033cd72c877fca41a7a9c8d6d95beae436a6d89",
       "mode": "0644"
     },
     {
       "file": "tools/memory_report.py",
-      "bytes": 18824,
-      "sha256": "6ba5081d3a83052a3f65718b4f6d8f8a218ff7a7040f3ffb92f3161a56fa4586",
+      "bytes": 18832,
+      "sha256": "97d206f50d0a6b8bb958240ad0ec5c56a489a8fc764752292b4cde52abc6a329",
       "mode": "0644"
     },
     {
@@ -6132,8 +6174,8 @@
     },
     {
       "file": "tools/public_snapshot.py",
-      "bytes": 35269,
-      "sha256": "47adae0fefc660df82c117b6d6301cf4586812f323c778e91a56bb627f959796",
+      "bytes": 35296,
+      "sha256": "719476564d198b93a5c52296bbe0acd334ede3a90d05ace4ffb6369f0694a574",
       "mode": "0644"
     },
     {
@@ -6151,7 +6193,7 @@
     {
       "file": "tools/test.sh",
       "bytes": 272,
-      "sha256": "3906ee22554b101a03eec76f3129c86155b6705a8a970f657327c98050961b85",
+      "sha256": "62ad96b67658b4368537d30b3fc4c3d5b82b90840ec06b6e8bbbed35def077ba",
       "mode": "0644"
     },
     {
@@ -6163,7 +6205,7 @@
     {
       "file": "tools/verify_content.sh",
       "bytes": 3913,
-      "sha256": "27c389c1867396bc503313fcab820fb71e81b5757c247468d5822b6d3cebba61",
+      "sha256": "3265470b46bf44942a8149c43313abb68dc975e4ea9c2f933c2db81d392f3c48",
       "mode": "0644"
     },
     {

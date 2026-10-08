@@ -180,7 +180,7 @@ def markdown(report):
     a=report['g3a']
     if a['bytes'] is not None:lines += [f"G3A `{a['file']}`: **{a['bytes']:,} B**, SHA256 `{a['sha256']}`.",f"ELF binary payload equals G3A payload: **{a['elf_payload_match']}**.",f"1,000,000-byte target: {a['target_1000000_pass']}; 1,200,000-byte hard limit: {a['hard_limit_1200000_pass']}.",'Container checksum/identity validation remains a separate check; neither proves device execution.']
     else:lines.append('No matching G3A supplied. No package size/hash claim is made.')
-    lines += ['','```sh','source tools/env.sh','python3 tools/memory_report.py --build-dir <fresh-native-build> --g3a dist/NUMGAME.g3a','python3 tools/stack_callgraph.py --self-test','python3 tools/memory_report.py --self-test','```','']
+    lines += ['','```sh','source tools/env.sh','python3 tools/memory_report.py --build-dir build/clean/normal --g3a dist/NUMGAME.g3a','python3 tools/stack_callgraph.py --self-test','python3 tools/memory_report.py --self-test','```','']
     return '\n'.join(lines)
 
 def self_test():
@@ -195,7 +195,7 @@ def self_test():
     stack_callgraph.self_test();print('memory_report self-test: section flags/hex sizes, GNU size cross-check, private SDK map exclusion and symbol placement PASS')
 
 def main():
-    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--build-dir',type=Path,default=Path('build-cg'));ap.add_argument('--source-root',type=Path,default=ROOT);ap.add_argument('--g3a',type=Path);ap.add_argument('--json-out',type=Path,default=ROOT/'docs/build-metrics.json');ap.add_argument('--markdown-out',type=Path,default=ROOT/'docs/MEMORY_AUDIT.md');ap.add_argument('--self-test',action='store_true');args=ap.parse_args()
+    ap=argparse.ArgumentParser(description=__doc__);ap.add_argument('--build-dir',type=Path,default=Path('build/clean/normal'));ap.add_argument('--source-root',type=Path,default=ROOT);ap.add_argument('--g3a',type=Path);ap.add_argument('--json-out',type=Path,default=ROOT/'docs/build-metrics.json');ap.add_argument('--markdown-out',type=Path,default=ROOT/'docs/MEMORY_AUDIT.md');ap.add_argument('--self-test',action='store_true');args=ap.parse_args()
     if args.self_test:self_test();return
     build=args.build_dir if args.build_dir.is_absolute() else ROOT/args.build_dir;build=build.resolve()
     report=build_report(build,args.source_root,args.g3a.resolve() if args.g3a else None)

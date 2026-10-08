@@ -1,8 +1,8 @@
 {
   "schema_version": 2,
-  "build_directory": "build-clean-d63zkZ",
+  "build_directory": "build/clean/diagnostic",
   "elf_file": "numgame",
-  "elf_sha256": "163199514174adfc12ac9499f04dd3db02d87b82e0c45833e7d72f3f205bd90f",
+  "elf_sha256": "a413b23597df7ad300939af1d7bfbe6e6f17a8d84e6033f808fcf2fe782880e4",
   "compiler": "sh-elf-gcc (GCC) 14.1.0",
   "native_text": 556700,
   "native_data": 512,
@@ -198,7 +198,7 @@
     },
     {
       "name": ".debug_str",
-      "bytes": 30673,
+      "bytes": 30677,
       "vma": "0x00000000",
       "lma": "0x00000000",
       "flags": [
@@ -341,7 +341,7 @@
       ]
     }
   ],
-  "non_allocated_section_bytes": 776923,
+  "non_allocated_section_bytes": 776927,
   "initialized_load_section_bytes": 557212,
   "project_object_count": 32,
   "project_object_sections": {
@@ -356,7 +356,7 @@
     ".debug_aranges": 968,
     ".debug_rnglists": 10364,
     ".debug_line": 156878,
-    ".debug_str": 60054,
+    ".debug_str": 60178,
     ".comment": 589,
     ".debug_frame": 39152,
     ".text.startup": 1772
@@ -366,7 +366,7 @@
   "linker_map": {
     "status": "PARSED",
     "file": "numgame.map",
-    "sha256": "4985daa483ab366ebc922489efab1a626f3dc6269bcb1b251cdc478d3bfe5d21",
+    "sha256": "b27848b3f847363abbb0a203a082ce2c6982ea8a8d608117c3978943636045af",
     "allocated_sections_match": true,
     "section_checks": {
       ".text": true,
@@ -389,7 +389,7 @@
       ".debug_info": 245131,
       ".debug_abbrev": 19675,
       ".debug_line": 156878,
-      ".debug_str": 86582,
+      ".debug_str": 86706,
       ".debug_frame": 39152
     }
   },

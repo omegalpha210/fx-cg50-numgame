@@ -462,6 +462,7 @@ static bool dispatch(NgApp *a,int key)
  return false;
 }
 void ng_app_poweroff(NgApp *a){(void)dispatch(a,NGK_ACON);}
+void ng_app_osmenu(NgApp *a){(void)dispatch(a,NGK_MENU);}
 bool ng_app_event(NgApp *a,int key,int type)
 {
  int index=ng_key_index(key);

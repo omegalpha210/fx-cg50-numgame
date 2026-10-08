@@ -2,7 +2,7 @@
 
 Frames are 396×224 output from `tests/test_beta6_capture.c`, which calls the production C renderer and game modules through the host RGB565 backend. They are not hardware LCD photographs. The `layout-fixture` frames change card values only to stress the three-digit text width. Prime min/max frames select actual validated bank records for width inspection. Other frames come from entries, games, submissions, and scroll actions. The harness checks game validity at generation/submission milestones and rejects draw primitives outside the canvas.
 
-Reproduce with `cmake -S tests -B build-host`, `cmake --build build-host --target test_beta6_capture`, `(cd build-host && ./test_beta6_capture)`, then `python3 tools/captures_beta6.py`.
+Reproduce with `cmake -S tests -B build/host`, `cmake --build build/host --target test_beta6_capture`, `(cd build/host && ./test_beta6_capture)`, then `python3 tools/captures_beta6.py`.
 
 Contact sheets: [Make Target](beta6/make-target-contact.png), [Countdown and Prime](beta6/countdown-prime-contact.png), [Baseball](beta6/baseball-contact.png), [scroll states](beta6/scroll-contact.png).
 

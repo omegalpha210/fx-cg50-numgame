@@ -2,7 +2,7 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 source tools/env.sh
-export NUMGAME_VERIFY_OUTPUT="$PWD/build-host/content-verification"
+export NUMGAME_VERIFY_OUTPUT="$PWD/build/host/content-verification"
 mkdir -p "$NUMGAME_VERIFY_OUTPUT"
 "$NUMGAME_PYTHON" tools/check_embedded.py
 "$NUMGAME_PYTHON" tools/generate/guesscalc_verify.py
@@ -43,12 +43,12 @@ cmp assets/guesscalc_target_beta5_complexity.csv docs/MAKE_TARGET_COMPLEXITY_BET
 cmp assets/grids/extra/difficulty-beta3.json "$NUMGAME_VERIFY_OUTPUT/grids-difficulty.json"
 "$NUMGAME_PYTHON" tools/generate/difficulty_audit.py --check
 # Runtime policies are compared with independent reference analyses here.
-cmake -S tests -B build-host -DNG_SANITIZE=ON -DNG_ASAN=OFF
-cmake --build build-host --target test_strategyquick test_strategyquick_difficulty test_strategyquick_sliding -j8
-./build-host/test_strategyquick
+cmake -S tests -B build/host -DNG_SANITIZE=ON -DNG_ASAN=OFF
+cmake --build build/host --target test_strategyquick test_strategyquick_difficulty test_strategyquick_sliding -j8
+./build/host/test_strategyquick
 "$NUMGAME_PYTHON" tools/generate/strategyquick_sliding.py --verify
-"$NUMGAME_PYTHON" tools/generate/strategyquick_sliding_verify.py --sample-exe build-host/test_strategyquick_sliding --output "$NUMGAME_VERIFY_OUTPUT/sliding-beta4-audit.json"
+"$NUMGAME_PYTHON" tools/generate/strategyquick_sliding_verify.py --sample-exe build/host/test_strategyquick_sliding --output "$NUMGAME_VERIFY_OUTPUT/sliding-beta4-audit.json"
 cmp assets/strategyquick/sliding-beta4-audit.json "$NUMGAME_VERIFY_OUTPUT/sliding-beta4-audit.json"
-"$NUMGAME_PYTHON" tools/generate/strategyquick_difficulty.py --sample-exe build-host/test_strategyquick_difficulty --output "$NUMGAME_VERIFY_OUTPUT/strategyquick-difficulty.json"
+"$NUMGAME_PYTHON" tools/generate/strategyquick_difficulty.py --sample-exe build/host/test_strategyquick_difficulty --output "$NUMGAME_VERIFY_OUTPUT/strategyquick-difficulty.json"
 cmp assets/strategyquick/difficulty-beta4.json "$NUMGAME_VERIFY_OUTPUT/strategyquick-difficulty.json"
 cmp assets/strategyquick/difficulty-beta4.csv "$NUMGAME_VERIFY_OUTPUT/strategyquick-difficulty.csv"
