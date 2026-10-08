@@ -83,7 +83,7 @@ static void world_action(bool power)
 {
  system_requested=true;
  if(!usb_handoff_begin(&usb,usb_native_sample()))return;
- suspend_clock();restore_light();
+ restore_light();
  if(!ng_storage_cleanup()){
   snprintf(app.notice,sizeof app.notice,"Storage close failed; unsaved RAM retained.");
   usb_handoff_end(&usb,usb_native_sample());return;
@@ -97,12 +97,18 @@ static void world_action(bool power)
   uint32_t notice_t0 = rtc_ticks();
   while ((rtc_ticks() + NG_RTC_DAY - notice_t0) % NG_RTC_DAY < 128) sleep();
  } else {
-  while (keydown(KEY_MENU) || keydown(KEY_EXIT)) sleep();
+  uint32_t wait_t0 = rtc_ticks();
+  while ((keydown(KEY_MENU) || keydown(KEY_EXIT)) && ((rtc_ticks() + NG_RTC_DAY - wait_t0) % NG_RTC_DAY < 32)) {
+   sleep();
+   clearevents();
+  }
  }
  clearevents();
+ suspend_clock();
  (void)gint_world_switch(GINT_CALL(enable_menu_return,(void *)NULL));
  gint_osmenu();
 #else
+ suspend_clock();
  if(power)gint_poweroff(true);else gint_osmenu();
 #endif
  ng_diag_emit(power?NGD_OFF_RETURN:NGD_MENU_RETURN,rtc_ticks(),0);
